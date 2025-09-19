@@ -15,7 +15,6 @@ const Hero = () => {
       <div className="absolute inset-0 bg-gradient-to-tr from-black/80 to-[#434343]/40 backdrop-blur-xs" />
 
       <div className="relative flex items-center justify-center h-full pt-5">
-        {/* <h1 className="text-white text-[20vw] font-medium z-10">Abbas</h1> */}
         <svg
           role="img"
           aria-label="Abbas — photography"
@@ -55,10 +54,11 @@ const Hero = () => {
               letterSpacing="-2"
               className="select-none"
             >
-              Abbas
+              ABBAS
             </text>
           </g>
         </svg>
+        
       </div>
     </section>
   );
