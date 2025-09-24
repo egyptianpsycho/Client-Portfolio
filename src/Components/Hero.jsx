@@ -1,20 +1,41 @@
+"use client"
+import gsap from "gsap";
 import Image from "next/image";
+import { useEffect } from "react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Hero = () => {
+  useEffect(() => {
+    gsap.fromTo(".hero", {
+      filter: "blur(0px)",
+      
+    },{
+      filter: "blur(5px)",
+      scrollTrigger: {
+        trigger: ".second",
+        start: "top bottom",
+        end: "top top",
+        scrub: true
+      }
+    });
+  },[])
   return (
-    <section className="relative h-screen w-full">
+    <section className="sticky top-0 -z-10 h-screen w-full overflow-hidden ">
+      <div className="absolute inset-0 bg-gradient-to-tr from-black/80 to-transparent pointer-events-none" />
       <Image
         src="/HeroImages/Cube.webp"
         alt="HeroImage"
         fill
         priority
-        className="object-cover"
+        className="object-cover hero"
       />
 
       {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-tr from-black/80 to-[#434343]/40 backdrop-blur-xs" />
 
-      <div className="relative flex items-center justify-center h-full pt-5">
+      <div className="relative flex items-center justify-center h-full pt-5 hero">
         <svg
           role="img"
           aria-label="Abbas — photography"
