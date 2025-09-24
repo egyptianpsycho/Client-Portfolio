@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import gsap from "gsap";
 import Image from "next/image";
 import { useEffect } from "react";
@@ -8,21 +8,29 @@ gsap.registerPlugin(ScrollTrigger);
 
 const Hero = () => {
   useEffect(() => {
-    gsap.fromTo(".hero", {
-      filter: "blur(0px)",
-      
-    },{
-      filter: "blur(5px)",
-      scrollTrigger: {
-        trigger: ".second",
-        start: "top bottom",
-        end: "top top",
-        scrub: true
+    gsap.fromTo(
+      ".hero",
+      {
+        filter: "blur(0px)",
+      },
+      {
+        filter: "blur(5px)",
+        scrollTrigger: {
+          trigger: ".second",
+          start: "top bottom",
+          end: "top top",
+          scrub: true,
+        },
       }
-    });
-  },[])
+    );
+  }, []);
   return (
-    <section className="sticky top-0 -z-10 h-screen w-full overflow-hidden ">
+    <section
+      className="-z-10 h-screen w-full overflow-hidden "
+      data-scroll
+      data-scroll-sticky
+      data-scroll-target="#page-wrapper"
+    >
       <div className="absolute inset-0 bg-gradient-to-tr from-black/80 to-transparent pointer-events-none" />
       <Image
         src="/HeroImages/Cube.webp"
@@ -79,7 +87,6 @@ const Hero = () => {
             </text>
           </g>
         </svg>
-        
       </div>
     </section>
   );

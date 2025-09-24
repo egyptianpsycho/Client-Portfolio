@@ -5,12 +5,12 @@ import SmoothScroll from "@/Components/SmoothScroll";
 
 const Home = () => {
   return (
-    // <SmoothScroll>
+    <SmoothScroll>
       <div id="page-wrapper">
         <Hero />
         <About />
       </div>
-    // </SmoothScroll>
+    </SmoothScroll>
   );
 };
 
