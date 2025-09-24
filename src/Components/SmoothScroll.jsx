@@ -1,9 +1,8 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import gsap from "gsap";
+import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import LocomotiveScroll from "locomotive-scroll";
 import "locomotive-scroll/dist/locomotive-scroll.css";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -12,38 +11,44 @@ export default function SmoothScroll({ children }) {
   const scrollRef = useRef(null);
 
   useEffect(() => {
-    // init Locomotive
-    const locoScroll = new LocomotiveScroll({
-      el: scrollRef.current,
-      smooth: true,
-      lerp: 0.08, // lower = smoother
-    });
+    let locoScroll;
 
-    // tell ScrollTrigger to use locomotive’s scroll
-    locoScroll.on("scroll", ScrollTrigger.update);
+    (async () => {
+      // dynamically import LocomotiveScroll (client-only)
+      const LocomotiveScroll = (await import("locomotive-scroll")).default;
 
-    ScrollTrigger.scrollerProxy(scrollRef.current, {
-      scrollTop(value) {
-        return arguments.length
-          ? locoScroll.scrollTo(value, 0, 0)
-          : locoScroll.scroll.instance.scroll.y;
-      },
-      getBoundingClientRect() {
-        return {
-          top: 0,
-          left: 0,
-          width: window.innerWidth,
-          height: window.innerHeight,
-        };
-      },
-      pinType: scrollRef.current.style.transform ? "transform" : "fixed",
-    });
+      locoScroll = new LocomotiveScroll({
+        el: scrollRef.current,
+        smooth: true,
+        lerp: 0.08, // lower = smoother
+      });
 
-    ScrollTrigger.addEventListener("refresh", () => locoScroll.update());
-    ScrollTrigger.refresh();
+      // tell ScrollTrigger to use locomotive’s scroll
+      locoScroll.on("scroll", ScrollTrigger.update);
+
+      ScrollTrigger.scrollerProxy(scrollRef.current, {
+        scrollTop(value) {
+          return arguments.length
+            ? locoScroll.scrollTo(value, 0, 0)
+            : locoScroll.scroll.instance.scroll.y;
+        },
+        getBoundingClientRect() {
+          return {
+            top: 0,
+            left: 0,
+            width: window.innerWidth,
+            height: window.innerHeight,
+          };
+        },
+        pinType: scrollRef.current.style.transform ? "transform" : "fixed",
+      });
+
+      ScrollTrigger.addEventListener("refresh", () => locoScroll.update());
+      ScrollTrigger.refresh();
+    })();
 
     return () => {
-      locoScroll.destroy();
+      if (locoScroll) locoScroll.destroy();
       ScrollTrigger.removeEventListener("refresh", () => locoScroll.update());
     };
   }, []);

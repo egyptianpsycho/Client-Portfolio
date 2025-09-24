@@ -6,4 +6,7 @@ html{
     scroll-behavior: smooth;
     /* -webkit-font-smoothing: antialiased; */
 }
-
+/* 
+.hero{
+    filter: blur(0px);
+} */

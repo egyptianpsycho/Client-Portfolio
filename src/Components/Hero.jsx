@@ -20,6 +20,7 @@ const Hero = () => {
           start: "top bottom",
           end: "top top",
           scrub: true,
+          scroller: document.querySelector("[data-scroll-container]"),
         },
       }
     );
