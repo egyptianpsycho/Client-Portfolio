@@ -8,22 +8,31 @@ gsap.registerPlugin(ScrollTrigger);
 
 const Hero = () => {
   useEffect(() => {
-    gsap.fromTo(
-      ".hero",
-      {
-        filter: "blur(0px)",
-      },
-      {
-        filter: "blur(5px)",
-        scrollTrigger: {
-          trigger: ".second",
-          start: "top bottom",
-          end: "top top",
-          scrub: true,
-          scroller: document.querySelector("[data-scroll-container]"),
-        },
-      }
-    );
+    const createAnimation = () => {
+      gsap.fromTo(
+        ".hero",
+        { filter: "blur(0px)" },
+        {
+          filter: "blur(5px)",
+          scrollTrigger: {
+            trigger: ".second",
+            start: "top bottom",
+            end: "top top",
+            scrub: true,
+            scroller: "[data-scroll-container]",
+          },
+        }
+      );
+    };
+
+    ScrollTrigger.addEventListener("refresh", createAnimation);
+
+    createAnimation();
+
+    return () => {
+      ScrollTrigger.removeEventListener("refresh", createAnimation);
+      ScrollTrigger.getAll().forEach((t) => t.kill());
+    };
   }, []);
   return (
     <section
