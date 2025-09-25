@@ -4,7 +4,7 @@ import React from "react";
 const About = () => {
   return (
     <section
-      className=" second relative h-screen bg-gradient-to-tr from-[#000000] to-[#2d1d1d] z-[10]  px-10 py-18"
+      className=" second relative h-screen bg-gradient-to-tr to-[#000000] from-[#0a212b] z-[10]  px-10 py-18"
       id="about"
     >
       <div className=" flex flex-col h-full justify-between">
@@ -32,6 +32,20 @@ const About = () => {
             </span>
           </h1>
         </div>
+        <Image
+          src="/gradients/sky_gradient_white.png"
+          alt="gradient"
+          width={400}
+          height={400}
+          className="-z-20 absolute inset-0 -left-64 top-20 object-contain "
+        />
+        <Image
+          src="/gradients/sky_gradient_white.png"
+          alt="gradient"
+          width={600}
+          height={600}
+          className="-z-20 absolute   -right-80 top-100 object-contain "
+        />
         <Image
           src="/AboutImages/World.svg"
           alt="World"
