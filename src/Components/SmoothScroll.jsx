@@ -14,16 +14,14 @@ export default function SmoothScroll({ children }) {
     let locoScroll;
 
     (async () => {
-      // dynamically import LocomotiveScroll (client-only)
       const LocomotiveScroll = (await import("locomotive-scroll")).default;
 
       locoScroll = new LocomotiveScroll({
         el: scrollRef.current,
         smooth: true,
-        lerp: 0.08, // lower = smoother
+        lerp: 0.08, 
       });
 
-      // tell ScrollTrigger to use locomotive’s scroll
       locoScroll.on("scroll", ScrollTrigger.update);
 
       ScrollTrigger.scrollerProxy(scrollRef.current, {
@@ -42,7 +40,7 @@ export default function SmoothScroll({ children }) {
         },
         pinType: scrollRef.current.style.transform ? "transform" : "fixed",
       });
-
+ 
       ScrollTrigger.addEventListener("refresh", () => locoScroll.update());
       ScrollTrigger.refresh();
     })();
