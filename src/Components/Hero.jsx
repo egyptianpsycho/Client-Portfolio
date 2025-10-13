@@ -26,7 +26,6 @@ export default function Hero() {
           pinSpacing: false,
           scrub: true,
           scroller: "[data-scroll-container]",
-          markers: false,
         });
       });
 
@@ -38,9 +37,36 @@ export default function Hero() {
     return () => clearTimeout(timeout);
   }, []);
 
+  useEffect(() => {
+    const createAnimation = () => {
+      gsap.fromTo(
+        ".hero",
+        { filter: "blur(0px)" },
+        {
+          filter: "blur(5px)",
+          scrollTrigger: {
+            trigger: ".second",
+            start: "top bottom",
+            end: "top top",
+            scrub: true,
+            scroller: "[data-scroll-container]",
+          },
+        }
+      );
+    };
+
+    ScrollTrigger.addEventListener("refresh", createAnimation);
+
+    createAnimation();
+
+    return () => {
+      ScrollTrigger.removeEventListener("refresh", createAnimation);
+      ScrollTrigger.getAll().forEach((t) => t.kill());
+    };
+  },[])
   return (
     <section
-      className="hero-section relative h-screen w-full overflow-hidden"
+      className="hero-section relative h-screen w-full overflow-hidden "
       /* note: removed data-scroll-sticky / data-scroll-target */
     >
       <div className="absolute inset-0 hero-media pointer-events-none">
@@ -51,7 +77,7 @@ export default function Hero() {
           alt="HeroImage"
           fill
           priority
-          className="object-cover"
+          className="object-cover  "
         />
         {/* overlay(s) */}
         <div className="absolute inset-0 bg-gradient-to-tr from-black/80 to-[#434343]/40 backdrop-blur-xs" />
@@ -95,7 +121,7 @@ export default function Hero() {
               fontSize="92"
               fill="url(#serifGrad)"
               letterSpacing="-2"
-              className="select-none"
+              className="select-none  "
             >
               ABBAS
             </text>

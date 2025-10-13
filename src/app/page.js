@@ -1,4 +1,5 @@
 import About from "@/Components/About";
+import BTL from "@/Components/BTL";
 import Hero from "@/Components/Hero";
 import Partners from "@/Components/Partners";
 import Signature from "@/Components/Signature";
@@ -11,6 +12,7 @@ const Home = () => {
         <Hero />
         <About />
         <Partners />
+        <BTL />
       </div>
     </SmoothScroll>
   );

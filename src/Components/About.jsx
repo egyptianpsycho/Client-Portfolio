@@ -4,7 +4,7 @@ import React from "react";
 const About = () => {
   return (
     <section
-      className=" second relative h-screen bg-gradient-to-tr to-[#000000] from-[#0a212b] z-[10]  px-10 py-18 overflow-hidden"
+      className=" second relative h-screen  bg-gradient-to-tr to-[#000000] from-[#0a212b] z-[10]  px-10 py-18 overflow-hidden"
       id="about"
     >
       <div className=" flex flex-col h-full justify-between">
@@ -55,7 +55,7 @@ const About = () => {
         />
         <div className="relative paragraph text-white leading-11  text-[2rem] max-w-5xl px-8 tracking-normal mt-80 ">
           <p
-            className="w-full "
+            className="w-full  "
             style={{ fontFamily: '"Work Sans", sans-serif' }}
           >
             Born from social and inspired by culture, we’re champions of
@@ -65,7 +65,6 @@ const About = () => {
           </p>
         </div>
       </div>
-      
     </section>
   );
 };

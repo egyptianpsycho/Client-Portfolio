@@ -1,51 +1,60 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&family=Zalando+Sans+Expanded:ital,wght@0,200..900;1,200..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&display=swap');
 @import "tailwindcss";
-
-html{
-    scroll-behavior: smooth;
+html, body {
+  scroll-behavior: smooth;
+  background-color: #000;
+  overscroll-behavior: none;
 }
-/* 
-.hero{
-    filter: blur(0px);
-} */
 
-/* container for the absolute images */
+section + section {
+  margin-top: -1px;
+}
+
+
+[data-scroll-container] {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  contain: layout paint style;
+  transform-style: preserve-3d;
+}
+
+[data-scroll-section] {
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  contain: layout paint style;
+}
+
+
+
 .hero-media {
-    position: absolute;
-    inset: 0;
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
-  }
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
   
-  /* base hero image: promote to its own layer */
-  .hero-image {
+  /* .hero-image {
     will-change: transform, opacity;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     transform: translateZ(0);
   }
+   */
   
-  /* blurred overlay: start invisible; animate opacity only */
-  .hero-blur {
-    opacity: 0;
-    pointer-events: none;
-    will-change: opacity;
-    transform: translateZ(0); /* promote to composite layer so opacity animates cheaply */
-    z-index: 5;
-  }
+ 
   
-  /* If you're using CSS-filter (fallback), uncomment: */
-  /*
-  .hero-blur {
-    filter: blur(4px);
-  }
-  */
-  
-  /* make sure the gradient overlays sit above images */
   .hero-media > .z-10, .hero-media > .z-20 {
     z-index: 10;
   }
   
   
+  @utility text-gradient {
+    background: linear-gradient(to bottom, #ffffff, #898989);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}

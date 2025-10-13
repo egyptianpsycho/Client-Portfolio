@@ -38,6 +38,33 @@ export default function Hero() {
     return () => clearTimeout(timeout);
   }, []);
 
+  useEffect(() => {
+    const createAnimation = () => {
+      gsap.fromTo(
+        ".hero",
+        { filter: "blur(0px)" },
+        {
+          filter: "blur(5px)",
+          scrollTrigger: {
+            trigger: ".second",
+            start: "top bottom",
+            end: "top top",
+            scrub: true,
+            scroller: "[data-scroll-container]",
+          },
+        }
+      );
+    };
+
+    ScrollTrigger.addEventListener("refresh", createAnimation);
+
+    createAnimation();
+
+    return () => {
+      ScrollTrigger.removeEventListener("refresh", createAnimation);
+      ScrollTrigger.getAll().forEach((t) => t.kill());
+    };
+  },[])
   return (
     <section
       className="hero-section relative h-screen w-full overflow-hidden"

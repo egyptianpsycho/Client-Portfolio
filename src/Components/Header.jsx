@@ -15,7 +15,7 @@ export function Header() {
         <Link
           key={link.href}
           href={link.href}
-          className="text-[#FFFFFF] text-[12.8px] py-1 tracking-tigh "
+          className="text-[#FFFFFF] text-[12.8px] py-1  "
           style={{ fontFamily: '"Work Sans", sans-serif' }}
         >
           {link.label}
