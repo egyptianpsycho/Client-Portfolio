@@ -71,8 +71,15 @@ const Partners = () => {
               height={150}
               className="object-center absolute "
             />
+            
           </div>
         ))}
+        <Image
+                      src="/gradients/sky_gradient_white.png"
+                      alt="gradient"
+                      width={400}
+                      height={400}
+                      className="-z-20 absolute inset-0 opacity-70 top-[50%] left-[70%] object-contain " />
       </div>
     </section>
   );
