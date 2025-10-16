@@ -24,7 +24,7 @@ const HeroSection = ({ sectionRef, imageContainerRef, textRef }) => {
             src="/Ahmed/Ahmed2.jpg"
             alt="Hero 2"
             fill
-            className="img2 object-contain sticky left-280 object-center opacity-0 transition-opacity duration-700"
+            className="img2 object-contain sticky  object-center opacity-0 transition-opacity duration-700"
             priority
           />
         </div>

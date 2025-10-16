@@ -79,8 +79,8 @@ const Partners = () => {
                       alt="gradient"
                       width={400}
                       height={400}
-                      className="-z-20 absolute inset-0 opacity-70 top-[50%] left-[70%] object-contain " />
-      </div>
+                      className="-z-20 absolute inset-0 opacity-40 scale-150 top-[40%] left-[60%] object-contain " />
+        </div>
     </section>
   );
 };

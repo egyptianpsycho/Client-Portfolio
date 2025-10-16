@@ -6,7 +6,13 @@ import { SplitText } from "gsap/all";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
-const useBTLAnimations = (sectionRef, imageContainerRef, textRef , BehindTLRef) => {
+const useBTLAnimations = (
+  sectionRef,
+  imageContainerRef,
+  textRef,
+  BehindTLRef,
+  BehindImgRef
+) => {
   useEffect(() => {
     const img1 = imageContainerRef.current.querySelector(".img1");
     const img2 = imageContainerRef.current.querySelector(".img2");
@@ -42,45 +48,43 @@ const useBTLAnimations = (sectionRef, imageContainerRef, textRef , BehindTLRef) 
 
         // Split text reveal
         gsap.from(heroSplit.chars, {
-            opacity: 0,
-            yPercent: 100,
-            duration: 1.4,
-            ease: "expo.out",
-            stagger: 0.05,
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              scroller: "[data-scroll-container]",
-              start: "top 80%",
-              toggleActions: "play none none reverse",
-            },
-          });
-
-          // Parallax + scale
-        gsap.to(imageContainerRef.current, {
-            scale: 0.5,
-            y: -100,
-            top: "30%",
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              scroller: "[data-scroll-container]",
-              start: "top top",
-              end: "bottom top",
-              pin: true,
-              scrub: 1,
-              anticipatePin: 1,
-            },
-          });
-  
-          
-  
-          // Fade image when reaching section two
-          ScrollTrigger.create({
-            trigger: "#second-section",
+          opacity: 0,
+          yPercent: 100,
+          duration: 1.4,
+          ease: "expo.out",
+          stagger: 0.05,
+          scrollTrigger: {
+            trigger: sectionRef.current,
             scroller: "[data-scroll-container]",
-            start: "top bottom+=30%",
-            onEnter: () => fadeImages(true),
-            onLeaveBack: () => fadeImages(false),
-          });
+            start: "top 80%",
+            toggleActions: "play none none reverse",
+          },
+        });
+
+        // Parallax + scale
+        gsap.to(imageContainerRef.current, {
+          scale: 0.5,
+          y: -100,
+          top: "30%",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            scroller: "[data-scroll-container]",
+            start: "top top",
+            end: "bottom top",
+            pin: true,
+            scrub: 1,
+            anticipatePin: 1,
+          },
+        });
+
+        // Fade image when reaching section two
+        ScrollTrigger.create({
+          trigger: "#second-section",
+          scroller: "[data-scroll-container]",
+          start: "top bottom+=30%",
+          onEnter: () => fadeImages(true),
+          onLeaveBack: () => fadeImages(false),
+        });
 
         // Second image scroll-in from right to left
         gsap.to(img2, {
@@ -88,48 +92,89 @@ const useBTLAnimations = (sectionRef, imageContainerRef, textRef , BehindTLRef) 
           scrollTrigger: {
             trigger: img2,
             scroller: "[data-scroll-container]",
-            start: "bottom center-=40%",
+            start: "bottom center-=45%",
             end: "bottom+=10% top",
             scrub: 3,
             ease: "power2.inOut",
           },
         });
+        gsap.to(img2, {
+          opacity: 0,
+          scrollTrigger: {
+            trigger: img2,
+            scroller: "[data-scroll-container]",
+            start: "bottom top-=20%",
+            end: "bottom bottom",
+            scrub: true,
+            ease: "power2.inOut",
+          },
+        });
 
-        // gsap.fromTo(BehindTLRef.current,{
-        //     opacity:0,
-        //     y:50,
-        //     // x:200
-            
-        // },{
-        //     opacity:1,
-        //     y:0,
-        //     // x:0,
-        //     duration:1,
-        //     ease:"power2.out",
-        //     scrollTrigger:{
-        //         trigger:BehindTLRef.current,
-        //         scroller: "[data-scroll-container]",
-        //         start:"top 40%",
-        //         toggleActions:"play none none reverse"
-        //     }
-        // })
         gsap.from(paragraphSplit.lines, {
-            opacity: 0,
-            yPercent: 100,
-            duration: 1.8,
-            ease: "expo.out",
-            stagger: 0.06,
-            delay: 1,
-            scrollTrigger:{
-                trigger:BehindTLRef.current,
-                scroller: "[data-scroll-container]",
-                start:"top 40%",
-                toggleActions:"play none none reverse"
-            }
-            
-          });
+          opacity: 0,
+          yPercent: 100,
+          duration: 1.8,
+          ease: "expo.out",
+          stagger: 0.06,
+          delay: 0.4,
+          scrollTrigger: {
+            trigger: BehindTLRef.current,
+            scroller: "[data-scroll-container]",
+            start: "top 40%",
+            toggleActions: "play none none reverse",
+          },
+        });
+        gsap.to(BehindTLRef.current, {
+          scrollTrigger: {
+            trigger: BehindTLRef.current,
+            scroller: "[data-scroll-container]",
+            start: "top center-=30%",
+            end: "bottom top",
+            scrub: true,
+            pin: true,
+            ease: "power2.inOut",
+          },
+        });
+        gsap.to(BehindTLRef.current, {
+          x: -600,
+          scrollTrigger: {
+            trigger: BehindTLRef.current,
+            scroller: "[data-scroll-container]",
+            start: "top center-=30%",
+            end: "bottom top",
+            scrub: true,
+            // pin: true,
+            ease: "power2.inOut",
+          },
+        });
 
-        
+        gsap.to(BehindImgRef.current, {
+          scrollTrigger: {
+            trigger: BehindImgRef.current,
+            scroller: "[data-scroll-container]",
+            start: "top top+=5%",
+            end: "bottom top",
+            scrub: true,
+            pin: true,
+            ease: "power2.inOut",
+          },
+        });
+        gsap.to(BehindImgRef.current, {
+          opacity: 0.65, 
+          scrollTrigger: {
+            trigger: BehindImgRef.current,
+            scroller: "[data-scroll-container]",
+            start: "top top+=5%",
+          },
+        });
+        gsap.to(BehindImgRef.current, {
+          opacity: 0, 
+          scrollTrigger: {
+            trigger: BehindImgRef.current,
+            scroller: "[data-scroll-container]",
+            start: "bottom+=700% top+=700%", // adjust to your needs
+          },
+        });
       });
 
       ScrollTrigger.refresh();

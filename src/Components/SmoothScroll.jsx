@@ -38,8 +38,6 @@ export default function SmoothScroll({ children }) {
       });
       window.__loco = locoScroll;
 
-      
-
       // Sync LocomotiveScroll with ScrollTrigger on every scroll
       locoScroll.on("scroll", ScrollTrigger.update);
 
@@ -61,7 +59,7 @@ export default function SmoothScroll({ children }) {
             height: window.innerHeight,
           };
         },
-        pinType: "transform",
+        pinType: scrollRef.current.style.transform ? "transform" : "fixed",
       });
 
       // stable named function for refresh that we can remove later
@@ -85,7 +83,8 @@ export default function SmoothScroll({ children }) {
       onLoad = () => {
         // If browser restored to some Y, jump loco there immediately (no lerp)
         const y = window.scrollY || 0;
-        if (locoScroll) locoScroll.scrollTo(y, { duration: 0, disableLerp: true });
+        if (locoScroll)
+          locoScroll.scrollTo(y, { duration: 0, disableLerp: true });
         // a refresh to make sure ScrollTrigger measurements are correct after jump
         ScrollTrigger.refresh();
       };
@@ -138,7 +137,6 @@ export default function SmoothScroll({ children }) {
         window.removeEventListener("popstate", onPop);
         onPop = null;
       }
-
     };
   }, []);
 
@@ -158,7 +156,6 @@ export default function SmoothScroll({ children }) {
     </div>
   );
 }
-
 
 //New code
 
@@ -254,7 +251,6 @@ export default function SmoothScroll({ children }) {
 //     </div>
 //   );
 // }
-
 
 // old code
 
