@@ -20,7 +20,7 @@ const useBTLAnimations = (
     const fadeImages = (showSecond) => {
       if (showSecond) {
         gsap.to(img1, { opacity: 0, duration: 0.8, ease: "power1.out" });
-        gsap.to(img2, { opacity: 1, duration: 0.8, ease: "power1.out" });
+        gsap.to(img2, { opacity: 0.65, duration: 0.8, ease: "power1.out" });
       } else {
         gsap.to(img1, { opacity: 0.65, duration: 0.8, ease: "power1.out" });
         gsap.to(img2, { opacity: 0, duration: 0.8, ease: "power1.out" });
@@ -129,7 +129,7 @@ const useBTLAnimations = (
             trigger: BehindTLRef.current,
             scroller: "[data-scroll-container]",
             start: "top center-=30%",
-            end: "bottom top",
+            end: "bottom top-=82%",
             scrub: true,
             pin: true,
             ease: "power2.inOut",
@@ -141,10 +141,9 @@ const useBTLAnimations = (
             trigger: BehindTLRef.current,
             scroller: "[data-scroll-container]",
             start: "top center-=30%",
-            end: "bottom top",
+            end: "bottom top+=20%",
+            duration:0.1,
             scrub: true,
-            // pin: true,
-            ease: "power2.inOut",
           },
         });
 
@@ -153,7 +152,7 @@ const useBTLAnimations = (
             trigger: BehindImgRef.current,
             scroller: "[data-scroll-container]",
             start: "top top+=5%",
-            end: "bottom top",
+            end: "bottom top-=70%",
             scrub: true,
             pin: true,
             ease: "power2.inOut",
@@ -167,14 +166,7 @@ const useBTLAnimations = (
             start: "top top+=5%",
           },
         });
-        gsap.to(BehindImgRef.current, {
-          opacity: 0, 
-          scrollTrigger: {
-            trigger: BehindImgRef.current,
-            scroller: "[data-scroll-container]",
-            start: "bottom+=700% top+=700%", // adjust to your needs
-          },
-        });
+        
       });
 
       ScrollTrigger.refresh();
