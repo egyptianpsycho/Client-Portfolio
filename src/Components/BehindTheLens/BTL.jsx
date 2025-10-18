@@ -10,9 +10,13 @@ const BTL = () => {
   const textRef = useRef(null);
   const BehindTLRef = useRef(null);
   const BehindImgRef = useRef(null);
+  const BehindCardRef = useRef(null);
+  const tRef = useRef(null);
+  const typingRef  = useRef(null);
 
 
-  useBTLAnimations(sectionRef, imageContainerRef, textRef , BehindTLRef ,BehindImgRef);
+
+  useBTLAnimations(sectionRef, imageContainerRef, textRef , BehindTLRef ,BehindImgRef,BehindCardRef,tRef,typingRef );
 
   return (
     <>
@@ -21,7 +25,7 @@ const BTL = () => {
         imageContainerRef={imageContainerRef}
         textRef={textRef}
       />
-      <BehindSection BehindTLRef={BehindTLRef} BehindImgRef={BehindImgRef} />
+      <BehindSection BehindTLRef={BehindTLRef} BehindImgRef={BehindImgRef} BehindCardRef={BehindCardRef} tRef={tRef} typingRef={typingRef} />
     </>
   );
 };
