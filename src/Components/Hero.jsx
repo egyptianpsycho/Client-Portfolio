@@ -3,8 +3,10 @@ import { useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
+import { SplitText } from "gsap/all";
 
-gsap.registerPlugin(ScrollTrigger);
+
+gsap.registerPlugin(ScrollTrigger,SplitText);
 
 export default function Hero() {
   useEffect(() => {
@@ -64,6 +66,8 @@ export default function Hero() {
       ScrollTrigger.getAll().forEach((t) => t.kill());
     };
   },[])
+
+  
   return (
     <section
       className="hero-section relative h-screen w-full overflow-hidden "
@@ -121,7 +125,8 @@ export default function Hero() {
               fontSize="92"
               fill="url(#serifGrad)"
               letterSpacing="-2"
-              className="select-none  "
+              className="select-none h-text"
+              id="hero-text"
             >
               ABBAS
             </text>

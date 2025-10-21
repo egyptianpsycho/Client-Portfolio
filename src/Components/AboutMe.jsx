@@ -1,114 +1,46 @@
 "use client";
-import React, { useRef, useEffect } from "react";
-import Image from "next/image";
-import gsap from "gsap";
+import React, { useEffect, useRef } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { SplitText } from "gsap/all";
+import Glow from "../../UI/Glow";
+import gsap from "gsap";
+import { SplitText } from "gsap/SplitText";
+import { PROJECTS } from "./CONSTANTS";
+import Image from "next/image";
 
-gsap.registerPlugin(ScrollTrigger);
-gsap.registerPlugin(SplitText);
+gsap.registerPlugin(ScrollTrigger, SplitText);
 
-const BTL = () => {
-  const sectionRef = useRef(null);
-  const imageContainerRef = useRef(null);
-  const textRef = useRef(null);
-  const thirdSectionRef = useRef(null);
 
+const Main = () => {
   useEffect(() => {
-    const img1 = imageContainerRef.current.querySelector(".img1");
-    const img2 = imageContainerRef.current.querySelector(".img2");
-
-    // 🟢 Crossfade logic
-    const fadeImages = (showSecond) => {
-      if (showSecond) {
-        gsap.to(img1, { opacity: 0, duration: 0.8, ease: "power1.out" });
-        gsap.to(img2, { opacity: 0.6, duration: 0.8, ease: "power1.out" }); // second image semi-visible
-      } else {
-        gsap.to(img1, { opacity: 0.65, duration: 0.8, ease: "power1.out" });
-        gsap.to(img2, { opacity: 0, duration: 0.8, ease: "power1.out" });
-      }
-    };
-
     const init = () => {
       const ctx = gsap.context(() => {
-        const heroSplit = new SplitText(".title", { type: "chars, words" });
-        heroSplit.chars.forEach((char) => char.classList.add("text-gradient"));
+        const behindTitle2 = new SplitText(".behind-title2", { type: "chars" });
 
-        // 🔹 Text fade out on scroll
-        gsap.to(textRef.current, {
-          y: -200,
+        behindTitle2.chars.forEach((char) =>
+          char.classList.add("text-gradient")
+        );
+        gsap.from(behindTitle2.chars, {
           opacity: 0,
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            scroller: "[data-scroll-container]",
-            start: "top top",
-            end: "bottom center",
-            scrub: true,
-          },
-        });
-
-        // 🔹 Image parallax
-        gsap.to(imageContainerRef.current, {
-          scale: 0.5,
-          y: -100,
-          top: "30%",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            scroller: "[data-scroll-container]",
-            start: "top top",
-            end: "bottom top",
-            pin: true,
-            anticipatePin: 1,
-            scrub: 1,
-            ease: "power2.inOut",
-          },
-        });
-
-        // 🔹 Fade text in (hero)
-        gsap.from(heroSplit.chars, {
-          opacity: 0,
-          yPercent: 100,
-          duration: 1.4,
+          duration: 2,
           ease: "expo.out",
-          stagger: 0.05,
+          stagger: 0.1,
+          filter: "blur(30px)",
+          y: 50,
           scrollTrigger: {
-            trigger: sectionRef.current,
+            trigger: "#Projects",
             scroller: "[data-scroll-container]",
-            start: "top 80%",
+            start: "top bottom-=23%",
             toggleActions: "play none none reverse",
           },
         });
 
-        // 🔹 Image fade logic between sections
-        ScrollTrigger.create({
-          trigger: "#second-section",
-          scroller: "[data-scroll-container]",
-          start: "top bottom+=40%",
-          onEnter: () => fadeImages(true),
-          onLeaveBack: () => fadeImages(false),
-        });
-
-        // 🟠 NEW: Slide img2 + reveal text
-        const textContainer = thirdSectionRef.current.querySelector(".behind-text");
-
-        gsap.timeline({
-          scrollTrigger: {
-            trigger: thirdSectionRef.current,
-            scroller: "[data-scroll-container]",
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true,
-          },
-        })
-          .to(img2, { xPercent: -40, ease: "power1.out" }, 0)
-          .fromTo(
-            textContainer,
-            { opacity: 0, x: 100 },
-            { opacity: 1, x: 0, ease: "power2.out", duration: 1 },
-            0.2
-          );
+        // gsap.to(behindTitle2.chars,{
+        //   y:0,
+        //   stagger:0.06,
+        //   delay:0.2,
+        //   duration:.1,
+        // })
       });
-
       ScrollTrigger.refresh();
       return () => ctx.revert();
     };
@@ -122,69 +54,38 @@ const BTL = () => {
 
     return () => clearInterval(wait);
   }, []);
-
   return (
-    <>
-      {/* HERO SECTION */}
-      <section ref={sectionRef} className="h-[100vh] relative bg-gradient-to-tl to-[#000000] from-[#0a212b]">
-        <div className="sticky top-0 h-screen w-full">
-          <div
-            ref={imageContainerRef}
-            className="relative w-full h-full z-[5]"
-            style={{ transform: "scale(1.4)", filter: "brightness(0.7)" }}
+    <section className="relative h-[220vh]  p-20 " id="Projects">
+      <div>
+        <div className=" z-100 text-center ">
+          <h1
+            className="text-9xl mb-5  behind-title2 font-bold  text-gradient "
+            style={{
+              clipPath: "polygon(0 0, 100% 0, 100% 100%, 0% 100%) ",
+              lineHeight: "12rem",
+              fontFamily: " 'Bebas Neue', 'serif' ",
+              letterSpacing: '0.7rem'
+            }}
           >
-            <Image
-              src="/HeroImages/Horse2.webp"
-              alt="Hero 1"
-              fill
-              className="img1 object-cover absolute object-center opacity-65 transition-opacity duration-700"
-              priority
-            />
-            <Image
-              src="/Ahmed/Ahmed2.jpg"
-              alt="Hero 2"
-              fill
-              className="img2 object-contain absolute object-center opacity-0 transition-opacity duration-700"
-              priority
-            />
-          </div>
-
-          <div
-            ref={textRef}
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 
-            text-white text-7xl font-bold text-center z-10 mix-blend-color"
-          >
-            <h1 className="title">NOT JUST A PHOTOGRAPHER</h1>
-          </div>
+            PROJECTS
+          </h1>
         </div>
-      </section>
-
-      {/* SECOND SECTION */}
-      <section
-        id="second-section"
-        className="h-screen flex justify-center items-center bg-gradient-to-bl to-[#000000] from-[#0a212b] text-white"
-      >
-        <p className="text-lg text-[#a5a5a5] max-w-2xl text-center leading-relaxed">
-          Every frame is a chapter — light, shadow, and motion combine to tell stories words cannot.
-        </p>
-      </section>
-
-      {/* 🟣 THIRD SECTION — Image slides left, text appears */}
-      <section
-        ref={thirdSectionRef}
-        id="third-section"
-        className="h-screen flex justify-center items-center bg-gradient-to-tl to-[#000000] from-[#0a212b] text-white overflow-hidden relative"
-      >
-        <div className="behind-text absolute right-[10%] max-w-lg text-right">
-          <h2 className="text-5xl font-bold mb-4 text-[#EFCDBB]">The Man Behind the Scene</h2>
-          <p className="text-lg text-[#9ca3af] leading-relaxed">
-            Meet Abbas — a storyteller whose lens reveals emotion beyond frames. Every image he captures is a glimpse
-            into the unseen beauty that defines human connection.
-          </p>
-        </div>
-      </section>
-    </>
+      </div>{" "}
+      <div className="mx-auto parent h-[90vh]   top-60 relative ">
+{
+  PROJECTS.map((project,index) => (
+    <div key={index} className={`div${index + 1} `}>
+      <Image src={project.cover}
+      alt={project.alt}
+      fill className="object-cover rounded-2xl scale-[1]  origin-center"
+      style={{ objectPosition: "50% 20%" }} />
+      <div className="blur-2xl opacity-40 scale-200 bg-slate-500 absolute inset-0" />
+    </div>
+  ))
+}
+      </div>
+    </section>
   );
 };
 
-export default BTL;
+export default Main;
