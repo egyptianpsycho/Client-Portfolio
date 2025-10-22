@@ -21,7 +21,9 @@ export default function Preloader() {
     };
 
     // Try load event first
-    window.addEventListener("load", finish, { once: true });
+    window.addEventListener("load", () => {
+        setTimeout(finish, 300); // waits 1.5s after load
+      }, { once: true });
 
     // Fallback in case `load` doesn't fire (Next.js etc.)
     const fallback = setTimeout(finish, 3000);
