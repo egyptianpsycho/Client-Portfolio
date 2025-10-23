@@ -56,11 +56,11 @@ const Partners = () => {
   return (
     <section
      className="h-screen isolate   z-100 pt-40 overflow-y-hidden overflow-x-hidden bg-gradient-to-bl to-[#000000] from-[#0a212b] ">
-      <div className="relative grid grid-cols-5 grid-rows-2 gap-3.5 -rotate-10 inset-0 w-full partners-grid">
+      <div className="relative grid grid-cols-2 grid-rows-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5  gap-3.5  -rotate-10 inset-0 w-full partners-grid ">
         {logos.map((logo, index) => (
           <div
             key={index}
-            className={`logo-card p-40 justify-center items-center bg-gray-600/15 flex ${
+            className={`logo-card p-10 sm:p-16 md:p-20 lg:p-28 xl:p-40  justify-center items-center bg-gray-600/15 flex ${
               index < 5 ? "partners-row-1" : "partners-row-2"
             }`}
           >
@@ -69,7 +69,7 @@ const Partners = () => {
               alt={logo.alt}
               width={150}
               height={150}
-              className="object-center absolute "
+              className="object-contain absolute w-16 sm:w-20 md:w-28 lg:w-36 "
             />
             
           </div>

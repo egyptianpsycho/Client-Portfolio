@@ -265,7 +265,7 @@ h-text{
   position: relative;
   overflow: hidden;
   display: inline-block;
-  border: 2px solid rgb(122, 160, 196);
+  border: 2px solid rgb(144, 146, 148);
   transition: all 0.3s ease;
   padding: 17px 72px;
   cursor: pointer;
@@ -295,3 +295,4 @@ h-text{
 .btn:hover::before {
   left: 100%;
 }
+

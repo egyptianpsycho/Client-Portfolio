@@ -6,10 +6,10 @@ import "swiper/css/free-mode";
 import { FreeMode } from "swiper/modules";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-const Carousel = ({ images,cover }) => {
-    const allImages = cover ? [cover, ...images] : images;
-
+const Carousel = ({ images, cover }) => {
+  const allImages = cover ? [cover, ...images] : images;
   const swiperRef = useRef(null);
+  
 
   return (
     <div className="relative flex flex-col items-center justify-center w-full">
@@ -24,11 +24,14 @@ const Carousel = ({ images,cover }) => {
         className="w-full max-w-[800px]"
       >
         {allImages.map((img, idx) => (
-          <SwiperSlide key={idx} className="!w-[500px] rounded-xl overflow-hidden ">
+          <SwiperSlide
+            key={idx}
+            className="!w-[500px] rounded-xl overflow-hidden "
+          >
             <img
               src={img}
               alt={`slide-${idx}`}
-              className="w-full rounded-xl object-cover "
+              className="w-full rounded-xl object-cover  "
             />
           </SwiperSlide>
         ))}
@@ -45,7 +48,6 @@ const Carousel = ({ images,cover }) => {
         <button
           onClick={() => swiperRef.current?.slideNext()}
           className=" absolute top-70 right-35  p-2 bg-gray-600/40 cursor-pointer hover:bg-gray-600/60 rounded-full transition"
-
         >
           <ChevronRight />
         </button>

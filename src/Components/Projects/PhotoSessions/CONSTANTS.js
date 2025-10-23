@@ -1,4 +1,4 @@
-export const PROJECTS = [
+export const PROJECTSIMGS = [
   {
     id: 1,
     title: "Puma middle east",
@@ -15,7 +15,7 @@ export const PROJECTS = [
       "/Projects/images/PUMA/PUMA9.webp",
       "/Projects/images/PUMA/PUMA10.webp",
     ],
-    link:"https://www.behance.net/gallery/233148841/Puma-middle-east",
+    link: "https://www.behance.net/gallery/233148841/Puma-middle-east",
     date: "2024",
     description: "Exploring emotion through natural light.",
   },
@@ -35,7 +35,7 @@ export const PROJECTS = [
       "Projects/images/PUMA/PUMA9.webp",
       "Projects/images/PUMA/PUMA10.webp",
     ],
-    link:"https://www.behance.net/gallery/210660637/Porsh-ley-Perfect",
+    link: "https://www.behance.net/gallery/210660637/Porsh-ley-Perfect",
     date: "2024",
     description: "Exploring emotion through natural light.",
   },
@@ -55,8 +55,8 @@ export const PROJECTS = [
       "Projects/images/PUMA/PUMA9.webp",
       "Projects/images/PUMA/PUMA10.webp",
     ],
-    link:"https://www.behance.net/gallery/202245933/Adidas-Dubai-Strength-Collection",
-    date:"2025",
+    link: "https://www.behance.net/gallery/202245933/Adidas-Dubai-Strength-Collection",
+    date: "2025",
     description: "Exploring emotion through natural light.",
   },
   {
@@ -93,8 +93,8 @@ export const PROJECTS = [
       "Projects/images/PUMA/PUMA9.webp",
       "Projects/images/PUMA/PUMA10.webp",
     ],
-    link:"https://www.behance.net/gallery/190680523/VOX-CINEMA-MALL-OF-THE-EMIRATES-UAE",
-    date:"2025",
+    link: "https://www.behance.net/gallery/190680523/VOX-CINEMA-MALL-OF-THE-EMIRATES-UAE",
+    date: "2025",
     description: "Exploring emotion through natural light.",
   },
   {
@@ -113,8 +113,8 @@ export const PROJECTS = [
       "Projects/images/PUMA/PUMA9.webp",
       "Projects/images/PUMA/PUMA10.webp",
     ],
-    link:"https://www.behance.net/gallery/215363305/Talise",
-    date:"2025",
+    link: "https://www.behance.net/gallery/215363305/Talise",
+    date: "2025",
     description: "Exploring emotion through natural light.",
   },
   {
@@ -133,8 +133,8 @@ export const PROJECTS = [
       "Projects/images/PUMA/PUMA9.webp",
       "Projects/images/PUMA/PUMA10.webp",
     ],
-    link:"https://www.behance.net/gallery/214789363/Jumeirah-Dar-Al-Masyaf",
-    date:"2024",
+    link: "https://www.behance.net/gallery/214789363/Jumeirah-Dar-Al-Masyaf",
+    date: "2024",
     description: "Exploring emotion through natural light.",
   },
   {
@@ -153,8 +153,8 @@ export const PROJECTS = [
       "Projects/images/PUMA/PUMA9.webp",
       "Projects/images/PUMA/PUMA10.webp",
     ],
-    link:"https://www.behance.net/gallery/202634557/Jumeirah-Mina-Al-Salam",
-    date:"2025",
+    link: "https://www.behance.net/gallery/202634557/Jumeirah-Mina-Al-Salam",
+    date: "2025",
     description: "Exploring emotion through natural light.",
   },
   {
@@ -268,7 +268,7 @@ export const PROJECTS = [
   {
     id: 16,
     title: "Apocalypse",
-    alt:"apocalypse",
+    alt: "apocalypse",
     cover: "/Projects/images/BLACK/Black.jpg",
     images: [
       "Projects/images/PUMA/PUMA2.jpg",
@@ -286,7 +286,7 @@ export const PROJECTS = [
   {
     id: 17,
     title: "@arsenal X @adidasfootball",
-    alt:"ARSENAL X ADIDAS",
+    alt: "ARSENAL X ADIDAS",
     cover: "/Projects/images/ARSENAL/ARSENALHERO.jpg",
     images: [
       "Projects/images/PUMA/PUMA2.jpg",
@@ -299,15 +299,15 @@ export const PROJECTS = [
       "Projects/images/PUMA/PUMA9.webp",
       "Projects/images/PUMA/PUMA10.webp",
     ],
-    link:"https://www.behance.net/gallery/231767115/arsenal-X-adidasfootball",
-    date:"2025",
+    link: "https://www.behance.net/gallery/231767115/arsenal-X-adidasfootball",
+    date: "2025",
     description: "Exploring emotion through natural light.",
   },
-  
+
   {
     id: 18,
     title: "Disconected",
-    alt:"disconected",
+    alt: "disconected",
     cover: "/Projects/images/Disconected/disconected.jpg",
     images: [
       "Projects/images/PUMA/PUMA2.jpg",
@@ -325,7 +325,7 @@ export const PROJECTS = [
   {
     id: 19,
     title: "Heaven",
-    alt:"Heaven",
+    alt: "Heaven",
     cover: "/Projects/images/WHITE/White.png",
     images: [
       "Projects/images/PUMA/PUMA2.jpg",
@@ -343,7 +343,7 @@ export const PROJECTS = [
   {
     id: 20,
     title: "MOODY GIRL",
-    alt:"MOODY GIRL",
+    alt: "MOODY GIRL",
     cover: "/Projects/images/TEA/TEA.jpg",
     images: [
       "Projects/images/PUMA/PUMA2.jpg",
@@ -374,8 +374,8 @@ export const PROJECTS = [
       "Projects/images/PUMA/PUMA9.webp",
       "Projects/images/PUMA/PUMA10.webp",
     ],
-    link:"https://www.behance.net/gallery/202242347/Fitness-Photography",
-    date:"2024",
+    link: "https://www.behance.net/gallery/202242347/Fitness-Photography",
+    date: "2024",
     description: "Exploring emotion through natural light.",
   },
   {
@@ -399,7 +399,7 @@ export const PROJECTS = [
   {
     id: 23,
     title: "Desert Runner - Adidas x David Popa",
-    alt:"Adidas",
+    alt: "Adidas",
     cover: "/Projects/images/Adidas3/Adidas.jpg",
     images: [
       "Projects/images/PUMA/PUMA2.jpg",
@@ -412,14 +412,14 @@ export const PROJECTS = [
       "Projects/images/PUMA/PUMA9.webp",
       "Projects/images/PUMA/PUMA10.webp",
     ],
-    link:"https://www.behance.net/gallery/220924899/Desert-Runner-Adidas-x-David-Popa",
-    date:"2025",
+    link: "https://www.behance.net/gallery/220924899/Desert-Runner-Adidas-x-David-Popa",
+    date: "2025",
     description: "Exploring emotion through natural light.",
   },
   {
     id: 24,
     title: "CUBE",
-    alt:"Cube",
+    alt: "Cube",
     cover: "/Projects/images/Cube/Cube.jpg",
     images: [
       "Projects/images/PUMA/PUMA2.jpg",
@@ -437,7 +437,7 @@ export const PROJECTS = [
   {
     id: 6,
     title: "Night Crawler",
-    alt:"Cube",
+    alt: "Cube",
     cover: "/Projects/images/Night Crawler/Night Crawler.webp",
     images: [
       "Projects/images/PUMA/PUMA2.jpg",
@@ -452,5 +452,90 @@ export const PROJECTS = [
     ],
     description: "Exploring emotion through natural light.",
   },
-  
+];
+
+export const PROJECTSVIDS = [
+  {
+    id: 1,
+    title: "The F&B Showreel",
+    discreption:
+      "A curated collection of some of the most visually rich and narrative-driven F&B campaigns for Jumeirah. This showreel highlights the sensory storytelling, aesthetic direction, and dynamic edits that brought the brand’s dining experiences to life across multiple properties.",
+    thummnail: "/Projects/videos/videoframe1.png",
+    videoURL:
+      "https://stream.mux.com/XXDgaJo02BTTIutvulEY7gP9sHmzNoKMxssm8402acUy00.m3u8?redundant_streams=true",
+  },
+  {
+    id: 2,
+    title: "The Wellness Showreel",
+    discreption:
+      "This reel brings together standout moments from the wellness-focused content for Jumeirah, capturing the brand’s serene, restorative ethos. From spa visuals to movement and mindfulness, it reflects an approach to portraying wellness with elegance and intention.",
+    thummnail: "/Projects/videos/videoframe2.png",
+    videoURL:
+      "https://stream.mux.com/01eYmD6hwuFyjhdpUfw8BGndViEVbSbfjOxprl00neeTY.m3u8?redundant_streams=true",
+  },
+  {
+    id: 3,
+    title: "The Luxury Lifestyle Showreel",
+    discreption:
+      "A showcase of key lifestyle campaigns created for Jumeirah, this reel encapsulates the brand’s luxury identity across hospitality, leisure, and design. It offers a visual summary of the consistent translation of Jumeirah’s refined aesthetic into compelling content.",
+    thummnail: "/Projects/videos/videoframe3.png",
+    videoURL:
+      "https://stream.mux.com/wClwOlgCVAhhKuhdtNF02nEH02fjzAwq9Jq9ZhlCxrcms.m3u8?redundant_streams=true",
+  },
+  {
+    id: 4,
+    title: "none",
+    description: "none",
+    thummnail: "/Projects/videos/videoframe4.png",
+    videoURL:
+      "https://stream.mux.com/dgl02bzSEBaEZoj00rRP01W1QlACLRxACgrn01ZX9HiCwzY.m3u8?redundant_streams=true",
+  },
+  {
+    id: 5,
+    title: "none",
+    description: "none",
+    thummnail: "/Projects/videos/videoframe5.png",
+    videoURL:
+      "https://stream.mux.com/lXJ8vWytqP01w4y023SSfWwsuyaj01orftKUmK3Ma8bdnc.m3u8?redundant_streams=true",
+  },
+  {
+    id: 6,
+    title: "none",
+    description: "none",
+    thummnail: "/Projects/videos/videoframe6.png",
+    videoURL:
+      "https://stream.mux.com/FE6S001bZfYuz5GKUUxxbp7XNzZqEti35EkZr12HFrZE.m3u8?redundant_streams=true",
+  },
+  {
+    id: 7,
+    title: "none",
+    description: "none",
+    thummnail: "/Projects/videos/videoframe7.png",
+    videoURL:
+      "https://stream.mux.com/RidLJTJkGVBJ9vBhspfePFqSfvVCimJwEMLpLuqyCnc.m3u8?redundant_streams=true",
+  },
+  {
+    id: 8,
+    title: "none",
+    description: "none",
+    thummnail: "/Projects/videos/videoframe8.png",
+    videoURL:
+      "https://stream.mux.com/UXV00cUe2Y3q0035YRPUYFSrrpmLtPRsRBy00elqatYJ5g.m3u8?redundant_streams=true",
+  },
+  {
+    id: 9,
+    title: "none",
+    description: "none",
+    thummnail: "/Projects/videos/videoframe9.png",
+    videoURL:
+      "https://stream.mux.com/vuvP1XO1i24icnJFafPP8naQi61CDaxwBC7xsFdCW00E.m3u8?redundant_streams=true",
+  },
+  {
+    id: 10,
+    title: "none",
+    description: "none",
+    thummnail: "/Projects/videos/videoframe10.png",
+    videoURL:
+      "https://stream.mux.com/tbtLetxYnmY3LF75ZvaXvQPGjCXNvHhvUJhYbkWnhVg.m3u8?redundant_streams=true",
+  },
 ];
