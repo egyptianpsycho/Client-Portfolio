@@ -1,5 +1,5 @@
-import Images from "./Images";
-import Videos from "./Videos";
+import Images from "./PhotoSessions/Images";
+import Videos from "./VideoSessions/Videos";
 
 const Main = () => {
   return (

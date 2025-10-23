@@ -4,7 +4,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
 import "./Videos.css";
-import { PROJECTSVIDS } from "./CONSTANTS";
+import { PROJECTSVIDS } from "../CONSTANTS"; 
 import VideoPlayer from "@/Components/UI/VideoPlayer";
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
@@ -49,7 +49,6 @@ const Videos = () => {
 
        
         const vidsBoxes = gsap.utils.toArray(".video-item");
-        // gsap.utils.shuffle(imageBoxes);
 
         gsap.from(vidsBoxes, {
           opacity: 0,
@@ -81,7 +80,7 @@ const Videos = () => {
     return () => clearInterval(wait);
   }, []);
   return (
-    <div className="relative min-h-screen mt-80 " ref={vidSecRef}>
+    <div className="relative min-h-screen mt-50 " ref={vidSecRef}>
       {/* <span className="text-white">🎞️</span> */}
       <div className="parent-video mx-auto  h-[90vh]  ">
         {PROJECTSVIDS.map((project, index) => (
@@ -106,6 +105,13 @@ const Videos = () => {
             <div className="absolute bottom-10 left-0 w-full text-center opacity-0 group-hover:opacity-100 transition-all duration-700 ease-out pointer-events-auto group-hover:pointer-events-none">
               <h3 className="text-white/80 text-xl font-semibold tracking-wide text-gradient project-title ">
                 {project.title}
+              </h3>
+            </div>
+
+            {/* duration */}
+            <div className="absolute bottom-2 left-4    opacity-0 group-hover:opacity-100 transition-all duration-700 ease-out pointer-events-auto group-hover:pointer-events-none">
+              <h3 className="text-gray-200/20 text-sm font-semibold  ">
+                {project.durtaion}
               </h3>
             </div>
             <div className="blur-2xl opacity-10  scale-200 bg-slate-500/10 absolute inset-0 pointer-events-auto group-hover:pointer-events-none" />

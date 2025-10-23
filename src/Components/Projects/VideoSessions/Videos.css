@@ -67,16 +67,14 @@
 
 
 .premium-hr {
-    border: none;                /* remove default border */
-    height: 2px;                 /* thickness of the line */
-    border-radius: 8px;          /* rounded edges */
+    border: none;                 
+    height:2px;                 
+    border-radius: 8px;      
     background: linear-gradient(
       90deg,
-      black,    /* warm orange */
-          /* soft peach */
-      grey,    /* pastel blue */
-      black     /* minty green */
+      rgb(3, 18, 26),
+      rgb(130, 144, 149),
+      rgb(3, 18, 26)
     );
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2); /* subtle shadow for depth */
-    margin: 2rem 0;              /* spacing above and below */
+    box-shadow: 0 1px 9px rgba(130, 144, 149, 0.7); 
   }

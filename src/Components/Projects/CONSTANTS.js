@@ -463,6 +463,7 @@ export const PROJECTSVIDS = [
     thummnail: "/Projects/videos/videoframe1.png",
     videoURL:
       "https://stream.mux.com/XXDgaJo02BTTIutvulEY7gP9sHmzNoKMxssm8402acUy00.m3u8?redundant_streams=true",
+      durtaion: "0:50",
   },
   {
     id: 2,
@@ -472,6 +473,8 @@ export const PROJECTSVIDS = [
     thummnail: "/Projects/videos/videoframe2.png",
     videoURL:
       "https://stream.mux.com/01eYmD6hwuFyjhdpUfw8BGndViEVbSbfjOxprl00neeTY.m3u8?redundant_streams=true",
+      durtaion: "0:38",
+
   },
   {
     id: 3,
@@ -481,6 +484,8 @@ export const PROJECTSVIDS = [
     thummnail: "/Projects/videos/videoframe3.png",
     videoURL:
       "https://stream.mux.com/wClwOlgCVAhhKuhdtNF02nEH02fjzAwq9Jq9ZhlCxrcms.m3u8?redundant_streams=true",
+      durtaion: "0:42",
+
   },
   {
     id: 4,
@@ -489,6 +494,8 @@ export const PROJECTSVIDS = [
     thummnail: "/Projects/videos/videoframe4.png",
     videoURL:
       "https://stream.mux.com/dgl02bzSEBaEZoj00rRP01W1QlACLRxACgrn01ZX9HiCwzY.m3u8?redundant_streams=true",
+      durtaion: "0:58",
+
   },
   {
     id: 5,
@@ -497,6 +504,8 @@ export const PROJECTSVIDS = [
     thummnail: "/Projects/videos/videoframe5.png",
     videoURL:
       "https://stream.mux.com/lXJ8vWytqP01w4y023SSfWwsuyaj01orftKUmK3Ma8bdnc.m3u8?redundant_streams=true",
+      durtaion: "1:00",
+
   },
   {
     id: 6,
@@ -505,6 +514,8 @@ export const PROJECTSVIDS = [
     thummnail: "/Projects/videos/videoframe6.png",
     videoURL:
       "https://stream.mux.com/FE6S001bZfYuz5GKUUxxbp7XNzZqEti35EkZr12HFrZE.m3u8?redundant_streams=true",
+      durtaion: "0:59",
+
   },
   {
     id: 7,
@@ -513,6 +524,8 @@ export const PROJECTSVIDS = [
     thummnail: "/Projects/videos/videoframe7.png",
     videoURL:
       "https://stream.mux.com/RidLJTJkGVBJ9vBhspfePFqSfvVCimJwEMLpLuqyCnc.m3u8?redundant_streams=true",
+      durtaion: "0:39",
+
   },
   {
     id: 8,
@@ -521,6 +534,8 @@ export const PROJECTSVIDS = [
     thummnail: "/Projects/videos/videoframe8.png",
     videoURL:
       "https://stream.mux.com/UXV00cUe2Y3q0035YRPUYFSrrpmLtPRsRBy00elqatYJ5g.m3u8?redundant_streams=true",
+      durtaion: "0:49",
+
   },
   {
     id: 9,
@@ -529,6 +544,8 @@ export const PROJECTSVIDS = [
     thummnail: "/Projects/videos/videoframe9.png",
     videoURL:
       "https://stream.mux.com/vuvP1XO1i24icnJFafPP8naQi61CDaxwBC7xsFdCW00E.m3u8?redundant_streams=true",
+      durtaion: "0:47",
+
   },
   {
     id: 10,
@@ -537,5 +554,7 @@ export const PROJECTSVIDS = [
     thummnail: "/Projects/videos/videoframe10.png",
     videoURL:
       "https://stream.mux.com/tbtLetxYnmY3LF75ZvaXvQPGjCXNvHhvUJhYbkWnhVg.m3u8?redundant_streams=true",
+      durtaion: "0:39",
+
   },
 ];

@@ -11,8 +11,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        {/* <Preloader /> */}
-
+        <Preloader />
         <Layout>{children}</Layout>
       </body>
     </html>

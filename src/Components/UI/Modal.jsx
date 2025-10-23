@@ -63,7 +63,7 @@ const Modal = ({ open, onClose, project }) => {
   return (
       <div
         ref={overlayRef}
-        className="absolute inset-0 bottom-380 z-[9999] flex items-center justify-center bg-black/70 backdrop-blur-sm"
+        className="absolute inset-0 top-70  z-[9999] flex items-center justify-center bg-black/70 backdrop-blur-sm"
         onClick={handleClose}
       >
         <div

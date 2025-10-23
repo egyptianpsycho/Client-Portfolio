@@ -3,11 +3,24 @@ import React, { useEffect, useRef, useState } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
-import { PROJECTSIMGS } from "./CONSTANTS";
+import { PROJECTSIMGS } from "../CONSTANTS";
 import Image from "next/image";
 import { Button } from "@material-tailwind/react";
 import Link from "next/link";
 import Modal from "@/Components/UI/Modal";
+import dynamic from "next/dynamic";
+const LampDemo = dynamic(
+  () => import("@/Components/UI/lamp").then((mod) => mod.LampDemo),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="h-[50vh] flex items-center justify-center text-zinc-500">
+        Loading light...
+      </div>
+    ),
+  }
+);
+
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
 const Images = () => {
@@ -18,12 +31,10 @@ const Images = () => {
     const init = () => {
       const ctx = gsap.context(() => {
         const behindTitle2 = new SplitText(".behind-title2", { type: "chars" });
-
+        const titles = gsap.utils.toArray(".project-title");
         behindTitle2.chars.forEach((char) =>
           char.classList.add("text-gradient")
         );
-
-        const titles = gsap.utils.toArray(".project-title");
 
         titles.forEach((title) => {
           const split = new SplitText(title, { type: "chars" });
@@ -56,20 +67,26 @@ const Images = () => {
           });
         });
 
-        gsap.from(behindTitle2.chars, {
+        // create a timeline using the same ScrollTrigger
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: "#Projects",
+            scroller: "[data-scroll-container]",
+            start: "top bottom-=70%",
+            toggleActions: "play none none reverse",
+          },
+        });
+
+        // first: your original character animation
+        tl.from(behindTitle2.chars, {
           opacity: 0,
           duration: 2,
           ease: "expo.out",
           stagger: 0.1,
           filter: "blur(30px)",
           y: 50,
-          scrollTrigger: {
-            trigger: "#Projects",
-            scroller: "[data-scroll-container]",
-            start: "top bottom-=23%",
-            toggleActions: "play none none reverse",
-          },
         });
+
 
         const imageBoxes = gsap.utils.toArray(".project-item");
         // gsap.utils.shuffle(imageBoxes);
@@ -84,7 +101,7 @@ const Images = () => {
           scrollTrigger: {
             trigger: secRef.current,
             scroller: "[data-scroll-container]",
-            start: "top 50%",
+            start: "top 60%",
             end: "bottom 20%",
           },
         });
@@ -115,24 +132,28 @@ const Images = () => {
 
     return () => clearInterval(wait);
   }, []);
+
+
   return (
-    <div>
+    <div className="-mt-10 relative">
       <div>
         <div className=" z-100 text-center ">
-          <h1
-            className="text-9xl mb-5  behind-title2 font-bold  text-gradient "
-            style={{
-              clipPath: "polygon(0 0, 100% 0, 100% 100%, 0% 100%) ",
-              lineHeight: "12rem",
-              fontFamily: " 'Bebas Neue', 'serif' ",
-              letterSpacing: "1rem",
-            }}
-          >
-            PROJECTS
-          </h1>
+          <LampDemo>
+            <h1
+              className="text-9xl mb-5 relative inset-0 -top-90   behind-title2 font-bold  text-gradient "
+              style={{
+                clipPath: "polygon(0 0, 100% 0, 100% 100%, 0% 100%) ",
+                lineHeight: "12rem",
+                fontFamily: " 'Bebas Neue', 'serif' ",
+                letterSpacing: "1rem",
+              }}
+            >
+              PROJECTS
+            </h1>
+          </LampDemo>
         </div>
       </div>{" "}
-      <div className="mx-auto parent h-[90vh] mt-20 " ref={secRef}>
+      <div className="mx-auto parent h-[90vh] -mt-100 " ref={secRef}>
         {PROJECTSIMGS.map((project, index) => (
           <div
             key={index}
@@ -168,7 +189,7 @@ const Images = () => {
           onClose={() => setModalOpen(false)}
         />
       </div>
-      <div className="flex justify-center mt-10 mb-30 btn-container">
+      <div className=" flex justify-center  mt-10 mb-30 btn-container">
         <Link
           href={"https://www.behance.net/abbas_visuals"}
           target="_blank"
@@ -179,7 +200,9 @@ const Images = () => {
           </Button>
         </Link>
       </div>
-      {/* <hr class="premium-hr" /> */}
+      <div className="relative">
+        <hr className="premium-hr " />
+      </div>
     </div>
   );
 };
