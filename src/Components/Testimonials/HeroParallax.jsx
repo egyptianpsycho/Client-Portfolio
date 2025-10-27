@@ -5,11 +5,11 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export const HeroParallax = ({ products }) => {
+export const HeroParallax = ({ testimonials }) => {
   const ref = useRef(null);
-  const firstRow = products.slice(0, 5);
-  const secondRow = products.slice(5, 10);
-  const thirdRow = products.slice(10, 15);
+  const firstRow = testimonials.slice(0, 5);
+  const secondRow = testimonials.slice(5, 10);
+  const thirdRow = testimonials.slice(10, 15);
 
   useEffect(() => {
     let interval;
