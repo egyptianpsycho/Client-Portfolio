@@ -6,6 +6,7 @@ import Main from "@/Components/Projects/Main";
 import ServicesMain from "@/Components/Services/ServicesMain";
 import Signature from "@/Components/Signature";
 import SmoothScroll from "@/Components/SmoothScroll";
+import { Testimonials } from "@/Components/Testimonials/Testimonials";
 
 const Home = () => {
   return (
@@ -17,6 +18,7 @@ const Home = () => {
         <BTL />
         <Main />
         <ServicesMain />
+        <Testimonials />
       </div>
     </SmoothScroll>
   );

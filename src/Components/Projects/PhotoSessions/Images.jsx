@@ -14,7 +14,7 @@ const LampDemo = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="h-[50vh] flex items-center justify-center text-zinc-500">
+      <div className="h-[50vh] flex items-center justify-center text-zinc-500 text-3xl">
         Loading light...
       </div>
     ),
@@ -139,6 +139,7 @@ const Images = () => {
       <div>
         <div className=" z-100 text-center ">
           <LampDemo>
+            
             <h1
               className="text-9xl mb-5 relative inset-0 -top-90   behind-title2 font-bold  text-gradient "
               style={{
