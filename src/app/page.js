@@ -1,5 +1,6 @@
 import About from "@/Components/About";
 import BTL from "@/Components/BehindTheLens/BTL";
+import Contact from "@/Components/Contact/Contact";
 import Hero from "@/Components/Hero";
 import Partners from "@/Components/Partners";
 import Main from "@/Components/Projects/Main";
@@ -19,6 +20,7 @@ const Home = () => {
         <Main />
         <ServicesMain />
         <Testimonials />
+        <Contact />
       </div>
     </SmoothScroll>
   );

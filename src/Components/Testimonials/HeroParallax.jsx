@@ -2,8 +2,11 @@
 import React, { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { TestimonialCard } from "../UI/TestimonialCard";
+import Image from "next/image";
+import SplitText from "gsap/SplitText";
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger,SplitText);
 
 export const HeroParallax = ({ testimonials }) => {
   const ref = useRef(null);
@@ -44,6 +47,38 @@ export const HeroParallax = ({ testimonials }) => {
 
       const container = ref.current;
       const rows = container.querySelectorAll(".row");
+
+      const testParagraphSplit = new SplitText(".Test-Paragraph", { type: "lines" });
+      gsap.from(testParagraphSplit.lines, {
+          opacity: 0,
+          yPercent:150,
+          duration: 2,
+          delay: 0.3,
+          filter: "blur(20px)",
+          ease: "expo.out",
+          stagger: 0.3,
+          delay: 1.4,
+          scrollTrigger: {
+            trigger: "#Testimonials",
+            scroller: "[data-scroll-container]",
+            start: "top 30%",
+          },
+        });
+      const testTitleSplit = new SplitText(".Test-Title", { type: "words" });
+      gsap.from(testTitleSplit.words, {
+          opacity: 0,
+          yPercent: 150,
+          duration: 2.5,
+          filter: "blur(20px)",
+          ease: "expo.out",
+          stagger: 0.2,
+          scrollTrigger: {
+            trigger: "#Testimonials",
+            scroller: "[data-scroll-container]",
+            start: "top 30%",
+          },
+        });
+
 
       // Kill only triggers that belong to this section
       triggers.forEach((t) => t.kill());
@@ -117,22 +152,48 @@ export const HeroParallax = ({ testimonials }) => {
     <div
       ref={ref}
       className="h-[300vh] py-110  overflow-hidden antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d] bg-gradient-to-b from-black via-slate-600 to-[#0a212b] -mt-0.5 "
+      id="Testimonials"
     >
+      <Image
+                      src="/gradients/sky_gradient_white.png"
+                      alt="gradient"
+                      width={400}
+                      height={400}
+                      className="-z-20 absolute inset-0 opacity-40 scale-150 top-[40%] left-[91%] object-contain " />
+      <Image
+                      src="/gradients/sky_gradient_white.png"
+                      alt="gradient"
+                      width={400}
+                      height={400}
+                      className="-z-20 absolute inset-0 opacity-20 scale-150 top-[18%] left-[17%] object-contain " />
+      <Image
+                      src="/gradients/sky_gradient_white.png"
+                      alt="gradient"
+                      width={400}
+                      height={400}
+                      className="-z-20 absolute inset-0 opacity-30 scale-150 top-[85%] left-[-14%] object-contain " />
+      <Image
+                      src="/gradients/sky_gradient_white.png"
+                      alt="gradient"
+                      width={400}
+                      height={400}
+                      className="-z-20 absolute inset-0 opacity-15 scale-150 top-[67%] left-[30%] object-contain " />
+
       <Header />
       <div className="hero-content">
         <div className="row flex flex-row-reverse space-x-reverse space-x-20 mb-20">
-          {firstRow.map((product) => (
-            <ProductCard product={product} key={product.title} />
+          {firstRow.map((t) => (
+            <TestimonialCard key={t.id} {...t} />
           ))}
         </div>
         <div className="row flex flex-row mb-20 space-x-20">
-          {secondRow.map((product) => (
-            <ProductCard product={product} key={product.title} />
+          {secondRow.map((t) => (
+            <TestimonialCard key={t.id} {...t} />
           ))}
         </div>
-        <div className="row flex flex-row-reverse space-x-reverse space-x-20">
-          {thirdRow.map((product) => (
-            <ProductCard product={product} key={product.title} />
+        <div className="row flex flex-row-reverse space-x-reverse space-x-20 ">
+          {thirdRow.map((t) => (
+            <TestimonialCard key={t.id} {...t} />
           ))}
         </div>
       </div>
@@ -142,10 +203,10 @@ export const HeroParallax = ({ testimonials }) => {
 
 export const Header = () => (
   <div className="max-w-7xl relative mx-auto py-20 md:py-40 px-4 w-full left-0 top-0">
-    <h1 className="text-2xl md:text-7xl font-bold dark:text-white">
+    <h1 className="text-2xl md:text-7xl font-bold Test-Title ">
       WHAT THEY SAY <br /> ABOUT US
     </h1>
-    <p className="max-w-2xl text-base md:text-xl mt-8 dark:text-neutral-200">
+    <p className="max-w-2xl text-base md:text-xl mt-8 Test-Paragraph ">
       Every photo tells a story — but hearing what my clients say means the
       world to me. From commercials and portraits to creative shoots, their
       experiences reflect the passion I bring to every moment behind the lens.
