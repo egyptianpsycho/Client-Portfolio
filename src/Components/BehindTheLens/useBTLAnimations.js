@@ -31,15 +31,7 @@ const useBTLAnimations = (
     const img1 = imageContainerRef.current.querySelector(".img1");
     const img2 = imageContainerRef.current.querySelector(".img2");
 
-    const fadeImages = (showSecond) => {
-      if (showSecond) {
-        gsap.to(img1, { opacity: 0, duration: 0.8, ease: "power1.out" });
-        gsap.to(img2, { opacity: 0.65, duration: 0.8, ease: "power1.out" });
-      } else {
-        gsap.to(img1, { opacity: 0.65, duration: 0.8, ease: "power1.out" });
-        gsap.to(img2, { opacity: 0, duration: 0.8, ease: "power1.out" });
-      }
-    };
+   
 
     const init = () => {
       const ctx = gsap.context(() => {
@@ -99,9 +91,15 @@ const useBTLAnimations = (
         };
 
         const achievements = [
-          "At 2020 got featured on Egyptian national newspaper",
-          "At 2021 got featured on DMC TV",
-          "At 2023 participated in Nagib Suirez photography competition",
+          "-DUBAI",
+          "-NEW YORK",
+          "-SWITZERLAND",
+          "-DENMARK",
+          "-ICELAND",
+          "-LONDON",
+          "-SAUDI ARABIA",
+          "-BAHRAIN",
+          "-EGYPT",
         ];
         // Guard so animation runs only once
         let fired = false;
@@ -144,7 +142,7 @@ const useBTLAnimations = (
               overlay.appendChild(titleEl);
               
               // Type the title
-              await typeInto(titleEl, "Achievements", 40);
+              await typeInto(titleEl, "Around The World", 40);
               // small pause
               await new Promise((r) => setTimeout(r, 340));
 
@@ -162,19 +160,12 @@ const useBTLAnimations = (
               });
 
               // Create a ScrollTrigger for each achievement line
-              lines.forEach((line, i) => {
-                line.classList.add("achievement-line", `achievement-line-${i + 1}`);
-
-                ScrollTrigger.create({
-                  trigger: BehindCardRef.current.querySelectorAll("img")[i], // match each card
-                  scroller: "[data-scroll-container]",
-                  start: "top center", // when card enters viewport
-                  once: true,
-                  onEnter: async () => {
-                    await typeInto(line, achievements[i], 32);
-                  },
-                });
-              });
+              for (let i = 0; i < achievements.length; i++) {
+                const line = document.createElement("div");
+                line.className = `achievement-line achievement-line-${i + 1}`;
+                achContainer.appendChild(line);
+                await typeInto(line, achievements[i], 32);
+              }
 
               // done — overlay shows typed Achievements; clones remain hidden.
             },
@@ -220,15 +211,16 @@ const useBTLAnimations = (
           scrollTrigger: {
             trigger: BehindTLRef.current,
             scroller: "[data-scroll-container]",
-            start: "top top-=55%",
+            start: "top -20%",
             toggleActions: "play none none reverse",
           },
         });
 
         // Parallax + scale
         gsap.to(imageContainerRef.current, {
-          scale: 0.5,
+          scale: 0.6,
           y: -100,
+          clipPath: "inset(5% 5% 5% 5% round 5px)",
           top: "30%",
           scrollTrigger: {
             trigger: sectionRef.current,
@@ -242,37 +234,39 @@ const useBTLAnimations = (
         });
 
         // Fade image when reaching section two
-        ScrollTrigger.create({
-          trigger: "#second-section",
-          scroller: "[data-scroll-container]",
-          start: "top bottom+=30%",
-          onEnter: () => fadeImages(true),
-          onLeaveBack: () => fadeImages(false),
-        });
+        // ScrollTrigger.create({
+        //   trigger: "#second-section",
+        //   scroller: "[data-scroll-container]",
+        //   start: "top bottom+=30%",
+        //   onEnter: () => fadeImages(true),
+        //   onLeaveBack: () => fadeImages(false),
+        // });
 
         // Second image scroll-in from right to left & fade out
-        gsap.to(img2, {
-          x: -1200,
-          scrollTrigger: {
-            trigger: img2,
-            scroller: "[data-scroll-container]",
-            start: "bottom center-=45%",
-            end: "bottom+=10% top",
-            scrub: 3,
-            ease: "power2.inOut",
-          },
-        });
-        gsap.to(img2, {
-          opacity: 0,
-          scrollTrigger: {
-            trigger: img2,
-            scroller: "[data-scroll-container]",
-            start: "bottom top-=20%",
-            end: "bottom bottom",
-            scrub: true,
-            ease: "power2.inOut",
-          },
-        });
+        // gsap.to(img2, {
+        //   x: -1200,
+        //   scrollTrigger: {
+        //     trigger: img2,
+        //     scroller: "[data-scroll-container]",
+        //     start: "bottom center-=45%",
+        //     end: "bottom+=10% top",
+        //     scrub: 3,
+        //     ease: "power2.inOut",
+        //   },
+        // });
+        // gsap.to(img2, {
+        //   opacity: 0,
+        //   scrollTrigger: {
+        //     trigger: img2,
+        //     scroller: "[data-scroll-container]",
+        //     start: "bottom top-=20%",
+        //     end: "bottom bottom",
+        //     scrub: true,
+        //     ease: "power2.inOut",
+        //   },
+        // });
+
+
 
         // Behind The Scene text lines animation
         gsap.from(paragraphSplit.lines, {
@@ -286,7 +280,7 @@ const useBTLAnimations = (
           scrollTrigger: {
             trigger: BehindTLRef.current,
             scroller: "[data-scroll-container]",
-            start: "top 40%",
+            start: "top 57%",
             toggleActions: "play none none reverse",
           },
         });
@@ -297,7 +291,7 @@ const useBTLAnimations = (
             trigger: BehindTLRef.current,
             scroller: "[data-scroll-container]",
             start: "top center-=30%",
-            end: "bottom top-=82%",
+            end: "bottom top-=65%",
             scrub: true,
             pin: true,
             ease: "power2.inOut",
@@ -316,6 +310,8 @@ const useBTLAnimations = (
         //     scrub: true,
         //   },
         // });
+
+        //moving the words to left
         gsap.to(behindTitle.words, {
           x: -600,
           duration: 1.8, // control smoothness of motion
@@ -332,6 +328,8 @@ const useBTLAnimations = (
             scrub: 1, // allows smooth scroll-linked motion
           },
         });
+
+        //moving lines to left
         gsap.to(paragraphSplit.lines, {
           x: -600,
           duration: 1.8,
@@ -348,6 +346,8 @@ const useBTLAnimations = (
             scrub: 1,
           },
         });
+
+
         gsap.to(typingRef.current, {
           x: -600,
           duration: 1.8,
@@ -371,7 +371,7 @@ const useBTLAnimations = (
             trigger: BehindImgRef.current,
             scroller: "[data-scroll-container]",
             start: "top top+=5%",
-            end: "bottom top-=70%",
+            end: "bottom top-=40%",
             scrub: true,
             pin: true,
             ease: "power2.inOut",
@@ -385,12 +385,31 @@ const useBTLAnimations = (
             start: "top top+=5%",
           },
         });
+
+
+        gsap.fromTo(
+          ".stat-number",
+          { textContent: 0 },
+          {
+            textContent: (_, target) => target.getAttribute("data-value"),
+            duration: 2,
+            ease: "power2.out",
+            snap: { textContent: 1 },
+            scrollTrigger: {
+              scroller: "[data-scroll-container]",
+              trigger: ".stats-section",
+              start: "top 80%",
+            },
+          }
+        );
+
+        
         // Behind The Scene Card animation
         ScrollTrigger.create({
           trigger: BehindCardRef.current,
           scroller: "[data-scroll-container]",
-          start: "top center-=30%",
-          end: "bottom top-=20%",
+          start: "top +=5%",
+          end: "bottom top+=10%",
           scrub: true,
           pin: true,
           ease: "power2.inOut",
@@ -407,12 +426,14 @@ const useBTLAnimations = (
             scrollTrigger: {
               trigger: BehindCardRef.current,
               scroller: "[data-scroll-container]",
-              start: "top center-=30%",
+              start: "top +=5%",
               end: "bottom top+=20%",
               scrub: 2,
             },
           }
         );
+
+
       });
 
       ScrollTrigger.refresh();

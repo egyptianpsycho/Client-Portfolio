@@ -1,7 +1,7 @@
 import Images from "./PhotoSessions/Images";
 import Videos from "./VideoSessions/Videos";
 
-const Main = () => {
+const Projects = () => {
   return (
     <section
       className="relative min-h-screen  p-20 grain-overlay "
@@ -16,4 +16,4 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default Projects;

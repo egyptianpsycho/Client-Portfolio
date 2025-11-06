@@ -356,7 +356,6 @@ h-text{
   background-size: 200% 100%;
   -webkit-background-clip: text;
   background-clip: text;
-  display: inline-block;
   animation: shine 6s linear infinite;
 }
 
@@ -372,5 +371,3 @@ h-text{
 .shiny-text.disabled {
   animation: none;
 }
-
-

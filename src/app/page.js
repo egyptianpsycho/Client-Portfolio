@@ -1,9 +1,11 @@
-import About from "@/Components/About";
+import About from "@/Components/About/About";
 import BTL from "@/Components/BehindTheLens/BTL";
 import Contact from "@/Components/Contact/Contact";
-import Hero from "@/Components/Hero";
-import Partners from "@/Components/Partners";
-import Main from "@/Components/Projects/Main";
+import Hero from "@/Components/Hero/Hero";
+import Partners from "@/Components/Partners/Partners";
+import Intro from "@/Components/Preloader/Intro";
+import Projects from "@/Components/Projects/Projects";
+import Recent from "@/Components/Recent/Recent";
 import ServicesMain from "@/Components/Services/ServicesMain";
 import Signature from "@/Components/Signature";
 import SmoothScroll from "@/Components/SmoothScroll";
@@ -17,7 +19,8 @@ const Home = () => {
         <About />
         <Partners />
         <BTL />
-        <Main />
+        <Recent />
+        <Projects />
         <ServicesMain />
         <Testimonials />
         <Contact />

@@ -10,23 +10,17 @@ const HeroSection = ({ sectionRef, imageContainerRef, textRef }) => {
       <div className="sticky top-0 h-screen w-full mt-48">
         <div
           ref={imageContainerRef}
-          className="relative w-full h-full z-[5]"
+          className=" relative w-full h-full z-[5]"
           style={{ transform: "scale(1.4)", filter: "brightness(0.7)" }}
         >
           <Image
             src="/HeroImages/Horse2.webp"
             alt="Hero 1"
             fill
-            className="img1 object-cover absolute object-center opacity-65 transition-opacity duration-700"
+            className=" img1 object-cover absolute object-center opacity-65 transition-opacity duration-700"
             priority
           />
-          <Image
-            src="/Ahmed/Ahmed2.jpg"
-            alt="Hero 2"
-            fill
-            className="img2 object-contain sticky  object-center opacity-0 transition-opacity duration-700"
-            priority
-          />
+          
         </div>
 
         <div

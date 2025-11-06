@@ -3,6 +3,7 @@ import React, { useEffect, useRef } from "react";
 import HeroSection from "./HeroSection";
 import BehindSection from "./BehindSection";
 import useBTLAnimations from "./useBTLAnimations";
+import Status from "./Status";
 
 const BTL = () => {
   const sectionRef = useRef(null);
@@ -26,6 +27,7 @@ const BTL = () => {
         textRef={textRef}
       />
       <BehindSection BehindTLRef={BehindTLRef} BehindImgRef={BehindImgRef} BehindCardRef={BehindCardRef} tRef={tRef} typingRef={typingRef} />
+      <Status />
     </>
   );
 };

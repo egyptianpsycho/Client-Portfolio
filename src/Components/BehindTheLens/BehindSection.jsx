@@ -4,20 +4,18 @@ import React, { useRef } from "react";
 
 const IMAGES = [
   {
-    src: "/Ahmed/news.jpg",
-    alt: "news",
-    description: "At 2020 got futured on egyptian national newspaper",
+    src: "/idk.jpg",
+    alt: "idk",
   },
   {
-    src: "/Ahmed/TVV.jpg",
-    alt: "TV",
-    description: "At 2021 got futured on DMC tv",
+    src: "/swiss.jpg",
+    alt: "swiss",
   },
   {
-    src: "/Ahmed/NAGIB.jpg",
-    alt: "Ahmed",
-    description: "At 2023 participated in nagib suirez photography competition",
+    src: "/NY.jpg",
+    alt: "new york",
   },
+  
 ];
 const BehindSection = ({
   BehindTLRef,
@@ -34,7 +32,7 @@ const BehindSection = ({
     >
       <div
         ref={BehindTLRef}
-        className="absolute subtitle behind-text  top-[-20%] right-[1%] max-w-lg text-left"
+        className="absolute subtitle behind-text  top-[10%] right-[1%] max-w-lg text-left"
       >
         <h2 className="behind-title text-5xl font-bold mb-4 text-gradient ">
           The Man Behind the Scene
@@ -64,26 +62,26 @@ const BehindSection = ({
         alt="Hero 2"
         width={500}
         height={500}
-        className=" object-contain absolute inset-0 opacity-0   left-[5.72%] top-[-27.7%] brightness-[0.7]  "
+        className=" object-contain absolute inset-0 opacity-0   left-[5.72%] top-[5.7%] brightness-[0.7]  "
         priority
       />
       
 
       <div
-        className="flex flex-col justify-center items-center end-24 opacity-65 absolute top-[-7%] "
+        className="flex flex-col justify-center items-center end-24 opacity-65 absolute top-[30%] "
         ref={BehindCardRef}
       >
         {IMAGES.map((image, index) => (
           <div
             key={index}
-            className=" mx-4  odd:rotate-8 even:-rotate-6 relative inline-block my-1 w-38  "
+            className=" mx-4 relative inline-block my-2 w-50  "
           >
             <Image
               src={image.src}
               alt={image.alt}
               width={200}
               height={200}
-              className="object-cover object-center rounded-lg shadow-lg "
+              className="object-cover object-center rounded-lg shadow-lg h-40 "
             />
           </div>
         ))}
