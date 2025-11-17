@@ -40,6 +40,7 @@ const Recent = () => {
             }
           }
         );
+        
         gsap.fromTo(
           recentsecondSplit.words,
           {color:"#708090",filter:"blur(4px)" ,x:10,y:10},
@@ -334,8 +335,8 @@ const Recent = () => {
         </div>
       </section>
 
-      <section className="outro">
-        <h1 className="h1-recent secondanimatetext ">
+      <section className="outro ">
+        <h1 className="h1-recent secondanimatetext  ">
           Shadows fold into light. shapes shift across the frame, reminding us
           that stillness is only temporary.
         </h1>

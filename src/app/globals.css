@@ -371,3 +371,11 @@ h-text{
 .shiny-text.disabled {
   animation: none;
 }
+
+
+#pathToAnimate1 {
+  stroke-dasharray: 3805;
+  stroke-dashoffset: 3805;
+  /* prevents the browser from drawing it before GSAP starts */
+  visibility: hidden;
+}

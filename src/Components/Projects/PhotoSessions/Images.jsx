@@ -68,24 +68,24 @@ const Images = () => {
         });
 
         // create a timeline using the same ScrollTrigger
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: "#Projects",
-            scroller: "[data-scroll-container]",
-            start: "top bottom-=70%",
-            toggleActions: "play none none reverse",
-          },
-        });
+        
 
         // first: your original character animation
-        tl.from(behindTitle2.chars, {
+        gsap.from(behindTitle2.chars, {
           opacity: 0,
           duration: 2,
           ease: "expo.out",
           stagger: 0.1,
           filter: "blur(30px)",
           y: 50,
+          scrollTrigger: {
+            trigger: "#Projects",
+            scroller: "[data-scroll-container]",
+            start: "top bottom-=30%",
+            toggleActions: "play none none reverse",
+          },
         });
+        
 
 
         const imageBoxes = gsap.utils.toArray(".project-item");
@@ -135,11 +135,9 @@ const Images = () => {
 
 
   return (
-    <div className="-mt-10 relative">
+    <div className="mt-94 relative">
       <div>
         <div className=" z-100 text-center ">
-          <LampDemo>
-            
             <h1
               className="text-9xl mb-5 relative inset-0 -top-90   behind-title2 font-bold  text-gradient "
               style={{
@@ -151,7 +149,6 @@ const Images = () => {
             >
               PROJECTS
             </h1>
-          </LampDemo>
         </div>
       </div>{" "}
       <div className="mx-auto parent h-[90vh] -mt-100 " ref={secRef}>
@@ -164,6 +161,7 @@ const Images = () => {
               setModalOpen(true);
             }}
           >
+
             <Image
               src={project.cover}
               alt={project.alt}

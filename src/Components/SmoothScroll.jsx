@@ -38,6 +38,8 @@ export default function SmoothScroll({ children }) {
       });
       window.__loco = locoScroll;
 
+      
+
       // Sync LocomotiveScroll with ScrollTrigger on every scroll
       locoScroll.on("scroll", ScrollTrigger.update);
 
