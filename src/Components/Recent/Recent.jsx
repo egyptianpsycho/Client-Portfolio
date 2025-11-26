@@ -376,7 +376,7 @@ const Recent = () => {
               <Image
                 width={1920}
                 height={1080}
-                src="/projects/images/disconected/disconected.jpg"
+                src="/Projects/images/Disconected/disconected.jpg"
                 alt="marq-img"
                 className="img-recent"
               />
