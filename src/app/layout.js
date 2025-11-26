@@ -3,7 +3,7 @@ import "./globals.css";
 import Preloader from "@/Components/Preloader/Preloader";
 
 export const metadata = {
-  title: "Abbas Portfolio",
+  title: "ABBAS VISUALS",
   description: "Passionate & Creative Photographer",
 };
 

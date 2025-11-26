@@ -1,32 +1,6 @@
-// "use client";
-// import React from "react";
-
-// export const TestimonialCard = ({ name, position, company, testimonial, photo }) => (
-//   <div className="group/testimonial relative w-[30rem] h-[25rem] shrink-0 bg-white/5 backdrop-blur-md rounded-2xl overflow-hidden cursor-pointer border border-white/10 hover:shadow-2xl hover:scale-[1.02] transition-all duration-500 ease-out">
-//     <img
-//       src={photo}
-//       alt={name}
-//       className="absolute inset-0 w-full h-full object-cover opacity-30 group-hover/testimonial:opacity-40 transition-opacity"
-//     />
-//     <div className="absolute inset-0 flex flex-col justify-end p-6 text-white z-10">
-//       <p className="text-lg italic mb-4 text-neutral-200 leading-relaxed">
-//         “{testimonial}”
-//       </p>
-//       <div className="mt-auto">
-//         <h3 className="text-xl font-semibold">{name}</h3>
-//         <p className="text-sm opacity-80">
-//           {position} — {company}
-//         </p>
-//       </div>
-//     </div>
-//   </div>
-// );
-
 
 "use client";
 import React from "react";
-import ShinyText from "./ShinyText";
-import Image from "next/image";
 
 export const TestimonialCard = ({
   name,
@@ -35,9 +9,9 @@ export const TestimonialCard = ({
   testimonial,
   photo,
 }) => (
-  <div className="group/testimonial h-96 w-[30rem] bg-white/10 backdrop-blur-md border border-white/20 text-white p-8 rounded-2xl shrink-0 relative overflow-hidden hover:-translate-y-1 hover:shadow-2xl hover:border-white/40 transition duration-500">
+  <div className="group/testimonial testo-test h-96 w-[30rem] bg-white/10 backdrop-blur-md border border-white/20 text-white p-8 rounded-2xl shrink-0 relative overflow-hidden hover:-translate-y-1 hover:shadow-2xl hover:border-white/40 transition duration-500">
     
-    <div className="flex flex-col justify-between h-full ">
+    <div className="flex flex-col justify-between h-full  ">
       <p className="text-2xl leading-relaxed italic opacity-90  ">“{testimonial}”</p>
 
       <div className="flex items-center gap-4 mt-8">
@@ -45,6 +19,7 @@ export const TestimonialCard = ({
           className="size-14 rounded-full object-cover border border-white/30"
           src={photo}
           alt={`${name}'s photo`}
+          loading="lazy"
         />
         
         
@@ -56,7 +31,7 @@ export const TestimonialCard = ({
               height="15"
               viewBox="0 0 15 15"
               fill="none"
-              className="absolute -right-6 top-2"
+              className=""
               xmlns="http://www.w3.org/2000/svg"
             >
               <path

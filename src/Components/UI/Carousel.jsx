@@ -31,13 +31,14 @@ const Carousel = ({ images, cover }) => {
             <img
               src={img}
               alt={`slide-${idx}`}
-              className="w-full rounded-xl object-cover  "
+              className="w-full carousel-img rounded-xl object-cover max-sm:overflow-hidden "
+              loading="lazy"
             />
           </SwiperSlide>
         ))}
       </Swiper>
 
-      <div className="flex justify-center gap-4 mt-4  z-9 absolute ">
+      <div className="flex justify-center gap-4 mt-4  z-9 absolute max-sm:right-0 max-sm:top-80 ">
         <button
           onClick={() => swiperRef.current?.slidePrev()}
           className="absolute

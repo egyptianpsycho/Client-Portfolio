@@ -142,16 +142,22 @@ export const HeroParallax = ({ testimonials }) => {
       }
     }, 100);
 
-    return () => {
-      clearInterval(interval);
-      triggers.forEach((t) => t.kill());
-    };
+    
+
+
+  return () => {
+    clearInterval(interval);
+    triggers.forEach((t) => t.kill());
+  };
+
+
+    
   }, []);
 
   return (
     <div
       ref={ref}
-      className="h-[300vh] py-110  overflow-hidden antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d] bg-gradient-to-b from-black via-slate-600 to-[#0a212b] -mt-0.5 "
+      className="h-[300vh]  py-110  overflow-hidden antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d] bg-gradient-to-b from-black via-slate-600 to-[#0a212b] -mt-0.5 "
       id="Testimonials"
     >
       <Image
@@ -180,8 +186,8 @@ export const HeroParallax = ({ testimonials }) => {
                       className="-z-20 absolute inset-0 opacity-15 scale-150 top-[67%] left-[30%] object-contain " />
 
       <Header />
-      <div className="hero-content">
-        <div className="row flex flex-row-reverse space-x-reverse space-x-20 mb-20">
+      <div className="hero-content testo-tests">
+        <div className=" row flex flex-row-reverse space-x-reverse space-x-20 mb-20 ">
           {firstRow.map((t) => (
             <TestimonialCard key={t.id} {...t} />
           ))}
@@ -215,12 +221,12 @@ export const Header = () => (
 );
 
 export const ProductCard = ({ product }) => (
-  <div className="group/product h-96 w-[30rem] relative shrink-0 cursor-pointer">
+  <div className="group/product h-96 w-[30rem] relative shrink-0 cursor-pointer ">
     <a href={product.link} className="block group-hover/product:shadow-2xl">
-      <img
+      <Image
         src={product.thumbnail}
-        height="600"
-        width="600"
+        width={200}
+        height={200}
         className="object-cover object-left-top absolute h-full w-full inset-0"
         alt={product.title}
       />

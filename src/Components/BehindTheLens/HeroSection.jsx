@@ -5,9 +5,9 @@ const HeroSection = ({ sectionRef, imageContainerRef, textRef }) => {
   return (
     <section
       ref={sectionRef}
-      className="h-[100vh]  relative bg-gradient-to-tl to-[#000000] from-[#0a212b]"
+      className="h-[100vh]    relative bg-gradient-to-tl to-[#000000] from-[#0a212b]"
     >
-      <div className="sticky top-0 h-screen w-full mt-48">
+      <div className="sticky  top-0 h-screen w-full mt-47.5 ">
         <div
           ref={imageContainerRef}
           className=" relative w-full h-full z-[5]"
@@ -26,7 +26,7 @@ const HeroSection = ({ sectionRef, imageContainerRef, textRef }) => {
         <div
           ref={textRef}
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 
-              text-white text-7xl font-bold text-center z-10 mix-blend-color"
+              text-white text-3xl max-sm:w-70 sm:text-4xl md:text-5xl lg:text-7xl font-bold text-center z-10 mix-blend-color"
         >
           <h1 className="title">NOT JUST A PHOTOGRAPHER</h1>
         </div>

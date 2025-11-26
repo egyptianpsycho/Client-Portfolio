@@ -9,6 +9,7 @@ import Recent from "@/Components/Recent/Recent";
 import ServicesMain from "@/Components/Services/ServicesMain";
 import Signature from "@/Components/Signature";
 import SmoothScroll from "@/Components/SmoothScroll";
+import OverlayT from "@/Components/Contact/OverlayT";
 import { Testimonials } from "@/Components/Testimonials/Testimonials";
 
 const Home = () => {
@@ -23,6 +24,7 @@ const Home = () => {
         <Projects />
         <ServicesMain />
         <Testimonials />
+        <OverlayT />
         <Contact />
       </div>
     </SmoothScroll>

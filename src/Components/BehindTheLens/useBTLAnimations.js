@@ -28,13 +28,27 @@ const useBTLAnimations = (
     ) {
       return;
     }
-    const img1 = imageContainerRef.current.querySelector(".img1");
-    const img2 = imageContainerRef.current.querySelector(".img2");
-
-   
 
     const init = () => {
       const ctx = gsap.context(() => {
+        const isMobile = window.innerWidth < 500;
+        const isTablet = window.innerWidth >= 500 && window.innerWidth < 768;
+        const isMediumDesktop = window.innerWidth >= 768 && window.innerWidth < 1024;
+        const isLargeDesktop = window.innerWidth >= 1024 && window.innerWidth < 1700;
+        const isXLDesktop = window.innerWidth >= 1700;
+
+        // Responsive x-offset calculation
+        const getXOffset = () => {
+          if (isMobile) return 0;
+          if (isTablet) return -50;
+          if (isMediumDesktop) return -150;
+          if (isLargeDesktop) return -320;
+          if (isXLDesktop) return -600;
+          return -100;
+        };
+
+        const xOffset = getXOffset();
+
         const originalText = tRef.current
           ? tRef.current.textContent.trim()
           : "";
@@ -50,129 +64,111 @@ const useBTLAnimations = (
           char.classList.add("text-gradient")
         );
 
-        /////////////////////
-        // --- typing/erase helpers (inside init() after 'cards' is defined) ---
-        // typing overlay element we control (erase/type happens here)
-        const overlay = typingRef.current;
-        // Ensure overlay starts empty and hidden visually (we'll reveal when needed)
-        overlay.innerHTML = "";
-        overlay.style.opacity = 0;
-        overlay.style.visibility = "hidden";
-        //erase full text overlay
-        const eraseOverlayFrom = (fullText, speed = 18) => {
-          return new Promise((resolve) => {
-            overlay.innerText = fullText;
-            let i = fullText.length;
-            const id = setInterval(() => {
-              i--;
-              overlay.innerText = fullText.substring(0, Math.max(0, i));
-              if (i <= 0) {
-                clearInterval(id);
-                overlay.innerHTML = "";
-                resolve();
-              }
-            }, speed);
-          });
-        };
+        if (!isMobile) {
+          // Typing/erase helpers
+          const overlay = typingRef.current;
+          overlay.innerHTML = "";
+          overlay.style.opacity = 0;
+          overlay.style.visibility = "hidden";
 
-        const typeInto = (el, text, speed = 36) => {
-          return new Promise((resolve) => {
-            el.innerHTML = "";
-            let i = 0;
-            const id = setInterval(() => {
-              i++;
-              el.textContent = text.substring(0, i);
-              if (i >= text.length) {
-                clearInterval(id);
-                resolve();
-              }
-            }, speed);
-          });
-        };
+          const eraseOverlayFrom = (fullText, speed = 18) => {
+            return new Promise((resolve) => {
+              overlay.innerText = fullText;
+              let i = fullText.length;
+              const id = setInterval(() => {
+                i--;
+                overlay.innerText = fullText.substring(0, Math.max(0, i));
+                if (i <= 0) {
+                  clearInterval(id);
+                  overlay.innerHTML = "";
+                  resolve();
+                }
+              }, speed);
+            });
+          };
 
-        const achievements = [
-          "-DUBAI",
-          "-NEW YORK",
-          "-SWITZERLAND",
-          "-DENMARK",
-          "-ICELAND",
-          "-LONDON",
-          "-SAUDI ARABIA",
-          "-BAHRAIN",
-          "-EGYPT",
-        ];
-        // Guard so animation runs only once
-        let fired = false;
+          const typeInto = (el, text, speed = 36) => {
+            return new Promise((resolve) => {
+              el.innerHTML = "";
+              let i = 0;
+              const id = setInterval(() => {
+                i++;
+                el.textContent = text.substring(0, i);
+                if (i >= text.length) {
+                  clearInterval(id);
+                  resolve();
+                }
+              }, speed);
+            });
+          };
 
-        if (cards && cards.length > 0) {
-          ScrollTrigger.create({
-            trigger: cards[0],
-            scroller: "[data-scroll-container]",
-            start: "top top-=45%",
-            once: true,
-            onEnter: async () => {
-              if (fired) return;
-              fired = true;
-              overlay.style.opacity = 1;
-              overlay.style.visibility = "visible";
+          const achievements = [
+            "-DUBAI",
+            "-NEW YORK",
+            "-SWITZERLAND",
+            "-DENMARK",
+            "-ICELAND",
+            "-LONDON",
+            "-SAUDI ARABIA",
+            "-BAHRAIN",
+            "-EGYPT",
+            "AND MORE...",
+          ];
 
-              // 1) hide SplitText-created visible line clones so overlay controls visuals
-              if (
-                paragraphSplit &&
-                paragraphSplit.lines &&
-                paragraphSplit.lines.length
-              ) {
-                paragraphSplit.lines.forEach((ln) => {
-                  ln.style.display = "none";
-                });
-              }
+          let fired = false;
 
-              // 2) ensure original .original is hidden so only overlay shows
-              // (SplitText often hides original; to be safe, hide it)
-              try {
-                tRef.current.style.display = "none";
-              } catch (e) {}
+          if (cards && cards.length > 0) {
+            ScrollTrigger.create({
+              trigger: cards[0],
+              scroller: "[data-scroll-container]",
+              start: "top top-=45%",
+              once: true,
+              onEnter: async () => {
+                if (fired) return;
+                fired = true;
+                overlay.style.opacity = 1;
+                overlay.style.visibility = "visible";
 
-              // 3) Erase overlay using the originalParagraph text we captured earlier
-              await eraseOverlayFrom(originalText || "");
+                if (
+                  paragraphSplit &&
+                  paragraphSplit.lines &&
+                  paragraphSplit.lines.length
+                ) {
+                  paragraphSplit.lines.forEach((ln) => {
+                    ln.style.display = "none";
+                  });
+                }
 
-              // 4) Type the Achievements title on overlay
-              const titleEl = document.createElement("div");
-              titleEl.className = "achievement-title text-lg text-white/70 font-semibold  tracking-wide";
-              overlay.appendChild(titleEl);
-              
-              // Type the title
-              await typeInto(titleEl, "Around The World", 40);
-              // small pause
-              await new Promise((r) => setTimeout(r, 340));
+                try {
+                  tRef.current.style.display = "none";
+                } catch (e) {}
 
-              // 5) append a <br> and desc span inside the overlay, then type achievement text there
-              const achContainer = document.createElement("div");
-              achContainer.className =
-                "achievements-container text-sm text-[#9ca3af]";
-              overlay.appendChild(achContainer);
+                await eraseOverlayFrom(originalText || "");
 
-              // Create a line element for each achievement but don't fill it yet
-              const lines = achievements.map((text) => {
-                const line = document.createElement("div");
-                achContainer.appendChild(line);
-                return line;
-              });
+                const titleEl = document.createElement("div");
+                titleEl.className =
+                  "achievement-title text-lg text-white/70 font-semibold tracking-wide";
+                overlay.appendChild(titleEl);
 
-              // Create a ScrollTrigger for each achievement line
-              for (let i = 0; i < achievements.length; i++) {
-                const line = document.createElement("div");
-                line.className = `achievement-line achievement-line-${i + 1}`;
-                achContainer.appendChild(line);
-                await typeInto(line, achievements[i], 32);
-              }
+                await typeInto(titleEl, "Around The World", 40);
+                await new Promise((r) => setTimeout(r, 340));
 
-              // done — overlay shows typed Achievements; clones remain hidden.
-            },
-          });
+                const achContainer = document.createElement("div");
+                achContainer.className =
+                  "achievements-container text-sm text-[#9ca3af]";
+                overlay.appendChild(achContainer);
+
+                for (let i = 0; i < achievements.length; i++) {
+                  const line = document.createElement("div");
+                  line.className = `achievement-line achievement-line-${i + 1}`;
+                  achContainer.appendChild(line);
+                  await typeInto(line, achievements[i], 32);
+                }
+              },
+            });
+          }
         }
 
-        ////////////////////
         // Title scroll fade out
         gsap.to(textRef.current, {
           y: -200,
@@ -203,7 +199,7 @@ const useBTLAnimations = (
 
         gsap.from(behindTitle.words, {
           opacity: 0,
-          duration: 6,
+          duration: 4,
           ease: "expo.out",
           stagger: 0.1,
           filter: "blur(30px)",
@@ -218,8 +214,8 @@ const useBTLAnimations = (
 
         // Parallax + scale
         gsap.to(imageContainerRef.current, {
-          scale: 0.6,
-          y: -100,
+          scale: 0.7,
+          y: -287,
           clipPath: "inset(5% 5% 5% 5% round 5px)",
           top: "30%",
           scrollTrigger: {
@@ -232,41 +228,6 @@ const useBTLAnimations = (
             anticipatePin: 1,
           },
         });
-
-        // Fade image when reaching section two
-        // ScrollTrigger.create({
-        //   trigger: "#second-section",
-        //   scroller: "[data-scroll-container]",
-        //   start: "top bottom+=30%",
-        //   onEnter: () => fadeImages(true),
-        //   onLeaveBack: () => fadeImages(false),
-        // });
-
-        // Second image scroll-in from right to left & fade out
-        // gsap.to(img2, {
-        //   x: -1200,
-        //   scrollTrigger: {
-        //     trigger: img2,
-        //     scroller: "[data-scroll-container]",
-        //     start: "bottom center-=45%",
-        //     end: "bottom+=10% top",
-        //     scrub: 3,
-        //     ease: "power2.inOut",
-        //   },
-        // });
-        // gsap.to(img2, {
-        //   opacity: 0,
-        //   scrollTrigger: {
-        //     trigger: img2,
-        //     scroller: "[data-scroll-container]",
-        //     start: "bottom top-=20%",
-        //     end: "bottom bottom",
-        //     scrub: true,
-        //     ease: "power2.inOut",
-        //   },
-        // });
-
-
 
         // Behind The Scene text lines animation
         gsap.from(paragraphSplit.lines, {
@@ -285,125 +246,97 @@ const useBTLAnimations = (
           },
         });
 
-        //behind the scene pinning animation
-        gsap.to(BehindTLRef.current, {
-          scrollTrigger: {
-            trigger: BehindTLRef.current,
-            scroller: "[data-scroll-container]",
-            start: "top center-=30%",
-            end: "bottom top-=65%",
-            scrub: true,
-            pin: true,
-            ease: "power2.inOut",
-          },
-        });
-
-        // Behind The Scene text scroll left animation
-        // gsap.to(BehindTLRef.current, {
-        //   x: -600,
-        //   scrollTrigger: {
-        //     trigger: BehindTLRef.current,
-        //     scroller: "[data-scroll-container]",
-        //     start: "top center-=30%",
-        //     end: "bottom top+=20%",
-        //     duration: 0.1,
-        //     scrub: true,
-        //   },
-        // });
-
-        //moving the words to left
-        gsap.to(behindTitle.words, {
-          x: -600,
-          duration: 1.8, // control smoothness of motion
-          ease: "power3.inOut", // smoother ease
-          stagger: {
-            each: 0.25, // delay between each word
-            ease: "power2.inOut",
-          },
-          scrollTrigger: {
-            trigger: BehindTLRef.current,
-            scroller: "[data-scroll-container]",
-            start: "top center-=30%",
-            end: "bottom top+=20%",
-            scrub: 1, // allows smooth scroll-linked motion
-          },
-        });
-
-        //moving lines to left
-        gsap.to(paragraphSplit.lines, {
-          x: -600,
-          duration: 1.8,
-          ease: "power3.inOut",
-          stagger: {
-            each: 0.25,
-            ease: "power2.inOut",
-          },
-          scrollTrigger: {
-            trigger: BehindTLRef.current,
-            scroller: "[data-scroll-container]",
-            start: "top center-=30%",
-            end: "bottom top+=20%",
-            scrub: 1,
-          },
-        });
-
-
-        gsap.to(typingRef.current, {
-          x: -600,
-          duration: 1.8,
-          ease: "power3.inOut",
-          stagger: {
-            each: 0.25,
-            ease: "power2.inOut",
-          },
-          scrollTrigger: {
-            trigger: BehindTLRef.current,
-            scroller: "[data-scroll-container]",
-            start: "top center-=30%",
-            end: "bottom top+=20%",
-            scrub: 1,
-          },
-        });
-
-        // Behind The Scene Image animation
-        gsap.to(BehindImgRef.current, {
-          scrollTrigger: {
-            trigger: BehindImgRef.current,
-            scroller: "[data-scroll-container]",
-            start: "top top+=5%",
-            end: "bottom top-=40%",
-            scrub: true,
-            pin: true,
-            ease: "power2.inOut",
-          },
-        });
-        gsap.to(BehindImgRef.current, {
-          opacity: 0.8,
-          scrollTrigger: {
-            trigger: BehindImgRef.current,
-            scroller: "[data-scroll-container]",
-            start: "top top+=5%",
-          },
-        });
-
-
-        gsap.fromTo(
-          ".stat-number",
-          { textContent: 0 },
-          {
-            textContent: (_, target) => target.getAttribute("data-value"),
-            duration: 2,
-            ease: "power2.out",
-            snap: { textContent: 1 },
+        // Behind the scene pinning animation (not on mobile)
+        if (!isMobile) {
+          gsap.to(BehindTLRef.current, {
             scrollTrigger: {
+              trigger: BehindTLRef.current,
               scroller: "[data-scroll-container]",
-              trigger: ".stats-section",
-              start: "top 80%",
+              start: "top center-=30%",
+              end: "bottom top-=65%",
+              scrub: true,
+              pin: true,
+              ease: "power2.inOut",
             },
-          }
-        );
+          });
 
-        
+          // Responsive title animation
+          gsap.to(behindTitle.words, {
+            x: xOffset,
+            duration: 1.8,
+            ease: "power3.inOut",
+            stagger: {
+              each: 0.25,
+              ease: "power2.inOut",
+            },
+            scrollTrigger: {
+              trigger: BehindTLRef.current,
+              scroller: "[data-scroll-container]",
+              start: "top center-=30%",
+              end: "bottom top+=20%",
+              scrub: 1,
+            },
+          });
+
+          // Responsive lines animation
+          gsap.to(paragraphSplit.lines, {
+            x: xOffset,
+            duration: 1.8,
+            ease: "power3.inOut",
+            stagger: {
+              each: 0.25,
+              ease: "power2.inOut",
+            },
+            scrollTrigger: {
+              trigger: BehindTLRef.current,
+              scroller: "[data-scroll-container]",
+              start: "top center-=30%",
+              end: "bottom top+=20%",
+              scrub: 1,
+            },
+          });
+
+          // Responsive typing overlay animation
+          gsap.to(typingRef.current, {
+            x: xOffset,
+            duration: 1.8,
+            ease: "power3.inOut",
+            stagger: {
+              each: 0.25,
+              ease: "power2.inOut",
+            },
+            scrollTrigger: {
+              trigger: BehindTLRef.current,
+              scroller: "[data-scroll-container]",
+              start: "top center-=30%",
+              end: "bottom top+=20%",
+              scrub: 1,
+            },
+          });
+
+          // Behind The Scene Image animation
+          gsap.to(BehindImgRef.current, {
+            scrollTrigger: {
+              trigger: BehindImgRef.current,
+              scroller: "[data-scroll-container]",
+              start: "top top+=5%",
+              end: "bottom top-=40%",
+              scrub: true,
+              pin: true,
+              ease: "power2.inOut",
+            },
+          });
+
+          gsap.to(BehindImgRef.current, {
+            opacity: 0.8,
+            scrollTrigger: {
+              trigger: BehindImgRef.current,
+              scroller: "[data-scroll-container]",
+              start: "top top+=5%",
+            },
+          });
+        }
+
         // Behind The Scene Card animation
         ScrollTrigger.create({
           trigger: BehindCardRef.current,
@@ -414,6 +347,7 @@ const useBTLAnimations = (
           pin: true,
           ease: "power2.inOut",
         });
+
         gsap.fromTo(
           cards,
           { y: 300, opacity: 0 },
@@ -433,7 +367,35 @@ const useBTLAnimations = (
           }
         );
 
+        // Stats animation
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: ".sts-sc",
+            scroller: "[data-scroll-container]",
+            start: "top 80%",
+          },
+        });
 
+        tl.from(".stat-card", {
+          opacity: 0,
+          x: 30,
+          filter: "blur(12px)",
+          stagger: 0.4,
+          duration: 1.5,
+          ease: "power2.out",
+        });
+
+        tl.fromTo(
+          ".stat-number",
+          { textContent: 0 },
+          {
+            textContent: (_, target) => target.getAttribute("data-value"),
+            duration: 2.5,
+            ease: "power2.out",
+            snap: { textContent: 1 },
+          },
+          "0.3"
+        );
       });
 
       ScrollTrigger.refresh();

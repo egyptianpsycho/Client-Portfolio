@@ -32,9 +32,9 @@ export default function SmoothScroll({ children }) {
       locoScroll = new LocomotiveScroll({
         el: scrollRef.current,
         smooth: true,
-        lerp: 0.08,
-        smartphone: { smooth: false },
-        tablet: { smooth: false },
+        lerp: 0.06,
+        smartphone: { smooth: true },
+        tablet: { smooth: true },
       });
       window.__loco = locoScroll;
 

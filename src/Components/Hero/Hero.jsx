@@ -1,119 +1,96 @@
 "use client";
-import { useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import { SplitText } from "gsap/all";
+import useAnimate from "@/Hooks/useAnimate";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
 export default function Hero() {
-  useEffect(() => {
-    const hero = document.querySelector(".hero-section");
+  useAnimate(() => {
+    const hero = document.querySelector(".hero-pin");
     const about = document.querySelector("#about");
-
-    // Guard: wait until both exist
+    const path = document.querySelector("#pathToAnimate1");
+    if (!path) return;
+    const length = path.getTotalLength();
+    // Pin animation
     if (!hero || !about) return;
+    
 
-    // Delay trigger creation slightly until Locomotive finishes
-    const timeout = setTimeout(() => {
-      const ctx = gsap.context(() => {
-        ScrollTrigger.create({
-          trigger: hero,
-          start: "top top",
-          endTrigger: about,
-          end: "bottom top",
-          pin: true,
-          pinSpacing: false,
-          scrub: true,
-          scroller: "[data-scroll-container]",
-        });
-      });
+    ScrollTrigger.create({
+      trigger: hero,
+      start: "top top",
+      end: "bottom top",
+      pin: true,
+      pinSpacing: false,
+      anticipatePin: 1, // Reduced from 4
+      // Remove scrub entirely - this causes lag with Locomotive
+      scroller: "[data-scroll-container]",
+      invalidateOnRefresh: true,
+    });
+    
+    // Optimized blur - use will-change
+    // gsap.to(".hero", {
+    //   filter: "blur(5px)",
+    //   scrollTrigger: {
+    //     trigger: ".second",
+    //     start: "top bottom",
+    //     end: "top top",
+    //     scrub: 1, // Added smoothing
+    //     scroller: "[data-scroll-container]",
+    //   },
+    // });
 
-      ScrollTrigger.refresh();
+    gsap.to(".overlay-blur-pin", {
+      opacity:1,
+      scrollTrigger: {
+        trigger: ".second",
+        start: "top bottom",
+        end: "top top",
+        scrub:1, // Added smoothing
+        scroller: "[data-scroll-container]",
+      },
+    })
 
-      return () => ctx.revert();
-    }, 300); // wait 0.3s for Locomotive init
+    // Signature.. animation
 
-    return () => clearTimeout(timeout);
-  }, []);
+    gsap.set(path, {
+      strokeDasharray: length,
+      strokeDashoffset: length,
+      visibility: "visible",
+    });
 
-  useEffect(() => {
-    const createAnimation = () => {
-      gsap.fromTo(
-        ".hero",
-        { filter: "blur(0px)" },
-        {
-          filter: "blur(5px)",
-          scrollTrigger: {
-            trigger: ".second",
-            start: "top bottom",
-            end: "top top",
-            scrub: true,
-            scroller: "[data-scroll-container]",
-          },
-        }
-      );
-    };
-
-    ScrollTrigger.addEventListener("refresh", createAnimation);
-
-    createAnimation();
-
-    return () => {
-      ScrollTrigger.removeEventListener("refresh", createAnimation);
-      ScrollTrigger.getAll().forEach((t) => t.kill());
-    };
-  }, []);
-
-  useEffect(() => {
-    const animateSignature = () => {
-      const path = document.querySelector("#pathToAnimate1");
-      if (!path) return;
-  
-      const length = path.getTotalLength();
-  
-      gsap.set(path, { strokeDasharray: length, strokeDashoffset: length, visibility: "visible" });
-  
-      gsap.to(path, {
-        strokeDashoffset: 0,
-        duration: 3,
-        ease: "power2.out",
-      });
-    };
-  
-    if (!document.getElementById("preloader")) {
-      animateSignature();
-      return;
-    }
-  
-    window.addEventListener("preloaderFinished", animateSignature, { once: true });
-    return () => window.removeEventListener("preloaderFinished", animateSignature);
-  }, []);
-  
-  
-  
-  
+    gsap.to(path, {
+      strokeDashoffset: 0,
+      duration: 3,
+      ease: "power2.out",
+      delay:0.3,
+    });
+  });
 
   return (
     <section
-      className="hero-section relative h-screen w-full overflow-hidden "
-      /* note: removed data-scroll-sticky / data-scroll-target */
+      className="hero-section hero-pin relative h-screen w-full overflow-hidden  "
+      style={{ willChange: "transform" }}
     >
-      <div className="absolute inset-0 hero-media pointer-events-none">
-        <div className="absolute inset-0 bg-gradient-to-tr from-black/80 to-transparent pointer-events-none" />
+      <div className="absolute inset-0 hero-media pointer-events-none ">
+        {/* <div className="absolute inset-0 bg-gradient-to-tr from-black/80 to-transparent pointer-events-none" /> */}
 
         <Image
-          src="/HeroImages/Cube.webp"
+          src="/HeroImages/CubeE.webp"
           alt="HeroImage"
           fill
           priority
+          quality={100}
           className="object-cover  "
         />
         {/* overlay(s) */}
-        <div className="absolute inset-0 bg-gradient-to-tr from-black/80 to-[#434343]/40 backdrop-blur-xs" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-black/80 to-[#434343]/40" />
+        <div className="absolute overlay-blur-pin inset-0 backdrop-blur-md   opacity-0 z-[999] " />
       </div>
-      <div className="absolute inset-0 -rotate-10 top-72 left-30 z-99 mix-blend-exclusion ">
+
+      <div className="absolute inset-0 -rotate-10 top-72 left-30 z-99 mix-blend-exclusion   max-sm:inset-0 max-sm:left-10 max-sm:top-40  ">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="100%"
@@ -123,7 +100,7 @@ export default function Hero() {
           preserveAspectRatio="xMidYMid meet"
           aria-hidden="true"
           role="img"
-          className="w-[94%] "
+          className="w-[94%] max-sm:w-[120%] "
         >
           <g>
             <path
@@ -136,9 +113,11 @@ export default function Hero() {
             ></path>
           </g>
         </svg>
-        
       </div>
-      <div className="relative z-30 flex items-center justify-center h-full pt-5 hero">
+      <div
+        className="relative z-30 flex items-center justify-center h-full pt-5 hero max-sm:top-11  "
+        style={{ willChange: "filter" }}
+      >
         {/* svg content unchanged */}
         {/*  */}
 
@@ -151,7 +130,7 @@ export default function Hero() {
           width={"100%"}
           height={"100%"}
           preserveAspectRatio="xMidYMid meet"
-          className={" text-[20vw] z-40"}
+          className={" text-[20vw] z-40 "}
         >
           <defs>
             <linearGradient id="serifGrad" x1="0" x2="1" y1="0" y2="1">
@@ -179,7 +158,7 @@ export default function Hero() {
               fontSize="92"
               fill="url(#serifGrad)"
               letterSpacing="-2"
-              className="select-none h-text"
+              className="select-none h-text "
               id="hero-text"
             >
               ABBAS

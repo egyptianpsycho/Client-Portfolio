@@ -23,7 +23,7 @@ const Videos = () => {
           title.closest(".group").addEventListener("mouseenter", () => {
             gsap.fromTo(
               split.chars,
-              { y: 30, opacity: 0, rotateX: 90, filter: "blur(20px)" },
+              { y: 30, opacity: 0, rotateX: 90, filter: "blur(10px)" },
               {
                 y: 0,
                 opacity: 1,
@@ -49,13 +49,13 @@ const Videos = () => {
 
        
         const vidsBoxes = gsap.utils.toArray(".video-item");
-
+        
         gsap.from(vidsBoxes, {
           opacity: 0,
-          y: 200,
-          duration: 1.2,
+          y: 100,
+          duration: 1,
           filter: "blur(10px)",
-          ease: "power3.out",
+          ease: "power2.out",
           stagger: 0.06,
           scrollTrigger: {
             trigger: vidSecRef.current,
@@ -97,24 +97,24 @@ const Videos = () => {
             <VideoPlayer
               poster={project.thummnail}
               src={project.videoURL}
-              classN="object-cover rounded-2xl scale-[0.99] h-full  origin-center grayscale-75 backdrop-blur-sm transition-all duration-500 ease-out  group-hover:grayscale-0 group-hover:scale-105 "
+              classN="object-cover rounded-2xl scale-[0.99] h-full  origin-center grayscale-75  transition-all duration-500 ease-out  group-hover:grayscale-0 group-hover:scale-105 "
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-700 ease-out  pointer-events-auto group-hover:pointer-events-none  " />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-700 ease-out  pointer-events-none group-hover:pointer-events-none  " />
 
             {/* title on the bottom */}
-            <div className="absolute bottom-10 left-0 w-full text-center opacity-0 group-hover:opacity-100 transition-all duration-700 ease-out pointer-events-auto group-hover:pointer-events-none">
-              <h3 className="text-white/80 text-xl font-semibold tracking-wide text-gradient project-title ">
+            <div className="absolute bottom-10 max-sm:bottom-8 left-0 w-full text-center opacity-0 group-hover:opacity-100 transition-all duration-700 ease-out pointer-events-none group-hover:pointer-events-none">
+              <h3 className="text-white/80 text-xl font-semibold tracking-wide text-gradient project-title max-sm:text-lg ">
                 {project.title}
               </h3>
             </div>
 
             {/* duration */}
-            <div className="absolute bottom-2 left-4    opacity-0 group-hover:opacity-100 transition-all duration-700 ease-out pointer-events-auto group-hover:pointer-events-none">
+            <div className="absolute bottom-2 left-4    opacity-0 group-hover:opacity-100 transition-all duration-700 ease-out pointer-events-none group-hover:pointer-events-none">
               <h3 className="text-gray-200/20 text-sm font-semibold  ">
                 {project.durtaion}
               </h3>
             </div>
-            <div className="blur-2xl opacity-10  scale-200 bg-slate-500/10 absolute inset-0 pointer-events-auto group-hover:pointer-events-none" />
+            <div className="blur-2xl opacity-10  scale-200 bg-slate-500/10 absolute inset-0 pointer-events-none group-hover:pointer-events-none" />
           </div>
         ))}
       </div>
