@@ -9,11 +9,11 @@ const logos = [
   { src: "/Logos/musume2.svg", alt: "musume" },
   { src: "/Logos/samsung.png", alt: "samsung" },
   { src: "/Logos/Porsche.svg.svg", alt: "Porsche" },
-  { src: "/Logos/maged.svg", alt: "Etihad" }, 
-  { src: "/Logos/bmw.png", alt: "TikTok" }, 
-  { src: "/Logos/NYC.svg", alt: "National Geographic" },
-  { src: "/Logos/DubaiT.png", alt: "Etihad" },
-  { src: "/Logos/adidas.png", alt: "Adidos" },
+  { src: "/Logos/bmw.png", alt: "bmw" }, 
+  { src: "/Logos/magedw.svg", alt: "maged" }, 
+  { src: "/Logos/NYC.svg", alt: "NYC" },
+  { src: "/Logos/DubaiT.png", alt: "DubaiT" },
+  { src: "/Logos/adidas.png", alt: "Adidas" },
 
 ];
 
