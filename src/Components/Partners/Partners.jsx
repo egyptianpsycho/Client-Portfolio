@@ -4,17 +4,17 @@ import Image from "next/image";
 import useAnimate from "@/Hooks/useAnimate";
 
 const logos = [
-  
-  { src: "/Logos/adidas.png", alt: "Adidos" },
+  { src: "/Logos/jumeira.png", alt: "Jumeria" },
   { src: "/Logos/PUMA.svg", alt: "Puma" },
   { src: "/Logos/musume2.svg", alt: "musume" },
   { src: "/Logos/samsung.png", alt: "samsung" },
   { src: "/Logos/Porsche.svg.svg", alt: "Porsche" },
-  { src: "/Logos/jumeira.png", alt: "Jumeria" },
-  { src: "/Logos/NG.svg.svg", alt: "National Geographic" },
-  { src: "/Logos/Tiktok.svg", alt: "TikTok" },
+  { src: "/Logos/maged.svg", alt: "Etihad" }, 
+  { src: "/Logos/bmw.png", alt: "TikTok" }, 
+  { src: "/Logos/NYC.svg", alt: "National Geographic" },
   { src: "/Logos/DubaiT.png", alt: "Etihad" },
-  { src: "/Logos/google.svg", alt: "Etihad" },
+  { src: "/Logos/adidas.png", alt: "Adidos" },
+
 ];
 
 const Partners = () => {
@@ -59,7 +59,7 @@ const Partners = () => {
   });
 
   return (
-    <section className="-mb-0.1  min-h-screen h-auto sm:h-screen  z-[100] pt-20 sm:pt-32 md:pt-40 pb-10 sm:pb-0 overflow-hidden bg-gradient-to-br to-[#000000] from-[#0a212b] flex items-center justify-center">
+    <section className="-mb-0.1  min-h-screen h-auto sm:h-screen  z-[100] pt-20 sm:pt-32 md:pt-40 pb-10 sm:pb-0 overflow-hidden bg-gradient-to-br to-[#000000] from-[#0a212b] flex items-center justify-center" id="PARTNERS">
       <div className="relative flex flex-col sm:grid sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-3 md:gap-3.5 -rotate-0 sm:-rotate-8 md:-rotate-10 w-full partners-grid px-4 sm:px-0 max-w-sm sm:max-w-none mx-auto ">
         {logos.map((logo, index) => (
           <div
@@ -74,6 +74,7 @@ const Partners = () => {
               width={150}
               height={150}
               className="object-contain  relative sm:absolute w-16 h-16 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-28 lg:h-28 xl:w-36 xl:h-36"
+              loading="lazy"
             />
           </div>
         ))}

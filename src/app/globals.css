@@ -750,7 +750,7 @@ h-text{
 }
 .contact-section {
   position: relative;
-  /* overflow: hidden; */
+  overflow: hidden;
 }
 
 /* SMALLER BLOBS */
@@ -802,3 +802,18 @@ h-text{
   mix-blend-mode: overlay;
   z-index: 10;  
 }
+
+/* .chat-ai::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 10%;
+  height: 80px;
+  background: linear-gradient(
+    to bottom,
+    black,
+    #0f172b 
+  );
+  pointer-events: none;
+} */

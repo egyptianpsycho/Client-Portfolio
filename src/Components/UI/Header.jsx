@@ -34,10 +34,10 @@ export function Header() {
     
   });
   const links = [
-    { href: "#about", label: "ABOUT ME" },
-    { href: "#partners", label: "PARTNERS" },
-    { href: "#services", label: "SERVICES" },
-    { href: "#faq", label: "FAQ" },
+    { href: "/about", label: "ABOUT ME" },
+    { href: "#PARTNERS", label: "PARTNERS" },
+    { href: "#PROJECTS", label: "PROJECTS" },
+    { href: "#BOOK", label: "BOOK" },
     { href: "#CONTACT", label: "CONTACT" },
   ];
   const toggleMenu = () => {

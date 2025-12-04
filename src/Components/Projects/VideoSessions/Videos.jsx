@@ -4,7 +4,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
 import "./Videos.css";
-import { PROJECTSVIDS } from "../CONSTANTS"; 
+import { PROJECTSVIDS } from "../CONSTANTS";
 import VideoPlayer from "@/Components/UI/VideoPlayer";
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
@@ -13,11 +13,29 @@ const Videos = () => {
   useEffect(() => {
     const init = () => {
       const ctx = gsap.context(() => {
-        
         const titles = gsap.utils.toArray(".project-title");
-
         titles.forEach((title) => {
           const split = new SplitText(title, { type: "chars" });
+        // const videosTitle = new SplitText(".videos-title", { type: "chars" });
+        // videosTitle.chars.forEach((char) => char.classList.add("text-gradient"));
+
+
+        // gsap.from(videosTitle.chars, {
+        //   opacity: 0,
+        //   duration: 2,
+        //   ease: "expo.out",
+        //   stagger: 0.1,
+        //   filter: "blur(30px)",
+        //   y: 50,
+        //   scrollTrigger: {
+        //     trigger: "#videos-section",
+        //     scroller: "[data-scroll-container]",
+        //     start: "top bottom-=30%",
+        //     toggleActions: "play none none reverse",
+        //   },
+        // });
+
+        
 
           // When hovering over the card
           title.closest(".group").addEventListener("mouseenter", () => {
@@ -47,9 +65,8 @@ const Videos = () => {
           });
         });
 
-       
         const vidsBoxes = gsap.utils.toArray(".video-item");
-        
+
         gsap.from(vidsBoxes, {
           opacity: 0,
           y: 100,
@@ -80,8 +97,18 @@ const Videos = () => {
     return () => clearInterval(wait);
   }, []);
   return (
-    <div className="relative min-h-screen mt-50 " ref={vidSecRef}>
+    <div id="videos-section" className="relative min-h-screen mt-20 " ref={vidSecRef}>
       {/* <span className="text-white">🎞️</span> */}
+      <h1
+        className="text-9xl max-sm:text-4xl mb-10 text-center   videos-title font-bold  text-gradient "
+        style={{
+          clipPath: "polygon(0 0, 100% 0, 100% 100%, 0% 100%) ",
+          fontFamily: " 'Bebas Neue', 'serif' ",
+          letterSpacing: "0.4rem",
+        }}
+      >
+        VISION IN MOTION
+      </h1>
       <div className="parent-video mx-auto  h-[90vh]  ">
         {PROJECTSVIDS.map((project, index) => (
           <div

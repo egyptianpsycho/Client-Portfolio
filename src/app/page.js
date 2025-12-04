@@ -11,23 +11,24 @@ import Signature from "@/Components/Signature";
 import SmoothScroll from "@/Components/SmoothScroll";
 import OverlayT from "@/Components/Contact/OverlayT";
 import { Testimonials } from "@/Components/Testimonials/Testimonials";
+import Chat from "@/Components/Chat/Chat";
+import Footer from "@/Components/UI/Footer";
 
 const Home = () => {
   return (
-    <SmoothScroll>
-      <div id="page-wrapper">
-        <Hero />
-        <About />
-        <Partners />
-        <BTL />
-        <Recent />
-        <Projects />
-        <ServicesMain />
-        <Testimonials />
-        <OverlayT />
-        <Contact />
-      </div>
-    </SmoothScroll>
+    <div>
+      <Hero />
+      <About />
+      <Partners />
+      <Recent />
+      <BTL />
+      <Projects />
+      {/* <ServicesMain /> */}
+      <Testimonials />
+      <Chat />
+      <Contact />
+      <Footer />
+    </div>
   );
 };
 

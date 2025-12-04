@@ -1,12 +1,15 @@
+import SmoothScroll from "./SmoothScroll";
 import Header from "./UI/Header";
-// import Footer from "./Footer";
 
 const Layout = ({ children }) => {
   return (
     <div>
       <Header />
-      <main>{children}</main>
-      {/* <Footer /> */}
+      <SmoothScroll>
+        <div id="page-wrapper">
+          <main>{children}</main>
+        </div>
+      </SmoothScroll>
     </div>
   );
 };

@@ -65,7 +65,7 @@ export default function Hero() {
       strokeDashoffset: 0,
       duration: 3,
       ease: "power2.out",
-      delay:0.3,
+      delay:0.5,
     });
   });
 

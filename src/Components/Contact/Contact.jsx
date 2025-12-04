@@ -120,7 +120,7 @@ const Contact = () => {
                 fontWeight: "300",
               }}
             >
-              LET’S WORK{" "}
+              LET’S COCK{" "}
               <span style={{ fontFamily: "Nanum Myeongjo", fontWeight: "400" }}>
                 TOGETHER
               </span>

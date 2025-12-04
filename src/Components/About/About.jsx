@@ -116,7 +116,7 @@ const About = () => {
                 className="block w-full sm:w-auto sm:ml-auto lg:pr-8"
                 style={{ fontFamily: '"Work Sans", sans-serif' }}
               >
-                AGENCY
+                STUDIO
               </span>
             </motion.h1>
           </div>
@@ -150,7 +150,7 @@ const About = () => {
         {/* Paragraph with Animation */}
         <div
           ref={paraRef}
-          className="relative about-paragraph text-white leading-relaxed sm:leading-loose md:leading-11 text-xl sm:text-xl md:text-2xl lg:text-[2rem] max-w-[99%] sm:max-w-3xl md:max-w-4xl lg:max-w-5xl px-0 sm:px-4 md:px-8 tracking-normal mt-8 sm:mt-40 md:mt-60 lg:mt-80 max-sm:top-50 font-medium"
+          className="relative about-paragraph text-white leading-relaxed sm:leading-loose md:leading-11 text-xl sm:text-xl md:text-2xl lg:text-[2rem] max-w-[99%] sm:max-w-3xl md:max-w-3xl lg:max-w-4xl px-0 sm:px-0 md:px-0 tracking-normal mt-8 sm:mt-40 md:mt-60 lg:mt-80 max-sm:top-50 font-medium max-sm:mx-auto"
           style={{ fontFamily: '"Work Sans", sans-serif' }}
         >
           <div style={{ overflow: "hidden" }}>
@@ -161,10 +161,7 @@ const About = () => {
               animate={paraInView ? "enter" : ""}
               className="w-full about-para"
             >
-              Born from social and inspired by culture, we're champions of
-              storytelling across the platforms and technologies that shape the
-              internet, today and tomorrow. We work with global brands to
-              connect the dots in a maze of swipe, tap, forgettable.
+              We create culturally-inspired, social-first content. As strategic storytellers, we help global brands craft meaningful narratives that cut through the digital noise and connect across every emerging platform.
             </motion.p>
           </div>
         </div>
