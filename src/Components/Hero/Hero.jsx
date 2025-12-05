@@ -155,12 +155,12 @@ export default function Hero() {
       style={{ willChange: "transform" }}
     >
       <div className="absolute inset-0 hero-media pointer-events-none">
-        <Image
-          src="/HeroImages/CubeE.webp"
+        <video
+          src="/HeroImages/vid.mp4"
           alt="HeroImage"
-          fill
-          priority
-          quality={100}
+          autoPlay={true}          
+          loop={true}
+          muted
           className="object-cover"
         />
         {/* overlay(s) */}
