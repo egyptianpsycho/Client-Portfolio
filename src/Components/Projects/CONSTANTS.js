@@ -39,28 +39,9 @@ export const PROJECTSIMGS = [
     date: "2024",
     description: "Exploring emotion through natural light.",
   },
-  // {
-  //   id: 3,
-  //   title: "Adidas Dubai - Strength Collection",
-  //   alt: "adidas",
-  //   cover: "/Projects/images/Adidas/Adidas.jpg",
-  //   images: [
-  //     "Projects/images/PUMA/PUMA2.jpg",
-  //     "Projects/images/PUMA/PUMA3.jpg",
-  //     "Projects/images/PUMA/PUMA4.webp",
-  //     "Projects/images/PUMA/PUMA5.webp",
-  //     "Projects/images/PUMA/PUMA6.webp",
-  //     "Projects/images/PUMA/PUMA7.webp",
-  //     "Projects/images/PUMA/PUMA8.webp",
-  //     "Projects/images/PUMA/PUMA9.webp",
-  //     "Projects/images/PUMA/PUMA10.webp",
-  //   ],
-  //   link: "https://www.behance.net/gallery/202245933/Adidas-Dubai-Strength-Collection",
-  //   date: "2025",
-  //   description: "Exploring emotion through natural light.",
-  // },
+  
   {
-    id: 4,
+    id: 3,
     title: "Mirage - Ferrari x Dubai",
     alt: "mirage ferrari",
     cover: "/Projects/images/CAR/CAR.jpg",
@@ -78,48 +59,8 @@ export const PROJECTSIMGS = [
     description: "Exploring emotion through natural light.",
     date: "2024"
   },
-  // {
-  //   id: 5,
-  //   title: "VOX CINEMA - MALL OF THE EMIRATES, UAE",
-  //   alt: "vox cinema",
-  //   cover: "/Projects/images/CINEMA/CINEMA.jpg",
-  //   images: [
-  //     "Projects/images/PUMA/PUMA2.jpg",
-  //     "Projects/images/PUMA/PUMA3.jpg",
-  //     "Projects/images/PUMA/PUMA4.webp",
-  //     "Projects/images/PUMA/PUMA5.webp",
-  //     "Projects/images/PUMA/PUMA6.webp",
-  //     "Projects/images/PUMA/PUMA7.webp",
-  //     "Projects/images/PUMA/PUMA8.webp",
-  //     "Projects/images/PUMA/PUMA9.webp",
-  //     "Projects/images/PUMA/PUMA10.webp",
-  //   ],
-  //   link: "https://www.behance.net/gallery/190680523/VOX-CINEMA-MALL-OF-THE-EMIRATES-UAE",
-  //   date: "2025",
-  //   description: "Exploring emotion through natural light.",
-  // },
-  // {
-  //   id: 7,
-  //   title: "Talise",
-  //   alt: "talise",
-  //   cover: "/Projects/images/Cube/Cube.jpg",
-  //   images: [
-  //     "Projects/images/PUMA/PUMA2.jpg",
-  //     "Projects/images/PUMA/PUMA3.jpg",
-  //     "Projects/images/PUMA/PUMA4.webp",
-  //     "Projects/images/PUMA/PUMA5.webp",
-  //     "Projects/images/PUMA/PUMA6.webp",
-  //     "Projects/images/PUMA/PUMA7.webp",
-  //     "Projects/images/PUMA/PUMA8.webp",
-  //     "Projects/images/PUMA/PUMA9.webp",
-  //     "Projects/images/PUMA/PUMA10.webp",
-  //   ],
-  //   link: "https://www.behance.net/gallery/215363305/Talise",
-  //   date: "2025",
-  //   description: "Exploring emotion through natural light.",
-  // },
   {
-    id: 24,
+    id: 4,
     title: "CUBE",
     alt: "Cube",
     cover: "/Projects/images/Cube/Cube.jpg",
@@ -137,66 +78,8 @@ export const PROJECTSIMGS = [
     description: "Exploring emotion through natural light.",
     date: "2024"
   },
-  // {
-  //   id: 8,
-  //   title: "Jumeirah Dar Al Masyaf",
-  //   alt: "Jumeria",
-  //   cover: "/Projects/images/Jumeriah/JumeriahHERO.jpg",
-  //   images: [
-  //     "Projects/images/PUMA/PUMA2.jpg",
-  //     "Projects/images/PUMA/PUMA3.jpg",
-  //     "Projects/images/PUMA/PUMA4.webp",
-  //     "Projects/images/PUMA/PUMA5.webp",
-  //     "Projects/images/PUMA/PUMA6.webp",
-  //     "Projects/images/PUMA/PUMA7.webp",
-  //     "Projects/images/PUMA/PUMA8.webp",
-  //     "Projects/images/PUMA/PUMA9.webp",
-  //     "Projects/images/PUMA/PUMA10.webp",
-  //   ],
-  //   link: "https://www.behance.net/gallery/214789363/Jumeirah-Dar-Al-Masyaf",
-  //   date: "2024",
-  //   description: "Exploring emotion through natural light.",
-  // },
-  // {
-  //   id: 9,
-  //   title: "Jumeirah Mina Al Salam",
-  //   alt: "Jumeriah",
-  //   cover: "/Projects/images/Jumeriah2/JumeriahHero.webp",
-  //   images: [
-  //     "Projects/images/PUMA/PUMA2.jpg",
-  //     "Projects/images/PUMA/PUMA3.jpg",
-  //     "Projects/images/PUMA/PUMA4.webp",
-  //     "Projects/images/PUMA/PUMA5.webp",
-  //     "Projects/images/PUMA/PUMA6.webp",
-  //     "Projects/images/PUMA/PUMA7.webp",
-  //     "Projects/images/PUMA/PUMA8.webp",
-  //     "Projects/images/PUMA/PUMA9.webp",
-  //     "Projects/images/PUMA/PUMA10.webp",
-  //   ],
-  //   link: "https://www.behance.net/gallery/202634557/Jumeirah-Mina-Al-Salam",
-  //   date: "2025",
-  //   description: "Exploring emotion through natural light.",
-  // },
-  // {
-  //   id: 10,
-  //   title: "Ganache Chocolatier",
-  //   alt: "GANACHE",
-  //   cover: "/Projects/images/Ganache/Ganache.jpg",
-  //   images: [
-  //     "Projects/images/PUMA/PUMA2.jpg",
-  //     "Projects/images/PUMA/PUMA3.jpg",
-  //     "Projects/images/PUMA/PUMA4.webp",
-  //     "Projects/images/PUMA/PUMA5.webp",
-  //     "Projects/images/PUMA/PUMA6.webp",
-  //     "Projects/images/PUMA/PUMA7.webp",
-  //     "Projects/images/PUMA/PUMA8.webp",
-  //     "Projects/images/PUMA/PUMA9.webp",
-  //     "Projects/images/PUMA/PUMA10.webp",
-  //   ],
-  //   description: "Exploring emotion through natural light.",
-  // },
   {
-    id: 11,
+    id: 5,
     title: "THE ART OF AlUla - SAUDI ARABIA",
     alt: "ALULA",
     cover: "/Projects/images/ALULA/ALULA.jpg",
@@ -215,7 +98,7 @@ export const PROJECTSIMGS = [
     date: "2024"
   },
   {
-    id: 12,
+    id: 6,
     title: "STARYOUTH",
     alt: "STARYOUTH",
     cover: "/Projects/images/staryouth/staryouth.jpg",
@@ -233,26 +116,8 @@ export const PROJECTSIMGS = [
     description: "Exploring emotion through natural light.",
     date: "2023"
   },
-  // {
-  //   id: 13,
-  //   title: "The Art Of Jumeirah",
-  //   alt: "Jumeriah",
-  //   cover: "/Projects/images/Jumeriah3/Jumeriah.jpg",
-  //   images: [
-  //     "Projects/images/PUMA/PUMA2.jpg",
-  //     "Projects/images/PUMA/PUMA3.jpg",
-  //     "Projects/images/PUMA/PUMA4.webp",
-  //     "Projects/images/PUMA/PUMA5.webp",
-  //     "Projects/images/PUMA/PUMA6.webp",
-  //     "Projects/images/PUMA/PUMA7.webp",
-  //     "Projects/images/PUMA/PUMA8.webp",
-  //     "Projects/images/PUMA/PUMA9.webp",
-  //     "Projects/images/PUMA/PUMA10.webp",
-  //   ],
-  //   description: "Exploring emotion through natural light.",
-  // },
   {
-    id: 14,
+    id: 7,
     title: "Bare",
     alt: "rang",
     cover: "/Projects/images/Bare/BARE.jpg",
@@ -271,7 +136,7 @@ export const PROJECTSIMGS = [
     date: "2023"
   },
   {
-    id: 15,
+    id: 8,
     title: "Future Horizons",
     alt: "Future Horizons",
     cover: "/Projects/images/Circle/Circle.jpg",
@@ -290,7 +155,7 @@ export const PROJECTSIMGS = [
     date: "2024"
   },
   {
-    id: 16,
+    id: 9,
     title: "Apocalypse",
     alt: "apocalypse",
     cover: "/Projects/images/BLACK/Black.jpg",
@@ -309,7 +174,7 @@ export const PROJECTSIMGS = [
     date: "2024"
   },
   {
-    id: 17,
+    id: 10,
     title: "@arsenal X @adidasfootball",
     alt: "ARSENAL X ADIDAS",
     cover: "/Projects/images/ARSENAL/ARSENALHERO.jpg",
@@ -330,7 +195,7 @@ export const PROJECTSIMGS = [
   },
 
   {
-    id: 18,
+    id: 11,
     title: "Disconected",
     alt: "disconected",
     cover: "/Projects/images/Disconected/disconected.jpg",
@@ -349,7 +214,7 @@ export const PROJECTSIMGS = [
     date: "2024"
   },
   {
-    id: 19,
+    id: 12,
     title: "Heaven",
     alt: "Heaven",
     cover: "/Projects/images/WHITE/White.png",
@@ -368,7 +233,7 @@ export const PROJECTSIMGS = [
     date: "2023"
   },
   {
-    id: 20,
+    id: 13,
     title: "MOODY GIRL",
     alt: "MOODY GIRL",
     cover: "/Projects/images/TEA/TEA.jpg",
@@ -387,7 +252,7 @@ export const PROJECTSIMGS = [
     date: "2023"
   },
   {
-      id: 3,
+      id: 14,
       title: "Adidas Dubai - Strength Collection",
       alt: "adidas",
       cover: "/Projects/images/Adidas/Adidas.jpg",
@@ -408,7 +273,7 @@ export const PROJECTSIMGS = [
     },
   
   {
-    id: 23,
+    id: 15,
     title: "Desert Runner - Adidas x David Popa",
     alt: "Adidas",
     cover: "/Projects/images/Adidas3/Adidas.jpg",
@@ -428,24 +293,7 @@ export const PROJECTSIMGS = [
     description: "Exploring emotion through natural light.",
   },
   
-  // {
-  //   id: 6,
-  //   title: "Night Crawler",
-  //   alt: "Cube",
-  //   cover: "/Projects/images/Night Crawler/Night Crawler.webp",
-  //   images: [
-  //     "Projects/images/PUMA/PUMA2.jpg",
-  //     "Projects/images/PUMA/PUMA3.jpg",
-  //     "Projects/images/PUMA/PUMA4.webp",
-  //     "Projects/images/PUMA/PUMA5.webp",
-  //     "Projects/images/PUMA/PUMA6.webp",
-  //     "Projects/images/PUMA/PUMA7.webp",
-  //     "Projects/images/PUMA/PUMA8.webp",
-  //     "Projects/images/PUMA/PUMA9.webp",
-  //     "Projects/images/PUMA/PUMA10.webp",
-  //   ],
-  //   description: "Exploring emotion through natural light.",
-  // },
+  
 ];
 
 export const PROJECTSVIDS = [

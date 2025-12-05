@@ -103,15 +103,17 @@ const Images = () => {
       <div>
         <div className=" z-100 text-center ">
           <h1
-            className="text-9xl max-sm:text-4xl mb-5 relative inset-0 -top-90   behind-title2 font-bold  text-gradient "
+            className="text-9xl max-sm:text-4xl mb-5 relative inset-0 -top-90   behind-title2 font-bold  text-gradient  "
             style={{
               clipPath: "polygon(0 0, 100% 0, 100% 100%, 0% 100%) ",
               lineHeight: "12rem",
               fontFamily: " 'Bebas Neue', 'serif' ",
-              letterSpacing: "0.6rem",
+              letterSpacing: "1.1rem",
+              
+              
             }}
           >
-            PHOTOGRAPHY PROJECTS
+            PHOTOGRAPHY
           </h1>
         </div>
       </div>{" "}

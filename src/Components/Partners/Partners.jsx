@@ -6,7 +6,7 @@ import useAnimate from "@/Hooks/useAnimate";
 const logos = [
   { src: "/Logos/jumeira.png", alt: "Jumeria" },
   { src: "/Logos/PUMA.svg", alt: "Puma" },
-  { src: "/Logos/musume2.svg", alt: "musume" },
+  { src: "/Logos/enbd.svg", alt: "musume" },
   { src: "/Logos/samsung.png", alt: "samsung" },
   { src: "/Logos/Porsche.svg.svg", alt: "Porsche" },
   { src: "/Logos/bmw.png", alt: "bmw" }, 

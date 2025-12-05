@@ -67,7 +67,7 @@ const Contact = () => {
               className="text-5xl lg:text-7xl font-medium leading-19 max-sm:leading-none pt-4 max-sm:mix-blend-difference "
               style={{ fontFamily: '"Work Sans", sans-serif' }}
             >
-              SHAPING THE <br /> FUTURE OF <br /> CULTURE,
+              SHAPING THE <br /> FUTURE OF <br /> VISUALS,
               <span style={{ fontFamily: "Nanum Myeongjo", fontWeight: "400" }}>
                 {" "}
                 TODAY

@@ -28,7 +28,7 @@ const HeroSection = ({ sectionRef, imageContainerRef, textRef }) => {
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  
               text-white text-3xl max-sm:w-70 sm:text-4xl md:text-5xl lg:text-7xl font-bold text-center z-10 mix-blend-color"
         >
-          <h1 className="title   ">HUNGRY FOR CONTENT?
+          <h1 className="title">HUNGRY FOR CONTENT?<br/>
             WE'VE GOT THE RECIPE
           </h1>
         </div>

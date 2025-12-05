@@ -18,7 +18,7 @@ const Recent = () => {
       const darkColor = getComputedStyle(document.documentElement)
         .getPropertyValue("--dark")
         .trim();
-        
+
       const ctx = gsap.context(() => {
         const recentfirstSplit = new SplitText(".firstanimatetext", {
           type: "chars, words",
@@ -40,19 +40,34 @@ const Recent = () => {
               scroller: "[data-scroll-container]",
               trigger: "#recent-section",
               start: "top bottom-=15%",
-              end: "bottom bottom+=125%",
+              end: "bottom bottom+=140%",
+              scrub: 1,
+            },
+          }
+        );
+        gsap.fromTo(
+          recentsecondSplit.words,
+          { color: "#708090", filter: "blur(4px)", x: 10, y: 10 },
+          {
+            y: 0,
+            x: 0,
+            color: "#edf1e8",
+            filter: "blur(0px)",
+            stagger: 0.05,
+            scrollTrigger: {
+              scroller: "[data-scroll-container]",
+              trigger: ".outro",
+              start: "top bottom-=530%",
+              end: "bottom bottom-=540%",
               scrub: 1,
             },
           }
         );
 
-       
-        
-
         function interpolateColor(color1, color2, factor) {
           return gsap.utils.interpolate(color1, color2, factor);
         }
-        
+
         gsap.to(".marq-images", {
           scrollTrigger: {
             scroller: "[data-scroll-container]",
@@ -77,13 +92,14 @@ const Recent = () => {
         function createPinnedMarqueeimgClone() {
           if (isImgCloneActive) return;
 
-          const originalMarqueeImg = document.querySelector(".marq-img.pin img");
+          const originalMarqueeImg =
+            document.querySelector(".marq-img.pin img");
           if (!originalMarqueeImg) return;
-          
+
           const rect = originalMarqueeImg.getBoundingClientRect();
           const centerX = rect.left + rect.width / 2;
           const centerY = rect.top + rect.height / 2;
-          
+
           pinnedMarqueeimgClone = originalMarqueeImg.cloneNode(true);
 
           gsap.set(pinnedMarqueeimgClone, {
@@ -98,31 +114,32 @@ const Recent = () => {
             willChange: "transform",
             zIndex: 100,
           });
-          
+
           document.body.appendChild(pinnedMarqueeimgClone);
           gsap.set(originalMarqueeImg, { opacity: 0 });
           isImgCloneActive = true;
         }
-        
+
         function removePinnedMarqueeimgClone() {
           if (!isImgCloneActive) return;
-          
+
           // Kill any active flip animation
           if (flipAnimation) {
             flipAnimation.kill();
             flipAnimation = null;
           }
-          
+
           if (pinnedMarqueeimgClone) {
             pinnedMarqueeimgClone.remove();
             pinnedMarqueeimgClone = null;
           }
-          
-          const originalMarqueeImg = document.querySelector(".marq-img.pin img");
+
+          const originalMarqueeImg =
+            document.querySelector(".marq-img.pin img");
           if (originalMarqueeImg) {
             gsap.set(originalMarqueeImg, { opacity: 1 });
           }
-          
+
           isImgCloneActive = false;
         }
 
@@ -153,7 +170,7 @@ const Recent = () => {
           end: () => `+=${window.innerHeight * 5.5}`,
           onUpdate: (self) => {
             const progress = self.progress;
-            
+
             // Background color transition (0-5% progress)
             if (progress <= 0.05) {
               const bgColorProgress = Math.min(progress / 0.05, 1);
@@ -186,33 +203,33 @@ const Recent = () => {
                   transform: "rotate(0deg)",
                   transformOrigin: "center center",
                 });
-                
+
                 flipAnimation = Flip.from(statee, {
                   duration: 1,
                   ease: "none",
                   paused: true,
                 });
               }
-              
+
               const scaleProgress = progress / 0.2;
               if (flipAnimation) {
                 flipAnimation.progress(scaleProgress);
               }
             }
-            
+
             // Horizontal scroll (20-95% progress)
             else if (progress > 0.2 && progress <= 0.95) {
               if (flipAnimation) {
                 flipAnimation.progress(1);
               }
-              
+
               const horizontalProgress = (progress - 0.2) / 0.75;
               const wrapperTranslateX = -66.67 * horizontalProgress;
-              
+
               gsap.set(".horizontal-scroll-wrapper", {
                 x: `${wrapperTranslateX}%`,
               });
-              
+
               if (pinnedMarqueeimgClone) {
                 const slideMovement = (66.67 / 100) * 3 * horizontalProgress;
                 const imageTranslateX = -slideMovement * 100;
@@ -221,19 +238,19 @@ const Recent = () => {
                 });
               }
             }
-            
+
             // Final position (95%+ progress)
             else if (progress > 0.95) {
               if (flipAnimation) {
                 flipAnimation.progress(1);
               }
-              
+
               if (pinnedMarqueeimgClone) {
                 gsap.set(pinnedMarqueeimgClone, {
                   x: "-200%",
                 });
               }
-              
+
               gsap.set(".horizontal-scroll-wrapper", {
                 x: "-66.67%",
               });
@@ -245,23 +262,24 @@ const Recent = () => {
               flipAnimation.kill();
               flipAnimation = null;
             }
-            
+
             gsap.set(".cont", {
               backgroundColor: lightColor,
             });
-            
+
             gsap.set(".horizontal-scroll-wrapper", {
               x: "0%",
             });
-            
+
             if (pinnedMarqueeimgClone && isImgCloneActive) {
               // Reset clone to initial position
-              const originalMarqueeImg = document.querySelector(".marq-img.pin img");
+              const originalMarqueeImg =
+                document.querySelector(".marq-img.pin img");
               if (originalMarqueeImg) {
                 const rect = originalMarqueeImg.getBoundingClientRect();
                 const centerX = rect.left + rect.width / 2;
                 const centerY = rect.top + rect.height / 2;
-                
+
                 gsap.set(pinnedMarqueeimgClone, {
                   position: "fixed",
                   left: centerX - originalMarqueeImg.offsetWidth / 2 + "px",
@@ -276,7 +294,7 @@ const Recent = () => {
           },
         });
       });
-      
+
       return () => ctx.revert();
     };
 
@@ -294,11 +312,9 @@ const Recent = () => {
     <div className="cont " id="recent-section">
       <section className="hero-2 ">
         <h1 className="h1-recent firstanimatetext max-sm:relative max-sm:right-64 max-sm:max-w-90">
-        Shall we move from words to visuals?
-        My favorite part? Showing you.
-        The proof, as they say, is in the pictures.
-        Here’s where the vision comes to life.
-        Now, take a look.
+          Shall we move from words to visuals? My favorite part? Showing you.
+          The proof, as they say, is in the pictures. Here’s where the vision
+          comes to life. Now, take a look.
         </h1>
       </section>
 
@@ -313,7 +329,6 @@ const Recent = () => {
                 alt="marq-img"
                 className="img-recent"
                 loading="lazy"
-
               />
             </div>
             <div className="marq-img">
@@ -324,7 +339,6 @@ const Recent = () => {
                 alt="marq-img"
                 className="img-recent"
                 loading="lazy"
-
               />
             </div>
             <div className="marq-img">
@@ -335,7 +349,6 @@ const Recent = () => {
                 alt="marq-img"
                 className="img-recent object-bottom"
                 loading="lazy"
-
               />
             </div>
             <div className="marq-img">
@@ -346,7 +359,6 @@ const Recent = () => {
                 alt="marq-img"
                 className="img-recent"
                 loading="lazy"
-
               />
             </div>
             <div className="marq-img">
@@ -357,7 +369,6 @@ const Recent = () => {
                 alt="marq-img"
                 className="img-recent"
                 loading="lazy"
-
               />
             </div>
             <div className="marq-img">
@@ -368,7 +379,6 @@ const Recent = () => {
                 alt="marq-img"
                 className="img-recent"
                 loading="lazy"
-
               />
             </div>
             <div className="marq-img pin">
@@ -408,7 +418,7 @@ const Recent = () => {
                 src="/Recent/3.jpg"
                 alt="marq-img"
                 className="img-recent"
-                style={{objectPosition: `50% 90%`}}
+                style={{ objectPosition: `50% 90%` }}
                 loading="lazy"
               />
             </div>
@@ -472,8 +482,8 @@ const Recent = () => {
             <div className="col">
               <h3 className="h3-recent">
                 the rhythm of motion carries us forward into spaces that feel
-                familiar yet remain undefined. each shift is subtle, yet together
-                they remind us nothing we see is ever permanent.
+                familiar yet remain undefined. each shift is subtle, yet
+                together they remind us nothing we see is ever permanent.
               </h3>
             </div>
             <div className="col">
@@ -489,15 +499,27 @@ const Recent = () => {
           </div>
         </div>
       </section>
-
-      
+      <section className="outro">
+        <h1 className="h1-recent secondanimatetext max-sm:relative max-sm:right-64 max-sm:max-w-98">
+          Ready to see it in action? This is where everything comes together.
+          The story becomes clearer, the craft becomes real. Scroll down and
+          explore the work that speaks for itself.
+        </h1>
+        <Image
+          src="/gradients/sky_gradient_white.png"
+          alt="gradient"
+          width={400}
+          height={400}
+          className="absolute inset-0 opacity-30 scale-150 top-[-5%] left-[-18%] max-sm:top-[-67%] max-sm:scale-125 z-200 object-contain"
+        />
+      </section>
     </div>
   );
 };
 
 export default Recent;
 
-// 
+//
 // "use client";
 // import React, { useEffect } from "react";
 // import gsap from "gsap";
@@ -518,7 +540,7 @@ export default Recent;
 //       const darkColor = getComputedStyle(document.documentElement)
 //         .getPropertyValue("--dark")
 //         .trim();
-        
+
 //       const ctx = gsap.context(() => {
 //         const recentfirstSplit = new SplitText(".firstanimatetext", {
 //           type: "chars, words",
@@ -564,12 +586,11 @@ export default Recent;
 //             },
 //           }
 //         );
-        
 
 //         function interpolateColor(color1, color2, factor) {
 //           return gsap.utils.interpolate(color1, color2, factor);
 //         }
-        
+
 //         gsap.to(".marq-images", {
 //           scrollTrigger: {
 //             scroller: "[data-scroll-container]",
@@ -596,11 +617,11 @@ export default Recent;
 
 //           const originalMarqueeImg = document.querySelector(".marq-img.pin img");
 //           if (!originalMarqueeImg) return;
-          
+
 //           const rect = originalMarqueeImg.getBoundingClientRect();
 //           const centerX = rect.left + rect.width / 2;
 //           const centerY = rect.top + rect.height / 2;
-          
+
 //           pinnedMarqueeimgClone = originalMarqueeImg.cloneNode(true);
 
 //           gsap.set(pinnedMarqueeimgClone, {
@@ -615,31 +636,31 @@ export default Recent;
 //             willChange: "transform",
 //             zIndex: 100,
 //           });
-          
+
 //           document.body.appendChild(pinnedMarqueeimgClone);
 //           gsap.set(originalMarqueeImg, { opacity: 0 });
 //           isImgCloneActive = true;
 //         }
-        
+
 //         function removePinnedMarqueeimgClone() {
 //           if (!isImgCloneActive) return;
-          
+
 //           // Kill any active flip animation
 //           if (flipAnimation) {
 //             flipAnimation.kill();
 //             flipAnimation = null;
 //           }
-          
+
 //           if (pinnedMarqueeimgClone) {
 //             pinnedMarqueeimgClone.remove();
 //             pinnedMarqueeimgClone = null;
 //           }
-          
+
 //           const originalMarqueeImg = document.querySelector(".marq-img.pin img");
 //           if (originalMarqueeImg) {
 //             gsap.set(originalMarqueeImg, { opacity: 1 });
 //           }
-          
+
 //           isImgCloneActive = false;
 //         }
 
@@ -670,7 +691,7 @@ export default Recent;
 //           end: () => `+=${window.innerHeight * 5.5}`,
 //           onUpdate: (self) => {
 //             const progress = self.progress;
-            
+
 //             // Background color transition (0-5% progress)
 //             if (progress <= 0.05) {
 //               const bgColorProgress = Math.min(progress / 0.05, 1);
@@ -703,33 +724,33 @@ export default Recent;
 //                   transform: "rotate(0deg)",
 //                   transformOrigin: "center center",
 //                 });
-                
+
 //                 flipAnimation = Flip.from(statee, {
 //                   duration: 1,
 //                   ease: "none",
 //                   paused: true,
 //                 });
 //               }
-              
+
 //               const scaleProgress = progress / 0.2;
 //               if (flipAnimation) {
 //                 flipAnimation.progress(scaleProgress);
 //               }
 //             }
-            
+
 //             // Horizontal scroll (20-95% progress)
 //             else if (progress > 0.2 && progress <= 0.95) {
 //               if (flipAnimation) {
 //                 flipAnimation.progress(1);
 //               }
-              
+
 //               const horizontalProgress = (progress - 0.2) / 0.75;
 //               const wrapperTranslateX = -66.67 * horizontalProgress;
-              
+
 //               gsap.set(".horizontal-scroll-wrapper", {
 //                 x: `${wrapperTranslateX}%`,
 //               });
-              
+
 //               if (pinnedMarqueeimgClone) {
 //                 const slideMovement = (66.67 / 100) * 3 * horizontalProgress;
 //                 const imageTranslateX = -slideMovement * 100;
@@ -738,19 +759,19 @@ export default Recent;
 //                 });
 //               }
 //             }
-            
+
 //             // Final position (95%+ progress)
 //             else if (progress > 0.95) {
 //               if (flipAnimation) {
 //                 flipAnimation.progress(1);
 //               }
-              
+
 //               if (pinnedMarqueeimgClone) {
 //                 gsap.set(pinnedMarqueeimgClone, {
 //                   x: "-200%",
 //                 });
 //               }
-              
+
 //               gsap.set(".horizontal-scroll-wrapper", {
 //                 x: "-66.67%",
 //               });
@@ -762,15 +783,15 @@ export default Recent;
 //               flipAnimation.kill();
 //               flipAnimation = null;
 //             }
-            
+
 //             gsap.set(".cont", {
 //               backgroundColor: lightColor,
 //             });
-            
+
 //             gsap.set(".horizontal-scroll-wrapper", {
 //               x: "0%",
 //             });
-            
+
 //             if (pinnedMarqueeimgClone && isImgCloneActive) {
 //               // Reset clone to initial position
 //               const originalMarqueeImg = document.querySelector(".marq-img.pin img");
@@ -778,7 +799,7 @@ export default Recent;
 //                 const rect = originalMarqueeImg.getBoundingClientRect();
 //                 const centerX = rect.left + rect.width / 2;
 //                 const centerY = rect.top + rect.height / 2;
-                
+
 //                 gsap.set(pinnedMarqueeimgClone, {
 //                   position: "fixed",
 //                   left: centerX - originalMarqueeImg.offsetWidth / 2 + "px",
@@ -793,7 +814,7 @@ export default Recent;
 //           },
 //         });
 //       });
-      
+
 //       return () => ctx.revert();
 //     };
 
@@ -1028,4 +1049,4 @@ export default Recent;
 
 // export default Recent;
 
-// // 
+// //
