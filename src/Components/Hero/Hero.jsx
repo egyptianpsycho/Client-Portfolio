@@ -27,7 +27,6 @@ export default function Hero() {
     let currentIndex = 0;
     let timeoutId = null;
 
-
     // Set initial state - all hidden
     gsap.set(locationElements, { y: 100, opacity: 0 });
 
@@ -155,12 +154,12 @@ export default function Hero() {
       style={{ willChange: "transform" }}
     >
       <div className="absolute inset-0 hero-media pointer-events-none">
-        <Image
-          src="/HeroImages/CubeE.webp"
+        <video
+          src="/HeroImages/vid.mp4"
           alt="HeroImage"
-          fill
-          priority
-          quality={100}
+          autoPlay={true}
+          loop={true}
+          muted
           className="object-cover"
         />
         {/* overlay(s) */}
@@ -290,7 +289,6 @@ export default function Hero() {
 //       locationRef.current.querySelectorAll(".location-text");
 //     let currentIndex = 0;
 //     let timeoutId = null;
-
 
 //     // Set initial state - all hidden
 //     gsap.set(locationElements, { y: 100, opacity: 0 });
