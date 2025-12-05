@@ -311,10 +311,9 @@ const Recent = () => {
   return (
     <div className="cont " id="recent-section">
       <section className="hero-2 ">
-        <h1 className="h1-recent firstanimatetext max-sm:relative max-sm:right-64 max-sm:max-w-90">
-          Shall we move from words to visuals? My favorite part? Showing you.
-          The proof, as they say, is in the pictures. Here’s where the vision
-          comes to life. Now, take a look.
+        <h1 className="h1-recent firstanimatetext max-sm:relative max-sm:right-64 max-sm:max-w-99  text-left">
+        Shall we move from words to visuals? <br/>
+        Here’s where the vision comes to life.
         </h1>
       </section>
 
