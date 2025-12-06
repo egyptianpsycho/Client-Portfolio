@@ -161,7 +161,7 @@ export default function Hero() {
         <div className="absolute overlay-blur-pin inset-0 backdrop-blur-md opacity-0 z-[999]" />
       </div>
 
-      <div className="absolute inset-0 -rotate-10 top-12 left-30 z-99 mix-blend-exclusion max-sm:inset-0 max-sm:left-10 max-sm:top-40">
+      <div className="absolute inset-0 -rotate-8 top-12 left-30 z-99 mix-blend-exclusion max-sm:inset-0 max-sm:left-10 max-sm:top-40">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="100%"
