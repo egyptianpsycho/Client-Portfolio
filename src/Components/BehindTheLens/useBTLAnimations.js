@@ -104,7 +104,7 @@ const useBTLAnimations = (
     }, 100);
 
     return () => clearInterval(wait);
-  }, []);
+  }, [sectionRef, imageContainerRef, textRef]);
 };
 
 export default useBTLAnimations;

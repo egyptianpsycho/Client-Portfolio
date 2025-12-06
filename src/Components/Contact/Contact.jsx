@@ -117,11 +117,11 @@ const Contact = () => {
               className="text-5xl  pb-4 max-sm:pb-0 max-sm:text-4xl "
               style={{
                 fontFamily: '"Work Sans", sans-serif',
-                fontWeight: "300",
+                fontWeight: "600",
               }}
             >
               LET’S COCK{" "}
-              <span style={{ fontFamily: "Nanum Myeongjo", fontWeight: "400" }}>
+              <span className="text-4xl font-extralight max-sm:text-3xl">
                 TOGETHER
               </span>
             </h2>
