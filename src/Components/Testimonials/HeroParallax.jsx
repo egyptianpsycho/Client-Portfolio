@@ -6,7 +6,7 @@ import { TestimonialCard } from "../UI/TestimonialCard";
 import Image from "next/image";
 import SplitText from "gsap/SplitText";
 
-gsap.registerPlugin(ScrollTrigger,SplitText);
+gsap.registerPlugin(ScrollTrigger, SplitText);
 
 export const HeroParallax = ({ testimonials }) => {
   const ref = useRef(null);
@@ -26,9 +26,18 @@ export const HeroParallax = ({ testimonials }) => {
         ScrollTrigger.scrollerProxySet = true;
         ScrollTrigger.scrollerProxy("[data-scroll-container]", {
           scrollTop(value) {
-            return arguments.length
-              ? window.__loco.scrollTo(value, 0, 0)
-              : window.__loco.scroll.instance.scroll.y;
+            const loco = window.__loco;
+            if (!loco || !loco.scroll) return 0;
+            
+            if (arguments.length) {
+              try {
+                loco.scrollTo(value, 0, 0);
+              } catch (e) {
+                console.warn("Loco scrollTo failed:", e);
+              }
+              return;
+            }
+            return loco.scroll.instance?.scroll?.y || 0;
           },
           getBoundingClientRect() {
             return {
@@ -40,18 +49,26 @@ export const HeroParallax = ({ testimonials }) => {
           },
         });
 
-        ScrollTrigger.addEventListener("refresh", () =>
-          window.__loco?.update()
-        );
+        ScrollTrigger.addEventListener("refresh", () => {
+          const loco = window.__loco;
+          if (loco) {
+            try {
+              loco.update();
+            } catch (e) {
+              console.warn("Loco update failed:", e);
+            }
+          }
+        });
       }
 
       const container = ref.current;
       const rows = container.querySelectorAll(".row");
 
-      const testParagraphSplit = new SplitText(".Test-Paragraph", { type: "lines" });
-      gsap.from(testParagraphSplit.lines, {
+      try {
+        const testParagraphSplit = new SplitText(".Test-Paragraph", { type: "lines" });
+        gsap.from(testParagraphSplit.lines, {
           opacity: 0,
-          yPercent:150,
+          yPercent: 150,
           duration: 2,
           delay: 0.3,
           filter: "blur(20px)",
@@ -64,8 +81,9 @@ export const HeroParallax = ({ testimonials }) => {
             start: "top 30%",
           },
         });
-      const testTitleSplit = new SplitText(".Test-Title", { type: "words" });
-      gsap.from(testTitleSplit.words, {
+
+        const testTitleSplit = new SplitText(".Test-Title", { type: "words" });
+        gsap.from(testTitleSplit.words, {
           opacity: 0,
           yPercent: 150,
           duration: 2.5,
@@ -78,47 +96,34 @@ export const HeroParallax = ({ testimonials }) => {
             start: "top 30%",
           },
         });
-
+      } catch (e) {
+        console.warn("SplitText failed:", e);
+      }
 
       // Kill only triggers that belong to this section
-      triggers.forEach((t) => t.kill());
+      triggers.forEach((t) => {
+        try {
+          t.kill();
+        } catch (e) {}
+      });
       triggers = [];
 
       // Animate entire section (rotation, opacity, perspective)
-      const heroTrigger = gsap.fromTo(
-        ".hero-content",
-        {
-          rotateX: 15,
-          rotateZ: 20,
-          y: -700,
-          opacity: 0.2,
-        },
-        {
-          rotateX: 0,
-          rotateZ: 0,
-          y: 500,
-          opacity: 1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: container,
-            scroller: "[data-scroll-container]",
-            start: "top top",
-            end: "bottom top",
-            scrub: true,
-          },
-        }
-      );
-      triggers.push(heroTrigger.scrollTrigger);
-
-      // Animate row movement (parallax)
-      rows.forEach((row, i) => {
-        const direction = i % 2 === 0 ? 1 : -1;
-        const trigger = gsap.fromTo(
-          row,
-          { x: 0 },
+      try {
+        const heroTrigger = gsap.fromTo(
+          ".hero-content",
           {
-            x: direction * 1000,
-            ease: "none",
+            rotateX: 15,
+            rotateZ: 20,
+            y: -700,
+            opacity: 0.2,
+          },
+          {
+            rotateX: 0,
+            rotateZ: 0,
+            y: 500,
+            opacity: 1,
+            ease: "power3.out",
             scrollTrigger: {
               trigger: container,
               scroller: "[data-scroll-container]",
@@ -128,30 +133,60 @@ export const HeroParallax = ({ testimonials }) => {
             },
           }
         );
-        triggers.push(trigger.scrollTrigger);
+        if (heroTrigger.scrollTrigger) triggers.push(heroTrigger.scrollTrigger);
+      } catch (e) {
+        console.warn("Hero animation failed:", e);
+      }
+
+      // Animate row movement (parallax)
+      rows.forEach((row, i) => {
+        try {
+          const direction = i % 2 === 0 ? 1 : -1;
+          const trigger = gsap.fromTo(
+            row,
+            { x: 0 },
+            {
+              x: direction * 1000,
+              ease: "none",
+              scrollTrigger: {
+                trigger: container,
+                scroller: "[data-scroll-container]",
+                start: "top top",
+                end: "bottom top",
+                scrub: true,
+              },
+            }
+          );
+          if (trigger.scrollTrigger) triggers.push(trigger.scrollTrigger);
+        } catch (e) {
+          console.warn("Row animation failed:", e);
+        }
       });
 
-      ScrollTrigger.refresh();
+      try {
+        ScrollTrigger.refresh();
+      } catch (e) {
+        console.warn("ScrollTrigger refresh failed:", e);
+      }
+      
       return true;
     };
 
     interval = setInterval(() => {
-      if (window.__loco) {
+      if (window.__loco && window.__loco.scroll) {
         const ok = createAnimations();
         if (ok) clearInterval(interval);
       }
     }, 100);
 
-    
-
-
-  return () => {
-    clearInterval(interval);
-    triggers.forEach((t) => t.kill());
-  };
-
-
-    
+    return () => {
+      clearInterval(interval);
+      triggers.forEach((t) => {
+        try {
+          t.kill();
+        } catch (e) {}
+      });
+    };
   }, []);
 
   return (
@@ -161,29 +196,33 @@ export const HeroParallax = ({ testimonials }) => {
       id="Testimonials"
     >
       <Image
-                      src="/gradients/sky_gradient_white.png"
-                      alt="gradient"
-                      width={400}
-                      height={400}
-                      className="-z-20 absolute inset-0 opacity-40 scale-150 top-[40%] left-[91%] object-contain " />
+        src="/gradients/sky_gradient_white.png"
+        alt="gradient"
+        width={400}
+        height={400}
+        className="-z-20 absolute inset-0 opacity-40 scale-150 top-[40%] left-[91%] object-contain "
+      />
       <Image
-                      src="/gradients/sky_gradient_white.png"
-                      alt="gradient"
-                      width={400}
-                      height={400}
-                      className="-z-20 absolute inset-0 opacity-20 scale-150 top-[18%] left-[17%] object-contain " />
+        src="/gradients/sky_gradient_white.png"
+        alt="gradient"
+        width={400}
+        height={400}
+        className="-z-20 absolute inset-0 opacity-20 scale-150 top-[18%] left-[17%] object-contain "
+      />
       <Image
-                      src="/gradients/sky_gradient_white.png"
-                      alt="gradient"
-                      width={400}
-                      height={400}
-                      className="-z-20 absolute inset-0 opacity-30 scale-150 top-[85%] left-[-14%] object-contain " />
+        src="/gradients/sky_gradient_white.png"
+        alt="gradient"
+        width={400}
+        height={400}
+        className="-z-20 absolute inset-0 opacity-30 scale-150 top-[85%] left-[-14%] object-contain "
+      />
       <Image
-                      src="/gradients/sky_gradient_white.png"
-                      alt="gradient"
-                      width={400}
-                      height={400}
-                      className="-z-20 absolute inset-0 opacity-15 scale-150 top-[67%] left-[30%] object-contain " />
+        src="/gradients/sky_gradient_white.png"
+        alt="gradient"
+        width={400}
+        height={400}
+        className="-z-20 absolute inset-0 opacity-15 scale-150 top-[67%] left-[30%] object-contain "
+      />
 
       <Header />
       <div className="hero-content testo-tests">

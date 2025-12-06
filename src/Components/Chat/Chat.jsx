@@ -2,6 +2,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { Send, Clock, X, Loader2, Calendar, DollarSign, Sparkles, ChevronRight, MessageCircle, Camera } from "lucide-react";
+import axios from "axios";
 
 const Chat = () => {
   const [input, setInput] = useState("");
@@ -19,24 +20,10 @@ const Chat = () => {
     },
   ]);
 
-  // Mock availability data
-  const [availableSlots] = useState([
-    {
-      date: "2024-12-05",
-      slots: [
-        { start: "2024-12-05T09:00:00", end: "2024-12-05T10:00:00" },
-        { start: "2024-12-05T14:00:00", end: "2024-12-05T15:00:00" },
-        { start: "2024-12-05T16:00:00", end: "2024-12-05T17:00:00" },
-      ]
-    },
-    {
-      date: "2024-12-06",
-      slots: [
-        { start: "2024-12-06T10:00:00", end: "2024-12-06T11:00:00" },
-        { start: "2024-12-06T15:00:00", end: "2024-12-06T16:00:00" },
-      ]
-    }
-  ]);
+  const [availableSlots, setAvailableSlots] = useState([]);
+  const [loadingSlots, setLoadingSlots] = useState(true);
+
+
 
   // Services Data
   const services = [
@@ -48,6 +35,23 @@ const Chat = () => {
 
   const messagesContainerRef = useRef(null);
   const chatContainerRef = useRef(null);
+
+  useEffect(() => {
+    const fetchAvailability = async () => {
+      try {
+        setLoadingSlots(true);
+        const res = await axios.get("/api/calendar/availability?days=7");
+        if (res.data.available) {
+          setAvailableSlots(res.data.available);
+        }
+      } catch (error) {
+        console.error("Failed to fetch availability:", error);
+      } finally {
+        setLoadingSlots(false);
+      }
+    };
+    fetchAvailability();
+  }, []);
 
   useEffect(() => {
     setMounted(true);
@@ -136,8 +140,21 @@ const Chat = () => {
       const data = await response.json();
   
       // Handle intents from backend
-      if (data.intent === 'show_schedule') {
-        setTimeout(() => setShowSchedule(true), 500);
+      if (data.intent === "show_schedule") {
+        try {
+          setLoadingSlots(true);
+          const res = await axios.get("/api/calendar/availability?days=7");
+          if (res.data.available) {
+            setAvailableSlots(res.data.available);
+          }
+        } catch (err) {
+          console.error("Failed to fetch availability:", err);
+          setAvailableSlots([]);
+        } finally {
+          setLoadingSlots(false);
+        }
+      
+        setShowSchedule(true); // open the schedule table
       } else if (data.intent === 'show_pricing') {
         setTimeout(() => setShowPricing(true), 500);
       } else if (data.intent === 'book' && data.booking_details) {
