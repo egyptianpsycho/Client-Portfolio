@@ -14,30 +14,35 @@ const useBTLAnimations = (BehindTLRef, BehindImgRef) => {
 
     const init = () => {
       const ctx = gsap.context(() => {
-        const isMobile = window.innerWidth < 500;
-        const isTablet = window.innerWidth >= 500 && window.innerWidth < 768;
-        const isMediumDesktop = window.innerWidth >= 768 && window.innerWidth < 1024;
-        const isLargeDesktop = window.innerWidth >= 1024 && window.innerWidth < 1700;
-        const isXLDesktop = window.innerWidth >= 1700;
-
-        // Responsive x-offset calculation
-        const getXOffset = () => {
-          if (isMobile) return 0;
-          if (isTablet) return -50;
-          if (isMediumDesktop) return -150;
-          if (isLargeDesktop) return -320;
-          if (isXLDesktop) return -600;
-          return -100;
-        };
-
-        const xOffset = getXOffset();
-
         try {
           const behindTitle = new SplitText(".behind-title", { type: "words" });
           const paragraphSplit = new SplitText(".original", { type: "lines" });
 
-          behindTitle.words.forEach((char) => char.classList.add("text-gradient"));
+          behindTitle.words.forEach((char) =>
+            char.classList.add("text-gradient")
+          );
+          const path = document.querySelector("#pathToAnimate3");
+          if (!path) return;
+          const le = path.getTotalLength();
 
+          gsap.set(path, {
+            strokeDasharray: le,
+            strokeDashoffset: le,
+            visibility: "visible",
+          });
+
+          gsap.to(path, {
+            strokeDashoffset: 0,
+            duration: 3,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: "#pathToAnimate3",
+              start: "top 100%",
+              end: "bottom center",
+              scrub: 2,
+              scroller: "[data-scroll-container]",
+            },
+          });
           // Title animation
           gsap.from(behindTitle.words, {
             opacity: 0,
@@ -59,32 +64,17 @@ const useBTLAnimations = (BehindTLRef, BehindImgRef) => {
           gsap.from(paragraphSplit.lines, {
             opacity: 0,
             yPercent: 80,
-            color: "#0a212b",
             duration: 1.2,
             ease: "power2.out",
-            stagger: 0.05,
+            filter: "blur(12px)",
+            stagger: 0.4,
             scrollTrigger: {
               trigger: BehindTLRef.current,
               scroller: "[data-scroll-container]",
               start: "top 60%",
-              end: "top 30%",
               toggleActions: "play none none reverse",
             },
           });
-
-          // Image animation (not on mobile)
-          if (!isMobile) {
-            gsap.to(BehindImgRef.current, {
-              opacity: 0.8,
-              duration: 0.6,
-              scrollTrigger: {
-                trigger: BehindImgRef.current,
-                scroller: "[data-scroll-container]",
-                start: "top 30%",
-                toggleActions: "play none none reverse",
-              },
-            });
-          }
 
           // Stats animation
           const statsTrigger = document.querySelector(".sts-sc");
@@ -129,7 +119,7 @@ const useBTLAnimations = (BehindTLRef, BehindImgRef) => {
       } catch (e) {
         console.warn("ScrollTrigger refresh failed:", e);
       }
-      
+
       return () => {
         try {
           ctx.revert();
@@ -145,7 +135,7 @@ const useBTLAnimations = (BehindTLRef, BehindImgRef) => {
 
     const checkAndInit = () => {
       attemptCount++;
-      
+
       if (window.__loco && window.__loco.scroll) {
         clearInterval(wait);
         // Extra delay for route changes

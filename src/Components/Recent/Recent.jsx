@@ -311,9 +311,9 @@ const Recent = () => {
   return (
     <div className="cont " id="recent-section">
       <section className="hero-2 ">
-        <h1 className="h1-recent firstanimatetext max-sm:relative max-sm:right-64 max-sm:max-w-99  text-left">
-        Shall we move from words to visuals? <br/>
-        Here’s where the vision comes to life.
+        <h1 className="h1-recent firstanimatetext max-sm:relative max-sm: max-sm:max-w-99  text-left">
+          Shall we move from words to visuals? <br />
+          Here’s where the vision comes to life.
         </h1>
       </section>
 
@@ -499,10 +499,10 @@ const Recent = () => {
         </div>
       </section>
       <section className="outro">
-        <h1 className="h1-recent secondanimatetext max-sm:relative max-sm:right-64 max-sm:max-w-98">
-          Ready to see it in action? This is where everything comes together.
-          The story becomes clearer, the craft becomes real. Scroll down and
-          explore the work that speaks for itself.
+        <h1 className="h1-recent secondanimatetext max-sm:relative  max-sm:max-w-98">
+          Every project here is a footprint of that process. From the broadest
+          layout to the finest pixel, you’re seeing the approach in action. Take
+          a closer look.
         </h1>
         <Image
           src="/gradients/sky_gradient_white.png"

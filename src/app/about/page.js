@@ -1,7 +1,5 @@
 import BTL from "@/Components/AboutBehind/BTL";
-import SmoothScroll from "@/Components/SmoothScroll";
 import Footer from "@/Components/UI/Footer";
-import Header from "@/Components/UI/Header";
 
 const Home = () => {
   return (

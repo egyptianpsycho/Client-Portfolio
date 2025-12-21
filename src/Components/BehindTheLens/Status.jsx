@@ -4,9 +4,9 @@ import React from "react";
 
 const Status = () => {
   return (
-    <div className=" bg-gradient-to-r from-black to-[#0a212b]/20 py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8">
-      <div className="footer-section stats-section mb-16 sm:mb-70 w-full max-w-6xl mx-auto">
-        <div className="sts-sc grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 relative">
+    <div className=" bg-gradient-to-r from-black to-[#0a212b]/20 py-12 sm:py-16 md:pt-20 md:pb-20  px-4 sm:px-6 lg:px-8">
+      <div className="footer-section stats-section mb-16 sm:mb-70 w-full max-w-6xl mx-auto ">
+        <div className="sts-sc grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 relative top-20 ">
           <Image
             src="/gradients/sky_gradient_white.png"
             alt="gradient"

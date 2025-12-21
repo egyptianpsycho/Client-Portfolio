@@ -10,7 +10,7 @@ const BTL = () => {
 
 
 
-  useBTLAnimations(BehindTLRef ,BehindImgRef);
+  // useBTLAnimations(BehindTLRef ,BehindImgRef);
 
   return (
     <>

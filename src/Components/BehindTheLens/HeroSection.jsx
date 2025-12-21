@@ -7,7 +7,7 @@ const HeroSection = ({ sectionRef, imageContainerRef, textRef }) => {
       ref={sectionRef}
       className="h-[100vh]    relative "
     >
-      <div className="sticky  top-0 h-screen w-full mt-47.5 ">
+      <div className="sticky  top-0 h-screen w-full mt-47 ">
         <div
           ref={imageContainerRef}
           className=" relative w-full h-full z-[5] "

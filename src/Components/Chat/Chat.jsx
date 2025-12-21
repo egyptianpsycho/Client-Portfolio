@@ -553,7 +553,7 @@ const Chat = () => {
   return (
     <>
       {/* Landing Page */}
-      <div className="relative min-h-screen bg-gradient-to-b from-[#0C232D] via-[#121E25] to-[#09131B]  flex items-center justify-center p-6 overflow-hidden mb-0.5 -mt-0.5">
+      <div className="relative min-h-screen bg-gradient-to-b from-black via-[#121E25] to-[#09131B]  flex items-center justify-center p-6 overflow-hidden mb-0.5 -mt-0.5">
         
         {/* Background elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">

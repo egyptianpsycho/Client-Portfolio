@@ -153,6 +153,9 @@ body {
     font-size: 2.25rem;
     letter-spacing: -0.05rem;
   }
+  .hero-2,.outro{
+    width: auto;
+  }
   .h3-recent {
     font-size: 1.5rem;
   }

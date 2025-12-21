@@ -192,7 +192,7 @@ export const HeroParallax = ({ testimonials }) => {
   return (
     <div
       ref={ref}
-      className="h-[300vh]  py-110  overflow-hidden antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d] bg-gradient-to-b from-black via-slate-600 to-[#0a212b] -mt-0.5 "
+      className="h-[300vh]  py-110  overflow-hidden antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d] bg-gradient-to-b from-black via-slate-600 to-slate-900/20 -mt-0.5 "
       id="Testimonials"
     >
       <Image

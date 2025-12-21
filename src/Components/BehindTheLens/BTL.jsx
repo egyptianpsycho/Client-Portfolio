@@ -2,6 +2,7 @@
 import React, { useRef } from "react";
 import HeroSection from "./HeroSection";
 import useBTLAnimations from "./useBTLAnimations";
+import Status from "./Status";
 
 const BTL = () => {
   const sectionRef = useRef(null);
@@ -13,6 +14,7 @@ const BTL = () => {
 
   return (
     <>
+    <Status />
       <HeroSection
         sectionRef={sectionRef}
         imageContainerRef={imageContainerRef}

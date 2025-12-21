@@ -131,7 +131,7 @@ const Modal = ({ open, onClose, project }) => {
 
       <div
         ref={contentRef}
-        className="relative bg-[#0a0a0a]/80 rounded-2xl p-6 sm:p-8 md:p-10 flex flex-col md:flex-row gap-6 sm:gap-8 md:gap-12 items-start max-w-7xl w-full h-auto max-h-[90vh] md:h-[80vh] overflow-y-auto md:overflow-hidden border border-white/20 shadow-[inset_0_0_30px_rgba(255,255,255,0.2)]"
+        className="relative bg-[#0a0a0a]/80 rounded-2xl p-6 sm:p-8 md:p-10 flex flex-col md:flex-row gap-6 sm:gap-8 md:gap-12 items-start max-w-7xl w-full h-auto max-h-[90vh] md:h-[80vh] overflow-y-auto md:overflow-hidden border border-white/10 shadow-[inset_0_0_30px_rgba(255,255,255,0.1)]"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Left Side: Info */}

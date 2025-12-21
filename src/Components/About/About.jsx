@@ -1,78 +1,74 @@
 "use client";
-import { motion } from "framer-motion";
+import useAnimate from "@/Hooks/useAnimate";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const About = () => {
-  const [headingInView, setHeadingInView] = useState(false);
-  const [paraInView, setParaInView] = useState(false);
-  const [isReady, setIsReady] = useState(false);
   const headingRef = useRef(null);
   const paraRef = useRef(null);
+  const line1Ref = useRef(null);
+  const line2Ref = useRef(null);
+  const paraLine1Ref = useRef(null);
+  const paraLine2Ref = useRef(null);
+  const paraLine3Ref = useRef(null);
+  const paraLine4Ref = useRef(null);
 
-  useEffect(() => {
-    // Wait for preloader and page to be fully ready
-    const initTimer = setTimeout(() => {
-      setIsReady(true);
-    }, 100); // Adjust this delay based on your preloader duration
+  useAnimate(() => {
+    const lines = [line1Ref.current, line2Ref.current];
+    const paraLines = [
+      paraLine1Ref.current,
+      paraLine2Ref.current,
+      paraLine3Ref.current,
+      paraLine4Ref.current,
+    ];
 
-    return () => clearTimeout(initTimer);
-  }, []);
+    gsap.set(lines, { yPercent: 120 });
+    gsap.set(paraLines, { yPercent: 120 });
 
-  useEffect(() => {
-    if (!isReady) return;
-
-    // Add a delay to ensure Locomotive Scroll is ready
-    const timer = setTimeout(() => {
-      // Heading animation trigger
-      ScrollTrigger.create({
-        trigger: headingRef.current,
-        start: "top 75%",
-        scroller: "[data-scroll-container]",
-        onEnter: () => setHeadingInView(true),
-        once: true,
-      });
-
-      // Paragraph animation trigger
-      ScrollTrigger.create({
-        trigger: paraRef.current,
-        start: "top 85%",
-        scroller: "[data-scroll-container]",
-        onEnter: () => setParaInView(true),
-        once: true,
-      });
-
-      ScrollTrigger.refresh();
-    }, 100);
-
-    return () => {
-      clearTimeout(timer);
-      ScrollTrigger.getAll().forEach((trigger) => {
-        if (
-          trigger.vars.trigger === headingRef.current ||
-          trigger.vars.trigger === paraRef.current
-        ) {
-          trigger.kill();
-        }
-      });
-    };
-  }, [isReady]);
-
-  const animation = {
-    initial: { y: "100%" },
-    enter: (i) => ({
-      y: "0",
-      transition: {
-        duration: 0.75,
-        ease: [0.33, 1, 0.68, 1],
-        delay: 0.075 * i,
+    ScrollTrigger.create({
+      trigger: headingRef.current,
+      start: "top 75%",
+      scroller: "[data-scroll-container]",
+      once: true,
+      onEnter: () => {
+        gsap.fromTo(
+          lines,
+          { filter: "blur(4px)" },
+          {
+            yPercent: 0,
+            duration: 1.2,
+            filter: "blur(0px)",
+            ease: "power3.out",
+            stagger: 0.15,
+          }
+        );
       },
-    }),
-  };
+    });
+
+    ScrollTrigger.create({
+      trigger: paraRef.current,
+      start: "top 85%",
+      scroller: "[data-scroll-container]",
+      toggleActions: "play none none reverse",
+      onEnter: () => {
+        gsap.fromTo(
+          paraLines,
+          { filter: "blur(4px)" },
+          {
+            yPercent: 0,
+            duration: 1.2,
+            filter: "blur(0px)",
+            ease: "power3.out",
+            stagger: 0.1,
+          }
+        );
+      },
+    });
+  });
 
   return (
     <section
@@ -87,13 +83,7 @@ const About = () => {
           style={{ fontFamily: '"Work Sans", sans-serif' }}
         >
           <div style={{ overflow: "hidden" }}>
-            <motion.h1
-              custom={0}
-              variants={animation}
-              initial="initial"
-              animate={headingInView ? "enter" : ""}
-              className="break-words max-sm:w-80"
-            >
+            <h1 ref={line1Ref} className="break-words max-sm:w-80">
               WE'RE A GLOBAL{" "}
               <span
                 className="block sm:inline"
@@ -101,15 +91,13 @@ const About = () => {
               >
                 CREATIVE &
               </span>
-            </motion.h1>
+            </h1>
           </div>
           <div style={{ overflow: "hidden" }}>
-            <motion.h1
-              custom={1}
-              variants={animation}
-              initial="initial"
-              animate={headingInView ? "enter" : ""}
-              className="font-normal text-[2.8rem] sm:text-[4.5rem] md:text-[6rem] lg:text-[8rem] relative flex flex-wrap items-baseline w-full"              style={{ fontFamily: '"Nanum Myeongjo", sans-serif' }}
+            <h1
+              ref={line2Ref}
+              className="font-normal text-[2.8rem] sm:text-[4.5rem] md:text-[6rem] lg:text-[8rem] relative flex flex-wrap items-baseline w-full"
+              style={{ fontFamily: '"Nanum Myeongjo", sans-serif' }}
             >
               INNOVATION{" "}
               <span
@@ -118,7 +106,7 @@ const About = () => {
               >
                 STUDIO
               </span>
-            </motion.h1>
+            </h1>
           </div>
         </div>
 
@@ -154,15 +142,24 @@ const About = () => {
           style={{ fontFamily: '"Work Sans", sans-serif' }}
         >
           <div style={{ overflow: "hidden" }}>
-            <motion.p
-              custom={0}
-              variants={animation}
-              initial="initial"
-              animate={paraInView ? "enter" : ""}
-              className="w-full about-para"
-            >
-              We create culturally-inspired, social-first content. As strategic storytellers, we help global brands craft meaningful narratives that cut through the digital noise and connect across every emerging platform.
-            </motion.p>
+            <p ref={paraLine1Ref} className="w-full about-para">
+              We create culturally-inspired, social-first content. As strategic
+            </p>
+          </div>
+          <div style={{ overflow: "hidden" }}>
+            <p ref={paraLine2Ref} className="w-full about-para">
+              storytellers, we help global brands craft meaningful narratives
+            </p>
+          </div>
+          <div style={{ overflow: "hidden" }}>
+            <p ref={paraLine3Ref} className="w-full about-para">
+              that cut through the digital noise and connect across every
+            </p>
+          </div>
+          <div style={{ overflow: "hidden" }}>
+            <p ref={paraLine4Ref} className="w-full about-para">
+              emerging platform.
+            </p>
           </div>
         </div>
       </div>

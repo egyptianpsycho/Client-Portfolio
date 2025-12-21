@@ -61,12 +61,13 @@ const useBTLAnimations = (
           opacity: 0,
           yPercent: 100,
           duration: 1.4,
+          filter: "blur(30px)",
           ease: "expo.out",
-          stagger: 0.05,
+          stagger: 0.04,
           scrollTrigger: {
             trigger: sectionRef.current,
             scroller: "[data-scroll-container]",
-            start: "top 90%",
+            start: "top 87%",
             toggleActions: "play none none reverse",
           },
         });
@@ -89,6 +90,41 @@ const useBTLAnimations = (
             anticipatePin: 1,
           },
         });
+
+        // status animation
+
+        const statsTrigger = document.querySelector(".sts-sc");
+          if (statsTrigger) {
+            const tl = gsap.timeline({
+              scrollTrigger: {
+                trigger: ".sts-sc",
+                scroller: "[data-scroll-container]",
+                start: "top 90%",
+                toggleActions: "play none none reverse",
+              },
+            });
+
+            tl.from(".stat-card", {
+              opacity: 0,
+              x: 30,
+              filter: "blur(12px)",
+              stagger: 0.3,
+              duration: 1.2,
+              ease: "power2.out",
+            });
+
+            tl.fromTo(
+              ".stat-number",
+              { textContent: 0 },
+              {
+                textContent: (_, target) => target.getAttribute("data-value"),
+                duration: 2,
+                ease: "power1.out",
+                snap: { textContent: 1 },
+              },
+              "-=0.8"
+            );
+          }
 
       });
 
