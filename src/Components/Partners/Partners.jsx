@@ -14,6 +14,7 @@ const logos = [
   { src: "/Logos/NYC.svg", alt: "NYC" },
   { src: "/Logos/DubaiT.png", alt: "DubaiT" },
   { src: "/Logos/adidas.png", alt: "Adidas" },
+
 ];
 
 const Partners = () => {
@@ -54,19 +55,17 @@ const Partners = () => {
           },
         });
       }
-  });
 
-  // Duplicate logos to fill the screen width for infinite feel
-  const duplicatedLogos = [...logos, ...logos, ...logos];
+  });
 
   return (
     <section className="-mb-0.1  min-h-screen h-auto sm:h-screen  z-[100] pt-20 sm:pt-32 md:pt-40 pb-10 sm:pb-0 overflow-hidden bg-gradient-to-br to-[#000000] from-[#0a212b] flex items-center justify-center" id="PARTNERS">
-      <div className="relative flex flex-col sm:grid sm:grid-cols-9 md:grid-cols-12 lg:grid-cols-15 gap-4 sm:gap-3 md:gap-3.5 -rotate-0 sm:-rotate-8 md:-rotate-10 w-full partners-grid px-4 sm:px-0 max-w-sm sm:max-w-none mx-auto ">
-        {duplicatedLogos.map((logo, index) => (
+      <div className="relative flex flex-col sm:grid sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-3 md:gap-3.5 -rotate-0 sm:-rotate-8 md:-rotate-10 w-full partners-grid px-4 sm:px-0 max-w-sm sm:max-w-none mx-auto ">
+        {logos.map((logo, index) => (
           <div
             key={index}
             className={`trallelo logo-card w-full h-24 sm:w-auto sm:h-auto sm:p-12 md:p-16 lg:p-20 xl:p-28 2xl:p-40 justify-center items-center bg-gray-600/15 flex rounded ${
-              index < 15 ? "partners-row-1" : "partners-row-2"
+              index < 5 ? "partners-row-1" : "partners-row-2"
             }`}
           >
             <Image

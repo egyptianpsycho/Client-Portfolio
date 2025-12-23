@@ -2,7 +2,7 @@
 import useAnimate from "@/Hooks/useAnimate";
 import gsap from "gsap";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -128,4 +128,3 @@ export function Header() {
 }
 
 export default Header;
-
