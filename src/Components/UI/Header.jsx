@@ -18,8 +18,8 @@ export function Header() {
 
       gsap.fromTo(
         "#header",
-        { y: -50, opacity: 0  },
-        { y: 0, opacity: 1, duration: 1, delay: 2.5,  ease: "expo.out", }
+        {  opacity: 0,filter:"blur(10px)"  },
+        {  opacity: 1, duration: 1, delay: 2.5,filter:"blur(0px)" , ease: "power3.out", }
       );
       gsap.fromTo(
         "#AV-logo",
@@ -55,7 +55,11 @@ export function Header() {
               }}>Abbas Visuals.</h2>
 
 {!isMobile ?(
-    <header id="header" className="fixed top-6 opacity-0 right-13 z-[500]  font-bold px-5 py-1 bg-white/15 rounded-full backdrop-blur-sm w-[480px] flex justify-between  items-center text-[#FFFFFF] ">
+    <header id="header" className="fixed top-6 opacity-0 right-13 z-[500]  font-bold px-5 py-1  rounded-full backdrop-blur-sm w-[480px] flex justify-between  items-center text-[#FFFFFF] " 
+    style={{
+      background: 'rgba(255, 255, 255, 0.08)',
+      boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37), inset 0 1px 0 0 rgba(255, 255, 255, 0.1)',
+    }}>
       {links.map((link) => (
         <Link
           key={link.href}

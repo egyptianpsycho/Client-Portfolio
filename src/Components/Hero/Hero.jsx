@@ -11,7 +11,7 @@ gsap.registerPlugin(ScrollTrigger, SplitText);
 export default function Hero() {
   const locationRef = useRef(null);
   const animationIntervalRef = useRef(null);
-  const locations = ["DUBAI", "UNITED STATES", "SWITZERLAND", "KSA", "EGYPT"];
+  const locations = ["UAE", "UNITED STATES", "KSA", "EGYPT"];
 
   useEffect(() => {
     if (!locationRef.current) return;

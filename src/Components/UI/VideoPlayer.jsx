@@ -85,7 +85,7 @@ const VideoPlayer = ({ src, poster, classN }) => {
       <video
         ref={videoRef}
         poster={poster}
-        className={`w-full h-full object-cover ${classN}`}
+        className={`w-full h-full object-cover ${classN}   `}
         playsInline
         preload="none"
         loop

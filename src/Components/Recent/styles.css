@@ -57,6 +57,10 @@ body {
   margin: 0 auto;
   font-family: "PP Neue Montreal";
 }
+.outro p {
+  margin: 0 auto;
+  font-family: "PP Neue Montreal";
+}
 
 .outro {
   background-color: var(--dark);

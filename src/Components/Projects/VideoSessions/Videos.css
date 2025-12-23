@@ -6,12 +6,12 @@
     will-change: transform;
   }
   
-  /* Hide videos 6-10 on mobile */
-  .div6-video, .div7-video, .div8-video, .div9-video, .div10-video {
+  /* Hide videos 5-10 on mobile */
+  .div6-video, .div7-video, .div8-video, .div9-video, .div10-video, .div5-video {
     display: none;
   }
   
-  .div1-video, .div2-video, .div3-video, .div4-video, .div5-video {
+  .div1-video, .div2-video, .div3-video, .div4-video {
     grid-column: auto;
     grid-row: auto;
   }
@@ -31,7 +31,7 @@
       grid-auto-rows: minmax(250px, auto);
     }
     
-    .div6-video, .div7-video, .div8-video, .div9-video, .div10-video {
+    .div4-video, .div5-video, .div6-video, .div7-video, .div8-video, .div9-video, .div10-video {
       display: block;
     }
   }

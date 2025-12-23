@@ -7,9 +7,7 @@ const Projects = () => {
       className="relative min-h-screen  p-20 grain-overlay  "
       id="Projects"
     >
-      {/* Images */}
       <Images />
-      {/* Video */}
       <Videos />
       
     </section>

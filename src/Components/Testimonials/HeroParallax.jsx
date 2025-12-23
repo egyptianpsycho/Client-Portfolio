@@ -192,7 +192,7 @@ export const HeroParallax = ({ testimonials }) => {
   return (
     <div
       ref={ref}
-      className="h-[300vh]  py-110  overflow-hidden antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d] bg-gradient-to-b from-black via-slate-600 to-slate-900/20 -mt-0.5 "
+      className="h-[305vh]  py-110  overflow-hidden antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d] bg-gradient-to-b from-black via-slate-600 to-slate-900/20 -mt-0.5 "
       id="Testimonials"
     >
       <Image
@@ -247,11 +247,11 @@ export const HeroParallax = ({ testimonials }) => {
 };
 
 export const Header = () => (
-  <div className="max-w-7xl relative mx-auto py-20 md:py-40 px-4 w-full left-0 top-0">
-    <h1 className="text-2xl md:text-7xl font-bold Test-Title ">
+  <div className="max-w-7xl relative mx-auto py-20 md:py-40 px-4 w-full left-0 top-0 z-[1] ">
+    <h1 className="text-4xl md:text-7xl font-bold Test-Title backdrop-blur-[1px]     ">
       WHAT THEY SAY <br /> ABOUT US
     </h1>
-    <p className="max-w-2xl text-base md:text-xl mt-8 Test-Paragraph ">
+    <p className="max-w-2xl text-[17px] md:text-xl mt-8 Test-Paragraph text-black font-bold backdrop-blur-[1.4px]   ">
       Every photo tells a story — but hearing what my clients say means the
       world to me. From commercials and portraits to creative shoots, their
       experiences reflect the passion I bring to every moment behind the lens.

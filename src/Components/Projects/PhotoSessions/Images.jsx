@@ -84,16 +84,18 @@ const Images = () => {
         end: "bottom 20%",
       },
     });
-    gsap.from(".btn-container", {
+    gsap.fromTo(".btn-container", {
       opacity: 0,
-      y: 200,
-      duration: 1.2,
-      filter: "blur(5px)",
+      duration: 3,
+      filter: "blur(35px)",
       ease: "power4.inOut",
+    },{
+      opacity:1,
+      filter:"blur(0px)",
       scrollTrigger: {
         trigger: ".btn-container",
         scroller: "[data-scroll-container]",
-        start: "top 98%",
+        start: "top 70%",
       },
     });
   });

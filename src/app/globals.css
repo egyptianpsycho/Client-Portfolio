@@ -313,7 +313,7 @@ h-text{
   word-spacing: 0.1rem;
 }
 
-@media (max-width: 500) {
+@media (max-width: 500px) {
   .btn {
     position: relative;
   overflow: hidden;
@@ -817,3 +817,5 @@ h-text{
   );
   pointer-events: none;
 } */
+
+

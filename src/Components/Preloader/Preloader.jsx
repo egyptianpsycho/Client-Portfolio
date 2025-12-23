@@ -93,17 +93,23 @@ const Preloader = ({ onComplete }) => {
           },
         });
 
-        tl.to(
+        tl.fromTo(
           ".preloader .intro-title-pre .char span",
+          {
+            filter:!isMobile? "blur(12px)":"",y:"-120%"
+          },
           {
             y: "0%",
             duration: 0.75,
             stagger: 0.05,
+            filter: "blur(0px)",
           },
           0.5
         )
-          .to(
+          .fromTo(
             ".preloader .intro-title-pre .char:not(.first-char) span",
+            {            filter:!isMobile? "blur(1px)":""
+            },
             {
               y: "100%",
               duration: 0.75,
@@ -230,7 +236,7 @@ const Preloader = ({ onComplete }) => {
   }, [onComplete]);
 
   return (
-    <div className="preloader-wrapper" style={styles.wrapper}>
+    <div className="preloader-wrapper pointer-events-none" style={styles.wrapper}>
       <div className="preloader-cont" style={styles.container}>
         <div className="preloader" style={styles.preloader}>
           <div className="intro-title-pre" style={styles.introTitle}>

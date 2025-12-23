@@ -499,17 +499,17 @@ const Recent = () => {
         </div>
       </section>
       <section className="outro">
-        <h1 className="h1-recent secondanimatetext max-sm:relative  max-sm:max-w-98">
+        <p className="h1-recent secondanimatetext max-sm:relative md:w-[900px]     max-sm:max-w-98">
           Every project here is a footprint of that process. From the broadest
-          layout to the finest pixel, you’re seeing the approach in action. Take
-          a closer look.
-        </h1>
+          layout to the finest pixel, you’re seeing the approach in action. <br />
+          Take a closer look.
+        </p>
         <Image
           src="/gradients/sky_gradient_white.png"
           alt="gradient"
           width={400}
           height={400}
-          className="absolute inset-0 opacity-30 scale-150 top-[-5%] left-[-18%] max-sm:top-[-67%] max-sm:scale-125 z-200 object-contain"
+          className="absolute inset-0 opacity-30 scale-150 top-[-5%] left-[-18%] max-sm:top-[-20%] max-sm:scale-125 z-200 object-contain"
         />
       </section>
     </div>

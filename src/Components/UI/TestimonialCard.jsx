@@ -1,4 +1,3 @@
-
 "use client";
 import React from "react";
 
@@ -9,22 +8,23 @@ export const TestimonialCard = ({
   testimonial,
   photo,
 }) => (
-  <div className="group/testimonial testo-test h-96 w-[30rem] bg-white/10 backdrop-blur-md border border-white/20 text-white p-8 rounded-2xl shrink-0 relative overflow-hidden hover:-translate-y-1 hover:shadow-2xl hover:border-white/40 transition duration-500">
-    
-    <div className="flex flex-col justify-between h-full  ">
-      <p className="text-2xl leading-relaxed italic opacity-90  ">“{testimonial}”</p>
+  <div className="group/testimonial testo-test h-90 sm:h-[22rem] md:h-96 w-full sm:w-[18rem] md:w-[24rem] lg:w-[28rem] xl:w-[30rem] bg-white/10 backdrop-blur-md border border-white/20 text-white p-4 sm:p-6 md:p-8 rounded-xl md:rounded-2xl shrink-0 relative overflow-hidden hover:-translate-y-1 hover:shadow-2xl hover:border-white/40 transition duration-500">
 
-      <div className="flex items-center gap-4 mt-8">
+    <div className="flex flex-col justify-between h-full  ">
+      <p className="text-xl md:text-2xl  leading-relaxed italic opacity-90 line-clamp-6 md:line-clamp-none">
+        “{testimonial}”
+      </p>
+
+      <div className="flex items-center gap-3 md:gap-4 mt-4 sm:mt-6 md:mt-8">
         <img
-          className="size-14 rounded-full object-cover border border-white/30"
+          className="size-10 sm:size-12 md:size-14 rounded-full object-cover border border-white/30 shrink-0"
           src={photo}
           alt={`${name}'s photo`}
           loading="lazy"
         />
-        
-        
+
         <div>
-          <h2 className=" relative flex items-center gap-2 text-lg font-semibold shiny-text ">
+          <h2 className="relative flex items-center gap-1.5 md:gap-2 text-base sm:text-lg font-semibold shiny-text truncate">
             {name}
             <svg
               width="15"
@@ -42,7 +42,7 @@ export const TestimonialCard = ({
               />
             </svg>
           </h2>
-          <p className="text-sm text-gray-300">
+          <p className="text-xs sm:text-sm  text-gray-300">
             {position} @{company}
           </p>
         </div>
