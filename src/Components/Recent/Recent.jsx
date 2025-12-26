@@ -324,7 +324,7 @@ const Recent = () => {
               <Image
                 width={400}
                 height={400}
-                src="/Projects/images/PORSCHE/PORSCHE.jpg"
+                src="/Recent/A/pre3.jpg"
                 alt="marq-img"
                 className="img-recent"
                 loading="lazy"
@@ -334,9 +334,9 @@ const Recent = () => {
               <Image
                 width={1920}
                 height={1080}
-                src="/Recent/8.jpg"
+                src="/Recent/A/pre4.jpg"
                 alt="marq-img"
-                className="img-recent"
+                className="img-recent grayscale-100"
                 loading="lazy"
               />
             </div>
@@ -344,9 +344,9 @@ const Recent = () => {
               <Image
                 width={1920}
                 height={1080}
-                src="/Recent/5.jpg"
+                src="/Recent/A/pre3.jpg"
                 alt="marq-img"
-                className="img-recent object-bottom"
+                className="img-recent object-bottom grayscale-100"
                 loading="lazy"
               />
             </div>
@@ -354,9 +354,9 @@ const Recent = () => {
               <Image
                 width={1920}
                 height={1080}
-                src="/Projects/images/PORSCHE/PORSCHE.jpg"
+                src="/Recent/A/pre3.jpg"
                 alt="marq-img"
-                className="img-recent"
+                className="img-recent grayscale-100"
                 loading="lazy"
               />
             </div>
@@ -364,9 +364,9 @@ const Recent = () => {
               <Image
                 width={1920}
                 height={1080}
-                src="/Recent/6.jpg"
+                src="/Recent/A/pre2.jpg"
                 alt="marq-img"
-                className="img-recent"
+                className="img-recent grayscale-100"
                 loading="lazy"
               />
             </div>
@@ -374,9 +374,9 @@ const Recent = () => {
               <Image
                 width={1920}
                 height={1080}
-                src="/Recent/7.jpg"
+                src="/Recent/A/post9.png"
                 alt="marq-img"
-                className="img-recent"
+                className="img-recent grayscale-100"
                 loading="lazy"
               />
             </div>
@@ -384,9 +384,9 @@ const Recent = () => {
               <Image
                 width={1920}
                 height={1080}
-                src="/Projects/images/Disconected/disconected.jpg"
+                src="/Recent/A/happy.jpg"
                 alt="marq-img"
-                className="img-recent"
+                className="img-recent grayscale-100"
                 loading="lazy"
               />
             </div>
@@ -394,9 +394,9 @@ const Recent = () => {
               <Image
                 width={1920}
                 height={1080}
-                src="/Projects/images/PORSCHE/PORSCHE.jpg"
+                src="/Recent/A/pre4.jpg"
                 alt="marq-img"
-                className="img-recent"
+                className="img-recent grayscale-100"
                 loading="lazy"
               />
             </div>
@@ -404,9 +404,9 @@ const Recent = () => {
               <Image
                 width={1920}
                 height={1080}
-                src="/Recent/1.jpg"
+                src="/Recent/A/post5.jpg"
                 alt="marq-img"
-                className="img-recent"
+                className="img-recent grayscale-100"
                 loading="lazy"
               />
             </div>
@@ -414,9 +414,9 @@ const Recent = () => {
               <Image
                 width={1920}
                 height={1080}
-                src="/Recent/3.jpg"
+                src="/Recent/A/p1.jpg"
                 alt="marq-img"
-                className="img-recent"
+                className="img-recent grayscale-100"
                 style={{ objectPosition: `50% 90%` }}
                 loading="lazy"
               />
@@ -425,9 +425,9 @@ const Recent = () => {
               <Image
                 width={1920}
                 height={1080}
-                src="/Recent/9.jpg"
+                src="/Recent/A/p2.png"
                 alt="marq-img"
-                className="img-recent"
+                className="img-recent grayscale-100"
                 loading="lazy"
               />
             </div>
@@ -437,7 +437,7 @@ const Recent = () => {
                 height={1080}
                 src="/Recent/10.jpg"
                 alt="marq-img"
-                className="img-recent"
+                className="img-recent grayscale-100"
                 loading="lazy"
               />
             </div>
@@ -470,9 +470,9 @@ const Recent = () => {
               <Image
                 width={1920}
                 height={1080}
-                src="/Projects/images/TALISE/TALISE2.webp"
+                src="/Recent/A/p2.png"
                 alt="img"
-                className="img-recent"
+                className="img-recent grayscale-100"
                 loading="lazy"
               />
             </div>
@@ -489,9 +489,9 @@ const Recent = () => {
               <Image
                 width={1920}
                 height={1080}
-                src="/Projects/images/TALISE/TALISE4.webp"
+                src="/Recent/A/post7.jpg"
                 alt="img"
-                className="img-recent"
+                className="img-recent grayscale-100"
                 loading="lazy"
               />
             </div>
@@ -518,7 +518,8 @@ const Recent = () => {
 
 export default Recent;
 
-//
+
+
 // "use client";
 // import React, { useEffect } from "react";
 // import gsap from "gsap";
@@ -561,12 +562,11 @@ export default Recent;
 //               scroller: "[data-scroll-container]",
 //               trigger: "#recent-section",
 //               start: "top bottom-=15%",
-//               end: "bottom bottom+=125%",
+//               end: "bottom bottom+=140%",
 //               scrub: 1,
 //             },
 //           }
 //         );
-
 //         gsap.fromTo(
 //           recentsecondSplit.words,
 //           { color: "#708090", filter: "blur(4px)", x: 10, y: 10 },
@@ -614,7 +614,8 @@ export default Recent;
 //         function createPinnedMarqueeimgClone() {
 //           if (isImgCloneActive) return;
 
-//           const originalMarqueeImg = document.querySelector(".marq-img.pin img");
+//           const originalMarqueeImg =
+//             document.querySelector(".marq-img.pin img");
 //           if (!originalMarqueeImg) return;
 
 //           const rect = originalMarqueeImg.getBoundingClientRect();
@@ -655,7 +656,8 @@ export default Recent;
 //             pinnedMarqueeimgClone = null;
 //           }
 
-//           const originalMarqueeImg = document.querySelector(".marq-img.pin img");
+//           const originalMarqueeImg =
+//             document.querySelector(".marq-img.pin img");
 //           if (originalMarqueeImg) {
 //             gsap.set(originalMarqueeImg, { opacity: 1 });
 //           }
@@ -793,7 +795,8 @@ export default Recent;
 
 //             if (pinnedMarqueeimgClone && isImgCloneActive) {
 //               // Reset clone to initial position
-//               const originalMarqueeImg = document.querySelector(".marq-img.pin img");
+//               const originalMarqueeImg =
+//                 document.querySelector(".marq-img.pin img");
 //               if (originalMarqueeImg) {
 //                 const rect = originalMarqueeImg.getBoundingClientRect();
 //                 const centerX = rect.left + rect.width / 2;
@@ -830,12 +833,9 @@ export default Recent;
 //   return (
 //     <div className="cont " id="recent-section">
 //       <section className="hero-2 ">
-//         <h1 className="h1-recent firstanimatetext max-sm:relative max-sm:right-64 max-sm:max-w-90">
-//         Shall we move from words to visuals?
-//         My favorite part? Showing you.
-//         The proof, as they say, is in the pictures.
-//         Here’s where the vision comes to life.
-//         Now, take a look.
+//         <h1 className="h1-recent firstanimatetext max-sm:relative max-sm: max-sm:max-w-99  text-left">
+//           Shall we move from words to visuals? <br />
+//           Here’s where the vision comes to life.
 //         </h1>
 //       </section>
 
@@ -850,7 +850,6 @@ export default Recent;
 //                 alt="marq-img"
 //                 className="img-recent"
 //                 loading="lazy"
-
 //               />
 //             </div>
 //             <div className="marq-img">
@@ -861,7 +860,6 @@ export default Recent;
 //                 alt="marq-img"
 //                 className="img-recent"
 //                 loading="lazy"
-
 //               />
 //             </div>
 //             <div className="marq-img">
@@ -872,7 +870,6 @@ export default Recent;
 //                 alt="marq-img"
 //                 className="img-recent object-bottom"
 //                 loading="lazy"
-
 //               />
 //             </div>
 //             <div className="marq-img">
@@ -883,7 +880,6 @@ export default Recent;
 //                 alt="marq-img"
 //                 className="img-recent"
 //                 loading="lazy"
-
 //               />
 //             </div>
 //             <div className="marq-img">
@@ -894,7 +890,6 @@ export default Recent;
 //                 alt="marq-img"
 //                 className="img-recent"
 //                 loading="lazy"
-
 //               />
 //             </div>
 //             <div className="marq-img">
@@ -905,7 +900,6 @@ export default Recent;
 //                 alt="marq-img"
 //                 className="img-recent"
 //                 loading="lazy"
-
 //               />
 //             </div>
 //             <div className="marq-img pin">
@@ -945,7 +939,7 @@ export default Recent;
 //                 src="/Recent/3.jpg"
 //                 alt="marq-img"
 //                 className="img-recent"
-//                 style={{objectPosition: `50% 90%`}}
+//                 style={{ objectPosition: `50% 90%` }}
 //                 loading="lazy"
 //               />
 //             </div>
@@ -1009,8 +1003,8 @@ export default Recent;
 //             <div className="col">
 //               <h3 className="h3-recent">
 //                 the rhythm of motion carries us forward into spaces that feel
-//                 familiar yet remain undefined. each shift is subtle, yet together
-//                 they remind us nothing we see is ever permanent.
+//                 familiar yet remain undefined. each shift is subtle, yet
+//                 together they remind us nothing we see is ever permanent.
 //               </h3>
 //             </div>
 //             <div className="col">
@@ -1026,20 +1020,18 @@ export default Recent;
 //           </div>
 //         </div>
 //       </section>
-
 //       <section className="outro">
-//         <h1 className="h1-recent secondanimatetext max-sm:relative max-sm:right-64 max-sm:max-w-98">
-//         Ready to see it in action?
-//         This is where everything comes together.
-//         The story becomes clearer, the craft becomes real.
-//         Scroll down and explore the work that speaks for itself.
-//         </h1>
+//         <p className="h1-recent secondanimatetext max-sm:relative md:w-[900px]     max-sm:max-w-98">
+//           Every project here is a footprint of that process. From the broadest
+//           layout to the finest pixel, you’re seeing the approach in action. <br />
+//           Take a closer look.
+//         </p>
 //         <Image
 //           src="/gradients/sky_gradient_white.png"
 //           alt="gradient"
 //           width={400}
 //           height={400}
-//           className="absolute inset-0 opacity-30 scale-150 top-[-5%] left-[-18%] max-sm:top-[-67%] max-sm:scale-125 z-200 object-contain"
+//           className="absolute inset-0 opacity-30 scale-150 top-[-5%] left-[-18%] max-sm:top-[-20%] max-sm:scale-125 z-200 object-contain"
 //         />
 //       </section>
 //     </div>
@@ -1047,5 +1039,3 @@ export default Recent;
 // };
 
 // export default Recent;
-
-// //
