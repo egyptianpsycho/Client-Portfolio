@@ -324,7 +324,7 @@ const Recent = () => {
               <Image
                 width={400}
                 height={400}
-                src="/Recent/A/pre3.jpg"
+                src="/Recent/A/pre3.JPG"
                 alt="marq-img"
                 className="img-recent"
                 loading="lazy"
@@ -334,7 +334,7 @@ const Recent = () => {
               <Image
                 width={1920}
                 height={1080}
-                src="/Recent/A/pre4.jpg"
+                src="/Recent/A/pre4.JPG"
                 alt="marq-img"
                 className="img-recent grayscale-100"
                 loading="lazy"
@@ -344,7 +344,7 @@ const Recent = () => {
               <Image
                 width={1920}
                 height={1080}
-                src="/Recent/A/pre3.jpg"
+                src="/Recent/A/pre3.JPG"
                 alt="marq-img"
                 className="img-recent object-bottom grayscale-100"
                 loading="lazy"
@@ -354,7 +354,7 @@ const Recent = () => {
               <Image
                 width={1920}
                 height={1080}
-                src="/Recent/A/pre3.jpg"
+                src="/Recent/A/pre3.JPG"
                 alt="marq-img"
                 className="img-recent grayscale-100"
                 loading="lazy"
@@ -364,7 +364,7 @@ const Recent = () => {
               <Image
                 width={1920}
                 height={1080}
-                src="/Recent/A/pre2.jpg"
+                src="/Recent/A/pre2.JPG"
                 alt="marq-img"
                 className="img-recent grayscale-100"
                 loading="lazy"
@@ -384,7 +384,7 @@ const Recent = () => {
               <Image
                 width={1920}
                 height={1080}
-                src="/Recent/A/happy.jpg"
+                src="/Recent/A/happy.JPG"
                 alt="marq-img"
                 className="img-recent grayscale-100"
                 loading="lazy"
@@ -394,7 +394,7 @@ const Recent = () => {
               <Image
                 width={1920}
                 height={1080}
-                src="/Recent/A/pre4.jpg"
+                src="/Recent/A/pre4.JPG"
                 alt="marq-img"
                 className="img-recent grayscale-100"
                 loading="lazy"
@@ -404,7 +404,7 @@ const Recent = () => {
               <Image
                 width={1920}
                 height={1080}
-                src="/Recent/A/post5.jpg"
+                src="/Recent/A/post5.JPG"
                 alt="marq-img"
                 className="img-recent grayscale-100"
                 loading="lazy"
@@ -489,7 +489,7 @@ const Recent = () => {
               <Image
                 width={1920}
                 height={1080}
-                src="/Recent/A/post7.jpg"
+                src="/Recent/A/post7.JPG"
                 alt="img"
                 className="img-recent grayscale-100"
                 loading="lazy"
@@ -508,8 +508,8 @@ const Recent = () => {
           src="/gradients/sky_gradient_white.png"
           alt="gradient"
           width={400}
+          className="absolute inset-0 opacity-30 scale-150 top-[-5%] left-[-18%] max-sm:top-[-20%] max-sm:scale-125 z-200 object-contain testing-test-altra"
           height={400}
-          className="absolute inset-0 opacity-30 scale-150 top-[-5%] left-[-18%] max-sm:top-[-20%] max-sm:scale-125 z-200 object-contain"
         />
       </section>
     </div>
