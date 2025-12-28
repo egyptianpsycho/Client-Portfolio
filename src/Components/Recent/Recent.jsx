@@ -467,7 +467,7 @@ const Recent = () => {
               <Image
                 width={1920}
                 height={1080}
-                src="/Recent/A/pre2.jpg"
+                src="/Recent/A/pre2.webp"
                 alt="Pre-production"
                 className="img-recent grayscale-100 object-bottom"
                 loading="lazy"
@@ -493,7 +493,7 @@ const Recent = () => {
               <Image
                 width={1920}
                 height={1080}
-                src="/Recent/A/p1.jpg"
+                src="/Recent/A/p1.webp"
                 alt="Production"
                 className="img-recent grayscale-100 object-bottom"
                 loading="lazy"
