@@ -415,7 +415,7 @@ const Recent = () => {
               <Image
                 width={1920}
                 height={1080}
-                src="/Recent/A/p2.png"
+                src="/Recent/A/p2.webp"
                 alt="marq-img"
                 className="img-recent grayscale-100"
                 loading="lazy"
@@ -495,7 +495,7 @@ const Recent = () => {
                 height={1080}
                 src="/Recent/A/p1.webp"
                 alt="Production"
-                className="img-recent grayscale-100 object-bottom"
+                className="img-recent grayscale-100 object-bottom GSXR"
                 loading="lazy"
               />
             </div>
@@ -520,7 +520,7 @@ const Recent = () => {
                 <Image
                   width={1920}
                   height={1080}
-                  src="/Recent/A/post7.JPG"
+                  src="/Recent/A/post7.webp"
                   alt="Post-production 1"
                   className="img-recent grayscale-100"
                   style={{ objectPosition: `50% 70%` }}
