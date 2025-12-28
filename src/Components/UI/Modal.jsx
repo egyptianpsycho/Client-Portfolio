@@ -9,6 +9,7 @@ import Link from "next/link";
 const Modal = ({ open, onClose, project }) => {
   const overlayRef = useRef(null);
   const contentRef = useRef(null);
+  const glareRef = useRef(null);
 
   useEffect(() => {
     const loco = window.__loco;
@@ -56,23 +57,34 @@ const Modal = ({ open, onClose, project }) => {
         .to(secBg, { scaleX: 0, duration: 0.2, ease: "power2.inOut" })
         .fromTo(
           ".project-date",
-          { opacity: 0, filter: "blur(5px" },
+          { opacity: 0, filter: "blur(5px)" },
           { opacity: 0.6, duration: 0.5, filter: "blur(0px)" },
           "-=0.2"
         )
         .fromTo(
           ".carousel-img:nth-child(-n+2)",
-          { opacity: 0, y: -400, scale: 0.4, filter: "blur(20px)  " },
+          { opacity: 0, y: -400, scale: 0.4, filter: "blur(20px)" },
           {
             opacity: 1,
             filter: "blur(0px)",
             y: 0,
             scale: 1,
             duration: 0.7,
+            delay:0.1,
             stagger: 0.2,
             ease: "power3.out",
           },
           "-=0.1"
+        )
+        .fromTo(
+          glareRef.current,
+          { left: "-100%" },
+          { 
+            left: "100%", 
+            duration: 0.9, 
+            ease: "power2.inOut"
+          },
+          "-=1.2"
         );
     }
   }, [open]);
@@ -121,11 +133,66 @@ const Modal = ({ open, onClose, project }) => {
         }
 
         .text__first-bg {
-    background: linear-gradient(to right, #ffffff, #898989);
+          background: linear-gradient(to right, #ffffff, #898989);
         }
 
         .text__second-bg {
-    background: linear-gradient(to left, #ffffff, #898989);
+          background: linear-gradient(to left, #ffffff, #898989);
+        }
+
+        .btn {
+          position: relative;
+          overflow: hidden;
+          background-color: black;
+          display: inline-block;
+          border: 2px solid rgb(144, 146, 148);
+          transition: all 0.3s ease;
+          padding: 17px 72px;
+          cursor: pointer;
+          border-radius: 12px;
+          font-family: "Bebas Neue", cursive;
+          letter-spacing: 0.1rem;
+          word-spacing: 0.1rem;
+        }
+
+        @media (max-width: 500px) {
+          .btn {
+            padding: 8px 15px;
+          }
+        }
+
+        .btn:hover {
+          box-shadow: 1px 1px 25px 5px rgba(122, 160, 196, 0.4);
+          color: black;
+          background-color: rgb(228, 222, 212);
+          transition-duration: 1.3s;
+          transition-delay: 0.09s;
+        }
+
+        .btn-glare-effect {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(120deg, transparent, rgba(122, 160, 196, 0.4), transparent);
+          pointer-events: none;
+          z-index: 1;
+        }
+
+        .btn:hover .btn-glare-effect {
+          animation: glare-hover 0.9s ease;
+        }
+
+        @keyframes glare-hover {
+          from { left: -100%; }
+          to { left: 100%; }
+        }
+
+        .btn > span:not(.btn-glare-effect) {
+          position: relative;
+          z-index: 2;
         }
       `}</style>
 
@@ -164,7 +231,8 @@ const Modal = ({ open, onClose, project }) => {
               rel="noopener noreferrer"
             >
               <Button className="btn text-white text-lg sm:text-xl">
-                Show Full Project
+                <span ref={glareRef} className="btn-glare-effect"></span>
+                <span>Show Full Project</span>
               </Button>
             </Link>
           </div>

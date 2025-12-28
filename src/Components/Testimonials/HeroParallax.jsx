@@ -66,36 +66,35 @@ export const HeroParallax = ({ testimonials }) => {
 
       try {
         const testParagraphSplit = new SplitText(".Test-Paragraph", { type: "lines" });
-        gsap.from(testParagraphSplit.lines, {
-          opacity: 0,
-          yPercent: 150,
-          duration: 2,
-          delay: 0.3,
-          filter: "blur(20px)",
-          ease: "expo.out",
-          stagger: 0.3,
-          delay: 1.4,
+        const testTitleSplit = new SplitText(".Test-Title", { type: "words" });
+        
+        // Create a timeline
+        const tl = gsap.timeline({
           scrollTrigger: {
             trigger: "#Testimonials",
             scroller: "[data-scroll-container]",
             start: "top 30%",
-          },
+          }
         });
-
-        const testTitleSplit = new SplitText(".Test-Title", { type: "words" });
-        gsap.from(testTitleSplit.words, {
+        
+        // Add animations to the timeline
+        tl.from(testTitleSplit.words, {
           opacity: 0,
           yPercent: 150,
           duration: 2.5,
-          filter: "blur(20px)",
+          filter: "blur(10px)",
           ease: "expo.out",
           stagger: 0.2,
-          scrollTrigger: {
-            trigger: "#Testimonials",
-            scroller: "[data-scroll-container]",
-            start: "top 30%",
-          },
-        });
+        })
+        .from(testParagraphSplit.lines, {
+          opacity: 0,
+          yPercent: 150,
+          duration: 2,
+          filter: "blur(10px)",
+          ease: "expo.out",
+          stagger: 0.3,
+        }, "-=2.2"); 
+        
       } catch (e) {
         console.warn("SplitText failed:", e);
       }

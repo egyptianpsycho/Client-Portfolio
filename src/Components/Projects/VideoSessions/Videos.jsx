@@ -13,38 +13,6 @@ const Videos = () => {
   useEffect(() => {
     const init = () => {
       const ctx = gsap.context(() => {
-        const titles = gsap.utils.toArray(".project-title");
-        titles.forEach((title) => {
-          const split = new SplitText(title, { type: "chars" });
-        
-          // When hovering over the card
-          title.closest(".group").addEventListener("mouseenter", () => {
-            gsap.fromTo(
-              split.chars,
-              { y: 30, opacity: 0, rotateX: 90, filter: "blur(10px)" },
-              {
-                y: 0,
-                opacity: 1,
-                rotateX: 0,
-                duration: 0.6,
-                stagger: 0.04,
-                filter: "blur(0px)",
-                ease: "back.out(1.7)",
-              }
-            );
-          });
-
-          title.closest(".group").addEventListener("mouseleave", () => {
-            gsap.to(split.chars, {
-              y: -10,
-              opacity: 0.2,
-              duration: 0.5,
-              stagger: 0.03,
-              ease: "power2.in",
-            });
-          });
-        });
-
         const vidsBoxes = gsap.utils.toArray(".video-item");
 
         gsap.from(vidsBoxes, {
@@ -105,7 +73,7 @@ const Videos = () => {
 
             {/* title on the bottom */}
             <div className="absolute bottom-10 max-sm:bottom-8 left-0 w-full text-center opacity-0 group-hover:opacity-100 transition-all duration-700 ease-out pointer-events-none group-hover:pointer-events-none">
-              <h3 className="text-white/80 text-xl font-semibold tracking-wide text-gradient project-title max-sm:text-lg ">
+              <h3 className="text-white/80 text-xl font-semibold tracking-wide text-gradient  max-sm:text-lg ">
                 {project.title}
               </h3>
             </div>
