@@ -27,10 +27,10 @@ const Chat = () => {
 
   // Services Data
   const services = [
-    { name: "Portrait Session", price: "$350", duration: "1 hour", description: "Professional portrait photography" },
-    { name: "Event Coverage", price: "$600", duration: "2 hours", description: "Complete event documentation" },
-    { name: "Product Photography", price: "$400", duration: "1.5 hours", description: "High-quality product shots" },
-    { name: "Corporate Headshots", price: "$250", duration: "45 minutes", description: "Professional business portraits" },
+    { name: "Commercial Photography ", duration: "1 hour", description: "Professional portrait photography" },
+    { name: "Content Creation for Brands", duration: "2 hours", description: "Complete event documentation" },
+    { name: "High End Retouching", duration: "1.5 hours", description: "High-quality product shots" },
+    { name: "Video Editing  & Coloring", duration: "45 minutes", description: "Professional business portraits" },
   ];
 
   const messagesContainerRef = useRef(null);
@@ -572,9 +572,10 @@ const Chat = () => {
 
           {/* Hero Text */}
           <h1 className="text-6xl md:text-7xl font-bold mb-6 leading-tight text-white">
-            Book Your Perfect
+          Your turn Begin here.
             <span className="block text-gradient">
-              Photography Session
+            Find your path.
+
             </span>
           </h1>
           

@@ -27,7 +27,7 @@ const Status = () => {
             </div>
             <div
               className="stat-number text-2xl sm:text-3xl font-bold text-gradient-stats mb-2"
-              data-value="3000"
+              data-value="240"
             >
               0
             </div>
@@ -47,7 +47,7 @@ const Status = () => {
             </div>
             <div
               className="stat-number text-gradient-stats text-2xl sm:text-3xl font-bold  mb-2"
-              data-value="20"
+              data-value="15"
             >
               0
             </div>
@@ -69,7 +69,7 @@ const Status = () => {
             </div>
             <div
               className="stat-number text-2xl sm:text-3xl font-bold text-gradient-stats mb-2"
-              data-value="350"
+              data-value="1200"
             >
               0
             </div>
@@ -91,7 +91,7 @@ const Status = () => {
             </div>
             <div
               className="stat-number text-2xl sm:text-3xl font-bold text-gradient-stats mb-2"
-              data-value="18"
+              data-value="7"
             >
               0
             </div>
