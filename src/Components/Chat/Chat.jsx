@@ -1,7 +1,18 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
 import { createPortal } from "react-dom";
-import { Send, Clock, X, Loader2, Calendar, DollarSign, Sparkles, ChevronRight, MessageCircle, Camera } from "lucide-react";
+import {
+  Send,
+  Clock,
+  X,
+  Loader2,
+  Calendar,
+  DollarSign,
+  Sparkles,
+  ChevronRight,
+  MessageCircle,
+  Camera,
+} from "lucide-react";
 import axios from "axios";
 
 const Chat = () => {
@@ -16,21 +27,36 @@ const Chat = () => {
   const [messages, setMessages] = useState([
     {
       role: "assistant",
-      content: "Hi! I'm Lens ✨ Ask me about availability, pricing, or let's book your photography session!",
+      content:
+        "Hi! I'm Lens ✨ Ask me about availability, pricing, or let's book your photography session!",
     },
   ]);
 
   const [availableSlots, setAvailableSlots] = useState([]);
   const [loadingSlots, setLoadingSlots] = useState(true);
 
-
-
   // Services Data
   const services = [
-    { name: "Commercial Photography ", duration: "1 hour", description: "Professional portrait photography" },
-    { name: "Content Creation for Brands", duration: "2 hours", description: "Complete event documentation" },
-    { name: "High End Retouching", duration: "1.5 hours", description: "High-quality product shots" },
-    { name: "Video Editing  & Coloring", duration: "45 minutes", description: "Professional business portraits" },
+    {
+      name: "Commercial Photography ",
+      description:
+        "High-quality imagery tailored for advertising, marketing, and corporate use",
+    },
+    {
+      name: "Content Creation for Brands",
+      description:
+        "Strategic photo and video content designed to build brand identity and engagement",
+    },
+    {
+      name: "High End Retouching",
+      description:
+        "Advanced professional retouching for flawless, polished final visuals",
+    },
+    {
+      name: "Video Editing & Coloring",
+      description:
+        "Cinematic video editing with professional color grading and visual enhancement",
+    },
   ];
 
   const messagesContainerRef = useRef(null);
@@ -60,56 +86,62 @@ const Chat = () => {
   // Scroll to bottom
   useEffect(() => {
     if (messagesContainerRef.current) {
-      messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
+      messagesContainerRef.current.scrollTop =
+        messagesContainerRef.current.scrollHeight;
     }
   }, [messages]);
 
   // Handle initial send from landing
   const handleInitialSend = async () => {
     if (!input.trim()) return;
-    
+
     const userMsg = { role: "user", content: input };
     setMessages((prev) => [...prev, userMsg]);
     setShowPortal(true);
-    
+
     const currentInput = input;
     setInput("");
     setLoading(true);
-  
+
     try {
-      const response = await fetch('/api/ai/chat', {
-        method: 'POST',
+      const response = await fetch("/api/ai/chat", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           message: currentInput,
           conversationHistory: messages,
         }),
       });
-  
+
       const data = await response.json();
-  
+
       // Handle intents from backend
-      if (data.intent === 'show_schedule') {
+      if (data.intent === "show_schedule") {
         setTimeout(() => setShowSchedule(true), 500);
-      } else if (data.intent === 'show_pricing') {
+      } else if (data.intent === "show_pricing") {
         setTimeout(() => setShowPricing(true), 500);
-      } else if (data.intent === 'book' && data.booking_details) {
-        console.log('Booking details:', data.booking_details);
+      } else if (data.intent === "book" && data.booking_details) {
+        console.log("Booking details:", data.booking_details);
       }
-  
-      setMessages((prev) => [...prev, { 
-        role: "assistant", 
-        content: data.assistant_message || "I'm here to help!"
-      }]);
-      
+
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "assistant",
+          content: data.assistant_message || "I'm here to help!",
+        },
+      ]);
     } catch (error) {
-      console.error('Chat error:', error);
-      setMessages((prev) => [...prev, { 
-        role: "assistant", 
-        content: "Sorry, I'm having trouble connecting. Please try again."
-      }]);
+      console.error("Chat error:", error);
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "assistant",
+          content: "Sorry, I'm having trouble connecting. Please try again.",
+        },
+      ]);
     } finally {
       setLoading(false);
     }
@@ -118,27 +150,27 @@ const Chat = () => {
   // Handle send in portal
   const handleSend = async () => {
     if (!input.trim() || loading) return;
-  
+
     const userMsg = { role: "user", content: input };
     setMessages((prev) => [...prev, userMsg]);
     const currentInput = input;
     setInput("");
     setLoading(true);
-  
+
     try {
-      const response = await fetch('/api/ai/chat', {
-        method: 'POST',
+      const response = await fetch("/api/ai/chat", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           message: currentInput,
           conversationHistory: messages,
         }),
       });
-  
+
       const data = await response.json();
-  
+
       // Handle intents from backend
       if (data.intent === "show_schedule") {
         try {
@@ -153,33 +185,38 @@ const Chat = () => {
         } finally {
           setLoadingSlots(false);
         }
-      
+
         setShowSchedule(true); // open the schedule table
-      } else if (data.intent === 'show_pricing') {
+      } else if (data.intent === "show_pricing") {
         setTimeout(() => setShowPricing(true), 500);
-      } else if (data.intent === 'book' && data.booking_details) {
-        console.log('Booking details:', data.booking_details);
+      } else if (data.intent === "book" && data.booking_details) {
+        console.log("Booking details:", data.booking_details);
         // TODO: Handle booking confirmation
       }
-  
-      setMessages((prev) => [...prev, { 
-        role: "assistant", 
-        content: data.assistant_message || "I'm here to help!"
-      }]);
-      
+
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "assistant",
+          content: data.assistant_message || "I'm here to help!",
+        },
+      ]);
     } catch (error) {
-      console.error('Chat error:', error);
-      setMessages((prev) => [...prev, { 
-        role: "assistant", 
-        content: "Sorry, I'm having trouble connecting. Please try again."
-      }]);
+      console.error("Chat error:", error);
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "assistant",
+          content: "Sorry, I'm having trouble connecting. Please try again.",
+        },
+      ]);
     } finally {
       setLoading(false);
     }
   };
   // Handle key press
   const handleKeyPress = (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       if (showPortal) {
         handleSend();
@@ -191,14 +228,14 @@ const Chat = () => {
 
   // Handle sidebar toggle with smooth animation
   const toggleSidebar = (type) => {
-    if (type === 'schedule') {
+    if (type === "schedule") {
       if (showSchedule) {
         setShowSchedule(false);
       } else {
         setShowPricing(false);
         setTimeout(() => setShowSchedule(true), 100);
       }
-    } else if (type === 'pricing') {
+    } else if (type === "pricing") {
       if (showPricing) {
         setShowPricing(false);
       } else {
@@ -210,18 +247,32 @@ const Chat = () => {
 
   const selectTimeSlot = (slot, date) => {
     const slotDate = new Date(slot.start);
-    const message = `I'd like to book ${slotDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })} on ${new Date(date).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}`;
+    const message = `I'd like to book ${slotDate.toLocaleTimeString("en-US", {
+      hour: "numeric",
+      minute: "2-digit",
+    })} on ${new Date(date).toLocaleDateString("en-US", {
+      weekday: "long",
+      month: "long",
+      day: "numeric",
+    })}`;
     setInput(message);
   };
 
   const formatDate = (dateStr) => {
     const date = new Date(dateStr);
-    return date.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' });
+    return date.toLocaleDateString("en-US", {
+      weekday: "long",
+      month: "short",
+      day: "numeric",
+    });
   };
 
   const formatTime = (dateStr) => {
     const date = new Date(dateStr);
-    return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+    return date.toLocaleTimeString("en-US", {
+      hour: "numeric",
+      minute: "2-digit",
+    });
   };
 
   const hasSidebar = showSchedule || showPricing;
@@ -230,7 +281,7 @@ const Chat = () => {
   const portalContent = showPortal && (
     <div className="fixed inset-0 z-[999] animate-portal-overlay backdrop-blur-lg">
       {/* Backdrop */}
-      <div 
+      <div
         className="absolute inset-0 bg-black/40 "
         onClick={() => setShowPortal(false)}
       />
@@ -238,7 +289,6 @@ const Chat = () => {
       {/* Portal Container */}
       <div className="relative w-full h-full flex items-center justify-center p-6 animate-portal-content">
         {/* Background elements */}
-        
 
         {/* Close Button */}
         <button
@@ -254,7 +304,7 @@ const Chat = () => {
             <div
               ref={chatContainerRef}
               className={`h-full rounded-2xl overflow-hidden border border-neutral-800/80 bg-neutral-950/95 backdrop-blur-xl flex flex-col transition-all duration-700 ease-in-out shadow-2xl ${
-                hasSidebar ? 'w-[60%]' : 'w-full'
+                hasSidebar ? "w-[60%]" : "w-full"
               }`}
             >
               {/* Header */}
@@ -267,22 +317,28 @@ const Chat = () => {
                     <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-500 rounded-full border-2 border-neutral-900"></div>
                   </div>
                   <div>
-                    <h1 className="text-xl font-semibold text-neutral-100">LENS AI</h1>
-                    <p className="text-xs text-neutral-500">Your AI Assistant</p>
+                    <h1 className="text-xl font-semibold text-neutral-100">
+                      LENS AI
+                    </h1>
+                    <p className="text-xs text-neutral-500">
+                      Your AI Assistant
+                    </p>
                   </div>
                 </div>
               </div>
 
               {/* Messages */}
-              <div 
+              <div
                 ref={messagesContainerRef}
                 className="flex-1 overflow-y-auto px-8 py-6 space-y-6"
-                style={{ overscrollBehavior: 'contain' }}
+                style={{ overscrollBehavior: "contain" }}
               >
                 {messages.map((msg, idx) => (
                   <div
                     key={idx}
-                    className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"} animate-fade-in`}
+                    className={`flex ${
+                      msg.role === "user" ? "justify-end" : "justify-start"
+                    } animate-fade-in`}
                     style={{ animationDelay: `${idx * 50}ms` }}
                   >
                     <div
@@ -301,9 +357,18 @@ const Chat = () => {
                   <div className="flex justify-start">
                     <div className="bg-neutral-900/80 border border-neutral-800/80 rounded-2xl rounded-tl-sm px-5 py-3.5">
                       <div className="flex gap-1.5">
-                        <div className="w-2 h-2 bg-neutral-600 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                        <div className="w-2 h-2 bg-neutral-600 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                        <div className="w-2 h-2 bg-neutral-600 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                        <div
+                          className="w-2 h-2 bg-neutral-600 rounded-full animate-bounce"
+                          style={{ animationDelay: "0ms" }}
+                        />
+                        <div
+                          className="w-2 h-2 bg-neutral-600 rounded-full animate-bounce"
+                          style={{ animationDelay: "150ms" }}
+                        />
+                        <div
+                          className="w-2 h-2 bg-neutral-600 rounded-full animate-bounce"
+                          style={{ animationDelay: "300ms" }}
+                        />
                       </div>
                     </div>
                   </div>
@@ -314,22 +379,22 @@ const Chat = () => {
               <div className="px-8 pb-4 flex-shrink-0">
                 <div className="flex gap-2 flex-wrap">
                   <button
-                    onClick={() => toggleSidebar('schedule')}
+                    onClick={() => toggleSidebar("schedule")}
                     className={`px-4 py-2 border rounded-full text-xs transition-all duration-300 flex items-center gap-2 ${
-                      showSchedule 
-                        ? 'bg-neutral-100 text-neutral-900 border-neutral-100 shadow-lg font-medium' 
-                        : 'bg-neutral-900/50 hover:bg-neutral-800/80 border-neutral-800 text-neutral-400 hover:text-neutral-200 hover:border-neutral-700'
+                      showSchedule
+                        ? "bg-neutral-100 text-neutral-900 border-neutral-100 shadow-lg font-medium"
+                        : "bg-neutral-900/50 hover:bg-neutral-800/80 border-neutral-800 text-neutral-400 hover:text-neutral-200 hover:border-neutral-700"
                     }`}
                   >
                     <Calendar className="w-3.5 h-3.5" />
-                    {showSchedule ? 'Hide Schedule' : 'View Schedule'}
+                    {showSchedule ? "Hide Schedule" : "View Schedule"}
                   </button>
                   <button
-                    onClick={() => toggleSidebar('pricing')}
+                    onClick={() => toggleSidebar("pricing")}
                     className={`px-4 py-2 border rounded-full text-xs transition-all duration-300 flex items-center gap-2 ${
-                      showPricing 
-                        ? 'bg-neutral-100 text-neutral-900 border-neutral-100 shadow-lg font-medium' 
-                        : 'bg-neutral-900/50 hover:bg-neutral-800/80 border-neutral-800 text-neutral-400 hover:text-neutral-200 hover:border-neutral-700'
+                      showPricing
+                        ? "bg-neutral-100 text-neutral-900 border-neutral-100 shadow-lg font-medium"
+                        : "bg-neutral-900/50 hover:bg-neutral-800/80 border-neutral-800 text-neutral-400 hover:text-neutral-200 hover:border-neutral-700"
                     }`}
                   >
                     <Camera className="w-3.5 h-3.5" />
@@ -371,10 +436,12 @@ const Chat = () => {
             {/* Sidebar - Schedule or Pricing */}
             <div
               className={`h-full rounded-2xl overflow-hidden border border-neutral-800/80 bg-neutral-950/95 backdrop-blur-xl flex flex-col transition-all duration-700 ease-in-out shadow-2xl ${
-                hasSidebar ? 'w-[40%] opacity-100 translate-x-0' : 'w-0 opacity-0 translate-x-8 pointer-events-none'
+                hasSidebar
+                  ? "w-[40%] opacity-100 translate-x-0"
+                  : "w-0 opacity-0 translate-x-8 pointer-events-none"
               }`}
               style={{
-                filter: hasSidebar ? 'blur(0px)' : 'blur(10px)',
+                filter: hasSidebar ? "blur(0px)" : "blur(10px)",
               }}
             >
               {showSchedule && (
@@ -393,21 +460,30 @@ const Chat = () => {
                         <X className="w-4 h-4" />
                       </button>
                     </div>
-                    <p className="text-xs text-neutral-600">Select your preferred time slot</p>
+                    <p className="text-xs text-neutral-600">
+                      Select your preferred time slot
+                    </p>
                   </div>
 
                   {/* Schedule Content */}
-                  <div className="flex-1 overflow-y-auto px-6 py-5" style={{ overscrollBehavior: 'contain' }}>
+                  <div
+                    className="flex-1 overflow-y-auto px-6 py-5"
+                    style={{ overscrollBehavior: "contain" }}
+                  >
                     <div className="space-y-6">
                       {availableSlots.map((day, dayIdx) => (
-                        <div key={dayIdx} className="animate-fade-in" style={{ animationDelay: `${dayIdx * 100}ms` }}>
+                        <div
+                          key={dayIdx}
+                          className="animate-fade-in"
+                          style={{ animationDelay: `${dayIdx * 100}ms` }}
+                        >
                           <div className="flex items-center gap-2 mb-3 pb-2 border-b border-neutral-800/50">
                             <div className="w-1.5 h-1.5 rounded-full bg-neutral-500"></div>
                             <h3 className="text-sm font-semibold text-neutral-300">
                               {formatDate(day.date)}
                             </h3>
                           </div>
-                          
+
                           <div className="grid grid-cols-2 gap-2">
                             {day.slots.map((slot, slotIdx) => (
                               <button
@@ -447,15 +523,22 @@ const Chat = () => {
                         <X className="w-4 h-4" />
                       </button>
                     </div>
-                    <p className="text-xs text-neutral-600">Professional photography packages</p>
+                    <p className="text-xs text-neutral-600">
+                      Professional photography packages
+                    </p>
                   </div>
 
                   {/* Pricing Content */}
-                  <div className="flex-1 overflow-y-auto px-6 py-5 space-y-3" style={{ overscrollBehavior: 'contain' }}>
+                  <div
+                    className="flex-1 overflow-y-auto px-6 py-5 space-y-3"
+                    style={{ overscrollBehavior: "contain" }}
+                  >
                     {services.map((service, idx) => (
                       <div
                         key={idx}
-                        onClick={() => setInput(`I'm interested in the ${service.name}`)}
+                        onClick={() =>
+                          setInput(`I'm interested in the ${service.name}`)
+                        }
                         className="group bg-neutral-900/60 border border-neutral-800 hover:border-neutral-700 rounded-xl p-4 hover:bg-neutral-800/60 transition-all duration-300 hover:scale-105 cursor-pointer animate-fade-in"
                         style={{ animationDelay: `${idx * 100}ms` }}
                       >
@@ -463,17 +546,12 @@ const Chat = () => {
                           <h4 className="font-semibold text-base text-neutral-200 group-hover:text-neutral-100 transition-colors">
                             {service.name}
                           </h4>
-                          <span className="text-lg font-bold text-neutral-300 group-hover:text-neutral-100 transition-colors">
-                            {service.price}
-                          </span>
+                          
                         </div>
                         <p className="text-xs text-neutral-500 mb-2 leading-relaxed">
                           {service.description}
                         </p>
-                        <div className="flex items-center gap-1.5 text-xs text-neutral-600">
-                          <Clock className="w-3 h-3" />
-                          <span>{service.duration}</span>
-                        </div>
+                        
                       </div>
                     ))}
                   </div>
@@ -554,12 +632,22 @@ const Chat = () => {
     <>
       {/* Landing Page */}
       <div className="relative min-h-screen bg-gradient-to-b from-black via-[#121E25] to-[#09131B]  flex items-center justify-center p-6 overflow-hidden mb-0.5 -mt-0.5">
-        
         {/* Background elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <img src="/gradients/sky_gradient_white.png" className={`absolute top-1/20 -left-48 w-96 h-96  blur-xl  ${showPortal ? "opacity-70":"opacity-0"} transition duration-500`} alt="" />
-          <img src="/gradients/sky_gradient_white.png" className={`absolute bottom-1/9  -right-42 w-96 h-96  blur-xl  ${showPortal ? "opacity-70":"opacity-0"} transition duration-500`} alt="" />
-
+          <img
+            src="/gradients/sky_gradient_white.png"
+            className={`absolute top-1/20 -left-48 w-96 h-96  blur-xl  ${
+              showPortal ? "opacity-70" : "opacity-0"
+            } transition duration-500`}
+            alt=""
+          />
+          <img
+            src="/gradients/sky_gradient_white.png"
+            className={`absolute bottom-1/9  -right-42 w-96 h-96  blur-xl  ${
+              showPortal ? "opacity-70" : "opacity-0"
+            } transition duration-500`}
+            alt=""
+          />
         </div>
 
         {/* Main Content */}
@@ -567,20 +655,23 @@ const Chat = () => {
           {/* Logo/Brand */}
           <div className="mb-8 inline-flex items-center gap-3 px-6 py-3 bg-neutral-900/50 border border-neutral-800 rounded-full backdrop-blur-sm">
             <Sparkles className="w-5 h-5 text-neutral-400" />
-            <span className="text-sm font-medium text-neutral-400">AI-Powered Booking</span>
+            <span className="text-sm font-medium text-neutral-400">
+              AI-Powered Booking
+            </span>
           </div>
 
           {/* Hero Text */}
-          <h1 className="text-6xl md:text-7xl font-bold mb-6 leading-tight text-white">
-          Your turn Begin here.
-            <span className="block text-gradient">
+          <h1 className="text-6xl md:text-7xl font-bold mb-6 leading-tight text-gradient">
+            Simple & Seamless
+            {/* <span className="block text-gradient">
             Find your path.
 
-            </span>
+            </span> */}
           </h1>
-          
+
           <p className="text-xl text-neutral-500 mb-12 max-w-2xl mx-auto leading-relaxed">
-            Chat with Lens AI to instantly check availability, explore our services, and book your session in seconds.
+            Chat with Lens AI to instantly check availability, explore our
+            services, and book your session in seconds.
           </p>
 
           {/* Main Input */}
@@ -616,22 +707,25 @@ const Chat = () => {
               <div className="text-sm text-neutral-600">AI Assistance</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-white mb-2">{"<"} 2min</div>
+              <div className="text-3xl font-bold text-white mb-2">
+                {"<"} 2min
+              </div>
               <div className="text-sm text-neutral-600">Booking Time</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold text-white mb-2">100%</div>
-              <div className="text-sm text-neutral-600">Instant Confirmation</div>
+              <div className="text-sm text-neutral-600">
+                Instant Confirmation
+              </div>
             </div>
           </div>
         </div>
       </div>
 
       {/* Portal */}
-      {mounted && typeof document !== 'undefined' && createPortal(
-        portalContent,
-        document.body
-      )}
+      {mounted &&
+        typeof document !== "undefined" &&
+        createPortal(portalContent, document.body)}
     </>
   );
 };

@@ -469,7 +469,7 @@ const Recent = () => {
               <Image
                 width={1920}
                 height={1080}
-                src="/Recent/A/p1.webp"
+                src="/Recent/A/B/7.webp"
                 alt="Production"
                 className="img-recent  object-bottom "
                 style={{ width: `700px` }}
@@ -478,7 +478,7 @@ const Recent = () => {
               />
             </div>
             <div className="col">
-              <div className="production-content">
+              <div className="production-content relative right-10">
                 <h2 className="production-title Recent-title-">PRODUCTION</h2>
                 <p className="production-text Recent-paragraph-">
                 The executed principle. Working within this defined system, we generate the raw assets. The environment is managed, the detail attended to, ensuring the principle is rendered as material.
@@ -495,7 +495,7 @@ const Recent = () => {
                 <Image
                   width={1920}
                   height={1080}
-                  src="/Recent/A/post7.webp"
+                  src="/Recent/A/B/4.webp"
                   alt="Post-production 1"
                   className="img-recent  "
                   style={{ objectPosition: `50% 70%`,width: `500px` }}
@@ -504,7 +504,7 @@ const Recent = () => {
                 <Image
                   width={1920}
                   height={1080}
-                  src="/Recent/A/post5.JPG"
+                  src="/Recent/A/B/5.webp"
                   alt="Post-production 2"
                   className="img-recent "
                   style={{ width: `500px` }}
@@ -514,7 +514,7 @@ const Recent = () => {
                 <Image
                   width={1920}
                   height={1080}
-                  src="/Recent/A/B/4.webp"
+                  src="/Recent/A/B/1.webp"
                   alt="Post-production 3"
                   className="img-recent "
                   style={{ width: `500px` }}
@@ -524,7 +524,7 @@ const Recent = () => {
               </div>
             </div>
             <div className="col">
-              <div className="production-content Recent-title-">
+              <div className="production-content Recent-title- relative right-18">
                 <h2 className="production-title Recent-paragraph-">POST-PRODUCTION</h2>
                 <p className="production-text ">
                 The work is launched into the cultural stream. Finalized with a critical eye, it is placed in influential media and scaled for public impact, beginning its dialogue.
@@ -535,15 +535,16 @@ const Recent = () => {
         </div>
       </section>
 
-      <section className="outro">
-        <p className="h1-recent secondanimatetext max-sm:relative md:w-[1100px] max-sm:max-w-98">
-        Every project is a footprint of the process. From broad layout to the finest pixel 
+      <section className="outro ">
+        <p className="h1-recent secondanimatetext max-sm:relative md:w-[950px] max-sm:max-w-98  pb-20 text-left"
+        style={{fontSize: `3.5rem`}}>
+        Every project is a footprint of the process.<br/> From broad layout to the finest pixel 
         </p>
         <Image
           src="/gradients/sky_gradient_white.png"
           alt="gradient"
           width={400}
-          className="absolute inset-0 opacity-30 scale-150 top-[-5%] left-[-18%] max-sm:top-[-20%] max-sm:scale-125 z-200 object-contain testing-test-altra"
+          className="absolute inset-0 opacity-30 scale-150 top-[-50%]  left-[-18%] max-sm:top-[-20%] max-sm:scale-125 z-200 object-contain testing-test-altra"
           height={400}
         />
       </section>

@@ -73,7 +73,7 @@ export const HeroParallax = ({ testimonials }) => {
           scrollTrigger: {
             trigger: "#Testimonials",
             scroller: "[data-scroll-container]",
-            start: "top 30%",
+            start: "top 80%",
           }
         });
         
