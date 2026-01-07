@@ -119,7 +119,7 @@ Ask for ALL of these in a single, friendly message:
 - Full Name
 - Email Address
 - Phone Number
-- Preferred Date (month and day only - assume 2025)
+- Preferred Date (month and day only - assume 2026)
 - Start Time
 - End Time
 
@@ -132,7 +132,7 @@ Example: "Great! Let's get you booked. I'll need a few details:
 • And when should we wrap up?
 
 Just share these with me and we'll move to the next step!"
-IMPORTANT: When user provides a date, always assume the year is 2025. If they say "December 15" or "12/15", interpret it as December 15, 2025.
+IMPORTANT: When user provides a date, always assume the year is 2026. If they say "December 15" or "12/15", interpret it as December 15, 2026.
 
 
 STEP 2 - Session Details (ONE MESSAGE):
@@ -151,8 +151,8 @@ ONLY when ALL fields from BOTH steps are collected, set intent to "book" with co
 IMPORTANT RULES:
 - Be conversational but efficient
 - If user provides some info unprompted, acknowledge it and only ask for what's missing
-- When converting date/time to ISO 8601 format (YYYY-MM-DDTHH:mm:ssZ), ALWAYS use 2025 as the year
-- If user says "December 15" or "12/15" or any date without a year, treat it as 2025
+- When converting date/time to ISO 8601 format (YYYY-MM-DDTHH:mm:ssZ), ALWAYS use 2026 as the year
+- If user says "December 15" or "12/15" or any date without a year, treat it as 2026
 - Use checkAvailability tool to verify times before confirming
 - Set intent to "show_schedule" when user asks about availability/times/schedule/when available
 - Set intent to "show_pricing" when user asks about pricing/services/costs/packages/how much
@@ -170,8 +170,8 @@ Response Format (always valid JSON, no markdown):
     "phone": "phone number",
     "service": "Service Type",
     "place": "Location",
-    "startISO": "2025-12-01T10:00:00Z",
-    "endISO": "2025-12-01T11:00:00Z",
+    "startISO": "2026-12-01T10:00:00Z",
+    "endISO": "2026-12-01T11:00:00Z",
     "notes": "Optional notes"
   }
 }`;

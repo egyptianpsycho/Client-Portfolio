@@ -446,27 +446,51 @@ const Recent = () => {
       </section>
 
       <section className="horizontal-scroll">
-        <div className="horizontal-scroll-wrapper ">
-          <div className="horizontal-slide horizontal-spacer "></div>
+        <div className="horizontal-scroll-wrapper">
+          <div className="horizontal-slide horizontal-spacer"></div>
           
           {/* Pre-Production Slide */}
-          <div className="horizontal-slide  ">
-            <div className="col w-200">
+          <div className="horizontal-slide">
+            <div className="col">
               <div className="production-content">
-                <h2 className="production-title Recent-title- w-200">PRE-PRODUCTION</h2>
-                <p className="production-text Recent-paragraph- w-200 ">
+                <h2 className="production-title Recent-title-">PRE-PRODUCTION</h2>
+                <p className="production-text Recent-paragraph-">
                 Where strategy gets a spine. We tear down your brief, rebuild it from the ground up, and forge a visual treatment that dictates the tone, texture, and tension of the entire campaign.
                 </p>
               </div>
             </div>
-            
+            <div className="col h-180 ">
+              <Image
+                width={1920}
+                height={1080}
+                src="/Recent/A/pre2.webp"
+                alt="Pre-production"
+                className="img-recent  object-bottom"
+                loading="lazy"
+              />
+            </div>
           </div>
 
           {/* Production Slide */}
-          <div className="horizontal-slide relative right-120">
-            
+          <div className="horizontal-slide">
+            <div className="col">
+              <div className="production-content">
+                <h2 className="production-title Recent-title-">PRODUCTION</h2>
+                <p className="production-text Recent-paragraph-">
+                The executed principle. Working within this defined system, we generate the raw assets. The environment is managed, the detail attended to, ensuring the principle is rendered as material.
+                </p>
+              </div>
+            </div>
             <div className="col h-180">
-              <Image
+              {/* <Image
+                width={1920}
+                height={1080}
+                src="/Recent/A/p1.webp"
+                alt="Production"
+                className="img-recent grayscale-100 object-bottom GSXR"
+                loading="lazy"
+              /> */}
+               <Image
                 width={1920}
                 height={1080}
                 src="/Recent/A/B/7.webp"
@@ -477,28 +501,27 @@ const Recent = () => {
                 loading="lazy"
               />
             </div>
-            <div className="col">
-              <div className="production-content relative right-10">
-                <h2 className="production-title Recent-title-">PRODUCTION</h2>
-                <p className="production-text Recent-paragraph-">
-                The executed principle. Working within this defined system, we generate the raw assets. The environment is managed, the detail attended to, ensuring the principle is rendered as material.
-                </p>
-              </div>
-            </div>
           </div>
 
           {/* Post-Production Slide */}
-          <div className="horizontal-slide relative right-40 ">
-            
-            <div className="col post-production-images ">
-              <div className="img-stack ">
-                <Image
+          <div className="horizontal-slide">
+            <div className="col">
+              <div className="production-content Recent-title-">
+                <h2 className="production-title Recent-paragraph-">POST-PRODUCTION</h2>
+                <p className="production-text ">
+                The work is launched into the cultural stream. Finalized with a critical eye, it is placed in influential media and scaled for public impact, beginning its dialogue.
+                </p>
+              </div>
+            </div>
+            <div className="col post-production-images">
+              <div className="img-stack">
+              <Image
                   width={1920}
                   height={1080}
                   src="/Recent/A/B/4.webp"
                   alt="Post-production 1"
                   className="img-recent  "
-                  style={{ objectPosition: `50% 70%`,width: `500px` }}
+                  style={{ objectPosition: `50% 70%` }}
                   loading="lazy"
                 />
                 <Image
@@ -507,7 +530,7 @@ const Recent = () => {
                   src="/Recent/A/B/5.webp"
                   alt="Post-production 2"
                   className="img-recent "
-                  style={{ width: `500px` }}
+                  // style={{ width: `500px` }}
 
                   loading="lazy"
                 />
@@ -517,18 +540,10 @@ const Recent = () => {
                   src="/Recent/A/B/1.webp"
                   alt="Post-production 3"
                   className="img-recent "
-                  style={{ width: `500px` }}
+                  // style={{ width: `500px` }}
 
                   loading="lazy"
                 />
-              </div>
-            </div>
-            <div className="col">
-              <div className="production-content Recent-title- relative right-18">
-                <h2 className="production-title Recent-paragraph-">POST-PRODUCTION</h2>
-                <p className="production-text ">
-                The work is launched into the cultural stream. Finalized with a critical eye, it is placed in influential media and scaled for public impact, beginning its dialogue.
-                </p>
               </div>
             </div>
           </div>
@@ -537,7 +552,7 @@ const Recent = () => {
 
       <section className="outro ">
         <p className="h1-recent secondanimatetext max-sm:relative md:w-[950px] max-sm:max-w-98  pb-20 text-left"
-        style={{fontSize: `3.5rem`}}>
+        >
         Every project is a footprint of the process.<br/> From broad layout to the finest pixel 
         </p>
         <Image

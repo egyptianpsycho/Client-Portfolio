@@ -109,7 +109,7 @@ const useBTLAnimations = (
               x: 30,
               filter: "blur(12px)",
               stagger: 0.3,
-              duration: 1.2,
+              duration: 0.8,
               ease: "power2.out",
             });
 

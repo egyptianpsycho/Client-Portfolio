@@ -6,140 +6,161 @@ export function Testimonials() {
   return <HeroParallax testimonials={testimonials} />;
 }
 export const testimonials = [
+  // ================= ROW 1 =================
   {
     id: 1,
-    name: "Eva Martinez",
-    position: "Founder & Creative Director",
-    company: "Luna Interior Studio",
+    name: "Yassin",
+    position: "Marketing Lead",
+    company: "Unique Talents",
     testimonial:
-      "Working with Abbas was an absolute pleasure. She made us feel so comfortable during our branding shoot, and the images captured exactly our vibe — professional yet warm and authentic.",
-    photo: "https://randomuser.me/api/portraits/women/44.jpg",
+      "Your creativity and ability to think outside the box make every project fun, exciting, and effortless. You create great content on the spot, and it’s always a pleasure working together and we can’t wait for what we create next.",
+    initial: "Y",
   },
   {
     id: 2,
-    name: "Jason O’Connor",
-    position: "CEO",
-    company: "Maple Ridge Ventures",
+    name: "KERR MCILWRAITH",
+    position: "Creative Director",
+    company: "Flint Culture",
     testimonial:
-      "We hired Abbas for our team headshots and personal brand session. The results were fantastic — each photo looks polished and natural, and everyone on the team felt at ease in front of the camera.",
-    photo: "https://randomuser.me/api/portraits/men/32.jpg",
+      "Agile, dynamic, and reliable. Ahmed adapts quickly to fast-changing production environments and always delivers quality.",
+    initial: "KM",
   },
+
+  //  CENTER – BMW
   {
     id: 3,
-    name: "Sophie Al-Hassan",
-    position: "Marketing Manager",
-    company: "Peak Digital Agency",
+    name: "Hassan Hassan",
+    position: "Social Media Manager",
+    company: "BMW Middle East",
     testimonial:
-      "From planning to delivery, Abbas was professional, creative and fun to work with. The final images reflect our brand’s personality and we’ve received many compliments already.",
-    photo: "https://randomuser.me/api/portraits/women/68.jpg",
+      "Ahmed Abbas stands out for combining creativity with true professionalism. Across multiple automotive shoots, his execution and team coordination were outstanding.",
+    photo: "/Logos/bmw.png",
+    initial: "HH",
   },
+
+  //  CENTER – adidas
   {
     id: 4,
-    name: "Leonardo De Silva",
-    position: "Head of Product",
-    company: "Skyline Tech Co.",
+    name: "Robert Mayuga",
+    position: "Social Media Manager",
+    company: "adidas UAE & @adidas Arabia",
     testimonial:
-      "Our product launch photo session with Abbas was seamless and efficient. We got dynamic, high-impact shots that elevated our campaign visuals and resonated strongly with our audience.",
-    photo: "https://randomuser.me/api/portraits/men/15.jpg",
+      "Such a pleasure to work with Creative, collaborative, and makes each project seamless from start to finish.",
+    photo: "/Logos/adidas.png",
   },
+
   {
     id: 5,
-    name: "Nadia Petrova",
-    position: "Founder & Lead Designer",
-    company: "Petrova Fine Jewellery",
+    name: "Yassin",
+    position: "Marketing Lead",
+    company: "Unique Talents",
     testimonial:
-      "As someone who dislikes being photographed, I was nervous. But Abbas guided me so gently and captured the details and atmosphere of my studio beautifully — I couldn’t be happier with the outcome.",
-    photo: "https://randomuser.me/api/portraits/women/29.jpg",
+      "Every project with Ahmed feels collaborative and dynamic. His instincts on set are sharp and reliable.",
+    initial: "Y",
   },
+
+  // ================= ROW 2 =================
   {
     id: 6,
-    name: "Omar Khalid",
-    position: "Operations Director",
-    company: "Green Horizon Events",
+    name: "KERR MCILWRAITH",
+    position: "Creative Director",
+    company: "Flint Culture",
     testimonial:
-      "For our corporate gala, Abbas managed to capture both the big moments and the candid interactions with such clarity and emotion. These photos will serve us for years to come.",
-    photo: "https://randomuser.me/api/portraits/men/64.jpg",
+      "Fast-paced projects demand flexibility, and Ahmed delivers every time without compromising quality.",
+    initial: "KM",
   },
   {
     id: 7,
-    name: "Lina Hoffman",
-    position: "Art Director",
-    company: "Nova Studio",
+    name: "Producer",
+    position: "Campaign Producer",
+    company: "Advertising Films",
     testimonial:
-      "The way Abbas plays with light is simply magical. Every shot feels like a work of art, and I can’t wait to collaborate again for our next campaign.",
-    photo: "https://randomuser.me/api/portraits/women/52.jpg",
+      "For advertising that grabs attention and delivers results, hire Ahmed Abbas. He played a key role in our campaign, making visuals that performed brilliantly on social media and stood out on billboards across the country.",
+    initial: "P",
   },
+
+  //  CENTER – JUMEIRAH
   {
     id: 8,
-    name: "Daniel Cruz",
-    position: "Brand Strategist",
-    company: "Cruz & Co.",
+    name: "Jumeirah Marketing Team",
+    position: "Brand & Marketing",
+    company: "Jumeirah",
     testimonial:
-      "I’ve worked with many photographers, but Abbas stands out for blending artistry with professionalism. The portraits came out even better than I imagined.",
-    photo: "https://randomuser.me/api/portraits/men/71.jpg",
+      "Ahmed’s cinematic style conveys emotion and atmosphere, not just spaces. He’s been an invaluable visual storyteller for our brand.",
+    photo: "/Logos/jumeira.png",
   },
+
+  //  CENTER – FASHION / NYC
   {
     id: 9,
-    name: "Aisha Thompson",
-    position: "Owner",
-    company: "Bloom Event Design",
+    name: "Gabbana Modeling Agency",
+    position: "Agency Director",
+    company: "NYC Fashion Week",
     testimonial:
-      "The photos captured every emotion from our event — laughter, joy, and warmth. Abbas truly has an eye for storytelling through images.",
-    photo: "https://randomuser.me/api/portraits/women/36.jpg",
+      "Ahmed Abbas captured elegance, energy, and style in our Virginia look book shoot with 10 models for NYC Fashion week. A seamless, professional, and highly creative experience from start to finish. Highly recommended.",
+    photo: "/Logos/NYC.svg",
   },
+
   {
     id: 10,
-    name: "Markus Ivanov",
-    position: "Product Designer",
-    company: "Ivory Labs",
+    name: "Robert Mayuga",
+    position: "Social Media Manager",
+    company: "adidas UAE @adidas Arabia",
     testimonial:
-      "Abbas was patient and detail-oriented throughout our creative shoot. The atmosphere felt relaxed, and the final results exceeded all expectations.",
-    photo: "https://randomuser.me/api/portraits/men/54.jpg",
+      "Clear vision, strong execution, and smooth collaboration. Ahmed brings consistency to every production.",
+    photo: "/Logos/adidas.png",
   },
+
+  // ================= ROW 3 =================
   {
     id: 11,
-    name: "Clara Nguyen",
-    position: "Fashion Blogger",
-    company: "StyleSense",
+    name: "Yassin",
+    position: "Marketing Lead",
+    company: "Unique Talents",
     testimonial:
-      "Every photo from the lifestyle session felt candid and cinematic. Abbas has a unique talent for making moments feel effortlessly beautiful.",
-    photo: "https://randomuser.me/api/portraits/women/23.jpg",
+      "Working with Ahmed is always efficient and creatively rewarding. He brings ideas to life quickly.",
+    initial: "Y",
   },
   {
     id: 12,
-    name: "Noah Peterson",
-    position: "Musician",
-    company: "Peterson Soundworks",
+    name: "KERR MCILWRAITH",
+    position: "Creative Director",
+    company: "Flint Culture",
     testimonial:
-      "My album shoot came out beyond what I envisioned — dramatic lighting, expressive poses, and storytelling all in one frame. Incredible work!",
-    photo: "https://randomuser.me/api/portraits/men/40.jpg",
+      "Ahmed’s adaptability and creative control make him ideal for demanding productions.",
+    initial: "KM",
   },
+
+  //  CENTER – F&B SCALE
   {
     id: 13,
-    name: "Emily Brooks",
-    position: "Wedding Planner",
-    company: "Forever Moments",
+    name: "Marwa Hassanin",
+    position: "Creative Director",
+    company: "F&B Multi-Brand Group",
     testimonial:
-      "Abbas captured our clients’ wedding with so much elegance and emotion. Each photo told a story — timeless and filled with feeling.",
-    photo: "https://randomuser.me/api/portraits/women/60.jpg",
+      "Working with Abbas for two years across 12 of our F&B brands has been a game-changer. He has an unparalleled talent for making food look not just beautiful, but irresistible. He's a true master of his craft.",
+    initial: "MH",
   },
+
+  //  CENTER – NATIONAL IMPACT
   {
     id: 14,
-    name: "Alexei Morozov",
-    position: "Entrepreneur",
-    company: "BrightPath Holdings",
+    name: "Producer",
+    position: "Campaign Producer",
+    company: "National Advertising Campaigns",
     testimonial:
-      "The brand portraits were top-notch. Abbas captured confidence and authenticity in every frame — exactly what I needed for my business profile.",
-    photo: "https://randomuser.me/api/portraits/men/81.jpg",
+      "For advertising that grabs attention and delivers results, hire Ahmed Abbas. He played a key role in our campaign, making visuals that performed brilliantly on social media and stood out on billboards across the country.",
+    initial: "P",
   },
+
   {
     id: 15,
-    name: "Jasmine Carter",
-    position: "Model & Influencer",
-    company: "JasC Studios",
+    name: "Jumeirah Marketing Team",
+    position: "Brand & Marketing",
+    company: "Jumeirah",
     testimonial:
-      "[YourName] has an incredible ability to connect with people and bring out their best expressions. Every session feels relaxed yet so professional.",
-    photo: "https://randomuser.me/api/portraits/women/14.jpg",
+      "Ahmed has a talent for capturing authentic, elegant moments that align perfectly with luxury hospitality branding.",
+    photo: "/Logos/jumeira.png",
+    initial: "JM",
   },
 ];
-

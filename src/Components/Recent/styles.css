@@ -436,6 +436,9 @@ body {
   font-family: "PP Neue Montreal";
 }
 
+.outro .h1-recent {
+  font-size: 3.5rem;
+}
 .h3-recent {
   font-size: 2.25rem;
   font-weight: 500;
@@ -592,6 +595,9 @@ body {
   .h1-recent {
     font-size: 2.25rem;
     letter-spacing: -0.05rem;
+  }
+  .outro .h1-recent {
+    font-size: 2.25rem;
   }
   
   .hero-2,
