@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { Flip } from "gsap/Flip";
@@ -11,18 +11,6 @@ gsap.registerPlugin(ScrollTrigger, Flip, SplitText);
 
 
 const Recent = () => {
-  // Refs for Pre-Production
-  const preProductionTitleRef = useRef(null);
-  const preProductionTextRef = useRef(null);
-  
-  // Refs for Production
-  const productionTitleRef = useRef(null);
-  const productionTextRef = useRef(null);
-  
-  // Refs for Post-Production
-  const postProductionTitleRef = useRef(null);
-  const postProductionTextRef = useRef(null);
-
   useEffect(() => {
     const init = () => {
       const lightColor = getComputedStyle(document.documentElement)
@@ -76,141 +64,6 @@ const Recent = () => {
             },
           }
         );
-
-        // Pre-Production animations
-        if (preProductionTitleRef.current) {
-          gsap.set(preProductionTitleRef.current, { yPercent: 120 });
-          ScrollTrigger.create({
-            trigger: preProductionTitleRef.current,
-            start: "top 75%",
-            scroller: "[data-scroll-container]",
-            once: true,
-            onEnter: () => {
-              gsap.fromTo(
-                preProductionTitleRef.current,
-                { filter: "blur(4px)" },
-                {
-                  yPercent: 0,
-                  duration: 1.8,
-                  filter: "blur(0px)",
-                  ease: "power3.out",
-                }
-              );
-            },
-          });
-        }
-
-        if (preProductionTextRef.current) {
-          gsap.set(preProductionTextRef.current, { yPercent: 120 });
-          ScrollTrigger.create({
-            trigger: preProductionTextRef.current,
-            start: "top 85%",
-            scroller: "[data-scroll-container]",
-            toggleActions: "play none none reverse",
-            onEnter: () => {
-              gsap.fromTo(
-                preProductionTextRef.current,
-                { filter: "blur(4px)" },
-                {
-                  yPercent: 0,
-                  duration: 1.2,
-                  filter: "blur(0px)",
-                  ease: "power3.out",
-                }
-              );
-            },
-          });
-        }
-
-        // Production animations
-        if (productionTitleRef.current) {
-          gsap.set(productionTitleRef.current, { yPercent: 120 });
-          ScrollTrigger.create({
-            trigger: productionTitleRef.current,
-            start: "top 75%",
-            scroller: "[data-scroll-container]",
-            once: true,
-            onEnter: () => {
-              gsap.fromTo(
-                productionTitleRef.current,
-                { filter: "blur(4px)" },
-                {
-                  yPercent: 0,
-                  duration: 1.8,
-                  filter: "blur(0px)",
-                  ease: "power3.out",
-                }
-              );
-            },
-          });
-        }
-
-        if (productionTextRef.current) {
-          gsap.set(productionTextRef.current, { yPercent: 120 });
-          ScrollTrigger.create({
-            trigger: productionTextRef.current,
-            start: "top 85%",
-            scroller: "[data-scroll-container]",
-            toggleActions: "play none none reverse",
-            onEnter: () => {
-              gsap.fromTo(
-                productionTextRef.current,
-                { filter: "blur(4px)" },
-                {
-                  yPercent: 0,
-                  duration: 1.2,
-                  filter: "blur(0px)",
-                  ease: "power3.out",
-                }
-              );
-            },
-          });
-        }
-
-        // Post-Production animations
-        if (postProductionTitleRef.current) {
-          gsap.set(postProductionTitleRef.current, { yPercent: 120 });
-          ScrollTrigger.create({
-            trigger: postProductionTitleRef.current,
-            start: "top 75%",
-            scroller: "[data-scroll-container]",
-            once: true,
-            onEnter: () => {
-              gsap.fromTo(
-                postProductionTitleRef.current,
-                { filter: "blur(4px)" },
-                {
-                  yPercent: 0,
-                  duration: 1.8,
-                  filter: "blur(0px)",
-                  ease: "power3.out",
-                }
-              );
-            },
-          });
-        }
-
-        if (postProductionTextRef.current) {
-          gsap.set(postProductionTextRef.current, { yPercent: 120 });
-          ScrollTrigger.create({
-            trigger: postProductionTextRef.current,
-            start: "top 85%",
-            scroller: "[data-scroll-container]",
-            toggleActions: "play none none reverse",
-            onEnter: () => {
-              gsap.fromTo(
-                postProductionTextRef.current,
-                { filter: "blur(4px)" },
-                {
-                  yPercent: 0,
-                  duration: 1.2,
-                  filter: "blur(0px)",
-                  ease: "power3.out",
-                }
-              );
-            },
-          });
-        }
 
         function interpolateColor(color1, color2, factor) {
           return gsap.utils.interpolate(color1, color2, factor);
@@ -294,7 +147,10 @@ const Recent = () => {
           trigger: ".horizontal-scroll",
           start: "top top",
           scroller: "[data-scroll-container]",
-          end: () => `+=${window.innerHeight * 4}`,
+          end: () => {
+            const isMobile = window.innerWidth <= 768;
+            return `+=${window.innerHeight * (isMobile ? 2.5 : 4)}`;
+          },
           pin: true,
         });
 
@@ -311,7 +167,10 @@ const Recent = () => {
           trigger: ".horizontal-scroll",
           scroller: "[data-scroll-container]",
           start: "top 50%",
-          end: () => `+=${window.innerHeight * 4.5}`,
+          end: () => {
+            const isMobile = window.innerWidth <= 768;
+            return `+=${window.innerHeight * (isMobile ? 3 : 4.5)}`;
+          },
           onUpdate: (self) => {
             const progress = self.progress;
 
@@ -364,14 +223,14 @@ const Recent = () => {
               }
 
               const horizontalProgress = (progress - 0.2) / 0.75;
-              const wrapperTranslateX = -75 * horizontalProgress;
+              const wrapperTranslateX = -75 * horizontalProgress; // Changed from -66.67 to -75
 
               gsap.set(".horizontal-scroll-wrapper", {
                 x: `${wrapperTranslateX}%`,
               });
 
               if (pinnedMarqueeimgClone) {
-                const slideMovement = (75 / 100) * 4 * horizontalProgress;
+                const slideMovement = (75 / 100) * 4 * horizontalProgress; // Changed to account for 4 slides
                 const imageTranslateX = -slideMovement * 100;
                 gsap.set(pinnedMarqueeimgClone, {
                   x: `${imageTranslateX}%`,
@@ -386,12 +245,12 @@ const Recent = () => {
 
               if (pinnedMarqueeimgClone) {
                 gsap.set(pinnedMarqueeimgClone, {
-                  x: "-300%",
+                  x: "-300%", // Changed from -200% to -300%
                 });
               }
 
               gsap.set(".horizontal-scroll-wrapper", {
-                x: "-75%",
+                x: "-75%", // Changed from -66.67% to -75%
               });
             }
           },
@@ -600,14 +459,10 @@ const Recent = () => {
           <div className="horizontal-slide">
             <div className="col">
               <div className="production-content">
-                <div style={{ overflow: "hidden" }}>
-                  <h2 ref={preProductionTitleRef} className="production-title Recent-title-">PRE-PRODUCTION</h2>
-                </div>
-                <div style={{ overflow: "hidden" }}>
-                  <p ref={preProductionTextRef} className="production-text Recent-paragraph-">
-                  Where strategy gets a spine. We tear down your brief, rebuild it from the ground up, and forge a visual treatment that dictates the tone, texture, and tension of the entire campaign.
-                  </p>
-                </div>
+                <h2 className="production-title Recent-title-">PRE-PRODUCTION</h2>
+                <p className="production-text Recent-paragraph-">
+                Where strategy gets a spine. We tear down your brief, rebuild it from the ground up, and forge a visual treatment that dictates the tone, texture, and tension of the entire campaign.
+                </p>
               </div>
             </div>
             <div className="col h-180 ">
@@ -626,17 +481,21 @@ const Recent = () => {
           <div className="horizontal-slide">
             <div className="col">
               <div className="production-content">
-                <div style={{ overflow: "hidden" }}>
-                  <h2 ref={productionTitleRef} className="production-title Recent-title-">PRODUCTION</h2>
-                </div>
-                <div style={{ overflow: "hidden" }}>
-                  <p ref={productionTextRef} className="production-text Recent-paragraph-">
-                  The executed principle. Working within this defined system, we generate the raw assets. The environment is managed, the detail attended to, ensuring the principle is rendered as material.
-                  </p>
-                </div>
+                <h2 className="production-title Recent-title-">PRODUCTION</h2>
+                <p className="production-text Recent-paragraph-">
+                The executed principle. Working within this defined system, we generate the raw assets. The environment is managed, the detail attended to, ensuring the principle is rendered as material.
+                </p>
               </div>
             </div>
             <div className="col h-180">
+              {/* <Image
+                width={1920}
+                height={1080}
+                src="/Recent/A/p1.webp"
+                alt="Production"
+                className="img-recent grayscale-100 object-bottom GSXR"
+                loading="lazy"
+              /> */}
                <Image
                 width={1920}
                 height={1080}
@@ -654,14 +513,10 @@ const Recent = () => {
           <div className="horizontal-slide">
             <div className="col">
               <div className="production-content Recent-title-">
-                <div style={{ overflow: "hidden" }}>
-                  <h2 ref={postProductionTitleRef} className="production-title Recent-paragraph-">POST-PRODUCTION</h2>
-                </div>
-                <div style={{ overflow: "hidden" }}>
-                  <p ref={postProductionTextRef} className="production-text ">
-                  The work is launched into the cultural stream. Finalized with a critical eye, it is placed in influential media and scaled for public impact, beginning its dialogue.
-                  </p>
-                </div>
+                <h2 className="production-title Recent-paragraph-">POST-PRODUCTION</h2>
+                <p className="production-text ">
+                The work is launched into the cultural stream. Finalized with a critical eye, it is placed in influential media and scaled for public impact, beginning its dialogue.
+                </p>
               </div>
             </div>
             <div className="col post-production-images">
@@ -681,6 +536,8 @@ const Recent = () => {
                   src="/Recent/A/B/5.webp"
                   alt="Post-production 2"
                   className="img-recent "
+                  // style={{ width: `500px` }}
+
                   loading="lazy"
                 />
                 <Image
@@ -689,6 +546,8 @@ const Recent = () => {
                   src="/Recent/A/B/1.webp"
                   alt="Post-production 3"
                   className="img-recent "
+                  // style={{ width: `500px` }}
+
                   loading="lazy"
                 />
               </div>
