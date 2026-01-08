@@ -99,7 +99,7 @@ export const PROJECTSIMGS = [
     alt: "Jumeriah",
     cover: "/Projects/images/Jumeriah/Jumeriah2.jpg",
     images: [
-      "/Projects/images/Jumeriah/jumeriah2.jpg",
+      "/Projects/images/Jumeriah/Jumeriah2.jpg",
       "/Projects/images/Jumeriah/jumeriah3.jpg",
       "/Projects/images/Jumeriah/jumeriah4.jpg",
       "/Projects/images/Jumeriah/jumeriah5.jpg",

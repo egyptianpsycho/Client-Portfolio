@@ -463,7 +463,7 @@ const Recent = () => {
               <Image
                 width={1920}
                 height={1080}
-                src="/Recent/A/pre2.webp"
+                src="/Recent/A/B/3.jpg"
                 alt="Pre-production"
                 className="img-recent  object-bottom"
                 loading="lazy"
