@@ -40,7 +40,7 @@ const About = () => {
           { filter: "blur(4px)" },
           {
             yPercent: 0,
-            duration: 1.2,
+            duration: 1.8,
             filter: "blur(0px)",
             ease: "power3.out",
             stagger: 0.15,
@@ -72,18 +72,18 @@ const About = () => {
 
   return (
     <section
-      className="second relative min-h-screen bg-gradient-to-tr to-[#000000] from-[#0a212b] z-[10] px-2 sm:px-10 py-12 sm:py-18 overflow-hidden"
+      className="second relative min-h-screen bg-gradient-to-tr to-[#000000] from-[#0a212b] z-[10] px-4 sm:px-10 py-12 sm:py-18 overflow-hidden"
       id="about"
     >
-      <div className="flex flex-col h-full justify-between gap-8 sm:gap-0">
+      <div className="flex flex-col h-full justify-between gap-8 sm:gap-0 min-h-screen">
         {/* Main Heading with Animation */}
         <div
           ref={headingRef}
-          className="w-full about-text font-normal text-[3rem] sm:text-[4rem] md:text-[5.5rem] lg:text-[7.7rem] text-white leading-tight sm:leading-snug"
+          className="w-full about-text font-normal text-[2.5rem] xs:text-[3rem] sm:text-[4rem] md:text-[5.5rem] lg:text-[7.7rem] text-white leading-tight sm:leading-snug"
           style={{ fontFamily: '"Work Sans", sans-serif' }}
         >
           <div style={{ overflow: "hidden" }}>
-            <h1 ref={line1Ref} className="break-words max-sm:w-80">
+            <h1 ref={line1Ref} className="break-words">
               WE'RE A GLOBAL{" "}
               <span
                 className="block sm:inline"
@@ -96,7 +96,7 @@ const About = () => {
           <div style={{ overflow: "hidden" }}>
             <h1
               ref={line2Ref}
-              className="font-normal text-[2.8rem] sm:text-[4.5rem] md:text-[6rem] lg:text-[8rem] relative flex flex-wrap items-baseline w-full"
+              className="font-normal text-[2.3rem] xs:text-[2.8rem] sm:text-[4.5rem] md:text-[6rem] lg:text-[8rem] relative flex flex-wrap items-baseline w-full"
               style={{ fontFamily: '"Nanum Myeongjo", sans-serif' }}
             >
               INNOVATION{" "}
@@ -138,7 +138,7 @@ const About = () => {
         {/* Paragraph with Animation */}
         <div
           ref={paraRef}
-          className="relative about-paragraph text-white leading-relaxed sm:leading-loose md:leading-11 text-xl sm:text-xl md:text-2xl lg:text-[2rem] max-w-[99%] sm:max-w-3xl md:max-w-3xl lg:max-w-4xl px-0 sm:px-0 md:px-0 tracking-normal mt-8 sm:mt-40 md:mt-60 lg:mt-80 max-sm:top-50 font-medium max-sm:mx-auto"
+          className="relative about-paragraph text-white leading-relaxed sm:leading-loose md:leading-11 text-base xs:text-lg sm:text-xl md:text-2xl lg:text-[2rem] max-w-full sm:max-w-3xl md:max-w-3xl lg:max-w-4xl px-0 tracking-normal mt-auto sm:pb-24 pb-20  font-medium"
           style={{ fontFamily: '"Work Sans", sans-serif' }}
         >
           <div style={{ overflow: "hidden" }}>

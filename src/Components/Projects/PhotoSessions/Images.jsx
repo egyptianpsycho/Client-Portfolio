@@ -93,16 +93,15 @@ const Images = () => {
     <div className="mt-94 relative" id="PROJECTS">
       <div>
         <div className=" z-100 text-center ">
-          <h1
-            className="text-9xl max-sm:text-[2.3rem] mb-5 relative inset-0 -top-90 max-sm:tracking-[0.4rem] tracking-[1.1rem] whitespace-nowrap   behind-title2 font-bold  text-gradient kninja "
-            style={{
-              clipPath: "polygon(0 0, 100% 0, 100% 100%, 0% 100%) ",
-              lineHeight: "12rem",
-              fontFamily: " 'Bebas Neue', 'serif' ",
-            }}
-          >
-            PHOTOGRAPHY
-          </h1>
+        <h1
+  className="text-9xl max-sm:text-[2.2rem] mb-5 relative inset-0 -top-90 tracking-[1.1rem] max-sm:tracking-[0.2rem] behind-title2 font-bold text-gradient "
+  style={{
+    lineHeight: "12rem", // Note: You might want to reduce this for mobile too
+    fontFamily: " 'Bebas Neue', 'serif' ",
+  }}
+>
+  PHOTOGRAPHY
+</h1>
         </div>
       </div>{" "}
       <div className="mx-auto parent h-[90vh] -mt-100 " ref={secRef}>

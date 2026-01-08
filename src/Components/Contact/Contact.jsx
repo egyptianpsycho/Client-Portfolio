@@ -2,7 +2,7 @@
 import useAnimate from "@/Hooks/useAnimate";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import React, { useEffect, useRef } from "react";
+import React, {  useRef } from "react";
 import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -15,7 +15,6 @@ const Contact = () => {
   const line2Ref = useRef(null);
   const line3Ref = useRef(null);
 
-
   useAnimate(() => {
     const lines = [line1Ref.current, line2Ref.current, line3Ref.current];
     const path = document.querySelector("#pathToAnimate2");
@@ -27,31 +26,35 @@ const Contact = () => {
     gsap.set(formHeadingLineRef, { yPercent: 120 });
     gsap.set(formHeadingLineRef.current, { yPercent: 120 });
 
-   
-
     ScrollTrigger.create({
       trigger: headingRef.current,
       start: "top 75%",
       scroller: "[data-scroll-container]",
       toggleActions: "play none none reverse",
       onEnter: () => {
-        gsap.fromTo(lines,{filter:"blur(4px)"}, {
-          yPercent: 0,
-          duration: 1.2,
-          filter: "blur(0px)",
-          ease: "power3.out",
-          stagger: 0.15,
-        });
-        gsap.fromTo(formHeadingLineRef.current,{filter:"blur(4px)"}, {
-          yPercent: 0,
-          duration: 1.2,
-          filter: "blur(0px)",
-          ease: "power3.out",
-        });
+        gsap.fromTo(
+          lines,
+          { filter: "blur(4px)" },
+          {
+            yPercent: 0,
+            duration: 1.2,
+            filter: "blur(0px)",
+            ease: "power3.out",
+            stagger: 0.15,
+          }
+        );
+        gsap.fromTo(
+          formHeadingLineRef.current,
+          { filter: "blur(4px)" },
+          {
+            yPercent: 0,
+            duration: 1.2,
+            filter: "blur(0px)",
+            ease: "power3.out",
+          }
+        );
       },
     });
-
-   
 
     gsap.set(path, {
       strokeDasharray: le,
@@ -99,27 +102,27 @@ const Contact = () => {
         </filter>
       </svg>
 
-      <div className="w-full min-h-screen absolute text-white overflow-hidden flex justify-center items-start p-8">
+      <div className="w-full min-h-screen absolute text-white overflow-hidden flex justify-center items-start p-8 max-sm:p-6">
         <div className="absolute inset-0 pointer-events-none">
           <div className="w-full h-full bg-gradient-to-tr from-black/80 to-neutral-700/40 opacity-40" />
         </div>
 
-        <div className="w-full grid grid-cols-1 lg:grid-cols-2 relative z-10">
+        <div className="w-full grid grid-cols-1 lg:grid-cols-2 relative z-10 max-sm:gap-16">
           {/* Left Side */}
-          <div className="space-y-6 ml-4">
+          <div className="space-y-6 ml-4 max-sm:ml-0">
             <div
               ref={headingRef}
-              className="text-5xl lg:text-7xl font-medium leading-19 max-sm:leading-none pt-4 max-sm:mix-blend-difference"
+              className="text-5xl lg:text-7xl font-medium leading-19 max-sm:leading-tight pt-4 max-sm:pt-8 max-sm:mix-blend-difference"
               style={{ fontFamily: '"Work Sans", sans-serif' }}
             >
               <div style={{ overflow: "hidden" }}>
-                <h1 ref={line1Ref}>SHAPING THE</h1>
+                <h1 ref={line1Ref} className="max-sm:text-[2.5rem]">SHAPING THE</h1>
               </div>
               <div style={{ overflow: "hidden" }}>
-                <h1 ref={line2Ref}>FUTURE OF</h1>
+                <h1 ref={line2Ref} className="max-sm:text-[2.5rem]">FUTURE OF</h1>
               </div>
               <div style={{ overflow: "hidden" }}>
-                <h1 ref={line3Ref}>
+                <h1 ref={line3Ref} className="max-sm:text-[2.5rem]">
                   VISUALS,{" "}
                   <span style={{ fontFamily: "Nanum Myeongjo", fontWeight: "400" }}>
                     TODAY
@@ -156,9 +159,10 @@ const Contact = () => {
                       strokeWidth="3"
                       strokeLinecap="round"
                       id="pathToAnimate2"
-                      styles={
-                        "stroke-dashoffset: 0px; stroke-dasharray: 3805.57;"
-                      }
+                      style={{
+                        strokeDashoffset: "0px",
+                        strokeDasharray: "3805.57",
+                      }}
                     ></path>
                   </g>
                 </svg>
@@ -167,10 +171,10 @@ const Contact = () => {
           </div>
 
           {/* Right Side - Form */}
-          <div className="space-y-8 w-full max-w-2xl max-sm:w-90 place-self-end max-sm:place-self-auto mt-48 max-sm:mt-20 max-sm:ml-4 lg:ml-8 font-bold px-4 lg:px-12">
-          <div
+          <div className="space-y-8 w-full max-w-2xl place-self-end max-sm:place-self-start mt-48 max-sm:mt-0 lg:ml-8 font-bold px-4 lg:px-12 max-sm:px-0">
+            <div
               ref={formHeadingRef}
-              className="text-5xl pb-4 max-sm:pb-0 max-sm:text-4xl"
+              className="text-5xl pb-4 max-sm:pb-6 max-sm:text-[2.5rem] max-sm:leading-tight"
               style={{
                 fontFamily: '"Work Sans", sans-serif',
                 fontWeight: "600",
@@ -179,7 +183,7 @@ const Contact = () => {
               <div style={{ overflow: "hidden" }}>
                 <h2 ref={formHeadingLineRef}>
                   LET'S COCK{" "}
-                  <span className="text-4xl font-extralight max-sm:text-3xl">
+                  <span className="text-4xl font-extralight max-sm:text-[2rem] max-sm:block">
                     TOGETHER
                   </span>
                 </h2>
@@ -189,14 +193,14 @@ const Contact = () => {
             <form
               method="post"
               action="https://formspree.io/f/mzzqwoal"
-              className="space-y-6 max-w-[40rem] max-sm:w-[20rem] text-lg"
+              className="space-y-6 max-w-[40rem] max-sm:max-w-full text-lg"
             >
               <div>
                 <input
                   type="text"
                   name="name"
                   placeholder="NAME"
-                  className="w-full bg-transparent border-b border-white/40 focus:border-lime-50 duration-500 outline-none p-2"
+                  className="w-full bg-transparent border-b border-white/40 focus:border-lime-50 duration-500 outline-none p-2 placeholder:text-white/60"
                 />
               </div>
 
@@ -205,7 +209,7 @@ const Contact = () => {
                   type="email"
                   name="email"
                   placeholder="EMAIL"
-                  className="w-full bg-transparent border-b border-white/40 focus:border-lime-50 duration-500 outline-none p-2"
+                  className="w-full bg-transparent border-b border-white/40 focus:border-lime-50 duration-500 outline-none p-2 placeholder:text-white/60"
                 />
               </div>
 
@@ -214,7 +218,7 @@ const Contact = () => {
                   placeholder="YOUR THOUGHTS"
                   name="message"
                   rows="4"
-                  className="w-full bg-transparent border-b border-white/40 focus:border-lime-50 duration-500 outline-none p-2"
+                  className="w-full bg-transparent border-b border-white/40 focus:border-lime-50 duration-500 outline-none p-2 resize-none placeholder:text-white/60"
                 />
               </div>
 

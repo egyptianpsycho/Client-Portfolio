@@ -5,7 +5,7 @@ const HeroSection = ({ sectionRef, imageContainerRef, textRef }) => {
   return (
     <section
       ref={sectionRef}
-      className="h-[100vh]    relative "
+      className="h-[100vh]    relative max-sm:hidden "
     >
       <div className="sticky  top-0 h-screen w-full mt-47 ">
         <div
