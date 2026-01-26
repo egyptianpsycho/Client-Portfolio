@@ -388,8 +388,8 @@ const Recent = () => {
                 height={1080}
                 src="/Recent/A/B/pin.webp"
                 alt="marq-img"
+                priority
                 className="img-recent "
-                loading="lazy"
               />
             </div>
             <div className="marq-img">
