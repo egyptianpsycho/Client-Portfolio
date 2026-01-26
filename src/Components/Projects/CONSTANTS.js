@@ -48,7 +48,6 @@ export const PROJECTSIMGS = [
       "/Projects/images/TALISE/TALISE4.webp",
       "/Projects/images/TALISE/TALISE5.webp",
       "/Projects/images/TALISE/TALISE6.webp",
-      "/Projects/images/TALISE/TALISE7.webp",
       "/Projects/images/TALISE/TALISE8.webp",
       "/Projects/images/TALISE/TALISE9.webp",
       "/Projects/images/TALISE/TALISE10.webp",
@@ -240,7 +239,7 @@ export const PROJECTSIMGS = [
       cover: "/Projects/images/Adidas/Adidas.jpg",
       images: [
         "/Projects/images/Adidas/Adidas1.jpg",
-        "/Projects/images/Adidas/adidas2.webp",
+        "/Projects/images/Adidas/adidas2crop2.jpg",
         "/Projects/images/Adidas/adidas3.jpg",
         "/Projects/images/Adidas/adidas4.jpg",
         "/Projects/images/Adidas/adidas5.webp",

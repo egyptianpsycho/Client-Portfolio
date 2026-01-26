@@ -79,7 +79,7 @@ const Contact = () => {
   return (
     <section
       id="CONTACT"
-      className="contact-section min-h-screen bg-gradient-to-t from-black via-slate-600 to-[#0a212b] relative -mt-0.5"
+      className="contact-section max-sm:min-h-[120vh] min-h-screen bg-gradient-to-t from-black via-slate-600 to-[#0a212b] relative -mt-0.5"
     >
       <div id="blob1"></div>
       <div id="blob2"></div>

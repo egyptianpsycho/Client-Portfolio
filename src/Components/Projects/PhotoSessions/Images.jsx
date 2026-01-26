@@ -13,95 +13,99 @@ const Images = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
   const secRef = useRef(null);
-  
+
   useAnimate(() => {
-    const behindTitle2 = new SplitText(".behind-title2", { type: "chars" });
-    behindTitle2.chars.forEach((char) => char.classList.add("text-gradient"));
+    if (window.innerWidth > 768) {
+      const behindTitle2 = new SplitText(".behind-title2", { type: "chars" });
+      behindTitle2.chars.forEach((char) => char.classList.add("text-gradient"));
 
-    
-
-    // Animate the title
-    gsap.from(behindTitle2.chars, {
-      opacity: 0,
-      duration: 2,
-      ease: "expo.out",
-      stagger: 0.1,
-      filter: "blur(15px)",
-      y: 50,
-      scrollTrigger: {
-        trigger: "#Projects",
-        scroller: "[data-scroll-container]",
-        start: "top bottom-=30%",
-        toggleActions: "play none none reverse",
-      },
-    });
-
-    // Wait for images to load before animating
-    const waitForImages = () => {
-      const images = secRef.current?.querySelectorAll('img');
-      if (!images || images.length === 0) return Promise.resolve();
-      
-      const imagePromises = Array.from(images).map(img => {
-        if (img.complete) return Promise.resolve();
-        return new Promise(resolve => {
-          img.onload = resolve;
-          img.onerror = resolve; // Resolve even on error to not block animation
-        });
-      });
-      
-      return Promise.all(imagePromises);
-    };
-
-    // Animate images after they're loaded
-    waitForImages().then(() => {
-      const imageBoxes = gsap.utils.toArray(".project-item");
-
-      gsap.from(imageBoxes, {
+      // Animate the title
+      gsap.from(behindTitle2.chars, {
         opacity: 0,
-        y: 200,
-        duration: 1.2,
-        filter: "blur(10px)",
-        ease: "power3.out",
-        delay:0.3,
-        stagger: 0.06,
+        duration: 2,
+        ease: "expo.out",
+        stagger: 0.1,
+        filter: "blur(15px)",
+        y: 50,
         scrollTrigger: {
-          trigger: secRef.current,
+          trigger: "#Projects",
           scroller: "[data-scroll-container]",
-          start: "top 60%",
-          end: "bottom 20%",
+          start: "top bottom-=30%",
+          toggleActions: "play none none reverse",
         },
       });
-    });
 
-    gsap.fromTo(".btn-container", {
-      opacity: 0,
-      duration: 3,
-      filter: "blur(12px)",
-      ease: "power4.inOut",
-    },{
-      opacity:1,
-      filter:"blur(0px)",
-      scrollTrigger: {
-        trigger: ".btn-container",
-        scroller: "[data-scroll-container]",
-        start: "top 70%",
-      },
-    });
+      // Wait for images to load before animating
+      const waitForImages = () => {
+        const images = secRef.current?.querySelectorAll("img");
+        if (!images || images.length === 0) return Promise.resolve();
+
+        const imagePromises = Array.from(images).map((img) => {
+          if (img.complete) return Promise.resolve();
+          return new Promise((resolve) => {
+            img.onload = resolve;
+            img.onerror = resolve; // Resolve even on error to not block animation
+          });
+        });
+
+        return Promise.all(imagePromises);
+      };
+
+      // Animate images after they're loaded
+      waitForImages().then(() => {
+        const imageBoxes = gsap.utils.toArray(".project-item");
+
+        gsap.from(imageBoxes, {
+          opacity: 0,
+          y: 200,
+          duration: 1.2,
+          filter: "blur(10px)",
+          ease: "power3.out",
+          delay: 0.3,
+          stagger: 0.06,
+          scrollTrigger: {
+            trigger: secRef.current,
+            scroller: "[data-scroll-container]",
+            start: "top 60%",
+            end: "bottom 20%",
+          },
+        });
+      });
+
+      gsap.fromTo(
+        ".btn-container",
+        {
+          opacity: 0,
+          duration: 3,
+          filter: "blur(12px)",
+          ease: "power4.inOut",
+        },
+        {
+          opacity: 1,
+          filter: "blur(0px)",
+          scrollTrigger: {
+            trigger: ".btn-container",
+            scroller: "[data-scroll-container]",
+            start: "top 70%",
+          },
+        }
+      );
+    }
   });
 
   return (
-    <div className="mt-94 relative" id="PROJECTS">
+    <div className="mt-94 relative " id="PROJECTS">
       <div>
         <div className=" z-100 text-center ">
-        <h1
-  className="text-9xl max-sm:text-[2.2rem] mb-5 relative inset-0 -top-90 tracking-[1.1rem] max-sm:tracking-[0.2rem] behind-title2 font-bold text-gradient "
-  style={{
-    lineHeight: "12rem", // Note: You might want to reduce this for mobile too
-    fontFamily: " 'Bebas Neue', 'serif' ",
-  }}
->
-  PHOTOGRAPHY
-</h1>
+          <h1
+            className="text-9xl max-sm:text-[2.2rem] mb-5 relative inset-0 -top-90 tracking-[1.1rem] max-sm:tracking-[0.2rem] behind-title2 font-bold text-gradient  "
+            style={{
+              lineHeight: "12rem", // Note: You might want to reduce this for mobile too
+              fontFamily: " 'Bebas Neue', 'serif' ",
+            }}
+          >
+            PHOTOGRAPHY
+          </h1>
         </div>
       </div>{" "}
       <div className="mx-auto parent h-[90vh] -mt-100 " ref={secRef}>

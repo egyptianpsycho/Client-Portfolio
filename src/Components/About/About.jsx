@@ -75,7 +75,7 @@ const About = () => {
       className="second relative min-h-screen bg-gradient-to-tr to-[#000000] from-[#0a212b] z-[10] px-4 sm:px-10 py-12 sm:py-18 overflow-hidden"
       id="about"
     >
-      <div className="flex flex-col h-full justify-between gap-8 sm:gap-0 min-h-screen">
+      <div className="flex flex-col h-full justify-between gap-8 sm:gap-0 lg:min-h-screen">
         {/* Main Heading with Animation */}
         <div
           ref={headingRef}
@@ -124,7 +124,7 @@ const About = () => {
           alt="gradient"
           width={400}
           height={400}
-          className="-z-20 absolute rotate-220 -right-20 sm:-right-48 md:-right-70 top-110 sm:top-60 md:top-100 object-contain w-[500px] sm:w-[400px] md:w-[600px]"
+          className="-z-20 absolute rotate-220 -right-20 sm:-right-48 md:-right-70 top-84 sm:top-60 md:top-100 object-contain w-[500px] sm:w-[400px] md:w-[600px]"
         />
 
         {/* World SVG Background */}
@@ -138,7 +138,7 @@ const About = () => {
         {/* Paragraph with Animation */}
         <div
           ref={paraRef}
-          className="relative about-paragraph text-white leading-relaxed sm:leading-loose md:leading-11 text-base xs:text-lg sm:text-xl md:text-2xl lg:text-[2rem] max-w-full sm:max-w-3xl md:max-w-3xl lg:max-w-4xl px-0 tracking-normal mt-auto sm:pb-24 pb-20  font-medium"
+          className="relative about-paragraph text-white leading-relaxed sm:leading-loose md:leading-11 text-base xs:text-lg sm:text-xl md:text-2xl lg:text-[2rem] max-w-full sm:max-w-3xl md:max-w-3xl lg:max-w-4xl px-0 tracking-normal mt-auto max-sm:mt-4 sm:pb-24 pb-40   font-medium"
           style={{ fontFamily: '"Work Sans", sans-serif' }}
         >
           <div style={{ overflow: "hidden" }}>

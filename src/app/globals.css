@@ -454,6 +454,9 @@ h-text{
 .about-text {
   filter: drop-shadow(5px 0px 8px rgba(245, 244, 235, 0.5));
 }
+.glowy-text {
+  filter: drop-shadow(5px 0px 8px rgba(245, 244, 235, 0.4));
+}
 
 
 
@@ -759,19 +762,5 @@ h-text{
   z-index: 10;  
 }
 
-/* .chat-ai::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 10%;
-  height: 80px;
-  background: linear-gradient(
-    to bottom,
-    black,
-    #0f172b 
-  );
-  pointer-events: none;
-} */
 
 

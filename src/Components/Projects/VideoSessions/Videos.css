@@ -119,13 +119,12 @@
   
   .premium-hr {
     border: none;  
-    height: 2px;                 
-    border-radius: 8px;      
+    height: 1px;                 
+    border-radius: 12px;      
     background: linear-gradient(
       90deg,
-      rgb(3, 18, 26),
-      rgb(130, 144, 149),
-      rgb(3, 18, 26)
+      rgb(0, 0, 0),
+      rgb(255, 255, 255,0.4),
+      rgb(0, 0, 0)
     );
-    box-shadow: 0 1px 9px rgba(130, 144, 149, 0.8); 
   }

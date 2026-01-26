@@ -1,19 +1,40 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
 import "./Videos.css";
 import { PROJECTSVIDS } from "../CONSTANTS";
 import VideoPlayer from "@/Components/UI/VideoPlayer";
+import useAnimate from "@/Hooks/useAnimate";
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
 const Videos = () => {
   const vidSecRef = useRef(null);
-  useEffect(() => {
-    const init = () => {
-      const ctx = gsap.context(() => {
+  useAnimate(() => {
+    if (window.innerWidth > 768) { 
         const vidsBoxes = gsap.utils.toArray(".video-item");
+        const vidTitle = new SplitText(".vid-title", { type: "chars" });
+
+        vidTitle.chars.forEach((char) => char.classList.add("text-gradient"));
+
+    
+
+    // Animate the title
+    gsap.from(vidTitle.chars, {
+      opacity: 0,
+      duration: 2,
+      ease: "expo.out",
+      stagger: 0.1,
+      filter: "blur(15px)",
+      y: 50,
+      scrollTrigger: {
+        trigger: "#videos-section",
+        scroller: "[data-scroll-container]",
+        start: "top bottom-=30%",
+        toggleActions: "play none none reverse",
+      },
+    });
 
         gsap.from(vidsBoxes, {
           opacity: 0,
@@ -28,28 +49,14 @@ const Videos = () => {
             start: "top 50%",
             end: "bottom 20%",
           },
-        });
       });
-
-      ScrollTrigger.refresh();
-      return () => ctx.revert();
-    };
-
-    const wait = setInterval(() => {
-      if (window.__loco) {
-        clearInterval(wait);
-        init();
-      }
-    }, 100);
-
-    return () => clearInterval(wait);
-  }, []);
+    }
+  });
   return (
-    <div id="videos-section" className="relative min-h-screen mt-20 " ref={vidSecRef}>
+    <div id="videos-section" className="relative max-sm:min-h-[130vh] min-h-[120vh] mt-20  " ref={vidSecRef}>
       <h1
-        className="text-9xl max-sm:text-4xl mb-10 text-center   videos-title font-bold  text-gradient "
+        className="text-9xl max-sm:text-4xl mb-10 lg:leading-[12rem] text-center glowy-text   videos-title vid-title font-bold  text-gradient "
         style={{
-          clipPath: "polygon(0 0, 100% 0, 100% 100%, 0% 100%) ",
           fontFamily: " 'Bebas Neue', 'serif' ",
           letterSpacing: "0.4rem",
         }}
