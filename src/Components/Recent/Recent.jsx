@@ -313,10 +313,10 @@ const Recent = () => {
   return (
     <div className="cont " id="recent-section">
       <section className="hero-2 ">
-        <h1 className="h1-recent firstanimatetext max-sm:relative max-sm: max-sm:max-w-99 text-nowrap  text-left">
-          Shall we move from<br /> words to visuals? <br />
-          Here's where the {window.innerWidth < 768 ? <br /> : ""} vision {window.innerWidth > 768 ?<br/>:"" }  comes to life.
-        </h1>
+      <h1 className="h1-recent firstanimatetext max-sm:relative max-sm:max-w-99 text-left">
+  Shall we move from<br /> words to visuals? <br />
+  Here's where the <br className="sm:hidden" /> vision <br className="hidden sm:block" /> comes to life.
+</h1>
       </section>
 
       <section className="marq">
