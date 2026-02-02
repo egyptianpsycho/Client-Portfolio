@@ -477,8 +477,7 @@ const Recent = () => {
                 height={1080}
                 src="/Recent/A/B/3.jpg"
                 alt="Pre-production"
-                className="img-recent  max-sm:object-right   "
-                loading="lazy"
+                className="img-recent  max-sm:object-right max-sm:object-contain   "
               />
             </div>
           </div>

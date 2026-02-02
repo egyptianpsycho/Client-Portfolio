@@ -150,6 +150,7 @@ const Modal = ({ open, onClose, project }) => {
       className="fixed  inset-0 z-[9999] flex items-center justify-center bg-black/70 backdrop-blur-sm p-4"
       onClick={handleClose}
     >
+      
       <style>{`
         .text__first, .text__second {
           position: relative;
@@ -256,6 +257,25 @@ const Modal = ({ open, onClose, project }) => {
         className="relative min-h-[50vh] bg-[#0a0a0a]/80 rounded-2xl p-4 sm:p-6 md:p-10 flex flex-col gap-6 sm:gap-8 md:flex-row md:gap-12 items-start max-w-7xl w-full max-h-[90vh] overflow-y-auto border border-white/10 shadow-[inset_0_0_30px_rgba(255,255,255,0.1)]"
         onClick={(e) => e.stopPropagation()}
       >
+        <button
+    onClick={handleClose}
+    className="absolute top-4 right-4 z-50 w-8 h-8 sm:w-8 sm:h-8 cursor-pointer flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-all duration-300 group"
+    aria-label="Close modal"
+  >
+    <svg
+      className="w-5 h-5 sm:w-6 sm:h-6 text-white group-hover:rotate-90 transition-transform duration-300"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M6 18L18 6M6 6l12 12"
+      />
+    </svg>
+  </button>
         {isLoading ? (
           <div className="flex items-center justify-center w-full min-h-[400px]">
             <div className="loader-spinner"></div>
