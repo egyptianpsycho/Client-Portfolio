@@ -75,11 +75,11 @@ const About = () => {
       className="second relative min-h-screen bg-gradient-to-tr to-[#000000] from-[#0a212b] z-[10] px-4 sm:px-10 py-12 sm:py-18 overflow-hidden"
       id="about"
     >
-      <div className="flex flex-col h-full justify-between gap-8 sm:gap-0 lg:min-h-screen">
+      <div className="flex flex-col h-full justify-between gap-8 sm:gap-0 min-h-screen">
         {/* Main Heading with Animation */}
         <div
           ref={headingRef}
-          className="w-full about-text font-normal text-[2.5rem] xs:text-[3rem] sm:text-[4rem] md:text-[5.5rem] lg:text-[7.7rem] text-white leading-tight sm:leading-snug"
+          className="w-full about-text font-normal text-[3rem] xs:text-[3rem] sm:text-[4rem] md:text-[5.5rem] lg:text-[7.7rem] text-white leading-tight sm:leading-snug"
           style={{ fontFamily: '"Work Sans", sans-serif' }}
         >
           <div style={{ overflow: "hidden" }}>
@@ -96,7 +96,7 @@ const About = () => {
           <div style={{ overflow: "hidden" }}>
             <h1
               ref={line2Ref}
-              className="font-normal text-[2.3rem] xs:text-[2.8rem] sm:text-[4.5rem] md:text-[6rem] lg:text-[8rem] relative flex flex-wrap items-baseline w-full"
+              className="font-normal text-[3rem] xs:text-[2.8rem] sm:text-[4.5rem] md:text-[6rem] lg:text-[8rem] relative flex flex-wrap items-baseline w-full"
               style={{ fontFamily: '"Nanum Myeongjo", sans-serif' }}
             >
               INNOVATION{" "}
@@ -116,7 +116,7 @@ const About = () => {
           alt="gradient"
           width={300}
           height={300}
-          className="-z-20 absolute inset-0 -left-32 sm:-left-48 md:-left-64 top-10 sm:top-20 object-contain w-[200px] sm:w-[300px] md:w-[400px]"
+          className="-z-20 absolute inset-0 -left-32 sm:-left-48 md:-left-64 top-0 sm:top-20 sm:object-contain max-sm:object-fit max-sm:h-[60vh] w-[500px] sm:w-[300px] md:w-[400px]"
         />
 
         <Image
@@ -124,7 +124,7 @@ const About = () => {
           alt="gradient"
           width={400}
           height={400}
-          className="-z-20 absolute rotate-220 -right-20 sm:-right-48 md:-right-70 top-84 sm:top-60 md:top-100 object-contain w-[500px] sm:w-[400px] md:w-[600px]"
+          className="-z-20 absolute max-sm:rotate-10 sm:rotate-220 -right-22 sm:-right-48 md:-right-70 top-108 sm:top-60 md:top-100 sm:object-contain max-sm:object-cover max-sm:h-[60vh] w-[500px]  sm:w-[400px] md:w-[600px]"
         />
 
         {/* World SVG Background */}
@@ -132,31 +132,31 @@ const About = () => {
           src="/AboutImages/World.svg"
           alt="World"
           fill
-          className="-z-10 absolute object-cover sm:object-contain pt-0 sm:pt-18"
+          className="-z-10 absolute object-cover sm:object-contain pt-4 sm:pt-18"
         />
 
         {/* Paragraph with Animation */}
         <div
           ref={paraRef}
-          className="relative about-paragraph text-white leading-relaxed sm:leading-loose md:leading-11 text-base xs:text-lg sm:text-xl md:text-2xl lg:text-[2rem] max-w-full sm:max-w-3xl md:max-w-3xl lg:max-w-4xl px-0 tracking-normal mt-auto max-sm:mt-4 sm:pb-24 pb-40   font-medium"
+          className="relative max-sm:bottom-8 about-paragraph text-white leading-relaxed sm:leading-loose md:leading-11 text-lg  xs:text-lg sm:text-xl md:text-2xl lg:text-[2rem] max-w-full sm:max-w-3xl md:max-w-3xl lg:max-w-4xl px-0 tracking-normal mt-auto max-sm:mt-4 sm:pb-24 pb-18 font-medium"
           style={{ fontFamily: '"Work Sans", sans-serif' }}
         >
           <div style={{ overflow: "hidden" }}>
-            <p ref={paraLine1Ref} className="w-full about-para">
-              We create culturally-inspired, social-first content. As strategic
+            <p ref={paraLine1Ref} className="w-full about-para ">
+              We create culturally-inspired, social-first content. As strategic <span className="inline sm:hidden"> storytellers, we help global brands craft meaningful narratives that cut through the digital noise and connect across every emerging platform.</span>
             </p>
           </div>
-          <div style={{ overflow: "hidden" }}>
+          <div className="max-sm:hidden" style={{ overflow: "hidden" }}>
             <p ref={paraLine2Ref} className="w-full about-para">
               storytellers, we help global brands craft meaningful narratives
             </p>
           </div>
-          <div style={{ overflow: "hidden" }}>
+          <div className="max-sm:hidden" style={{ overflow: "hidden" }}>
             <p ref={paraLine3Ref} className="w-full about-para">
               that cut through the digital noise and connect across every
             </p>
           </div>
-          <div style={{ overflow: "hidden" }}>
+          <div className="max-sm:hidden" style={{ overflow: "hidden" }}>
             <p ref={paraLine4Ref} className="w-full about-para">
               emerging platform.
             </p>
@@ -168,3 +168,7 @@ const About = () => {
 };
 
 export default About;
+
+
+
+// We create culturally-inspired, social-first content. As strategic storytellers, we help global brands craft meaningful narratives that cut through the digital noise and connect across every emerging platform.

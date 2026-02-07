@@ -255,21 +255,6 @@ h-text{
     grid-row-start: 1;
   }
 }
-/* 
-.glow-text {
-  color: rgba(0, 0, 0, 0);
-  
-  mix-blend-mode: screen;
-}
-
- .glow-text span {
-  color: #0a719e;
-} 
-.filter2 {
-  filter: url("#glow-1");
-  color: white;
-  color: #fffaf6;
-} */
 
 
 .char {

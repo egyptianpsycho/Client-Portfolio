@@ -223,7 +223,7 @@ export const HeroParallax = ({ testimonials }) => {
 
 export const Header = React.memo(() => (
   <div className="max-w-7xl relative mx-auto py-20 md:py-40 px-4 w-full left-0 top-0 z-[1]">
-    <h1 className="text-4xl md:text-7xl font-bold Test-Title opacity-60 text-white    ">
+    <h1 className="text-4xl md:text-7xl font-bold Test-Title opacity-60 text-white glowy-text   ">
       WHAT THEY SAY <br /> ABOUT US
     </h1>
     

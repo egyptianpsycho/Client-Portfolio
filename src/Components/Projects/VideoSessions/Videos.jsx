@@ -55,13 +55,13 @@ const Videos = () => {
   return (
     <div id="videos-section" className="relative max-sm:min-h-[130vh] min-h-[120vh] mt-20  " ref={vidSecRef}>
       <h1
-        className="text-9xl max-sm:text-4xl mb-10 lg:leading-[12rem] text-center glowy-text   videos-title vid-title font-bold  text-gradient "
+        className="text-9xl max-sm:text-4xl mb-10 lg:leading-[11rem] text-center glowy-text   videos-title vid-title font-bold  text-gradient text-nowrap "
         style={{
           fontFamily: " 'Bebas Neue', 'serif' ",
           letterSpacing: "0.4rem",
         }}
       >
-        VISION IN MOTION
+        VISION IN <br className="sm:hidden"/> MOTION
       </h1>
       <div className="parent-video mx-auto  h-[90vh]  ">
         {PROJECTSVIDS.map((project, index) => (
