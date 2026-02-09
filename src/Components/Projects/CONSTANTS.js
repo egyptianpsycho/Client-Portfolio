@@ -184,7 +184,7 @@ export const PROJECTSIMGS = [
   {
     id: 11,
     title: "LUNA COMMERCIAL PHOTOGRAPHY",
-    alt: "disconected",
+    alt: "LUNA",
     cover: "/Projects/images/luna/esspresso.webp",
     images: [
       "/Projects/images/luna/luna1.jpg",
