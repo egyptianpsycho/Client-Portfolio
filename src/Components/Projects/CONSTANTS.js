@@ -278,7 +278,7 @@ export const PROJECTSVIDS = [
     title: "The F&B Showreel",
     discreption:
       "A curated collection of some of the most visually rich and narrative-driven F&B campaigns for Jumeirah. This showreel highlights the sensory storytelling, aesthetic direction, and dynamic edits that brought the brand’s dining experiences to life across multiple properties.",
-    thummnail: "/Projects/videos/videoframe1.png",
+    thummnail: "/Projects/videos/videoframe1.webp",
     videoURL:
       "https://stream.mux.com/XXDgaJo02BTTIutvulEY7gP9sHmzNoKMxssm8402acUy00.m3u8?redundant_streams=true",
       durtaion: "0:50",
@@ -288,7 +288,7 @@ export const PROJECTSVIDS = [
     title: "The Wellness Showreel",
     discreption:
       "This reel brings together standout moments from the wellness-focused content for Jumeirah, capturing the brand’s serene, restorative ethos. From spa visuals to movement and mindfulness, it reflects an approach to portraying wellness with elegance and intention.",
-    thummnail: "/Projects/videos/videoframe2.png",
+    thummnail: "/Projects/videos/videoframe2.webp",
     videoURL:
       "https://stream.mux.com/01eYmD6hwuFyjhdpUfw8BGndViEVbSbfjOxprl00neeTY.m3u8?redundant_streams=true",
       durtaion: "0:38",
@@ -299,7 +299,7 @@ export const PROJECTSVIDS = [
     title: "The Luxury Lifestyle Showreel",
     discreption:
       "A showcase of key lifestyle campaigns created for Jumeirah, this reel encapsulates the brand’s luxury identity across hospitality, leisure, and design. It offers a visual summary of the consistent translation of Jumeirah’s refined aesthetic into compelling content.",
-    thummnail: "/Projects/videos/videoframe3.png",
+    thummnail: "/Projects/videos/videoframe3.webp",
     videoURL:
       "https://stream.mux.com/wClwOlgCVAhhKuhdtNF02nEH02fjzAwq9Jq9ZhlCxrcms.m3u8?redundant_streams=true",
       durtaion: "0:42",
@@ -309,7 +309,7 @@ export const PROJECTSVIDS = [
     id: 4,
     title: "Jumeriah",
     description: "Jumeriah",
-    thummnail: "/Projects/videos/videoframe4.png",
+    thummnail: "/Projects/videos/videoframe4.webp",
     videoURL:
       "https://stream.mux.com/dgl02bzSEBaEZoj00rRP01W1QlACLRxACgrn01ZX9HiCwzY.m3u8?redundant_streams=true",
       durtaion: "0:58",
@@ -319,7 +319,7 @@ export const PROJECTSVIDS = [
     id: 5,
     title: "Cheef",
     description: "Cheef",
-    thummnail: "/Projects/videos/videoframe5.png",
+    thummnail: "/Projects/videos/videoframe5.webp",
     videoURL:
       "https://stream.mux.com/lXJ8vWytqP01w4y023SSfWwsuyaj01orftKUmK3Ma8bdnc.m3u8?redundant_streams=true",
       durtaion: "1:00",
@@ -329,7 +329,7 @@ export const PROJECTSVIDS = [
     id: 6,
     title: "Cheef",
     description: "Cheef",
-    thummnail: "/Projects/videos/videoframe6.png",
+    thummnail: "/Projects/videos/videoframe6.webp",
     videoURL:
       "https://stream.mux.com/FE6S001bZfYuz5GKUUxxbp7XNzZqEti35EkZr12HFrZE.m3u8?redundant_streams=true",
       durtaion: "0:59",
@@ -339,7 +339,7 @@ export const PROJECTSVIDS = [
     id: 7,
     title: "Cheef",
     description: "Cheef",
-    thummnail: "/Projects/videos/videoframe7.png",
+    thummnail: "/Projects/videos/videoframe7.webp",
     videoURL:
       "https://stream.mux.com/RidLJTJkGVBJ9vBhspfePFqSfvVCimJwEMLpLuqyCnc.m3u8?redundant_streams=true",
       durtaion: "0:39",
@@ -349,7 +349,7 @@ export const PROJECTSVIDS = [
     id: 8,
     title: "Jumeirah",
     description: "none",
-    thummnail: "/Projects/videos/videoframe8.png",
+    thummnail: "/Projects/videos/videoframe8.webp",
     videoURL:
       "https://stream.mux.com/UXV00cUe2Y3q0035YRPUYFSrrpmLtPRsRBy00elqatYJ5g.m3u8?redundant_streams=true",
       durtaion: "0:49",
@@ -359,7 +359,7 @@ export const PROJECTSVIDS = [
     id: 9,
     title: "Jumeriah",
     description: "Jumeriah",
-    thummnail: "/Projects/videos/videoframe9.png",
+    thummnail: "/Projects/videos/videoframe9.webp",
     videoURL:
       "https://stream.mux.com/vuvP1XO1i24icnJFafPP8naQi61CDaxwBC7xsFdCW00E.m3u8?redundant_streams=true",
       durtaion: "0:47",
@@ -369,7 +369,7 @@ export const PROJECTSVIDS = [
     id: 10,
     title: "Jumeriah",
     description: "Jumeriah",
-    thummnail: "/Projects/videos/videoframe10.png",
+    thummnail: "/Projects/videos/videoframe10.webp",
     videoURL:
       "https://stream.mux.com/tbtLetxYnmY3LF75ZvaXvQPGjCXNvHhvUJhYbkWnhVg.m3u8?redundant_streams=true",
       durtaion: "0:39",
