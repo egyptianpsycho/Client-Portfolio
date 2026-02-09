@@ -228,7 +228,7 @@ const Images = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Button className="btn text-white text-3xl max-sm:text-xl   ">
+          <Button className="btn text-white text-3xl max-sm:text-xl  max-sm:hidden  ">
             Show more Projects
           </Button>
         </Link>
