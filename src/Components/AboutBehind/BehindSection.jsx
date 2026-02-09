@@ -4,12 +4,7 @@ import React, { useEffect, useState } from "react";
 
 
 
-const BehindSection = ({
-  BehindTLRef,
-  BehindImgRef,
-  tRef,
-  typingRef,
-}) => {
+const BehindSection = () => {
   const [width, setWidth] = useState(null);
 
   useEffect(() => {
@@ -36,7 +31,7 @@ const BehindSection = ({
       <div className="container mx-auto px-6 sm:px-8 lg:px-12 relative z-10 max-w-5xl">
         
         {/* Image Container */}
-        <div className="flex justify-center mb-20" ref={BehindImgRef}>
+        <div className="flex justify-center mb-20" >
           <div className="relative">
             {/* Main image */}
             <div className="relative w-72 h-96 sm:w-80 sm:h-[28rem] md:w-96 md:h-[24.1rem]">
@@ -47,7 +42,6 @@ const BehindSection = ({
                 className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
               /> */}
               <Image
-        ref={BehindImgRef}
         src="/Ahmed/Ahmed3.jpg"
         alt="Hero 2"
         width={500}
@@ -64,7 +58,8 @@ const BehindSection = ({
         </div>
 
         {/* Content Container */}
-        <div className="text-center space-y-12" ref={BehindTLRef}>
+        <div className="text-center space-y-12" 
+        >
           
           {/* Title */}
           <div className="space-y-6">
@@ -77,14 +72,13 @@ const BehindSection = ({
 
           {/* Description */}
           <div className="max-w-2xl mx-auto space-y-8">
-            <div className="relative" ref={tRef}>
+            <div className="relative" >
               <p className="original text-lg sm:text-xl text-white/60 leading-relaxed font-light">
                 Meet Abbas — a storyteller whose lens reveals emotion beyond frames.
                 Every image he captures is a glimpse into the unseen beauty that
                 defines human connection.
               </p>
               <div
-                ref={typingRef}
                 className="typingOverlay pointer-events-none absolute inset-0 text-lg sm:text-xl text-white/60 leading-relaxed font-light"
                 aria-hidden="true"
                 style={{ whiteSpace: "pre-wrap" }}

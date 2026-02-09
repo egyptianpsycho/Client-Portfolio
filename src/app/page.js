@@ -5,7 +5,6 @@ import Hero from "@/Components/Hero/Hero";
 import Partners from "@/Components/Partners/Partners";
 import Projects from "@/Components/Projects/Projects";
 import Recent from "@/Components/Recent/Recent";
-import ServicesMain from "@/Components/Services/ServicesMain";
 import { Testimonials } from "@/Components/Testimonials/Testimonials";
 import Chat from "@/Components/Chat/Chat";
 import Footer from "@/Components/UI/Footer";
@@ -18,7 +17,6 @@ const Home = () => {
       <Partners />
       <Recent />
       <Projects />
-      {/* <ServicesMain /> */}
       <Testimonials />
       <BTL />
       <Chat />

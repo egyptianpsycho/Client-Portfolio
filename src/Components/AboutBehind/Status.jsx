@@ -27,9 +27,9 @@ const Status = () => {
             </div>
             <div
               className="stat-number text-2xl sm:text-3xl font-bold text-gradient-stats mb-2"
-              data-value="3000"
+              data-value="240"
             >
-              0
+              240
             </div>
             <div className="text-gray-400 text-xs sm:text-sm shiny-text">Happy Clients</div>
             <div className="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 hover:bg-black/75 border mt-2 bg-slate-700/40 text-slate-200/90 border-gray-50/30">
@@ -47,9 +47,9 @@ const Status = () => {
             </div>
             <div
               className="stat-number text-gradient-stats text-2xl sm:text-3xl font-bold  mb-2"
-              data-value="20"
+              data-value="15"
             >
-              0
+              15
             </div>
             <div className="text-gray-400 text-xs sm:text-sm shiny-text">
               Photography Awards
@@ -69,9 +69,9 @@ const Status = () => {
             </div>
             <div
               className="stat-number text-2xl sm:text-3xl font-bold text-gradient-stats mb-2"
-              data-value="350"
+              data-value="1200"
             >
-              0
+              1200
             </div>
             <div className="text-gray-400 text-xs sm:text-sm shiny-text">
               Photoshoots Completed
@@ -91,9 +91,9 @@ const Status = () => {
             </div>
             <div
               className="stat-number text-2xl sm:text-3xl font-bold text-gradient-stats mb-2"
-              data-value="18"
+              data-value="7"
             >
-              0
+              7
             </div>
             <div className="text-gray-400 text-xs sm:text-sm shiny-text">
               Years of Experience

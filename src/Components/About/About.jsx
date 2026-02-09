@@ -168,7 +168,3 @@ const About = () => {
 };
 
 export default About;
-
-
-
-// We create culturally-inspired, social-first content. As strategic storytellers, we help global brands craft meaningful narratives that cut through the digital noise and connect across every emerging platform.
