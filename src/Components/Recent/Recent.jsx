@@ -480,7 +480,7 @@ const Recent = () => {
                 height={1080}
                 src="/Recent/A/B/3CROP.jpg"
                 alt="Pre-production"
-                className="img-recent object-left  max-sm:!object-contain max-sm:scale-105   "
+                className="img-recent object-left  !object-contain scale-120 max-sm:scale-105   "
               />
             </div>
           </div>

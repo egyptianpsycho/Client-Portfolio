@@ -296,7 +296,7 @@ export default function Hero() {
         </svg>
 
         {/* Location Animation Component */}
-        <div className="absolute bottom-20 left-0 right-0 flex justify-center ">
+        <div className="absolute bottom-20 max-sm:bottom-30 left-0 right-0 flex justify-center ">
           <div
             ref={locationRef}
             className="relative h-24 w-full max-w-[520px] overflow-hidden "
