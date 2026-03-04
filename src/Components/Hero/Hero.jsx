@@ -156,10 +156,9 @@ export default function Hero() {
         strokeDashoffset: 0,
         duration: 3,
         ease: "power2.out",
-      }, "-=0.5"); // Start slightly before text animation finishes
+      }, "-=0.5"); 
     }
 
-    // 3. Start location animation after signature completes
     tl.call(() => {
       if (window.startLocationAnimation) {
         window.startLocationAnimation();

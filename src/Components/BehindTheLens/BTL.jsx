@@ -9,12 +9,11 @@ const BTL = () => {
   const imageContainerRef = useRef(null);
   const textRef = useRef(null);
 
-
-  useBTLAnimations(sectionRef, imageContainerRef, textRef  );
+  useBTLAnimations(sectionRef, imageContainerRef, textRef);
 
   return (
     <>
-    <Status />
+      <Status />
       <HeroSection
         sectionRef={sectionRef}
         imageContainerRef={imageContainerRef}

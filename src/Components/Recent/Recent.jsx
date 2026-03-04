@@ -98,6 +98,7 @@ const Recent = () => {
         let pinnedMarqueeimgClone = null;
         let isImgCloneActive = false;
         let flipAnimation = null;
+        const isMobile = window.innerWidth <= 768;
 
         function createPinnedMarqueeimgClone() {
           if (isImgCloneActive) return;
@@ -163,14 +164,16 @@ const Recent = () => {
           pin: true,
         });
 
-        ScrollTrigger.create({
-          scroller: "[data-scroll-container]",
-          trigger: ".marq",
-          start: "top top",
-          onEnter: createPinnedMarqueeimgClone,
-          onEnterBack: createPinnedMarqueeimgClone,
-          onLeaveBack: removePinnedMarqueeimgClone,
-        });
+        if (!isMobile) {
+          ScrollTrigger.create({
+            scroller: "[data-scroll-container]",
+            trigger: ".marq",
+            start: "top top",
+            onEnter: createPinnedMarqueeimgClone,
+            onEnterBack: createPinnedMarqueeimgClone,
+            onLeaveBack: removePinnedMarqueeimgClone,
+          });
+        }
 
         ScrollTrigger.create({
           trigger: ".horizontal-scroll",
@@ -199,68 +202,86 @@ const Recent = () => {
               });
             }
 
-            if (progress <= 0.2) {
-              if (!flipAnimation && pinnedMarqueeimgClone && isImgCloneActive) {
-                const statee = Flip.getState(pinnedMarqueeimgClone);
+            // Desktop: Full pin animation with Flip
+            if (!isMobile) {
+              if (progress <= 0.2) {
+                if (!flipAnimation && pinnedMarqueeimgClone && isImgCloneActive) {
+                  const statee = Flip.getState(pinnedMarqueeimgClone);
 
-                gsap.set(pinnedMarqueeimgClone, {
-                  position: "fixed",
-                  left: "0px",
-                  top: "0px",
-                  width: "100%",
-                  height: "100svh",
-                  transform: "rotate(0deg)",
-                  transformOrigin: "center center",
+                  gsap.set(pinnedMarqueeimgClone, {
+                    position: "fixed",
+                    left: "0px",
+                    top: "0px",
+                    width: "100%",
+                    height: "100svh",
+                    transform: "rotate(0deg)",
+                    transformOrigin: "center center",
+                  });
+
+                  flipAnimation = Flip.from(statee, {
+                    duration: 1,
+                    ease: "none",
+                    paused: true,
+                  });
+                }
+
+                const scaleProgress = progress / 0.2;
+                if (flipAnimation) {
+                  flipAnimation.progress(scaleProgress);
+                }
+              }
+
+              else if (progress > 0.2 && progress <= 0.95) {
+                if (flipAnimation) {
+                  flipAnimation.progress(1);
+                }
+
+                const horizontalProgress = (progress - 0.2) / 0.75;
+                const wrapperTranslateX = -75 * horizontalProgress;
+
+                gsap.set(".horizontal-scroll-wrapper", {
+                  x: `${wrapperTranslateX}%`,
                 });
 
-                flipAnimation = Flip.from(statee, {
-                  duration: 1,
-                  ease: "none",
-                  paused: true,
+                if (pinnedMarqueeimgClone) {
+                  const slideMovement = (75 / 100) * 4 * horizontalProgress;
+                  const imageTranslateX = -slideMovement * 100;
+                  gsap.set(pinnedMarqueeimgClone, {
+                    x: `${imageTranslateX}%`,
+                  });
+                }
+              }
+
+              else if (progress > 0.95) {
+                if (flipAnimation) {
+                  flipAnimation.progress(1);
+                }
+
+                if (pinnedMarqueeimgClone) {
+                  gsap.set(pinnedMarqueeimgClone, {
+                    x: "-300%",
+                  });
+                }
+
+                gsap.set(".horizontal-scroll-wrapper", {
+                  x: "-75%",
                 });
               }
+            } 
+            // Mobile: Just handle horizontal scroll, no pin manipulation
+            else {
+              if (progress > 0.05 && progress <= 0.95) {
+                const horizontalProgress = Math.max(0, (progress - 0.05) / 0.9);
+                const wrapperTranslateX = -75 * horizontalProgress;
 
-              const scaleProgress = progress / 0.2;
-              if (flipAnimation) {
-                flipAnimation.progress(scaleProgress);
-              }
-            }
-
-            else if (progress > 0.2 && progress <= 0.95) {
-              if (flipAnimation) {
-                flipAnimation.progress(1);
-              }
-
-              const horizontalProgress = (progress - 0.2) / 0.75;
-              const wrapperTranslateX = -75 * horizontalProgress; // Changed from -66.67 to -75
-
-              gsap.set(".horizontal-scroll-wrapper", {
-                x: `${wrapperTranslateX}%`,
-              });
-
-              if (pinnedMarqueeimgClone) {
-                const slideMovement = (75 / 100) * 4 * horizontalProgress; // Changed to account for 4 slides
-                const imageTranslateX = -slideMovement * 100;
-                gsap.set(pinnedMarqueeimgClone, {
-                  x: `${imageTranslateX}%`,
+                gsap.set(".horizontal-scroll-wrapper", {
+                  x: `${wrapperTranslateX}%`,
+                });
+              } else if (progress > 0.95) {
+                gsap.set(".horizontal-scroll-wrapper", {
+                  x: "-75%",
                 });
               }
-            }
-
-            else if (progress > 0.95) {
-              if (flipAnimation) {
-                flipAnimation.progress(1);
-              }
-
-              if (pinnedMarqueeimgClone) {
-                gsap.set(pinnedMarqueeimgClone, {
-                  x: "-300%", // Changed from -200% to -300%
-                });
-              }
-
-              gsap.set(".horizontal-scroll-wrapper", {
-                x: "-75%", // Changed from -66.67% to -75%
-              });
             }
           },
           onLeaveBack: () => {
@@ -392,7 +413,8 @@ const Recent = () => {
                 src="/Recent/A/B/pin.webp"
                 alt="marq-img"
                 priority
-                className="img-recent "
+                style={{ objectPosition: `50% 80%` }}
+                className="img-recent  "
               />
             </div>
             <div className="marq-img">
@@ -474,15 +496,18 @@ const Recent = () => {
                 </p>
               </div>
             </div>
-            <div className="col h-160 ">
-              <Image
+            <div className="col h-150  ">
+             <Image
                 width={1920}
                 height={1080}
-                src="/Recent/A/B/3CROP.jpg"
-                alt="Pre-production"
-                className="img-recent object-left  !object-contain scale-120 max-sm:scale-105   "
-              />
+                src="/Recent/A/B/7.webp"
+                alt="Production"
+                className="img-recent object-center "
+                // style={{ objectPosition: `60% 65%` }}
+                loading="lazy"
+              />                                                
             </div>
+            
           </div>
 
           {/* Production Slide */}
@@ -495,27 +520,27 @@ const Recent = () => {
                 </p>
               </div>
             </div>
-            <div className="col h-180">
-              {/* <Image
+            <div className="col  ">
+              <div className="img-stack !w-full">
+              <Image
                 width={1920}
                 height={1080}
-                src="/Recent/A/p1.webp"
-                alt="Production"
-                className="img-recent grayscale-100 object-bottom GSXR"
-                loading="lazy"
-              /> */}
-               <Image
-                width={1920}
-                height={1080}
-                src="/Recent/A/B/7.webp"
-                alt="Production"
-                className="img-recent  object-bottom "
-                style={{ width: `700px` }}
-
-                loading="lazy"
+                src="/Recent/A/B/3CROP.jpg"
+                alt="Pre-production"
+                className="img-recent"
               />
+              <Image
+              width={1920}
+              height={1080}
+              src="/Recent/A/B/pinsec2.jpg"
+              alt="Pre-production"
+              className="img-recent"
+            />
+              </div>
+              
             </div>
           </div>
+               
 
           {/* Post-Production Slide */}
           <div className="horizontal-slide">
@@ -581,4 +606,3 @@ const Recent = () => {
 };
 
 export default Recent;
-

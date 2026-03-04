@@ -6,7 +6,6 @@ import Partners from "@/Components/Partners/Partners";
 import Projects from "@/Components/Projects/Projects";
 import Recent from "@/Components/Recent/Recent";
 import { Testimonials } from "@/Components/Testimonials/Testimonials";
-import Chat from "@/Components/Chat/Chat";
 import Footer from "@/Components/UI/Footer";
 
 const Home = () => {
@@ -19,7 +18,6 @@ const Home = () => {
       <Projects />
       <Testimonials />
       <BTL />
-      <Chat />
       <Contact />
       <Footer />
     </div>

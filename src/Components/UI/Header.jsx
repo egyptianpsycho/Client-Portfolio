@@ -16,11 +16,7 @@ export function Header() {
     checkMobile();
     window.addEventListener('resize', checkMobile);
 
-      gsap.fromTo(
-        "#header",
-        {  opacity: 0,filter:"blur(10px)"  },
-        {  opacity: 1, duration: 1, delay: 2.5,filter:"blur(0px)" , ease: "power3.out", }
-      );
+      
       gsap.fromTo(
         "#AV-logo",
         {  opacity: 0, filter:"blur(8px)"  },
@@ -55,22 +51,26 @@ export function Header() {
               }}>Abbas Visuals.</h2>
 
 {!isMobile ?(
-    <header id="header" className="fixed top-6 opacity-0 right-13 z-[500]  font-bold px-5 py-1  rounded-full backdrop-blur-sm w-[480px] flex justify-between  items-center text-[#FFFFFF] " 
-    style={{
-      background: 'rgba(255, 255, 255, 0.08)',
-      boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37), inset 0 1px 0 0 rgba(255, 255, 255, 0.1)',
-    }}>
-      {links.map((link) => (
-        <Link
-          key={link.href}
-          href={link.href}
-          className=" text-[12.8px] py-1  "
-          style={{ fontFamily: '"Work Sans", sans-serif',color:"#FFFFFF" }}
-        >
-          {link.label}
-        </Link>
-      ))}
-    </header>) : (
+    
+    <>
+    {/* // <header id="header" className="fixed top-6 opacity-0 right-13 z-[500]  font-bold px-5 py-1  rounded-full backdrop-blur-sm w-[480px] flex justify-between  items-center text-[#FFFFFF] " 
+    // style={{
+    //   background: 'rgba(255, 255, 255, 0.08)',
+    //   boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37), inset 0 1px 0 0 rgba(255, 255, 255, 0.1)',
+    // }}>
+    //   {links.map((link) => (
+    //     <Link
+    //       key={link.href}
+    //       href={link.href}
+    //       className=" text-[12.8px] py-1  "
+    //       style={{ fontFamily: '"Work Sans", sans-serif',color:"#FFFFFF" }}
+    //     >
+    //       {link.label}
+    //     </Link>
+    //   ))}
+    // </header> */}
+    </>
+    ) : (
   <>
     <div className="fixed top-6 right-6 z-[700]">
       <svg

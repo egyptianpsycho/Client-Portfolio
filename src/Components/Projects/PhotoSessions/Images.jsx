@@ -105,24 +105,7 @@ const Images = () => {
         });
       });
 
-      gsap.fromTo(
-        ".btn-container",
-        {
-          opacity: 0,
-          duration: 3,
-          filter: "blur(12px)",
-          ease: "power4.inOut",
-        },
-        {
-          opacity: 1,
-          filter: "blur(0px)",
-          scrollTrigger: {
-            trigger: ".btn-container",
-            scroller: "[data-scroll-container]",
-            start: "top 70%",
-          },
-        }
-      );
+      
     }
   });
 
@@ -222,18 +205,8 @@ const Images = () => {
           onClose={() => setModalOpen(false)}
         />
       </div>
-      <div className=" flex justify-center  mt-10 mb-30 btn-container">
-        <Link
-          href={"https://www.behance.net/abbas_visuals"}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Button className="btn text-white text-3xl max-sm:text-xl  max-sm:hidden  ">
-            Show more Projects
-          </Button>
-        </Link>
-      </div>
-      <div className="relative">
+      
+      <div className="relative mt-38">
         <hr className="premium-hr " />
       </div>
     </div>

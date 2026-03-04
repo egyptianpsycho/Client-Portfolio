@@ -3,10 +3,7 @@ import Image from "next/image";
 
 const HeroSection = ({ sectionRef, imageContainerRef, textRef }) => {
   return (
-    <section
-      ref={sectionRef}
-      className="h-[100vh]    relative max-sm:hidden "
-    >
+    <section ref={sectionRef} className="h-[100vh] relative max-sm:hidden bg-gradient-to-b from-black via-75% via-black to-[#071318] ">
       <div className="sticky  top-0 h-screen w-full mt-47 ">
         <div
           ref={imageContainerRef}
@@ -20,7 +17,6 @@ const HeroSection = ({ sectionRef, imageContainerRef, textRef }) => {
             className="img1 object-cover absolute object-center opacity-65 transition-opacity duration-700 "
             priority
           />
-          
         </div>
 
         <div
@@ -28,8 +24,15 @@ const HeroSection = ({ sectionRef, imageContainerRef, textRef }) => {
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  
               text-white text-3xl w-full sm:text-4xl md:text-5xl lg:text-7xl font-bold text-center z-10 mix-blend-color"
         >
-          <h1 className="title w-full font-extrabold  " style={{fontFamily:"PP Neue Montreal"}}>HUNGRY FOR CONTENT?<br/>
-            <span className=" font-bold lg:text-6xl ">WE'VE GOT THE RECIPE</span>
+          <h1
+            className="title w-full font-extrabold  "
+            style={{ fontFamily: "PP Neue Montreal" }}
+          >
+            HUNGRY FOR CONTENT?
+            <br />
+            <span className=" font-bold lg:text-6xl ">
+              WE'VE GOT THE RECIPE
+            </span>
           </h1>
         </div>
       </div>
@@ -38,4 +41,3 @@ const HeroSection = ({ sectionRef, imageContainerRef, textRef }) => {
 };
 
 export default HeroSection;
-

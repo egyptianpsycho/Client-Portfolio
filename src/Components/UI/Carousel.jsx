@@ -6,6 +6,7 @@ import "swiper/css";
 import "swiper/css/free-mode";
 import { FreeMode } from "swiper/modules";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import Image from "next/image";
 
 const Carousel = ({ images, cover }) => {
   const allImages = cover ? [cover, ...images] : images;
@@ -34,9 +35,10 @@ const Carousel = ({ images, cover }) => {
                 <img
                   src={img}
                   alt={`slide-${idx}`}
-                  className="w-full h-auto carousel-img rounded-xl object-cover"
+                  className="w-full sm:max-h-[640px]  maxsm:h-auto carousel-img rounded-xl object-contain"
                   loading="lazy"
                 />
+                {/* kan h-auto , object-cover */}
               </div>
             </SwiperSlide>
           ))}

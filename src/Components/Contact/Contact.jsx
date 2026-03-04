@@ -2,8 +2,9 @@
 import useAnimate from "@/Hooks/useAnimate";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import React, {  useRef } from "react";
+import React, { useRef, useState } from "react";
 import Image from "next/image";
+import Swal from "sweetalert2";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -14,6 +15,8 @@ const Contact = () => {
   const line1Ref = useRef(null);
   const line2Ref = useRef(null);
   const line3Ref = useRef(null);
+
+  const [status, setStatus] = useState("");
 
   useAnimate(() => {
     const lines = [line1Ref.current, line2Ref.current, line3Ref.current];
@@ -76,6 +79,69 @@ const Contact = () => {
     });
   });
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus("sending");
+
+    const form = e.target;
+    const formData = new FormData(form);
+
+    try {
+      const response = await fetch("https://formspree.io/f/mzzqwoal", {
+        method: "POST",
+        body: formData,
+        headers: {
+          Accept: "application/json",
+        },
+      });
+
+      if (response.ok) {
+        setStatus("success");
+        form.reset();
+        
+        // SweetAlert2 Success
+        Swal.fire({
+          title: "Success!",
+          text: "Your message was sent successfully. We'll contact you soon.",
+          icon: "success",
+          confirmButtonText: "Great!",
+          confirmButtonColor: "#a3e635",
+          background: "#1e293b",
+          color: "#ffffff", 
+          iconColor: "#a3e635", 
+        });
+        
+        setStatus("");
+      } else {
+        setStatus("error");
+        
+        // SweetAlert2 Error
+        Swal.fire({
+          title: "Oops!",
+          text: "Something went wrong. Please try again.",
+          icon: "error",
+          confirmButtonText: "OK",
+          confirmButtonColor: "#ef4444", // red
+          background: "#1e293b",
+          color: "#ffffff",
+        });
+      }
+    } catch (error) {
+      setStatus("error");
+      
+      // SweetAlert2 Error
+      Swal.fire({
+        title: "Error!",
+        text: "Failed to send message. Please check your connection.",
+        icon: "error",
+        confirmButtonText: "OK",
+        confirmButtonColor: "#ef4444",
+        background: "#1e293b",
+        color: "#ffffff",
+      });
+    }
+  };
+
   return (
     <section
       id="CONTACT"
@@ -116,15 +182,21 @@ const Contact = () => {
               style={{ fontFamily: '"Work Sans", sans-serif' }}
             >
               <div style={{ overflow: "hidden" }}>
-                <h1 ref={line1Ref} className="max-sm:text-[2.5rem]">SHAPING THE</h1>
+                <h1 ref={line1Ref} className="max-sm:text-[2.5rem]">
+                  SHAPING THE
+                </h1>
               </div>
               <div style={{ overflow: "hidden" }}>
-                <h1 ref={line2Ref} className="max-sm:text-[2.5rem]">FUTURE OF</h1>
+                <h1 ref={line2Ref} className="max-sm:text-[2.5rem]">
+                  FUTURE OF
+                </h1>
               </div>
               <div style={{ overflow: "hidden" }}>
                 <h1 ref={line3Ref} className="max-sm:text-[2.5rem]">
                   VISUALS,{" "}
-                  <span style={{ fontFamily: "Nanum Myeongjo", fontWeight: "400" }}>
+                  <span
+                    style={{ fontFamily: "Nanum Myeongjo", fontWeight: "400" }}
+                  >
                     TODAY
                   </span>
                 </h1>
@@ -191,8 +263,7 @@ const Contact = () => {
             </div>
 
             <form
-              method="post"
-              action="https://formspree.io/f/mzzqwoal"
+              onSubmit={handleSubmit}
               className="space-y-6 max-w-[40rem] max-sm:max-w-full text-lg"
             >
               <div>
@@ -224,10 +295,23 @@ const Contact = () => {
 
               <button
                 type="submit"
-                className="mt-4 cursor-pointer duration-500 px-6 py-2 rounded-full border border-lime-400 text-lime-400 text-sm hover:bg-lime-400 hover:text-black transition flex items-center gap-2"
+                disabled={status === "sending"}
+                className="mt-4 cursor-pointer duration-500 px-6 py-2 rounded-full border border-lime-400 text-lime-400 text-sm hover:bg-lime-400 hover:text-black transition flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <span>Send It</span>
+                <span>
+                  {status === "sending"
+                    ? "Sending..."
+                    : status === "success"
+                    ? "Sent!"
+                    : "Send It"}
+                </span>
               </button>
+
+              {status === "error" && (
+                <p className="text-red-400 text-sm">
+                  Something went wrong. Please try again.
+                </p>
+              )}
             </form>
           </div>
         </div>

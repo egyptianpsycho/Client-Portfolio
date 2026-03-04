@@ -307,18 +307,7 @@ const Modal = ({ open, onClose, project }) => {
                 {project.date}
               </p>
 
-              <div className="flex justify-start pt-4 md:pt-6">
-                <Link
-                  href={project?.link || "#"}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Button className="btn text-white text-base sm:text-lg md:text-xl">
-                    <span ref={glareRef} className="btn-glare-effect"></span>
-                    <span>Show Full Project</span>
-                  </Button>
-                </Link>
-              </div>
+              
             </div>
 
             {/* Right Side: Carousel */}
