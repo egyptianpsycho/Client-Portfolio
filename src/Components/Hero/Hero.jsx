@@ -123,7 +123,7 @@ export default function Hero() {
           startAnimationSequence();
         }, 200);
       }
-    }, 0);
+    }, 100);
   
     return () => {
       clearInterval(checkPreloader);
