@@ -410,10 +410,9 @@ const Recent = () => {
               <Image
                 width={1920}
                 height={1080}
-                src="/Recent/A/B/pin.webp"
+                src="/Recent/A/B/pt2.webp"
                 alt="marq-img"
                 priority
-                style={{ objectPosition: `50% 80%` }}
                 className="img-recent  "
               />
             </div>
