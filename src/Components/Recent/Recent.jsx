@@ -495,16 +495,32 @@ const Recent = () => {
                 </p>
               </div>
             </div>
-            <div className="col h-150  sm:mt-8 ">
-             <Image
+            <div className="col  ">
+              <div className="img-stack ">
+              <Image
                 width={1920}
                 height={1080}
-                src="/Recent/A/B/7.webp"
-                alt="Production"
-                className="img-recent object-center   "
-                // style={{ objectPosition: `60% 65%` }}
-                loading="lazy"
-              />                                                
+                src="/Recent/A/B/pt2.webp"
+                alt="Pre-production"
+                className="img-recent"
+              />
+              <Image
+              width={1920}
+              height={1080}
+              src="/Recent/A/B/recrec.webp"
+              alt="Pre-production"
+              className="img-recent"
+            />
+              <Image
+              width={1920}
+              height={1080}
+              src="/Recent/A/B/rec.webp"
+              alt="Pre-production"
+              className="img-recent"
+            />
+              
+              </div>
+              
             </div>
             
           </div>
@@ -531,7 +547,7 @@ const Recent = () => {
               <Image
               width={1920}
               height={1080}
-              src="/Recent/A/B/pinsec2.jpg"
+              src="/Recent/A/B/6.png"
               alt="Pre-production"
               className="img-recent"
             />

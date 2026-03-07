@@ -222,14 +222,14 @@ export default function Hero() {
       <div className="absolute inset-0 hero-media pointer-events-none">
         <video
           ref={videoRef}
-          src="/HeroImages/vidtest.mp4"
+          src="/HeroImages/videotestttt.mov"
           alt="HeroImage"
           width={1920}
           height={1080}
           loop={true}
           muted
           playsInline
-          className="object-cover w-full "
+          className="object-cover w-full h-full "
         />
         {/* overlay(s) */}
         <div className="absolute inset-0 bg-gradient-to-tr from-black/80 to-[#434343]/40" />

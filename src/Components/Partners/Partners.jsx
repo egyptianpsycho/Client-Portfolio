@@ -9,9 +9,9 @@ const logos = [
   { src: "/Logos/enbd.svg", alt: "enbd" },
   { src: "/Logos/samsung.png", alt: "samsung" },
   { src: "/Logos/Porsche.svg.svg", alt: "Porsche" },
-  { src: "/Logos/bmw.png", alt: "bmw" }, 
-  { src: "/Logos/magedw.svg", alt: "maged" }, 
-  { src: "/Logos/NYC.svg", alt: "NYC" },
+  { src: "/Logos/bmw.png", alt: "bmw" },
+  { src: "/Logos/magedw.svg", alt: "maged" },
+  { src: "/Logos/4K.png", alt: "NYC" },
   { src: "/Logos/DubaiT.png", alt: "DubaiT" },
   { src: "/Logos/adidas.png", alt: "Adidas" },
 ];
@@ -57,11 +57,20 @@ const Partners = () => {
   });
 
   return (
-    <section className="-mb-0.1  sm:min-h-screen max-sm:h-[50vh] h-auto sm:h-screen z-[100] pt-0  sm:pt-32 md:pt-40 pb-10 sm:pb-0 overflow-hidden bg-gradient-to-br to-[#000000] from-[#0a212b] flex items-center justify-center" id="PARTNERS">
+    <section
+      className="-mb-0.1  sm:min-h-screen max-sm:h-[50vh] h-auto sm:h-screen z-[100] pt-0  sm:pt-32 md:pt-40 pb-10 sm:pb-0 overflow-hidden bg-gradient-to-br to-[#000000] from-[#0a212b] flex items-center justify-center"
+      id="PARTNERS"
+    >
       <div className="relative w-full partners-grid -rotate-6 sm:-rotate-8 md:-rotate-10 space-y-4 sm:space-y-3 md:space-y-3.5">
         {/* First Row */}
         <div className="flex gap-4 sm:gap-3 md:gap-3.5 partners-row-1 px-4 sm:px-0 right-[50%] relative">
-          {[...logos.slice(0, 5), ...logos.slice(0, 5), ...logos.slice(0, 5)].map((logo, index) => (
+          {[
+            ...logos.slice(0, 2),
+            { src: "/Logos/2K.png", alt: "delivro" },
+            ...logos.slice(3, 5),
+            ...logos.slice(0, 5),
+            ...logos.slice(0, 5),
+          ].map((logo, index) => (
             <div
               key={index}
               className="trallelo logo-card flex-shrink-0 w-40 h-28 sm:w-auto sm:h-auto sm:p-12 md:p-16 lg:p-20 xl:p-28 2xl:p-40 justify-center items-center bg-gray-600/15 flex rounded"
@@ -80,7 +89,13 @@ const Partners = () => {
 
         {/* Second Row */}
         <div className="flex gap-4 sm:gap-3 md:gap-3.5 partners-row-2 px-4 sm:px-0">
-          {[...logos.slice(5), ...logos.slice(5), ...logos.slice(5)].map((logo, index) => (
+          {[
+            ...logos.slice(5, 6),
+            { src: "/Logos/3K.png", alt: "samsung" },
+            ...logos.slice(7),
+            ...logos.slice(5),
+            ...logos.slice(5),
+          ].map((logo, index) => (
             <div
               key={index}
               className="trallelo logo-card flex-shrink-0 w-40 h-28 sm:w-auto sm:h-auto sm:p-12 md:p-16 lg:p-20 xl:p-28 2xl:p-40 justify-center items-center bg-gray-600/15 flex rounded"

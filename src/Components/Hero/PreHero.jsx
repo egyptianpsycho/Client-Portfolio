@@ -10,11 +10,11 @@ const PreHero = () => {
             {/* <div className="absolute inset-0 bg-gradient-to-tr from-black/80 to-transparent pointer-events-none" /> */}
     
             <Image
-              src="/HeroImages/vidtest2.png"
+              src="/HeroImages/vidtest3.png"
               alt="HeroImage"
               fill
               priority
-              className="object-cover  "
+              className="object-cover   "
             />
             {/* overlay(s) */}
             <div className="absolute inset-0 bg-gradient-to-tr from-black/80 to-[#434343]/40" />
