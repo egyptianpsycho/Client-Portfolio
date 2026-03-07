@@ -410,7 +410,7 @@ const Recent = () => {
               <Image
                 width={1920}
                 height={1080}
-                src="/Recent/A/B/pt2.webp"
+                src="/Recent/A/B/7.webp"
                 alt="marq-img"
                 priority
                 className="img-recent  "
