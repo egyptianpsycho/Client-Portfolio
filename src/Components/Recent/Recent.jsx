@@ -495,7 +495,7 @@ const Recent = () => {
                 </p>
               </div>
             </div>
-            <div className="col h-150  mt-8 ">
+            <div className="col h-150  sm:mt-8 ">
              <Image
                 width={1920}
                 height={1080}
