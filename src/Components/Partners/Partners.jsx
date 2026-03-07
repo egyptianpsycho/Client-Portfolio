@@ -66,7 +66,7 @@ const Partners = () => {
         <div className="flex gap-4 sm:gap-3 md:gap-3.5 partners-row-1 px-4 sm:px-0 right-[50%] relative">
           {[
             ...logos.slice(0, 2),
-            { src: "/Logos/2K.png", alt: "delivro" },
+            { src: "/Logos/2k.png", alt: "delivro" },
             ...logos.slice(3, 5),
             ...logos.slice(0, 5),
             ...logos.slice(0, 5),
