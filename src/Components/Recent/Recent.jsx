@@ -495,13 +495,13 @@ const Recent = () => {
                 </p>
               </div>
             </div>
-            <div className="col h-150  ">
+            <div className="col h-150  mt-8 ">
              <Image
                 width={1920}
                 height={1080}
                 src="/Recent/A/B/7.webp"
                 alt="Production"
-                className="img-recent object-center "
+                className="img-recent object-center   "
                 // style={{ objectPosition: `60% 65%` }}
                 loading="lazy"
               />                                                

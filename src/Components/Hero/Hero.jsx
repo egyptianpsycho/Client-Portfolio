@@ -98,33 +98,33 @@ export default function Hero() {
   useEffect(() => {
     // Set initial hidden state for ABBAS text only
     const heroText = document.querySelector("#hero-text");
-    
+
     if (heroText) {
       gsap.set(heroText, {
         opacity: 0,
-        filter: "blur(4px)"
+        filter: "blur(4px)",
       });
     }
-    
+
     // Wait for preloader to finish
     const checkPreloader = setInterval(() => {
       if (window.__preloaderDone) {
         clearInterval(checkPreloader);
-        
+
         // Start video playback when preloader is done
         if (videoRef.current) {
-          videoRef.current.play().catch(err => {
+          videoRef.current.play().catch((err) => {
             console.log("Video autoplay failed:", err);
           });
         }
-        
+
         // Start animation sequence after 200ms
         setTimeout(() => {
           startAnimationSequence();
         }, 200);
       }
     }, 100);
-  
+
     return () => {
       clearInterval(checkPreloader);
     };
@@ -134,7 +134,7 @@ export default function Hero() {
   const startAnimationSequence = () => {
     const tl = gsap.timeline();
     const path = document.querySelector("#pathToAnimate1");
-    
+
     // 1. Fade in ABBAS text from blur
     tl.fromTo(
       "#hero-text",
@@ -153,18 +153,22 @@ export default function Hero() {
     // 2. Animate signature
     if (path) {
       const length = path.getTotalLength();
-      
+
       gsap.set(path, {
         strokeDasharray: length,
         strokeDashoffset: length,
         visibility: "visible",
       });
 
-      tl.to(path, {
-        strokeDashoffset: 0,
-        duration: 3,
-        ease: "power2.out",
-      }, "-=0.5"); 
+      tl.to(
+        path,
+        {
+          strokeDashoffset: 0,
+          duration: 3,
+          ease: "power2.out",
+        },
+        "-=0.5"
+      );
     }
 
     tl.call(() => {
@@ -177,13 +181,13 @@ export default function Hero() {
   useAnimate(() => {
     const hero = document.querySelector(".hero-pin");
     const about = document.querySelector("#about");
-    
+
     // Set initial state for hero text - hidden
     gsap.set("#hero-text", {
       opacity: 0,
       filter: "blur(4px)",
     });
-    
+
     // Pin animation
     if (!hero || !about) return;
 
@@ -225,7 +229,7 @@ export default function Hero() {
           loop={true}
           muted
           playsInline
-          className="!object-contain"
+          className="object-cover w-full "
         />
         {/* overlay(s) */}
         <div className="absolute inset-0 bg-gradient-to-tr from-black/80 to-[#434343]/40" />
@@ -427,26 +431,26 @@ export default function Hero() {
 //   useEffect(() => {
 //     // Set initial hidden state for ABBAS text only
 //     const heroText = document.querySelector("#hero-text");
-    
+
 //     if (heroText) {
 //       gsap.set(heroText, {
 //         opacity: 0,
 //         filter: "blur(4px)"
 //       });
 //     }
-    
+
 //     // Wait for preloader to finish
 //     const checkPreloader = setInterval(() => {
 //       if (window.__preloaderDone) {
 //         clearInterval(checkPreloader);
-        
+
 //         // Start animation sequence after 2.5 seconds
 //         setTimeout(() => {
 //           startAnimationSequence();
 //         }, 200);
 //       }
 //     }, 100);
-  
+
 //     return () => {
 //       clearInterval(checkPreloader);
 //     };
@@ -456,7 +460,7 @@ export default function Hero() {
 //   const startAnimationSequence = () => {
 //     const tl = gsap.timeline();
 //     const path = document.querySelector("#pathToAnimate1");
-    
+
 //     // 1. Fade in ABBAS text from blur
 //     tl.fromTo(
 //       "#hero-text",
@@ -475,7 +479,7 @@ export default function Hero() {
 //     // 2. Animate signature
 //     if (path) {
 //       const length = path.getTotalLength();
-      
+
 //       gsap.set(path, {
 //         strokeDasharray: length,
 //         strokeDashoffset: length,
@@ -486,7 +490,7 @@ export default function Hero() {
 //         strokeDashoffset: 0,
 //         duration: 3,
 //         ease: "power2.out",
-//       }, "-=0.5"); 
+//       }, "-=0.5");
 //     }
 
 //     tl.call(() => {
@@ -499,13 +503,13 @@ export default function Hero() {
 //   useAnimate(() => {
 //     const hero = document.querySelector(".hero-pin");
 //     const about = document.querySelector("#about");
-    
+
 //     // Set initial state for hero text - hidden
 //     gsap.set("#hero-text", {
 //       opacity: 0,
 //       filter: "blur(4px)",
 //     });
-    
+
 //     // Pin animation
 //     if (!hero || !about) return;
 

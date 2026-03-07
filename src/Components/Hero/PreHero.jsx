@@ -14,7 +14,6 @@ const PreHero = () => {
               alt="HeroImage"
               fill
               priority
-              quality={0}
               className="object-cover  "
             />
             {/* overlay(s) */}
