@@ -509,14 +509,14 @@ const Recent = () => {
               height={1080}
               src="/Recent/A/B/recrec.webp"
               alt="Pre-production"
-              className="img-recent"
+              className="img-recent max-sm:hidden  "
             />
               <Image
               width={1920}
               height={1080}
               src="/Recent/A/B/rec.webp"
               alt="Pre-production"
-              className="img-recent"
+              className="img-recent "
             />
               
               </div>
