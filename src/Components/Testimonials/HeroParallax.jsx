@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useEffect, useCallback } from "react";
+import React, { useRef, useEffect, useCallback, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { TestimonialCard } from "../UI/TestimonialCard";
@@ -10,9 +10,28 @@ import useAnimate from "@/Hooks/useAnimate";
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
 /* ─────────────────────────────────────────────
+   Hook — resolves true device type once on mount.
+   Returns null during SSR / before hydration so
+   neither layout renders until we know for sure.
+───────────────────────────────────────────── */
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(null);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    setIsMobile(mq.matches);
+
+    const handler = (e) => setIsMobile(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+
+  return isMobile;
+}
+
+/* ─────────────────────────────────────────────
    Mobile Marquee Row
    dir: "left" | "right"
-   Rows 1 & 3 → left, Row 2 → right
 ───────────────────────────────────────────── */
 function MobileMarqueeRow({ items, dir = "left" }) {
   const trackRef = useRef(null);
@@ -29,7 +48,6 @@ function MobileMarqueeRow({ items, dir = "left" }) {
     let dragStartOffset = 0;
     let loopWidth = 0;
 
-    // Triple-clone so there's always content visible during drag in either direction
     const originals = Array.from(el.children);
     [0, 1].forEach(() => {
       originals.forEach((child) => {
@@ -52,7 +70,6 @@ function MobileMarqueeRow({ items, dir = "left" }) {
           }
         }
 
-        // Seamless wrap — always stay within the middle copy
         if (offset >= loopWidth * 2) offset -= loopWidth;
         if (offset < loopWidth) offset += loopWidth;
 
@@ -125,10 +142,9 @@ function MobileMarqueeRow({ items, dir = "left" }) {
 }
 
 /* ─────────────────────────────────────────────
-   Main component
+   Desktop layout
 ───────────────────────────────────────────── */
-export const HeroParallax = ({ testimonials }) => {
-  const ref = useRef(null);
+function DesktopLayout({ testimonials, containerRef }) {
   const animationsCreated = useRef(false);
   const triggersRef = useRef([]);
 
@@ -136,11 +152,10 @@ export const HeroParallax = ({ testimonials }) => {
   const secondRow = testimonials.slice(5, 10);
   const thirdRow = testimonials.slice(10, 15);
 
-  /* ── Desktop GSAP animations — completely unchanged ── */
   const createAnimations = useCallback(() => {
-    if (!ref.current || animationsCreated.current) return;
+    if (!containerRef.current || animationsCreated.current) return;
 
-    const container = ref.current;
+    const container = containerRef.current;
     const testTitle = container.querySelector(".Test-Title");
     const heroContent = container.querySelector(".hero-content");
     const rows = container.querySelectorAll(".row");
@@ -209,7 +224,7 @@ export const HeroParallax = ({ testimonials }) => {
 
     ScrollTrigger.refresh();
     animationsCreated.current = true;
-  }, []);
+  }, [containerRef]);
 
   useAnimate(() => {
     createAnimations();
@@ -221,54 +236,73 @@ export const HeroParallax = ({ testimonials }) => {
   });
 
   return (
+    <div className="hero-content testo-tests">
+      <div className="row flex flex-row-reverse space-x-reverse space-x-20 mb-20 will-change-transform">
+        {firstRow.map((t) => <TestimonialCard key={t.id} {...t} />)}
+      </div>
+      <div className="row flex flex-row mb-20 space-x-20 will-change-transform">
+        {secondRow.map((t) => <TestimonialCard key={t.id} {...t} />)}
+      </div>
+      <div className="row flex flex-row-reverse space-x-reverse space-x-20 will-change-transform">
+        {thirdRow.map((t) => <TestimonialCard key={t.id} {...t} />)}
+      </div>
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────────
+   Mobile layout
+───────────────────────────────────────────── */
+function MobileLayout({ testimonials }) {
+  const firstRow = testimonials.slice(0, 5);
+  const secondRow = testimonials.slice(5, 10);
+  const thirdRow = testimonials.slice(10, 15);
+
+  return (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "16px",
+        marginTop: "16px",
+        width: "100%",
+        overflow: "hidden",
+      }}
+    >
+      <MobileMarqueeRow items={firstRow} dir="left" />
+      <MobileMarqueeRow items={secondRow} dir="right" />
+      <MobileMarqueeRow items={thirdRow} dir="left" />
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────────
+   Main component
+───────────────────────────────────────────── */
+export const HeroParallax = ({ testimonials }) => {
+  const ref = useRef(null);
+  const isMobile = useIsMobile();
+
+  return (
     <div
       ref={ref}
       className="h-[160vh] sm:h-[305vh] sm:py-110 overflow-hidden antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d] bg-gradient-to-b from-black via-slate-600 to-slate-900/20 -mt-0.5"
       id="Testimonials"
     >
       {/* Background gradients */}
-      <Image src="/gradients/sky_gradient_white.png" alt="bg-grad" width={400} height={400} className="-z-20 absolute inset-0 opacity-40 scale-150 top-[40%] left-[91%] object-contain" loading="lazy" />
-      <Image src="/gradients/sky_gradient_white.png" alt="bg-grad" width={400} height={400} className="-z-20 absolute inset-0 opacity-20 scale-150 top-[18%] left-[17%] object-contain" loading="lazy" />
-      <Image src="/gradients/sky_gradient_white.png" alt="bg-grad" width={400} height={400} className="-z-20 absolute inset-0 opacity-30 scale-150 top-[85%] left-[-14%] object-contain max-sm:top-[0%] max-sm:left-[-40%]" loading="lazy" />
-      <Image src="/gradients/sky_gradient_white.png" alt="bg-grad" width={400} height={400} className="-z-20 absolute inset-0 opacity-15 scale-150 top-[67%] left-[30%] object-contain" loading="lazy" />
+      <Image src="/gradients/sky_gradient_white.png" alt="" width={400} height={400} className="-z-20 absolute inset-0 opacity-40 scale-150 top-[40%] left-[91%] object-contain" loading="lazy" />
+      <Image src="/gradients/sky_gradient_white.png" alt="" width={400} height={400} className="-z-20 absolute inset-0 opacity-20 scale-150 top-[18%] left-[17%] object-contain" loading="lazy" />
+      <Image src="/gradients/sky_gradient_white.png" alt="" width={400} height={400} className="-z-20 absolute inset-0 opacity-30 scale-150 top-[85%] left-[-14%] object-contain max-sm:top-[0%] max-sm:left-[-40%]" loading="lazy" />
+      <Image src="/gradients/sky_gradient_white.png" alt="" width={400} height={400} className="-z-20 absolute inset-0 opacity-15 scale-150 top-[67%] left-[30%] object-contain" loading="lazy" />
 
       <Header />
 
-      {/* ══════════════════════════════════════
-          DESKTOP — original, zero changes
-      ══════════════════════════════════════ */}
-      <div className="hero-content testo-tests hidden md:block">
-        <div className="row flex flex-row-reverse space-x-reverse space-x-20 mb-20 will-change-transform">
-          {firstRow.map((t) => <TestimonialCard key={t.id} {...t} />)}
-        </div>
-        <div className="row flex flex-row mb-20 space-x-20 will-change-transform">
-          {secondRow.map((t) => <TestimonialCard key={t.id} {...t} />)}
-        </div>
-        <div className="row flex flex-row-reverse space-x-reverse space-x-20 will-change-transform">
-          {thirdRow.map((t) => <TestimonialCard key={t.id} {...t} />)}
-        </div>
-      </div>
-
-      {/* ══════════════════════════════════════
-          MOBILE — infinite marquee rows
-          Row 1 & 3 → left | Row 2 → right
-          Touch drag overrides auto-scroll
-      ══════════════════════════════════════ */}
-      <div
-        className="md:hidden"
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "16px",
-          marginTop: "16px",
-          width: "100%",
-          overflow: "hidden",
-        }}
-      >
-        <MobileMarqueeRow items={firstRow} dir="left" />
-        <MobileMarqueeRow items={secondRow} dir="right" />
-        <MobileMarqueeRow items={thirdRow} dir="left" />
-      </div>
+      {/* Render nothing until device is known — avoids flash of wrong layout */}
+      {isMobile === null ? null : isMobile ? (
+        <MobileLayout testimonials={testimonials} />
+      ) : (
+        <DesktopLayout testimonials={testimonials} containerRef={ref} />
+      )}
     </div>
   );
 };
@@ -301,3 +335,67 @@ export const ProductCard = ({ product }) => (
     </h2>
   </div>
 );
+//       <div className="hero-content testo-tests hidden md:block">
+//         <div className="row flex flex-row-reverse space-x-reverse space-x-20 mb-20 will-change-transform">
+//           {firstRow.map((t) => <TestimonialCard key={t.id} {...t} />)}
+//         </div>
+//         <div className="row flex flex-row mb-20 space-x-20 will-change-transform">
+//           {secondRow.map((t) => <TestimonialCard key={t.id} {...t} />)}
+//         </div>
+//         <div className="row flex flex-row-reverse space-x-reverse space-x-20 will-change-transform">
+//           {thirdRow.map((t) => <TestimonialCard key={t.id} {...t} />)}
+//         </div>
+//       </div>
+
+//       {/* ══════════════════════════════════════
+//           MOBILE — infinite marquee rows
+//           Row 1 & 3 → left | Row 2 → right
+//           Touch drag overrides auto-scroll
+//       ══════════════════════════════════════ */}
+//       <div
+//         className="sm:hidden"
+//         style={{
+//           display: "flex",
+//           flexDirection: "column",
+//           gap: "16px",
+//           marginTop: "16px",
+//           width: "100%",
+//           overflow: "hidden",
+//         }}
+//       >
+//         <MobileMarqueeRow items={firstRow} dir="left" />
+//         <MobileMarqueeRow items={secondRow} dir="right" />
+//         <MobileMarqueeRow items={thirdRow} dir="left" />
+//       </div>
+//     </div>
+//   );
+// };
+
+// export const Header = React.memo(() => (
+//   <div className="max-w-7xl relative mx-auto py-20 md:py-40 px-4 w-full left-0 top-0 z-[1]">
+//     <h1 className="text-4xl md:text-7xl font-bold Test-Title opacity-60 text-white glowy-text">
+//       WHAT THEY SAY <br /> ABOUT US
+//     </h1>
+//   </div>
+// ));
+
+// Header.displayName = "Header";
+
+// export const ProductCard = ({ product }) => (
+//   <div className="group/product h-96 w-[30rem] relative shrink-0 cursor-pointer">
+//     <a href={product.link} className="block group-hover/product:shadow-2xl">
+//       <Image
+//         src={product.thumbnail}
+//         width={200}
+//         height={200}
+//         className="object-cover object-left-top absolute h-full w-full inset-0"
+//         alt={product.title}
+//         loading="lazy"
+//       />
+//     </a>
+//     <div className="absolute inset-0 h-full w-full opacity-0 group-hover/product:opacity-80 bg-black pointer-events-none"></div>
+//     <h2 className="absolute bottom-4 left-4 opacity-0 group-hover/product:opacity-100 text-white">
+//       {product.title}
+//     </h2>
+//   </div>
+// );
