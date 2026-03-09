@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const HeroSection = ({ sectionRef, imageContainerRef, textRef }) => {
   return (
-    <section ref={sectionRef} className="h-[100vh] relative max-sm:hidden bg-gradient-to-b from-black via-75% via-black to-[#071318] ">
+    <section ref={sectionRef} className="h-[100vh] relative  bg-gradient-to-b from-black via-75% via-black to-[#071318] ">
       <div className="sticky  top-0 h-screen w-full mt-47 ">
         <div
           ref={imageContainerRef}
@@ -11,7 +11,7 @@ const HeroSection = ({ sectionRef, imageContainerRef, textRef }) => {
           style={{ transform: "scale(1.4)", filter: "brightness(0.7)" }}
         >
           <Image
-            src="/HeroImages/Horse2.webp"
+            src="/Recent/A/B/7.webp"
             alt="Hero 1"
             fill
             className="img1 object-cover absolute object-center opacity-65 transition-opacity duration-700 "
@@ -22,7 +22,7 @@ const HeroSection = ({ sectionRef, imageContainerRef, textRef }) => {
         <div
           ref={textRef}
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  
-              text-white text-3xl w-full sm:text-4xl md:text-5xl lg:text-7xl font-bold text-center z-10 mix-blend-color"
+              text-white text-3xl w-full sm:text-4xl md:text-5xl lg:text-7xl font-bold text-center z-10 mix-blend-soft-light"
         >
           <h1
             className="title w-full font-extrabold  "

@@ -98,7 +98,6 @@ const Recent = () => {
         let pinnedMarqueeimgClone = null;
         let isImgCloneActive = false;
         let flipAnimation = null;
-        const isMobile = window.innerWidth <= 768;
 
         function createPinnedMarqueeimgClone() {
           if (isImgCloneActive) return;
@@ -164,16 +163,14 @@ const Recent = () => {
           pin: true,
         });
 
-        if (!isMobile) {
-          ScrollTrigger.create({
-            scroller: "[data-scroll-container]",
-            trigger: ".marq",
-            start: "top top",
-            onEnter: createPinnedMarqueeimgClone,
-            onEnterBack: createPinnedMarqueeimgClone,
-            onLeaveBack: removePinnedMarqueeimgClone,
-          });
-        }
+        ScrollTrigger.create({
+          scroller: "[data-scroll-container]",
+          trigger: ".marq",
+          start: "top top",
+          onEnter: createPinnedMarqueeimgClone,
+          onEnterBack: createPinnedMarqueeimgClone,
+          onLeaveBack: removePinnedMarqueeimgClone,
+        });
 
         ScrollTrigger.create({
           trigger: ".horizontal-scroll",
@@ -202,86 +199,68 @@ const Recent = () => {
               });
             }
 
-            // Desktop: Full pin animation with Flip
-            if (!isMobile) {
-              if (progress <= 0.2) {
-                if (!flipAnimation && pinnedMarqueeimgClone && isImgCloneActive) {
-                  const statee = Flip.getState(pinnedMarqueeimgClone);
+            if (progress <= 0.2) {
+              if (!flipAnimation && pinnedMarqueeimgClone && isImgCloneActive) {
+                const statee = Flip.getState(pinnedMarqueeimgClone);
 
-                  gsap.set(pinnedMarqueeimgClone, {
-                    position: "fixed",
-                    left: "0px",
-                    top: "0px",
-                    width: "100%",
-                    height: "100svh",
-                    transform: "rotate(0deg)",
-                    transformOrigin: "center center",
-                  });
-
-                  flipAnimation = Flip.from(statee, {
-                    duration: 1,
-                    ease: "none",
-                    paused: true,
-                  });
-                }
-
-                const scaleProgress = progress / 0.2;
-                if (flipAnimation) {
-                  flipAnimation.progress(scaleProgress);
-                }
-              }
-
-              else if (progress > 0.2 && progress <= 0.95) {
-                if (flipAnimation) {
-                  flipAnimation.progress(1);
-                }
-
-                const horizontalProgress = (progress - 0.2) / 0.75;
-                const wrapperTranslateX = -75 * horizontalProgress;
-
-                gsap.set(".horizontal-scroll-wrapper", {
-                  x: `${wrapperTranslateX}%`,
+                gsap.set(pinnedMarqueeimgClone, {
+                  position: "fixed",
+                  left: "0px",
+                  top: "0px",
+                  width: "100%",
+                  height: "100svh",
+                  transform: "rotate(0deg)",
+                  transformOrigin: "center center",
                 });
 
-                if (pinnedMarqueeimgClone) {
-                  const slideMovement = (75 / 100) * 4 * horizontalProgress;
-                  const imageTranslateX = -slideMovement * 100;
-                  gsap.set(pinnedMarqueeimgClone, {
-                    x: `${imageTranslateX}%`,
-                  });
-                }
-              }
-
-              else if (progress > 0.95) {
-                if (flipAnimation) {
-                  flipAnimation.progress(1);
-                }
-
-                if (pinnedMarqueeimgClone) {
-                  gsap.set(pinnedMarqueeimgClone, {
-                    x: "-300%",
-                  });
-                }
-
-                gsap.set(".horizontal-scroll-wrapper", {
-                  x: "-75%",
+                flipAnimation = Flip.from(statee, {
+                  duration: 1,
+                  ease: "none",
+                  paused: true,
                 });
               }
-            } 
-            // Mobile: Just handle horizontal scroll, no pin manipulation
-            else {
-              if (progress > 0.05 && progress <= 0.95) {
-                const horizontalProgress = Math.max(0, (progress - 0.05) / 0.9);
-                const wrapperTranslateX = -75 * horizontalProgress;
 
-                gsap.set(".horizontal-scroll-wrapper", {
-                  x: `${wrapperTranslateX}%`,
-                });
-              } else if (progress > 0.95) {
-                gsap.set(".horizontal-scroll-wrapper", {
-                  x: "-75%",
+              const scaleProgress = progress / 0.2;
+              if (flipAnimation) {
+                flipAnimation.progress(scaleProgress);
+              }
+            }
+
+            else if (progress > 0.2 && progress <= 0.95) {
+              if (flipAnimation) {
+                flipAnimation.progress(1);
+              }
+
+              const horizontalProgress = (progress - 0.2) / 0.75;
+              const wrapperTranslateX = -75 * horizontalProgress; // Changed from -66.67 to -75
+
+              gsap.set(".horizontal-scroll-wrapper", {
+                x: `${wrapperTranslateX}%`,
+              });
+
+              if (pinnedMarqueeimgClone) {
+                const slideMovement = (75 / 100) * 4 * horizontalProgress; // Changed to account for 4 slides
+                const imageTranslateX = -slideMovement * 100;
+                gsap.set(pinnedMarqueeimgClone, {
+                  x: `${imageTranslateX}%`,
                 });
               }
+            }
+
+            else if (progress > 0.95) {
+              if (flipAnimation) {
+                flipAnimation.progress(1);
+              }
+
+              if (pinnedMarqueeimgClone) {
+                gsap.set(pinnedMarqueeimgClone, {
+                  x: "-300%", // Changed from -200% to -300%
+                });
+              }
+
+              gsap.set(".horizontal-scroll-wrapper", {
+                x: "-75%", // Changed from -66.67% to -75%
+              });
             }
           },
           onLeaveBack: () => {
@@ -337,10 +316,18 @@ const Recent = () => {
   return (
     <div className="cont " id="recent-section">
       <section className="hero-2 ">
-      <h1 className="h1-recent firstanimatetext max-sm:relative max-sm:max-w-99 text-left">
-  Shall we move from<br /> words to visuals? <br />
-  Here's where the <br className="sm:hidden" /> vision <br className="hidden sm:block" /> comes to life.
-</h1>
+        <h1 className="h1-recent firstanimatetext max-sm:relative max-sm:max-w-99 text-left ">
+          <span className="!font-semibold">Shall we move from</span>
+          <br /> <span className="!font-semibold">words to visuals?</span>
+          <br />
+          <span className="sm:text-[3rem] text-[2rem]  ">
+            Here's where the{" "}
+          </span>
+          <br className="sm:hidden" />{" "}
+          <span className="sm:text-[3rem] text-[2rem]">vision </span> {""}
+          <br className="hidden sm:block" />
+          <span className="sm:text-[3rem] text-[2rem]">comes to life.</span>
+        </h1>
       </section>
 
       <section className="marq">
@@ -484,45 +471,47 @@ const Recent = () => {
       <section className="horizontal-scroll">
         <div className="horizontal-scroll-wrapper">
           <div className="horizontal-slide horizontal-spacer"></div>
-          
+
           {/* Pre-Production Slide */}
           <div className="horizontal-slide">
             <div className="col">
               <div className="production-content">
-                <h2 className="production-title Recent-title- pre-prod-anim">PRE-PRODUCTION</h2>
-                <p className="production-text Recent-paragraph- pre-prod-anim-para">
-                Where strategy gets a spine. We tear down your brief, rebuild it from the ground up, and forge a visual treatment that dictates the tone, texture, and tension of the entire campaign.
+                <h2 className="production-title Recent-title- pre-prod-anim">
+                  PRE-PRODUCTION
+                </h2>
+                <p className="production-text Recent-paragraph- pre-prod-anim-para ">
+                  Where strategy gets a spine. We tear down your brief, rebuild
+                  it from the ground up, and forge a visual treatment that
+                  dictates the tone, texture, and tension of the entire
+                  campaign.
                 </p>
               </div>
             </div>
             <div className="col  ">
               <div className="img-stack ">
-              <Image
-                width={1920}
-                height={1080}
-                src="/Recent/A/B/pt2.webp"
-                alt="Pre-production"
-                className="img-recent"
-              />
-              <Image
-              width={1920}
-              height={1080}
-              src="/Recent/A/B/recrec.webp"
-              alt="Pre-production"
-              className="img-recent max-sm:hidden  "
-            />
-              <Image
-              width={1920}
-              height={1080}
-              src="/Recent/A/B/rec.webp"
-              alt="Pre-production"
-              className="img-recent "
-            />
-              
+                <Image
+                  width={1920}
+                  height={1080}
+                  src="/Recent/A/B/pt2.webp"
+                  alt="Pre-production"
+                  className="img-recent"
+                />
+                <Image
+                  width={1920}
+                  height={1080}
+                  src="/Recent/A/B/recrec.webp"
+                  alt="Pre-production"
+                  className="img-recent max-sm:hidden  "
+                />
+                <Image
+                  width={1920}
+                  height={1080}
+                  src="/Recent/A/B/rec.webp"
+                  alt="Pre-production"
+                  className="img-recent "
+                />
               </div>
-              
             </div>
-            
           </div>
 
           {/* Production Slide */}
@@ -531,45 +520,50 @@ const Recent = () => {
               <div className="production-content">
                 <h2 className="production-title Recent-title-">PRODUCTION</h2>
                 <p className="production-text Recent-paragraph-">
-                The executed principle. Working within this defined system, we generate the raw assets. The environment is managed, the detail attended to, ensuring the principle is rendered as material.
+                  The executed principle. Working within this defined system, we
+                  generate the raw assets. The environment is managed, the
+                  detail attended to, ensuring the principle is rendered as
+                  material.
                 </p>
               </div>
             </div>
             <div className="col  ">
               <div className="img-stack !w-full">
-              <Image
-                width={1920}
-                height={1080}
-                src="/Recent/A/B/3CROP.jpg"
-                alt="Pre-production"
-                className="img-recent"
-              />
-              <Image
-              width={1920}
-              height={1080}
-              src="/Recent/A/B/6.png"
-              alt="Pre-production"
-              className="img-recent"
-            />
+                <Image
+                  width={1920}
+                  height={1080}
+                  src="/Recent/A/B/3CROP.jpg"
+                  alt="Pre-production"
+                  className="img-recent"
+                />
+                <Image
+                  width={1920}
+                  height={1080}
+                  src="/Recent/A/B/6.png"
+                  alt="Pre-production"
+                  className="img-recent"
+                />
               </div>
-              
             </div>
           </div>
-               
 
           {/* Post-Production Slide */}
           <div className="horizontal-slide">
             <div className="col">
               <div className="production-content Recent-title-">
-                <h2 className="production-title Recent-paragraph- text-nowrap">POST-PRODUCTION</h2>
+                <h2 className="production-title Recent-paragraph- text-nowrap">
+                  POST-PRODUCTION
+                </h2>
                 <p className="production-text ">
-                The work is launched into the cultural stream. Finalized with a critical eye, it is placed in influential media and scaled for public impact, beginning its dialogue.
+                  The work is launched into the cultural stream. Finalized with
+                  a critical eye, it is placed in influential media and scaled
+                  for public impact, beginning its dialogue.
                 </p>
               </div>
             </div>
             <div className="col post-production-images">
               <div className="img-stack ">
-              <Image
+                <Image
                   width={1920}
                   height={1080}
                   src="/Recent/A/B/4.webp"
@@ -603,10 +597,14 @@ const Recent = () => {
         </div>
       </section>
 
-      <section className="outro ">
-        <p className="h1-recent secondanimatetext max-sm:relative md:w-[950px] max-sm:max-w-98  pb-20 text-left"
-        >
-        Every project is a footprint of the process.<br/> From broad layout to the finest pixel 
+      <section className="outro  ">
+        <p className="h1-recent  secondanimatetext max-sm:relative md:w-[950px] max-sm:max-w-98  pb-20 text-left ">
+          <span className="sm:font-semibold sm:text-nowrap">Every project is a footprint of the process.</span>
+          <br />
+          <span className=" sm:text-[2.8rem]   ">
+            {" "}
+            From broad layout to the finest pixel{" "}
+          </span>
         </p>
         <Image
           src="/gradients/sky_gradient_white.png"
