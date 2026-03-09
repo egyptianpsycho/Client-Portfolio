@@ -10,7 +10,7 @@ const PreHero = () => {
             {/* <div className="absolute inset-0 bg-gradient-to-tr from-black/80 to-transparent pointer-events-none" /> */}
     
             <Image
-              src="/HeroImages/vidtestfi.png"
+              src="/HeroImages/vidfinal.png"
               alt="HeroImage"
               fill
               priority
