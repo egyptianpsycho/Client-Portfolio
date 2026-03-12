@@ -31,12 +31,11 @@ const Recent = () => {
 
         gsap.fromTo(
           recentfirstSplit.chars,
-          { color: "#A9A9A9", filter: "blur(4px)", x: 10, y: 10 },
+          { color: "#A9A9A9",  x: 10, y: 10 },
           {
             y: 0,
             x: 0,
             color: "#101010",
-            filter: "blur(0px)",
             stagger: 0.05,
             scrollTrigger: {
               scroller: "[data-scroll-container]",
@@ -49,12 +48,11 @@ const Recent = () => {
         );
         gsap.fromTo(
           recentsecondSplit.words,
-          { color: "#708090", filter: "blur(4px)", x: 10, y: 10 },
+          { color: "#708090",  x: 10, y: 10 },
           {
             y: 0,
             x: 0,
             color: "#edf1e8",
-            filter: "blur(0px)",
             stagger: 0.05,
             scrollTrigger: {
               scroller: "[data-scroll-container]",

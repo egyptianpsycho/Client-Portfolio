@@ -91,7 +91,7 @@ const Videos = () => {
                 {project.durtaion}
               </h3>
             </div>
-            <div className="blur-2xl opacity-10  scale-200 bg-slate-500/10 absolute inset-0 pointer-events-none group-hover:pointer-events-none" />
+            <div className="blur-3xl opacity-100  scale-200 bg-slate-500/10 absolute inset-0 pointer-events-none group-hover:pointer-events-none" />
           </div>
         ))}
       </div>

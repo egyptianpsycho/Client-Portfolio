@@ -58,7 +58,7 @@ const Images = () => {
         duration: 2,
         ease: "expo.out",
         stagger: 0.1,
-        filter: "blur(15px)",
+        // filter: "blur(15px)",
         y: 50,
         scrollTrigger: {
           trigger: "#Projects",
@@ -92,7 +92,7 @@ const Images = () => {
           opacity: 0,
           y: 200,
           duration: 1.2,
-          filter: "blur(10px)",
+          // filter: "blur(10px)",
           ease: "power3.out",
           delay: 0.3,
           stagger: 0.06,
@@ -155,7 +155,7 @@ const Images = () => {
                   {project.title}
                 </h3>
               </div>
-              <div className="blur-2xl opacity-10  scale-200 bg-slate-500/10 absolute inset-0" />
+              <div className=" opacity-10  scale-200 bg-slate-500/10 absolute inset-0" />
             </div>
           );
         })}
