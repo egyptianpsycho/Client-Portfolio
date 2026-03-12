@@ -14,11 +14,11 @@ const Home = () => {
     <div>
       <Hero />
       <About />
-      {/* <Partners />
+      <Partners />
       <Recent />
       <Projects />
       <Testimonials />
-      <Status /> */}
+      <Status />
       <HeroSection />
       <Contact />
       <Footer />
