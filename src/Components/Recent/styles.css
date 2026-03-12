@@ -121,6 +121,8 @@
   display: flex;
   gap: 2rem;
   padding: 2rem;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .horizontal-slide:not(.horizontal-spacer) {
@@ -227,4 +229,11 @@
   .img-stack {
     width: 100%;
   }
+}
+
+
+.marq-img.pin img {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform, opacity;
 }

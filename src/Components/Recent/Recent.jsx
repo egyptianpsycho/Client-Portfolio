@@ -9,16 +9,10 @@ import { SplitText } from "gsap/SplitText";
 
 gsap.registerPlugin(ScrollTrigger, Flip, SplitText);
 
-const isSafari = () => {
-  if (typeof window === "undefined") return false;
-  return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-};
 
 const Recent = () => {
   useEffect(() => {
     const init = () => {
-      const safariMode = isSafari();
-
       const lightColor = getComputedStyle(document.documentElement)
         .getPropertyValue("--light")
         .trim();
@@ -27,22 +21,22 @@ const Recent = () => {
         .trim();
 
       const ctx = gsap.context(() => {
-        // ─── Split Text Animations ───────────────────────────────────────
         const recentfirstSplit = new SplitText(".firstanimatetext", {
           type: "chars",
         });
         const recentsecondSplit = new SplitText(".secondanimatetext", {
           type: "words",
         });
+        
 
         gsap.fromTo(
           recentfirstSplit.chars,
-          { color: "#A9A9A9", ...(safariMode ? {} : { filter: "blur(4px)" }), x: 10, y: 10 },
+          { color: "#A9A9A9", filter: "blur(4px)", x: 10, y: 10 },
           {
             y: 0,
             x: 0,
             color: "#101010",
-            ...(safariMode ? {} : { filter: "blur(0px)" }),
+            filter: "blur(0px)",
             stagger: 0.05,
             scrollTrigger: {
               scroller: "[data-scroll-container]",
@@ -53,15 +47,14 @@ const Recent = () => {
             },
           }
         );
-
         gsap.fromTo(
           recentsecondSplit.words,
-          { color: "#708090", ...(safariMode ? {} : { filter: "blur(4px)" }), x: 10, y: 10 },
+          { color: "#708090", filter: "blur(4px)", x: 10, y: 10 },
           {
             y: 0,
             x: 0,
             color: "#edf1e8",
-            ...(safariMode ? {} : { filter: "blur(0px)" }),
+            filter: "blur(0px)",
             stagger: 0.05,
             scrollTrigger: {
               scroller: "[data-scroll-container]",
@@ -79,7 +72,10 @@ const Recent = () => {
           }
         );
 
-        // ─── Marquee Scroll ──────────────────────────────────────────────
+        function interpolateColor(color1, color2, factor) {
+          return gsap.utils.interpolate(color1, color2, factor);
+        }
+
         gsap.to(".marq-images", {
           scrollTrigger: {
             scroller: "[data-scroll-container]",
@@ -88,33 +84,21 @@ const Recent = () => {
             end: "top top",
             scrub: true,
             onUpdate: (self) => {
-              const xPosition = -75 + self.progress * 25;
-              gsap.set(".marq-images", { x: `${xPosition}%` });
+              const progress = self.progress;
+              const xPosition = -75 + progress * 25;
+              gsap.set(".marq-images", {
+                x: `${xPosition}%`,
+              });
             },
           },
         });
 
-        // ─── Clone State ─────────────────────────────────────────────────
+        
+
         let pinnedMarqueeimgClone = null;
         let isImgCloneActive = false;
         let flipAnimation = null;
 
-        // ─── Cache DOM refs once ─────────────────────────────────────────
-        const contEl = document.querySelector(".cont");
-        const wrapperEl = document.querySelector(".horizontal-scroll-wrapper");
-
-        // quickSetters — bypasses GSAP property parsing, much faster on each frame
-        const setContBg = gsap.quickSetter(contEl, "backgroundColor");
-        const setWrapperX = gsap.quickSetter(wrapperEl, "x", "%");
-
-        // Clone quickSetter is created lazily when clone exists
-        let cloneSetX = null;
-
-        // RAF throttle state
-        let rafPending = false;
-        let lastProgress = -1;
-
-        // ─── Clone Helpers ───────────────────────────────────────────────
         function createPinnedMarqueeimgClone() {
           if (isImgCloneActive) return;
 
@@ -143,10 +127,6 @@ const Recent = () => {
 
           document.body.appendChild(pinnedMarqueeimgClone);
           gsap.set(originalMarqueeImg, { opacity: 0 });
-
-          // Create quickSetter for the clone now that it exists
-          cloneSetX = gsap.quickSetter(pinnedMarqueeimgClone, "x", "%");
-
           isImgCloneActive = true;
         }
 
@@ -163,9 +143,6 @@ const Recent = () => {
             pinnedMarqueeimgClone = null;
           }
 
-          // Reset clone quickSetter
-          cloneSetX = null;
-
           const originalMarqueeImg =
             document.querySelector(".marq-img.pin img");
           if (originalMarqueeImg) {
@@ -175,7 +152,6 @@ const Recent = () => {
           isImgCloneActive = false;
         }
 
-        // ─── Pin ─────────────────────────────────────────────────────────
         ScrollTrigger.create({
           trigger: ".horizontal-scroll",
           start: "top top",
@@ -187,7 +163,6 @@ const Recent = () => {
           pin: true,
         });
 
-        // ─── Clone Enter/Leave ───────────────────────────────────────────
         ScrollTrigger.create({
           scroller: "[data-scroll-container]",
           trigger: ".marq",
@@ -197,7 +172,6 @@ const Recent = () => {
           onLeaveBack: removePinnedMarqueeimgClone,
         });
 
-        // ─── Main Scroll Driver ──────────────────────────────────────────
         ScrollTrigger.create({
           trigger: ".horizontal-scroll",
           scroller: "[data-scroll-container]",
@@ -206,98 +180,102 @@ const Recent = () => {
             const isMobile = window.innerWidth <= 768;
             return `+=${window.innerHeight * (isMobile ? 3 : 4.5)}`;
           },
-
           onUpdate: (self) => {
             const progress = self.progress;
 
-            // Skip negligible progress changes — avoids unnecessary frames
-            if (Math.abs(progress - lastProgress) < 0.001) return;
-            lastProgress = progress;
+            if (progress <= 0.05) {
+              const bgColorProgress = Math.min(progress / 0.05, 1);
+              const newBgColor = interpolateColor(
+                lightColor,
+                darkColor,
+                bgColorProgress
+              );
+              gsap.set(".cont", {
+                backgroundColor: newBgColor,
+              });
+            } else if (progress > 0.05) {
+              gsap.set(".cont", {
+                backgroundColor: darkColor,
+              });
+            }
 
-            // RAF throttle — only queue one frame at a time
-            if (rafPending) return;
-            rafPending = true;
+            if (progress <= 0.2) {
+              if (!flipAnimation && pinnedMarqueeimgClone && isImgCloneActive) {
+                const statee = Flip.getState(pinnedMarqueeimgClone);
 
-            requestAnimationFrame(() => {
-              rafPending = false;
+                gsap.set(pinnedMarqueeimgClone, {
+                  position: "fixed",
+                  left: "0px",
+                  top: "0px",
+                  width: "100%",
+                  height: "100svh",
+                  transform: "rotate(0deg)",
+                  transformOrigin: "center center",
+                });
 
-              // ── Background color transition ──────────────────────────
-              if (progress <= 0.05) {
-                const bgProgress = Math.min(progress / 0.05, 1);
-                setContBg(
-                  gsap.utils.interpolate(lightColor, darkColor, bgProgress)
-                );
-              } else {
-                setContBg(darkColor);
+                flipAnimation = Flip.from(statee, {
+                  duration: 1,
+                  ease: "none",
+                  paused: true,
+                });
               }
 
-              // ── Flip + horizontal scroll ─────────────────────────────
-              if (progress <= 0.2) {
-                // Set up flip only once when clone exists and flip isn't set
-                if (
-                  !flipAnimation &&
-                  pinnedMarqueeimgClone &&
-                  isImgCloneActive
-                ) {
-                  const statee = Flip.getState(pinnedMarqueeimgClone);
-
-                  gsap.set(pinnedMarqueeimgClone, {
-                    position: "fixed",
-                    left: "0px",
-                    top: "0px",
-                    width: "100%",
-                    height: "100svh",
-                    transform: "rotate(0deg)",
-                    transformOrigin: "center center",
-                  });
-
-                  flipAnimation = Flip.from(statee, {
-                    duration: 1,
-                    ease: "none",
-                    paused: true,
-                  });
-                }
-
-                if (flipAnimation) {
-                  flipAnimation.progress(progress / 0.2);
-                }
-
-              } else if (progress > 0.2 && progress <= 0.95) {
-                if (flipAnimation) flipAnimation.progress(1);
-
-                const horizontalProgress = (progress - 0.2) / 0.75;
-
-                // quickSetter — no string parsing, direct CSS update
-                setWrapperX(-75 * horizontalProgress);
-
-                if (pinnedMarqueeimgClone && cloneSetX) {
-                  cloneSetX(-(75 / 100) * 4 * horizontalProgress * 100);
-                }
-
-              } else {
-                if (flipAnimation) flipAnimation.progress(1);
-
-                setWrapperX(-75);
-
-                if (pinnedMarqueeimgClone && cloneSetX) {
-                  cloneSetX(-300);
-                }
+              const scaleProgress = progress / 0.2;
+              if (flipAnimation) {
+                flipAnimation.progress(scaleProgress);
               }
-            });
+            }
+
+            else if (progress > 0.2 && progress <= 0.95) {
+              if (flipAnimation) {
+                flipAnimation.progress(1);
+              }
+
+              const horizontalProgress = (progress - 0.2) / 0.75;
+              const wrapperTranslateX = -75 * horizontalProgress; // Changed from -66.67 to -75
+
+              gsap.set(".horizontal-scroll-wrapper", {
+                x: `${wrapperTranslateX}%`,
+              });
+
+              if (pinnedMarqueeimgClone) {
+                const slideMovement = (75 / 100) * 4 * horizontalProgress; // Changed to account for 4 slides
+                const imageTranslateX = -slideMovement * 100;
+                gsap.set(pinnedMarqueeimgClone, {
+                  x: `${imageTranslateX}%`,
+                });
+              }
+            }
+
+            else if (progress > 0.95) {
+              if (flipAnimation) {
+                flipAnimation.progress(1);
+              }
+
+              if (pinnedMarqueeimgClone) {
+                gsap.set(pinnedMarqueeimgClone, {
+                  x: "-300%", // Changed from -200% to -300%
+                });
+              }
+
+              gsap.set(".horizontal-scroll-wrapper", {
+                x: "-75%", // Changed from -66.67% to -75%
+              });
+            }
           },
-
           onLeaveBack: () => {
-            // Cancel any pending RAF frame
-            rafPending = false;
-            lastProgress = -1;
-
             if (flipAnimation) {
               flipAnimation.kill();
               flipAnimation = null;
             }
 
-            setContBg(lightColor);
-            setWrapperX(0);
+            gsap.set(".cont", {
+              backgroundColor: lightColor,
+            });
+
+            gsap.set(".horizontal-scroll-wrapper", {
+              x: "0%",
+            });
 
             if (pinnedMarqueeimgClone && isImgCloneActive) {
               const originalMarqueeImg =
@@ -316,16 +294,12 @@ const Recent = () => {
                   transform: "rotate(-5deg)",
                   x: "0%",
                 });
-
-                // Reset clone quickSetter reference position
-                if (cloneSetX) cloneSetX(0);
               }
             }
           },
         });
       });
 
-      ScrollTrigger.refresh();
       return () => ctx.revert();
     };
 
@@ -340,17 +314,17 @@ const Recent = () => {
   }, []);
 
   return (
-    <div className="cont" id="recent-section">
-      <section className="hero-2">
-        <h1 className="h1-recent firstanimatetext max-sm:relative max-sm:max-w-99 text-left">
+    <div className="cont " id="recent-section">
+      <section className="hero-2 ">
+        <h1 className="h1-recent firstanimatetext max-sm:relative max-sm:max-w-99 text-left ">
           <span className="!font-semibold">Shall we move from</span>
           <br /> <span className="!font-semibold">words to visuals?</span>
           <br />
-          <span className="sm:text-[3rem] text-[2rem]">
+          <span className="sm:text-[3rem] text-[2rem]  ">
             Here's where the{" "}
           </span>
           <br className="sm:hidden" />{" "}
-          <span className="sm:text-[3rem] text-[2rem]">vision </span>{" "}
+          <span className="sm:text-[3rem] text-[2rem]">vision </span> {""}
           <br className="hidden sm:block" />
           <span className="sm:text-[3rem] text-[2rem]">comes to life.</span>
         </h1>
@@ -385,7 +359,7 @@ const Recent = () => {
                 height={400}
                 src="/Recent/A/pre3.webp"
                 alt="marq-img"
-                className="img-recent object-bottom"
+                className="img-recent object-bottom "
                 loading="lazy"
               />
             </div>
@@ -395,7 +369,7 @@ const Recent = () => {
                 height={800}
                 src="/Recent/A/pre3.webp"
                 alt="marq-img"
-                className="img-recent"
+                className="img-recent "
                 loading="lazy"
               />
             </div>
@@ -405,7 +379,7 @@ const Recent = () => {
                 height={900}
                 src="/Recent/A/B/1.webp"
                 alt="marq-img"
-                className="img-recent"
+                className="img-recent "
                 loading="lazy"
               />
             </div>
@@ -415,7 +389,7 @@ const Recent = () => {
                 height={900}
                 src="/Recent/A/B/2.JPG"
                 alt="marq-img"
-                className="img-recent"
+                className="img-recent "
                 loading="lazy"
               />
             </div>
@@ -426,7 +400,7 @@ const Recent = () => {
                 src="/Recent/A/B/7.webp"
                 alt="marq-img"
                 priority
-                className="img-recent"
+                className="img-recent  "
               />
             </div>
             <div className="marq-img">
@@ -435,7 +409,7 @@ const Recent = () => {
                 height={900}
                 src="/Recent/A/B/4.webp"
                 alt="marq-img"
-                className="img-recent"
+                className="img-recent "
                 loading="lazy"
               />
             </div>
@@ -445,7 +419,7 @@ const Recent = () => {
                 height={900}
                 src="/Recent/A/B/5.webp"
                 alt="marq-img"
-                className="img-recent"
+                className="img-recent "
                 loading="lazy"
               />
             </div>
@@ -455,7 +429,7 @@ const Recent = () => {
                 height={900}
                 src="/Recent/A/B/3.jpg"
                 alt="marq-img"
-                className="img-recent"
+                className="img-recent "
                 style={{ objectPosition: `50% 90%` }}
                 loading="lazy"
               />
@@ -466,7 +440,7 @@ const Recent = () => {
                 height={900}
                 src="/Recent/A/B/6.png"
                 alt="marq-img"
-                className="img-recent"
+                className="img-recent "
                 loading="lazy"
               />
             </div>
@@ -476,7 +450,7 @@ const Recent = () => {
                 height={900}
                 src="/Recent/A/B/7.webp"
                 alt="marq-img"
-                className="img-recent"
+                className="img-recent "
                 loading="lazy"
               />
             </div>
@@ -505,7 +479,7 @@ const Recent = () => {
                 <h2 className="production-title Recent-title- pre-prod-anim">
                   PRE-PRODUCTION
                 </h2>
-                <p className="production-text Recent-paragraph- pre-prod-anim-para">
+                <p className="production-text Recent-paragraph- pre-prod-anim-para ">
                   Where strategy gets a spine. We tear down your brief, rebuild
                   it from the ground up, and forge a visual treatment that
                   dictates the tone, texture, and tension of the entire
@@ -513,8 +487,8 @@ const Recent = () => {
                 </p>
               </div>
             </div>
-            <div className="col">
-              <div className="img-stack">
+            <div className="col  ">
+              <div className="img-stack ">
                 <Image
                   width={1920}
                   height={1080}
@@ -527,14 +501,14 @@ const Recent = () => {
                   height={1080}
                   src="/Recent/A/B/recrec.webp"
                   alt="Pre-production"
-                  className="img-recent max-sm:hidden"
+                  className="img-recent max-sm:hidden  "
                 />
                 <Image
                   width={1920}
                   height={1080}
                   src="/Recent/A/B/rec.webp"
                   alt="Pre-production"
-                  className="img-recent"
+                  className="img-recent "
                 />
               </div>
             </div>
@@ -553,7 +527,7 @@ const Recent = () => {
                 </p>
               </div>
             </div>
-            <div className="col">
+            <div className="col  ">
               <div className="img-stack !w-full">
                 <Image
                   width={1920}
@@ -580,7 +554,7 @@ const Recent = () => {
                 <h2 className="production-title Recent-paragraph- text-nowrap">
                   POST-PRODUCTION
                 </h2>
-                <p className="production-text">
+                <p className="production-text ">
                   The work is launched into the cultural stream. Finalized with
                   a critical eye, it is placed in influential media and scaled
                   for public impact, beginning its dialogue.
@@ -588,13 +562,13 @@ const Recent = () => {
               </div>
             </div>
             <div className="col post-production-images">
-              <div className="img-stack">
+              <div className="img-stack ">
                 <Image
                   width={1920}
                   height={1080}
                   src="/Recent/A/B/4.webp"
                   alt="Post-production 1"
-                  className="img-recent"
+                  className="img-recent "
                   loading="lazy"
                 />
                 <Image
@@ -602,7 +576,9 @@ const Recent = () => {
                   height={1080}
                   src="/Recent/A/B/5.webp"
                   alt="Post-production 2"
-                  className="img-recent"
+                  className="img-recent "
+                  // style={{ width: `500px` }}
+
                   loading="lazy"
                 />
                 <Image
@@ -610,7 +586,9 @@ const Recent = () => {
                   height={1080}
                   src="/Recent/A/B/1.webp"
                   alt="Post-production 3"
-                  className="img-recent max-sm:hidden"
+                  className="img-recent max-sm:hidden "
+                  // style={{ width: `500px` }}
+
                   loading="lazy"
                 />
               </div>
@@ -619,13 +597,11 @@ const Recent = () => {
         </div>
       </section>
 
-      <section className="outro">
-        <p className="h1-recent secondanimatetext max-sm:relative md:w-[950px] max-sm:max-w-98 pb-20 text-left">
-          <span className="sm:font-semibold sm:text-nowrap">
-            Every project is a footprint of the process.
-          </span>
+      <section className="outro  ">
+        <p className="h1-recent  secondanimatetext max-sm:relative md:w-[950px] max-sm:max-w-98  pb-20 text-left ">
+          <span className="sm:font-semibold sm:text-nowrap">Every project is a footprint of the process.</span>
           <br />
-          <span className="sm:text-[2.8rem]">
+          <span className=" sm:text-[2.8rem]   ">
             {" "}
             From broad layout to the finest pixel{" "}
           </span>
@@ -634,7 +610,7 @@ const Recent = () => {
           src="/gradients/sky_gradient_white.png"
           alt="gradient"
           width={400}
-          className="absolute inset-0 opacity-30 scale-150 top-[-50%] left-[-18%] max-sm:top-[-20%] max-sm:scale-125 z-200 object-contain testing-test-altra"
+          className="absolute inset-0 opacity-30 scale-150 top-[-50%]  left-[-18%] max-sm:top-[-20%] max-sm:scale-125 z-200 object-contain testing-test-altra"
           height={400}
         />
       </section>

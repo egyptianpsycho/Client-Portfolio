@@ -7,6 +7,13 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
+
+
+// const isSafari = () => {
+//   if (typeof window === "undefined") return false;
+//   return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+// };
+
 const HeroSection = () => {
   const sectionRef = useRef(null);
   const imageContainerRef = useRef(null);
@@ -17,6 +24,9 @@ const HeroSection = () => {
     const titleEl = sectionRef.current.querySelector(".title");
     if (!titleEl) return;
 
+    // const safariMode = isSafari();
+
+
     const heroSplit = new SplitText(titleEl, { type: "chars" });
     heroSplit.chars.forEach((char) => char.classList.add("text-gradient"));
 
@@ -24,7 +34,7 @@ const HeroSection = () => {
     gsap.to(textRef.current, {
       y: -200,
       opacity: 0,
-      filter: "blur(20px)",
+      // ...(safariMode ? {filter:"blur(10px)"} : { filter: "blur(20px)" }),
       scrollTrigger: {
         trigger: sectionRef.current,
         scroller: "[data-scroll-container]",
@@ -39,7 +49,7 @@ const HeroSection = () => {
       opacity: 0,
       yPercent: 100,
       duration: 1.4,
-      filter: "blur(30px)",
+      // ...(safariMode ? {filter:"blur(10px)"} : { filter: "blur(10px)" }),
       ease: "expo.out",
       stagger: 0.04,
       scrollTrigger: {
@@ -66,40 +76,6 @@ const HeroSection = () => {
         anticipatePin: 1,
       },
     });
-
-    // Stats animation
-    // const statsTrigger = document.querySelector(".sts-sc");
-    // if (statsTrigger) {
-    //   const tl = gsap.timeline({
-    //     scrollTrigger: {
-    //       trigger: ".sts-sc",
-    //       scroller: "[data-scroll-container]",
-    //       start: "top 90%",
-    //       toggleActions: "play none none reverse",
-    //     },
-    //   });
-
-    //   tl.from(".stat-card", {
-    //     opacity: 0,
-    //     x: 30,
-    //     filter: "blur(12px)",
-    //     stagger: 0.3,
-    //     duration: 0.8,
-    //     ease: "power2.out",
-    //   });
-
-    //   tl.fromTo(
-    //     ".stat-number",
-    //     { textContent: 0 },
-    //     {
-    //       textContent: (_, target) => target.getAttribute("data-value"),
-    //       duration: 2,
-    //       ease: "power1.out",
-    //       snap: { textContent: 1 },
-    //     },
-    //     "-=0.8"
-    //   );
-    // }
   });
   return (
     <section
@@ -124,7 +100,7 @@ const HeroSection = () => {
         <div
           ref={textRef}
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  
-              text-white text-3xl w-full sm:text-4xl md:text-5xl lg:text-7xl font-bold text-center z-10 mix-blend-soft-light"
+              text-white text-3xl w-full sm:text-4xl md:text-5xl lg:text-7xl font-bold text-center z-10 mix-blend-soft-light title-alo"
         >
           <h1
             className="title w-full font-extrabold  "
