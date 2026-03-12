@@ -254,7 +254,7 @@ const Contact = () => {
             >
               <div style={{ overflow: "hidden" }}>
                 <h2 ref={formHeadingLineRef}>
-                  LET'S COCK{" "}
+                  LET'S COOK{" "}
                   <span className="text-4xl font-extralight max-sm:text-[2rem] max-sm:block">
                     TOGETHER
                   </span>

@@ -21,19 +21,26 @@ section + section {
 
 [data-scroll-container] {
   will-change: transform;
-  transform: translateZ(0);
-  backface-visibility: hidden;
-  contain: layout paint style;
-  transform-style: preserve-3d;
+  /* transform: translateZ(0); */
+  /* backface-visibility: hidden; */
+  /* contain: layout paint style; */
+  /* transform-style: preserve-3d; */
 }
-
+/* 
 [data-scroll-section] {
   will-change: transform;
   backface-visibility: hidden;
   transform: translateZ(0);
   contain: layout paint style;
-}
+} */
 
+/* 
+.hero-media { will-change: auto; }          
+.hero-section { will-change: auto; }
+[data-scroll-section] { will-change: auto; } 
+
+.horizontal-scroll-wrapper { will-change: transform; }
+.marq-images { will-change: transform; } */
 
 .c-scrollbar {
   position: absolute;

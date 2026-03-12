@@ -1,8 +1,45 @@
+"use client"
+import useAnimate from "@/Hooks/useAnimate";
+import gsap from "gsap";
 import { Award, Camera, Image as Mg, Users } from "lucide-react";
 import Image  from "next/image";
 import React from "react";
 
 const Status = () => {
+  useAnimate(() => {
+    const statsTrigger = document.querySelector(".sts-sc");
+    if (statsTrigger) {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".sts-sc",
+          scroller: "[data-scroll-container]",
+          start: "top 90%",
+          toggleActions: "play none none reverse",
+        },
+      });
+
+      tl.from(".stat-card", {
+        opacity: 0,
+        x: 30,
+        filter: "blur(12px)",
+        stagger: 0.3,
+        duration: 0.8,
+        ease: "power2.out",
+      });
+
+      tl.fromTo(
+        ".stat-number",
+        { textContent: 0 },
+        {
+          textContent: (_, target) => target.getAttribute("data-value"),
+          duration: 2,
+          ease: "power1.out",
+          snap: { textContent: 1 },
+        },
+        "-=0.8"
+      );
+    }
+  });
   return (
     <div className=" bg-gradient-to-r from-slate-900/20 to-[#0a212b]/20 py-12 sm:py-16 md:pt-20 md:pb-20  px-4 sm:px-6 lg:px-8">
       <div className="footer-section stats-section mb-40 sm:mb-70 w-full max-w-6xl mx-auto ">

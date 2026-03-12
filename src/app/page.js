@@ -1,5 +1,6 @@
 import About from "@/Components/About/About";
-import BTL from "@/Components/BehindTheLens/BTL";
+import HeroSection from "@/Components/BehindTheLens/HeroSection";
+import Status from "@/Components/BehindTheLens/Status";
 import Contact from "@/Components/Contact/Contact";
 import Hero from "@/Components/Hero/Hero";
 import Partners from "@/Components/Partners/Partners";
@@ -13,11 +14,12 @@ const Home = () => {
     <div>
       <Hero />
       <About />
-      <Partners />
+      {/* <Partners />
       <Recent />
       <Projects />
       <Testimonials />
-      <BTL />
+      <Status /> */}
+      <HeroSection />
       <Contact />
       <Footer />
     </div>

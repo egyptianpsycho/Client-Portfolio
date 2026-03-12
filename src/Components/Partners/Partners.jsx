@@ -82,7 +82,9 @@ const Partners = () => {
             ...logos.slice(0, 2),
             { src: "/Logos/2k.png", alt: "delivro" },
             ...logos.slice(3, 5),
-            ...logos.slice(0, 5),
+            ...logos.slice(0, 3),
+            { src: "/Logos/DubaiHoldingw.png", alt: "DubaiHolding" },
+            { src: "/Logos/Sofitel.png", alt: "Sofitel.png" },
             ...logos.slice(0, 5),
           ].map((logo, index) => (
             <div

@@ -26,7 +26,7 @@ export default function SmoothScroll({ children }) {
         const LocomotiveScroll = (await import("locomotive-scroll")).default;
 
         // Kill any existing ScrollTriggers before creating new ones
-        ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+        ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
 
         // Initialize locomotive scroll
         locoScroll = new LocomotiveScroll({
@@ -36,7 +36,7 @@ export default function SmoothScroll({ children }) {
           smartphone: { smooth: true },
           tablet: { smooth: true },
         });
-        
+
         window.__loco = locoScroll;
 
         // Sync LocomotiveScroll with ScrollTrigger
@@ -68,15 +68,20 @@ export default function SmoothScroll({ children }) {
 
         ScrollTrigger.addEventListener("refresh", onRefresh);
 
+        let resizeTimer = null;
         resizeObserver = new ResizeObserver(() => {
-          if (locoScroll) locoScroll.update();
-          ScrollTrigger.refresh();
+          if (resizeTimer) clearTimeout(resizeTimer);
+          resizeTimer = setTimeout(() => {
+            if (locoScroll) locoScroll.update();
+            ScrollTrigger.refresh();
+            resizeTimer = null;
+          }, 150);
         });
         resizeObserver.observe(scrollRef.current);
 
         // Scroll to top on page change
         locoScroll.scrollTo(0, { duration: 0, disableLerp: true });
-        
+
         // Initial refresh
         requestAnimationFrame(() => {
           ScrollTrigger.refresh();
@@ -129,7 +134,7 @@ export default function SmoothScroll({ children }) {
       }
 
       // Kill all ScrollTriggers before destroying loco
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
 
       if (locoScroll) {
         locoScroll.destroy();

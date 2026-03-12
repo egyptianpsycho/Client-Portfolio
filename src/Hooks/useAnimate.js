@@ -1,63 +1,56 @@
+// src/Hooks/useAnimate.js
 "use client";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
 export default function useAnimate(gsapInit) {
-  const ran = useRef(false);
-  const cleanupRef = useRef(null);
+  // Stable ref so we always call the latest version of the callback
+  const initRef = useRef(gsapInit);
+  initRef.current = gsapInit;
 
   useEffect(() => {
-    if (ran.current) return;
-    
-    let timer;
-    let rafId;
+    let ctx = null;
+    let timer = null;
+    let rafId = null;
+    let cancelled = false;
 
     const start = () => {
-      if (ran.current) return;
-      ran.current = true;
+      if (cancelled) return;
 
-      // Use gsap.context for automatic cleanup
-      const ctx = gsap.context(() => {
-        gsapInit();
+      ctx = gsap.context(() => {
+        initRef.current();
       });
 
-      // Use RAF for better timing with render cycle
       rafId = requestAnimationFrame(() => {
+        if (cancelled) return;
         requestAnimationFrame(() => {
           try {
-            if (window.__loco) {
-              window.__loco.update();
-            }
+            window.__loco?.update();
             ScrollTrigger.refresh();
           } catch (e) {
-            console.warn("ScrollTrigger refresh failed:", e);
+            // ignore
           }
         });
       });
-
-      cleanupRef.current = () => {
-        ctx.revert();
-        if (rafId) cancelAnimationFrame(rafId);
-      };
     };
 
-    const wait = () => {
-      // Check if both loco and preloader are ready
+    const poll = () => {
+      if (cancelled) return;
       if (window.__loco && window.__preloaderDone) {
-        // Add small delay to ensure DOM is fully painted
         timer = setTimeout(start, 100);
       } else {
-        timer = setTimeout(wait, 50);
+        timer = setTimeout(poll, 50);
       }
     };
 
-    wait();
+    poll();
 
     return () => {
+      cancelled = true;
       if (timer) clearTimeout(timer);
       if (rafId) cancelAnimationFrame(rafId);
-      if (cleanupRef.current) cleanupRef.current();
+      ctx?.revert();
     };
-  }, [gsapInit]);
+  }, []); // Empty deps — initRef always holds latest callback
 }
