@@ -26,7 +26,7 @@ const Videos = () => {
       duration: 2,
       ease: "expo.out",
       stagger: 0.1,
-      // filter: "blur(15px)",
+      filter: "blur(15px)",
       y: 50,
       scrollTrigger: {
         trigger: "#videos-section",
@@ -40,7 +40,7 @@ const Videos = () => {
           opacity: 0,
           y: 100,
           duration: 1,
-          // filter: "blur(10px)",
+          filter: "blur(10px)",
           ease: "power2.out",
           stagger: 0.06,
           scrollTrigger: {
