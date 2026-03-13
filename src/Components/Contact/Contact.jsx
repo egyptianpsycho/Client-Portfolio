@@ -9,55 +9,20 @@ import Swal from "sweetalert2";
 gsap.registerPlugin(ScrollTrigger);
 
 const Contact = () => {
-  const headingRef = useRef(null);
   const formHeadingRef = useRef(null);
   const formHeadingLineRef = useRef(null);
-  const line1Ref = useRef(null);
-  const line2Ref = useRef(null);
-  const line3Ref = useRef(null);
+
 
   const [status, setStatus] = useState("");
 
   useAnimate(() => {
-    const lines = [line1Ref.current, line2Ref.current, line3Ref.current];
     const path = document.querySelector("#pathToAnimate2");
 
     if (!path) return;
     const le = path.getTotalLength();
 
-    gsap.set(lines, { yPercent: 120 });
-    gsap.set(formHeadingLineRef, { yPercent: 120 });
-    gsap.set(formHeadingLineRef.current, { yPercent: 120 });
 
-    ScrollTrigger.create({
-      trigger: headingRef.current,
-      start: "top 75%",
-      scroller: "[data-scroll-container]",
-      toggleActions: "play none none reverse",
-      onEnter: () => {
-        gsap.fromTo(
-          lines,
-          {  },
-          {
-            yPercent: 0,
-            duration: 1.2,
-            // filter: "blur(0px)",
-            ease: "power3.out",
-            stagger: 0.15,
-          }
-        );
-        gsap.fromTo(
-          formHeadingLineRef.current,
-          { },
-          {
-            yPercent: 0,
-            duration: 1.2,
-            // filter: "blur(0px)",
-            ease: "power3.out",
-          }
-        );
-      },
-    });
+    
 
     gsap.set(path, {
       strokeDasharray: le,
@@ -177,22 +142,22 @@ const Contact = () => {
           {/* Left Side */}
           <div className="space-y-6 ml-4 max-sm:ml-0">
             <div
-              ref={headingRef}
+              
               className="text-5xl lg:text-7xl font-medium leading-19 max-sm:leading-tight pt-4 max-sm:pt-8 max-sm:mix-blend-difference"
               style={{ fontFamily: '"Work Sans", sans-serif' }}
             >
               <div style={{ overflow: "hidden" }}>
-                <h1 ref={line1Ref} className="max-sm:text-[2.5rem]">
+                <h1  className="max-sm:text-[2.5rem]">
                   SHAPING THE
                 </h1>
               </div>
               <div style={{ overflow: "hidden" }}>
-                <h1 ref={line2Ref} className="max-sm:text-[2.5rem]">
+                <h1 className="max-sm:text-[2.5rem]">
                   FUTURE OF
                 </h1>
               </div>
               <div style={{ overflow: "hidden" }}>
-                <h1 ref={line3Ref} className="max-sm:text-[2.5rem]">
+                <h1  className="max-sm:text-[2.5rem]">
                   VISUALS,{" "}
                   <span
                     style={{ fontFamily: "Nanum Myeongjo", fontWeight: "400" }}
