@@ -4,8 +4,6 @@ import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
 import { PROJECTSIMGS } from "../CONSTANTS";
 import Image from "next/image";
-import { Button } from "@material-tailwind/react";
-import Link from "next/link";
 import Modal from "@/Components/UI/Modal";
 import useAnimate from "@/Hooks/useAnimate";
 
@@ -156,6 +154,7 @@ const Images = () => {
                 </h3>
               </div>
               <div className=" opacity-10  scale-200 bg-slate-500/10 absolute inset-0" />
+              {/* blur-2xl */}
             </div>
           );
         })}
