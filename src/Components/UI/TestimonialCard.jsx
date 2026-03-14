@@ -62,7 +62,7 @@ export const TestimonialCard = ({
   photo,
   initial,
 }) => (
-  <div className="group/testimonial testo-test h-auto sm:h-[22rem] md:h-96 w-full sm:w-[18rem] md:w-[24rem] lg:w-[28rem] xl:w-[30rem] bg-white/10 backdrop-blur-md border border-white/20 text-white p-4 sm:p-6 md:p-8 rounded-xl md:rounded-2xl shrink-0 relative overflow-hidden hover:-translate-y-1 hover:shadow-2xl hover:border-white/40 transition duration-500">
+  <div className="group/testimonial testo-test h-auto sm:h-[22rem] md:h-96 w-full sm:w-[18rem] md:w-[24rem] lg:w-[28rem] xl:w-[30rem] bg-white/10  border border-white/20 text-white p-4 sm:p-6 md:p-8 rounded-xl md:rounded-2xl shrink-0 relative overflow-hidden hover:-translate-y-1 hover:shadow-2xl hover:border-white/40 transition duration-500">
     <div className="flex flex-col justify-between h-full">
       <p className="text-base sm:text-xl md:text-2xl leading-relaxed italic opacity-90 line-clamp-6 md:line-clamp-none">
         “{testimonial}”
