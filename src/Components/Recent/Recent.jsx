@@ -32,6 +32,7 @@ const Recent = () => {
         gsap.fromTo(
           recentfirstSplit.chars,
           { color: "#A9A9A9", x: 10, y: 10 },
+          // blur 4px both
           {
             y: 0,
             x: 0,
@@ -340,7 +341,7 @@ const Recent = () => {
                 src="/Recent/A/pre3.webp"
                 alt="marq-img"
                 className="img-recent"
-                loading="lazy"
+                // loading="lazy"
               />
             </div>
             <div className="marq-img">
@@ -350,7 +351,7 @@ const Recent = () => {
                 src="/Recent/A/pre4.webp"
                 alt="marq-img"
                 className="img-recent"
-                loading="lazy"
+                // loading="lazy"
               />
             </div>
             <div className="marq-img">
@@ -360,7 +361,7 @@ const Recent = () => {
                 src="/Recent/A/pre3.webp"
                 alt="marq-img"
                 className="img-recent object-bottom "
-                loading="lazy"
+                // loading="lazy"
               />
             </div>
             <div className="marq-img">
@@ -370,7 +371,7 @@ const Recent = () => {
                 src="/Recent/A/pre3.webp"
                 alt="marq-img"
                 className="img-recent "
-                loading="lazy"
+                // loading="lazy"
               />
             </div>
             <div className="marq-img">
@@ -380,7 +381,7 @@ const Recent = () => {
                 src="/Recent/A/B/1.webp"
                 alt="marq-img"
                 className="img-recent "
-                loading="lazy"
+                // loading="lazy"
               />
             </div>
             <div className="marq-img">
@@ -390,10 +391,10 @@ const Recent = () => {
                 src="/Recent/A/B/2.JPG"
                 alt="marq-img"
                 className="img-recent "
-                loading="lazy"
+                // loading="lazy"
               />
             </div>
-            <div className="marq-img pin">
+            <div className="marq-img pin contain-layout">
               <Image
                 width={1920}
                 height={1080}
@@ -410,7 +411,7 @@ const Recent = () => {
                 src="/Recent/A/B/4.webp"
                 alt="marq-img"
                 className="img-recent "
-                loading="lazy"
+                // loading="lazy"
               />
             </div>
             <div className="marq-img">
@@ -420,7 +421,7 @@ const Recent = () => {
                 src="/Recent/A/B/5.webp"
                 alt="marq-img"
                 className="img-recent "
-                loading="lazy"
+                // loading="lazy"
               />
             </div>
             <div className="marq-img">
@@ -431,7 +432,7 @@ const Recent = () => {
                 alt="marq-img"
                 className="img-recent "
                 style={{ objectPosition: `50% 90%` }}
-                loading="lazy"
+                // loading="lazy"
               />
             </div>
             <div className="marq-img">
@@ -441,7 +442,7 @@ const Recent = () => {
                 src="/Recent/A/B/6.png"
                 alt="marq-img"
                 className="img-recent "
-                loading="lazy"
+                // loading="lazy"
               />
             </div>
             <div className="marq-img">
@@ -451,7 +452,7 @@ const Recent = () => {
                 src="/Recent/A/B/7.webp"
                 alt="marq-img"
                 className="img-recent "
-                loading="lazy"
+                // loading="lazy"
               />
             </div>
             <div className="marq-img">
@@ -461,7 +462,7 @@ const Recent = () => {
                 src="/Projects/images/PORSCHE/PORSCHE.jpg"
                 alt="marq-img"
                 className="img-recent"
-                loading="lazy"
+                // loading="lazy"
               />
             </div>
           </div>
@@ -589,7 +590,7 @@ const Recent = () => {
                   className="img-recent max-sm:hidden "
                   // style={{ width: `500px` }}
 
-                  loading="lazy"
+                  // loading="lazy"
                 />
               </div>
             </div>
