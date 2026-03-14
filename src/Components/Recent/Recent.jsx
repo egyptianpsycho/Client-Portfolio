@@ -394,7 +394,7 @@ const Recent = () => {
                 // loading="lazy"
               />
             </div>
-            <div className="marq-img pin contain-layout">
+            <div className="marq-img pin ">
               <Image
                 width={1920}
                 height={1080}
