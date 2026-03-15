@@ -21,7 +21,7 @@ const Videos = () => {
     
 
     // Animate the title
-    gsap.set(vidTitle, { willChange: "transform, filter" });
+    gsap.set(vidTitle.elements[0], { willChange: "transform, filter" });
     gsap.from(vidTitle.chars, {
       opacity: 0,
       duration: 2,
@@ -37,14 +37,14 @@ const Videos = () => {
         toggleActions: "play none none reverse",
       },
     });
-        gsap.set(vidSecRef, { willChange: "transform, filter"});
+        gsap.set(vidSecRef.current, { willChange: "transform, filter"});
         gsap.from(vidsBoxes, {
           opacity: 0,
           y: 100,
           duration: 1,
           filter: "blur(10px)",
           ease: "power2.out",
-          onComplete: () => gsap.set(vidSecRef, { willChange: "auto" }),
+          onComplete: () => gsap.set(vidSecRef.current, { willChange: "auto" }),
           stagger: 0.06,
           scrollTrigger: {
             trigger: vidSecRef.current,

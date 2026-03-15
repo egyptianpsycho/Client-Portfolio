@@ -27,10 +27,7 @@ const Recent = () => {
           type: "words",
         });
 
-        const firstParent = recentfirstSplit.elements[0];
-        const secondParent = recentsecondSplit.elements[0];
-
-        gsap.set(firstParent, { willChange: "transform, filter" });
+        gsap.set(recentfirstSplit.elements[0], { willChange: "transform, filter" });
         gsap.fromTo(
           recentfirstSplit.chars,
           { color: "#A9A9A9", filter: "blur(4px)", x: 10, y: 10 },
@@ -46,14 +43,14 @@ const Recent = () => {
               start: "top bottom-=15%",
               end: "bottom bottom+=140%",
               scrub: 1,
-              onLeave: () => gsap.set(firstParent, { willChange: "auto" }),
+              onLeave: () => gsap.set(recentfirstSplit.elements[0], { willChange: "auto" }),
               onEnterBack: () =>
-                gsap.set(firstParent, { willChange: "transform, filter" }),
+                gsap.set(recentfirstSplit.elements[0], { willChange: "transform, filter" }),
             },
           }
         );
 
-        gsap.set(secondParent, { willChange: "transform, filter" });
+        gsap.set(recentsecondSplit.elements[0], { willChange: "transform, filter" });
         gsap.fromTo(
           recentsecondSplit.words,
           { color: "#708090", filter: "blur(4px)", x: 10, y: 10 },
@@ -75,9 +72,9 @@ const Recent = () => {
                   ? "bottom bottom-=290%"
                   : "bottom bottom-=440%",
               scrub: 1,
-              onLeave: () => gsap.set(secondParent, { willChange: "auto" }),
+              onLeave: () => gsap.set(recentsecondSplit.elements[0], { willChange: "auto" }),
               onEnterBack: () =>
-                gsap.set(secondParent, { willChange: "transform, filter" }),
+                gsap.set(recentsecondSplit.elements[0], { willChange: "transform, filter" }),
             },
           }
         );

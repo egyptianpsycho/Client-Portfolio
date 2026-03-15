@@ -51,7 +51,7 @@ const Images = () => {
       behindTitle2.chars.forEach((char) => char.classList.add("text-gradient"));
 
       // Animate the title
-      gsap.set(behindTitle2, { willChange: "transform, filter" });
+      gsap.set(behindTitle2.elements[0], { willChange: "transform, filter" });
       gsap.from(behindTitle2.chars, {
         opacity: 0,
         duration: 2,
@@ -87,6 +87,7 @@ const Images = () => {
       // Animate images after they're loaded
       waitForImages().then(() => {
         const imageBoxes = gsap.utils.toArray(".project-item");
+
         gsap.set(secRef.current, { willChange: "transform, filter" });
         gsap.from(imageBoxes, {
           opacity: 0,
