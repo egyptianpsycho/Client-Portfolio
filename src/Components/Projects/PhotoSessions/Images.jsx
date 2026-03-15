@@ -22,14 +22,14 @@ const Images = () => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 640);
     };
-    
+
     // Check on mount
     checkMobile();
-    
+
     // Add resize listener
-    window.addEventListener('resize', checkMobile);
-    
-    return () => window.removeEventListener('resize', checkMobile);
+    window.addEventListener("resize", checkMobile);
+
+    return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
   // Get current projects based on page
@@ -42,7 +42,7 @@ const Images = () => {
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
     // Scroll to top of projects section
-    secRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    secRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   useAnimate(() => {
@@ -51,13 +51,15 @@ const Images = () => {
       behindTitle2.chars.forEach((char) => char.classList.add("text-gradient"));
 
       // Animate the title
+      gsap.set(behindTitle2, { willChange: "transform, filter" });
       gsap.from(behindTitle2.chars, {
         opacity: 0,
         duration: 2,
         ease: "expo.out",
         stagger: 0.1,
-        // filter: "blur(15px)",
+        filter: "blur(15px)",
         y: 50,
+        onComplete: () => gsap.set(behindTitle2, { willChange: "auto" }),
         scrollTrigger: {
           trigger: "#Projects",
           scroller: "[data-scroll-container]",
@@ -85,15 +87,16 @@ const Images = () => {
       // Animate images after they're loaded
       waitForImages().then(() => {
         const imageBoxes = gsap.utils.toArray(".project-item");
-
+        gsap.set(secRef.current, { willChange: "transform, filter" });
         gsap.from(imageBoxes, {
           opacity: 0,
           y: 200,
           duration: 1.2,
-          // filter: "blur(10px)",
+          filter: "blur(10px)",
           ease: "power3.out",
           delay: 0.3,
           stagger: 0.06,
+          onComplete: () => gsap.set(secRef.current, { willChange: "auto" }),
           scrollTrigger: {
             trigger: secRef.current,
             scroller: "[data-scroll-container]",
@@ -102,8 +105,6 @@ const Images = () => {
           },
         });
       });
-
-      
     }
   });
 
@@ -127,12 +128,15 @@ const Images = () => {
       <div className="mx-auto parent h-[90vh] -mt-100 " ref={secRef}>
         {projectsToDisplay.map((project, index) => {
           // Calculate the actual index for desktop layout classes
-          const actualIndex = isMobile ? (currentPage - 1) * ITEMS_PER_PAGE + index : index;
-          
+          const actualIndex = isMobile
+            ? (currentPage - 1) * ITEMS_PER_PAGE + index
+            : index;
           return (
             <div
               key={actualIndex}
-              className={`project-item div${actualIndex + 1} cursor-pointer group `}
+              className={`project-item  div${
+                actualIndex + 1
+              } cursor-pointer group `}
               onClick={() => {
                 setSelectedProject(project);
                 setModalOpen(true);
@@ -154,12 +158,10 @@ const Images = () => {
                 </h3>
               </div>
               <div className=" opacity-10  scale-200 bg-slate-500/10 absolute inset-0" />
-              {/* blur-2xl */}
             </div>
           );
         })}
       </div>
-
       {/* Pagination controls for mobile */}
       {isMobile && totalPages > 1 && (
         <div className="flex justify-center items-center gap-2 mt-6 mb-6">
@@ -170,7 +172,7 @@ const Images = () => {
           >
             Previous
           </button>
-          
+
           <div className="flex gap-2">
             {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
               <button
@@ -196,7 +198,6 @@ const Images = () => {
           </button>
         </div>
       )}
-
       <div>
         <Modal
           open={modalOpen}
@@ -204,7 +205,6 @@ const Images = () => {
           onClose={() => setModalOpen(false)}
         />
       </div>
-      
       <div className="relative mt-38">
         <hr className="premium-hr " />
       </div>

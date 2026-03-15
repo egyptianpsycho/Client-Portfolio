@@ -216,9 +216,7 @@ export default function Hero() {
 
   return (
     <section
-      className="hero-section hero-pin relative h-screen w-full overflow-hidden"
-      style={{ willChange: "transform" }}
-    >
+      className="hero-section hero-pin relative h-screen w-full overflow-hidden will-change-transform">
       <div className="absolute inset-0 hero-media pointer-events-none">
         <video
           ref={videoRef}

@@ -9,7 +9,6 @@ import { SplitText } from "gsap/SplitText";
 
 gsap.registerPlugin(ScrollTrigger, Flip, SplitText);
 
-
 const Recent = () => {
   useEffect(() => {
     const init = () => {
@@ -27,17 +26,19 @@ const Recent = () => {
         const recentsecondSplit = new SplitText(".secondanimatetext", {
           type: "words",
         });
-        
 
+        const firstParent = recentfirstSplit.elements[0];
+        const secondParent = recentsecondSplit.elements[0];
+
+        gsap.set(firstParent, { willChange: "transform, filter" });
         gsap.fromTo(
           recentfirstSplit.chars,
-          { color: "#A9A9A9", x: 10, y: 10 },
-          // blur 4px both
+          { color: "#A9A9A9", filter: "blur(4px)", x: 10, y: 10 },
           {
             y: 0,
             x: 0,
             color: "#101010",
-            // filter: "blur(0px)",
+            filter: "blur(0px)",
             stagger: 0.05,
             scrollTrigger: {
               scroller: "[data-scroll-container]",
@@ -45,17 +46,22 @@ const Recent = () => {
               start: "top bottom-=15%",
               end: "bottom bottom+=140%",
               scrub: 1,
+              onLeave: () => gsap.set(firstParent, { willChange: "auto" }),
+              onEnterBack: () =>
+                gsap.set(firstParent, { willChange: "transform, filter" }),
             },
           }
         );
+
+        gsap.set(secondParent, { willChange: "transform, filter" });
         gsap.fromTo(
           recentsecondSplit.words,
-          { color: "#708090",  x: 10, y: 10 },
+          { color: "#708090", filter: "blur(4px)", x: 10, y: 10 },
           {
             y: 0,
             x: 0,
             color: "#edf1e8",
-            // filter: "blur(0px)",
+            filter: "blur(0px)",
             stagger: 0.05,
             scrollTrigger: {
               scroller: "[data-scroll-container]",
@@ -69,6 +75,9 @@ const Recent = () => {
                   ? "bottom bottom-=290%"
                   : "bottom bottom-=440%",
               scrub: 1,
+              onLeave: () => gsap.set(secondParent, { willChange: "auto" }),
+              onEnterBack: () =>
+                gsap.set(secondParent, { willChange: "transform, filter" }),
             },
           }
         );
@@ -93,8 +102,6 @@ const Recent = () => {
             },
           },
         });
-
-        
 
         let pinnedMarqueeimgClone = null;
         let isImgCloneActive = false;
@@ -225,9 +232,7 @@ const Recent = () => {
               if (flipAnimation) {
                 flipAnimation.progress(scaleProgress);
               }
-            }
-
-            else if (progress > 0.2 && progress <= 0.95) {
+            } else if (progress > 0.2 && progress <= 0.95) {
               if (flipAnimation) {
                 flipAnimation.progress(1);
               }
@@ -246,9 +251,7 @@ const Recent = () => {
                   x: `${imageTranslateX}%`,
                 });
               }
-            }
-
-            else if (progress > 0.95) {
+            } else if (progress > 0.95) {
               if (flipAnimation) {
                 flipAnimation.progress(1);
               }
@@ -341,7 +344,7 @@ const Recent = () => {
                 src="/Recent/A/pre3.webp"
                 alt="marq-img"
                 className="img-recent"
-                // loading="lazy"
+                loading="lazy"
               />
             </div>
             <div className="marq-img">
@@ -351,7 +354,7 @@ const Recent = () => {
                 src="/Recent/A/pre4.webp"
                 alt="marq-img"
                 className="img-recent"
-                // loading="lazy"
+                loading="lazy"
               />
             </div>
             <div className="marq-img">
@@ -361,7 +364,7 @@ const Recent = () => {
                 src="/Recent/A/pre3.webp"
                 alt="marq-img"
                 className="img-recent object-bottom "
-                // loading="lazy"
+                loading="lazy"
               />
             </div>
             <div className="marq-img">
@@ -371,7 +374,7 @@ const Recent = () => {
                 src="/Recent/A/pre3.webp"
                 alt="marq-img"
                 className="img-recent "
-                // loading="lazy"
+                loading="lazy"
               />
             </div>
             <div className="marq-img">
@@ -381,7 +384,7 @@ const Recent = () => {
                 src="/Recent/A/B/1.webp"
                 alt="marq-img"
                 className="img-recent "
-                // loading="lazy"
+                loading="lazy"
               />
             </div>
             <div className="marq-img">
@@ -391,7 +394,7 @@ const Recent = () => {
                 src="/Recent/A/B/2.JPG"
                 alt="marq-img"
                 className="img-recent "
-                // loading="lazy"
+                loading="lazy"
               />
             </div>
             <div className="marq-img pin ">
@@ -411,7 +414,7 @@ const Recent = () => {
                 src="/Recent/A/B/4.webp"
                 alt="marq-img"
                 className="img-recent "
-                // loading="lazy"
+                loading="lazy"
               />
             </div>
             <div className="marq-img">
@@ -421,7 +424,7 @@ const Recent = () => {
                 src="/Recent/A/B/5.webp"
                 alt="marq-img"
                 className="img-recent "
-                // loading="lazy"
+                loading="lazy"
               />
             </div>
             <div className="marq-img">
@@ -432,7 +435,7 @@ const Recent = () => {
                 alt="marq-img"
                 className="img-recent "
                 style={{ objectPosition: `50% 90%` }}
-                // loading="lazy"
+                loading="lazy"
               />
             </div>
             <div className="marq-img">
@@ -442,7 +445,7 @@ const Recent = () => {
                 src="/Recent/A/B/6.png"
                 alt="marq-img"
                 className="img-recent "
-                // loading="lazy"
+                loading="lazy"
               />
             </div>
             <div className="marq-img">
@@ -452,7 +455,7 @@ const Recent = () => {
                 src="/Recent/A/B/7.webp"
                 alt="marq-img"
                 className="img-recent "
-                // loading="lazy"
+                loading="lazy"
               />
             </div>
             <div className="marq-img">
@@ -462,7 +465,7 @@ const Recent = () => {
                 src="/Projects/images/PORSCHE/PORSCHE.jpg"
                 alt="marq-img"
                 className="img-recent"
-                // loading="lazy"
+                loading="lazy"
               />
             </div>
           </div>
@@ -570,7 +573,6 @@ const Recent = () => {
                   src="/Recent/A/B/4.webp"
                   alt="Post-production 1"
                   className="img-recent "
-                  loading="lazy"
                 />
                 <Image
                   width={1920}
@@ -578,9 +580,6 @@ const Recent = () => {
                   src="/Recent/A/B/5.webp"
                   alt="Post-production 2"
                   className="img-recent "
-                  // style={{ width: `500px` }}
-
-                  loading="lazy"
                 />
                 <Image
                   width={1920}
@@ -588,9 +587,6 @@ const Recent = () => {
                   src="/Recent/A/B/1.webp"
                   alt="Post-production 3"
                   className="img-recent max-sm:hidden "
-                  // style={{ width: `500px` }}
-
-                  // loading="lazy"
                 />
               </div>
             </div>
@@ -600,7 +596,9 @@ const Recent = () => {
 
       <section className="outro  ">
         <p className="h1-recent  secondanimatetext max-sm:relative md:w-[950px] max-sm:max-w-98  pb-20 text-left ">
-          <span className="sm:font-semibold sm:text-nowrap">Every project is a footprint of the process.</span>
+          <span className="sm:font-semibold sm:text-nowrap">
+            Every project is a footprint of the process.
+          </span>
           <br />
           <span className=" sm:text-[2.8rem]   ">
             {" "}

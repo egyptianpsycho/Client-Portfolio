@@ -21,13 +21,15 @@ const Videos = () => {
     
 
     // Animate the title
+    gsap.set(vidTitle, { willChange: "transform, filter" });
     gsap.from(vidTitle.chars, {
       opacity: 0,
       duration: 2,
       ease: "expo.out",
       stagger: 0.1,
-      // filter: "blur(15px)",
+      filter: "blur(15px)",
       y: 50,
+      onComplete: () => gsap.set(vidTitle, { willChange: "auto" }),
       scrollTrigger: {
         trigger: "#videos-section",
         scroller: "[data-scroll-container]",
@@ -35,13 +37,14 @@ const Videos = () => {
         toggleActions: "play none none reverse",
       },
     });
-
+        gsap.set(vidSecRef, { willChange: "transform, filter"});
         gsap.from(vidsBoxes, {
           opacity: 0,
           y: 100,
           duration: 1,
-          // filter: "blur(10px)",
+          filter: "blur(10px)",
           ease: "power2.out",
+          onComplete: () => gsap.set(vidSecRef, { willChange: "auto" }),
           stagger: 0.06,
           scrollTrigger: {
             trigger: vidSecRef.current,
@@ -91,8 +94,7 @@ const Videos = () => {
                 {project.durtaion}
               </h3>
             </div>
-            <div className="opacity-10  scale-200 bg-slate-500/10 absolute inset-0 pointer-events-none group-hover:pointer-events-none" />
-            {/* blur-2xl */}
+            <div className=" opacity-10  scale-200 bg-slate-500/10 absolute inset-0 pointer-events-none group-hover:pointer-events-none" />
           </div>
         ))}
       </div>

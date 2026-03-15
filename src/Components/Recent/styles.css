@@ -237,7 +237,3 @@
   backface-visibility: hidden;
   will-change: transform, opacity;
 }
-
-.img-stack .img-recent {
-  contain: paint; 
-}

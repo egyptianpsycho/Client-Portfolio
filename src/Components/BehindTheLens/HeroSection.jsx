@@ -7,12 +7,10 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
-
-
-// const isSafari = () => {
-//   if (typeof window === "undefined") return false;
-//   return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-// };
+const isSafari = () => {
+  if (typeof window === "undefined") return false;
+  return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+};
 
 const HeroSection = () => {
   const sectionRef = useRef(null);
@@ -24,8 +22,7 @@ const HeroSection = () => {
     const titleEl = sectionRef.current.querySelector(".title");
     if (!titleEl) return;
 
-    // const safariMode = isSafari();
-
+    const safariMode = isSafari();
 
     const heroSplit = new SplitText(titleEl, { type: "chars" });
     heroSplit.chars.forEach((char) => char.classList.add("text-gradient"));
@@ -34,13 +31,16 @@ const HeroSection = () => {
     gsap.to(textRef.current, {
       y: -200,
       opacity: 0,
-      // ...(safariMode ? {filter:"blur(10px)"} : { filter: "blur(20px)" }),
+      filter: safariMode ? "blur(10px)" : "blur(20px)",
       scrollTrigger: {
         trigger: sectionRef.current,
         scroller: "[data-scroll-container]",
         start: "top top-=5%",
         end: "bottom center",
         scrub: true,
+        onLeave: () => gsap.set(textRef.current, { willChange: "auto" }),
+        onEnterBack: () =>
+          gsap.set(textRef.current, { willChange: "transform, filter" }),
       },
     });
 
@@ -49,7 +49,7 @@ const HeroSection = () => {
       opacity: 0,
       yPercent: 100,
       duration: 1.4,
-      // ...(safariMode ? {filter:"blur(10px)"} : { filter: "blur(10px)" }),
+      ...(safariMode ? { filter: "blur(4px)" } : { filter: "blur(10px)" }),
       ease: "expo.out",
       stagger: 0.04,
       scrollTrigger: {
@@ -61,6 +61,7 @@ const HeroSection = () => {
     });
 
     // Parallax + scale
+    gsap.set(imageContainerRef.current, { willChange: "transform" });
     gsap.to(imageContainerRef.current, {
       scale: 0.8,
       y: -287,
@@ -74,6 +75,10 @@ const HeroSection = () => {
         pin: true,
         scrub: 1,
         anticipatePin: 1,
+        onLeave: () =>
+          gsap.set(imageContainerRef.current, { willChange: "auto" }),
+        onEnterBack: () =>
+          gsap.set(imageContainerRef.current, { willChange: "transform" }),
       },
     });
   });
