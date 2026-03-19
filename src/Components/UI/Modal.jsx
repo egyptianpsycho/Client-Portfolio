@@ -35,10 +35,10 @@ const Modal = ({ open, onClose, project }) => {
   useEffect(() => {
     if (open && project) {
       // Preload images
-      const allImages = project.cover 
-        ? [project.cover, ...project.images] 
+      const allImages = project.cover
+        ? [project.cover, ...project.images]
         : project.images;
-      
+
       let loadedCount = 0;
       const totalImages = allImages.length;
 
@@ -147,10 +147,9 @@ const Modal = ({ open, onClose, project }) => {
   return createPortal(
     <div
       ref={overlayRef}
-      className="fixed  inset-0 z-[9999] flex items-center justify-center bg-black/70 backdrop-blur-sm p-4"
+      className="fixed  inset-0 z-[9999]  flex items-center justify-center bg-black/70  backdrop-blur-sm p-4"
       onClick={handleClose}
     >
-      
       <style>{`
         .text__first, .text__second {
           position: relative;
@@ -258,24 +257,24 @@ const Modal = ({ open, onClose, project }) => {
         onClick={(e) => e.stopPropagation()}
       >
         <button
-    onClick={handleClose}
-    className="absolute top-4 right-4 z-50 w-8 h-8 sm:w-8 sm:h-8 cursor-pointer flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-all duration-300 group"
-    aria-label="Close modal"
-  >
-    <svg
-      className="w-5 h-5 sm:w-6 sm:h-6 text-white group-hover:rotate-90 transition-transform duration-300"
-      fill="none"
-      stroke="currentColor"
-      viewBox="0 0 24 24"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M6 18L18 6M6 6l12 12"
-      />
-    </svg>
-  </button>
+          onClick={handleClose}
+          className="absolute top-4 right-4 z-50 w-8 h-8 sm:w-8 sm:h-8 cursor-pointer flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-all duration-300 group"
+          aria-label="Close modal"
+        >
+          <svg
+            className="w-5 h-5 sm:w-6 sm:h-6 text-white group-hover:rotate-90 transition-transform duration-300"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
         {isLoading ? (
           <div className="flex items-center justify-center w-full min-h-[400px]">
             <div className="loader-spinner"></div>
@@ -306,8 +305,6 @@ const Modal = ({ open, onClose, project }) => {
               <p className="text-gray-400 text-sm sm:text-base project-date underline opacity-0">
                 {project.date}
               </p>
-
-              
             </div>
 
             {/* Right Side: Carousel */}

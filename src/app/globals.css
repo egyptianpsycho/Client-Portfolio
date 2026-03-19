@@ -1,19 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&family=Zalando+Sans+Expanded:ital,wght@0,200..900;1,200..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&family=Zalando+Sans+Expanded:ital,wght@0,200..900;1,200..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
 /* ---break---
    */
 @custom-variant dark (&:is(.dark *));
-html, body {
+html,
+body {
   scroll-behavior: smooth;
   background-color: #000;
   overscroll-behavior: none;
   -webkit-font-smoothing: antialiased;
 }
-
-
 
 section + section {
   margin-top: -1px;
@@ -35,8 +34,6 @@ section + section {
 .hero-section { will-change: auto; }
 */
 /* [data-scroll-section] { will-change: auto; } */
-
-
 
 .c-scrollbar {
   position: absolute;
@@ -89,9 +86,7 @@ section + section {
   overflow: hidden;
 }
 
-
-
-  /* .hero-image {
+/* .hero-image {
     will-change: transform, opacity;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
@@ -99,24 +94,23 @@ section + section {
   }
    */
 
-  .hero-media > .z-10, .hero-media > .z-20 {
-    z-index: 10;
-  }
-
-  @utility text-gradient {
-    background: linear-gradient(to bottom, #ffffff, #898989);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-}
-  @utility text-gradient-stats {
-    background: linear-gradient(to bottom, #ffffff, #414141);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+.hero-media > .z-10,
+.hero-media > .z-20 {
+  z-index: 10;
 }
 
- 
+@utility text-gradient {
+  background: linear-gradient(to bottom, #ffffff, #898989);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+@utility text-gradient-stats {
+  background: linear-gradient(to bottom, #ffffff, #414141);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
 
 .achievement-line {
   font-size: 0.9rem;
@@ -133,61 +127,94 @@ h-text{
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
 } */
 
+/* ============================================================
+   PHOTOGRAPHY GRID
+   Mobile default → Instagram 3-column square grid
+   ============================================================ */
+
 .parent {
   display: grid;
-  grid-template-columns: 1fr;
-  grid-auto-rows: minmax(120px, auto);
-  gap: 13px;
+  grid-template-columns: repeat(3, 1fr); /* ← 3-col Instagram layout */
+  gap: 3px; /* ← tight Instagram gap     */
+  grid-auto-rows: auto;
 }
 
-/* All items visible by default now */
-.div1, .div2, .div3, .div4, .div5,
-.div6, .div7, .div8, .div9, .div10,
-.div11, .div12, .div13, .div14, .div15 {
-  grid-column: auto;
-  grid-row: auto;
+/* Square cells on mobile driven by aspect-ratio,
+     so Next.js fill images render without being distorted */
+.parent > div {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 0.25rem;
 }
 
-/* Tablet: 2 columns */
+/* ── Tablet (640px+): 2-column relaxed grid ── */
 @media (min-width: 640px) {
   .parent {
     grid-template-columns: repeat(2, 1fr);
+    gap: 13px;
+    grid-auto-rows: minmax(120px, auto);
+  }
+
+  /* Restore height-driven sizing for fill images */
+  .parent > div {
+    aspect-ratio: unset;
+    height: 100%;
+    border-radius: 1rem;
+  }
+
+  /* Reset bento positions — explicit desktop rules take over below */
+  .div1,
+  .div2,
+  .div3,
+  .div4,
+  .div5,
+  .div6,
+  .div7,
+  .div8,
+  .div9,
+  .div10,
+  .div11,
+  .div12,
+  .div13,
+  .div14,
+  .div15 {
+    grid-column: auto;
+    grid-row: auto;
   }
 }
 
-/* Small desktop: 3 columns */
+/* ── Small desktop: 3 columns ── */
 @media (min-width: 768px) {
   .parent {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
-/* Medium desktop: 4 columns */
+/* ── Medium desktop: 4 columns ── */
 @media (min-width: 1024px) {
   .parent {
     grid-template-columns: repeat(4, 1fr);
   }
 }
 
-/* Large desktop: Original 5-column layout */
+/* ── Large desktop: Original 5-column bento layout ── */
 @media (min-width: 1280px) {
   .parent {
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: repeat(10, 1fr);
   }
-  
+
   .div1 {
     grid-row: span 3 / span 3;
   }
-
   .div2 {
     grid-row: span 4 / span 4;
   }
-
   .div3 {
     grid-row: span 3 / span 3;
   }
-
   .div4 {
     grid-row: span 3 / span 3;
   }
@@ -258,12 +285,10 @@ h-text{
     grid-row-start: 1;
   }
 }
-
-
 .char {
   transform: translateY(115px);
-  transition: transform .5s;
-} 
+  transition: transform 0.5s;
+}
 
 .parent > div {
   position: relative;
@@ -272,7 +297,6 @@ h-text{
   overflow: hidden;
   border-radius: 1rem;
 }
-
 
 .btn {
   position: relative;
@@ -292,16 +316,16 @@ h-text{
 @media (max-width: 500px) {
   .btn {
     position: relative;
-  overflow: hidden;
-  display: inline-block;
-  border: 2px solid rgb(144, 146, 148);
-  transition: all 0.3s ease;
-  padding: 8px 15px;
-  cursor: pointer;
-  border-radius: 12px;
-  font-family: "Bebas Neue", cursive;
-  letter-spacing: 0.1rem;
-  word-spacing: 0.1rem;
+    overflow: hidden;
+    display: inline-block;
+    border: 2px solid rgb(144, 146, 148);
+    transition: all 0.3s ease;
+    padding: 8px 15px;
+    cursor: pointer;
+    border-radius: 12px;
+    font-family: "Bebas Neue", cursive;
+    letter-spacing: 0.1rem;
+    word-spacing: 0.1rem;
   }
 }
 
@@ -310,7 +334,7 @@ h-text{
   color: black;
   background-color: rgb(228, 222, 212);
   /* background-color: rgb(234, 253, 253); */
-  transition-duration: 1.3s ;
+  transition-duration: 1.3s;
   transition-delay: 0.09s;
 }
 .btn::before {
@@ -320,17 +344,17 @@ h-text{
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(120deg, transparent, rgba(122, 160, 196, 0.4) , transparent);
-  transition: all 0.9s ease;   
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(122, 160, 196, 0.4),
+    transparent
+  );
+  transition: all 0.9s ease;
 }
 .btn:hover::before {
   left: 100%;
 }
-
-
-
-
-
 
 .shiny-text {
   color: #ffffffa4; /* Adjust this color to change intensity/style */
@@ -358,7 +382,6 @@ h-text{
 .shiny-text.disabled {
   animation: none;
 }
-
 
 #pathToAnimate1 {
   stroke-dasharray: 3805;
@@ -417,15 +440,10 @@ h-text{
   stroke-dashoffset: -86px;
 }
 
-
-
-
-
 .backdrop-blur-xs {
   will-change: backdrop-filter;
   transform: translateZ(0);
 }
-
 
 .about-text {
   filter: drop-shadow(5px 0px 8px rgba(245, 244, 235, 0.5));
@@ -433,9 +451,6 @@ h-text{
 .glowy-text {
   filter: drop-shadow(5px 0px 8px rgba(245, 244, 235, 0.4));
 }
-
-
-
 
 .play-pause-btn {
   background-color: transparent;
@@ -524,7 +539,8 @@ h-text{
 
 /* Keyframe animations */
 @keyframes play-line1 {
-  0%, 23.08% {
+  0%,
+  23.08% {
     animation-timing-function: cubic-bezier(0.61, 1, 0.88, 1);
     stroke-dashoffset: 0;
   }
@@ -534,27 +550,32 @@ h-text{
   69.23% {
     stroke-dashoffset: -122.88;
   }
-  84.62%, 100% {
+  84.62%,
+  100% {
     stroke-dashoffset: -114.44;
   }
 }
 
 @keyframes play-line2 {
-  0%, 23.08% {
+  0%,
+  23.08% {
     animation-timing-function: cubic-bezier(0.61, 1, 0.88, 1);
     stroke-dashoffset: 40;
   }
-  43.08%, 100% {
+  43.08%,
+  100% {
     stroke-dashoffset: -34.44;
   }
 }
 
 @keyframes play-line3 {
-  0%, 43.08% {
+  0%,
+  43.08% {
     animation-timing-function: cubic-bezier(0.61, 1, 0.88, 1);
     stroke-dashoffset: 0;
   }
-  69.23%, 100% {
+  69.23%,
+  100% {
     stroke-dashoffset: -48.44;
   }
 }
@@ -564,7 +585,8 @@ h-text{
     stroke-dashoffset: 0;
     stroke-dasharray: 289 344;
   }
-  63.08%, 100% {
+  63.08%,
+  100% {
     stroke-dashoffset: 55;
     stroke-dasharray: 55 344;
   }
@@ -574,7 +596,8 @@ h-text{
   0% {
     transform: scale(-1, 1) rotate(-90deg);
   }
-  53.08%, 100% {
+  53.08%,
+  100% {
     transform: scale(-1, 1) rotate(-442deg);
   }
 }
@@ -590,29 +613,34 @@ h-text{
     animation-timing-function: cubic-bezier(0.37, 0, 0.63, 1);
     stroke-dashoffset: -45;
   }
-  96.92%, 100% {
+  96.92%,
+  100% {
     stroke-dashoffset: -35;
   }
 }
 
 @keyframes pause-line1 {
-  0%, 20% {
+  0%,
+  20% {
     stroke-dashoffset: -108.88;
   }
   33.33% {
     stroke-dashoffset: -98.88;
   }
-  50%, 66.67% {
+  50%,
+  66.67% {
     animation-timing-function: cubic-bezier(0.61, 1, 0.88, 1);
     stroke-dashoffset: -177.76;
   }
-  83.33%, 100% {
+  83.33%,
+  100% {
     stroke-dashoffset: -217.76;
   }
 }
 
 @keyframes pause-line2 {
-  0%, 33.33% {
+  0%,
+  33.33% {
     stroke-dashoffset: 113.33;
   }
   50% {
@@ -632,30 +660,36 @@ h-text{
 }
 
 @keyframes pause-line3 {
-  0%, 33.33% {
+  0%,
+  33.33% {
     stroke-dashoffset: 74.44;
   }
-  66.67%, 100% {
+  66.67%,
+  100% {
     stroke-dashoffset: 0;
   }
 }
 
 @keyframes pause-ring1a {
-  0%, 25% {
+  0%,
+  25% {
     stroke-dashoffset: 130;
     stroke-dasharray: 40 379;
   }
-  91.67%, 100% {
+  91.67%,
+  100% {
     stroke-dashoffset: 0;
     stroke-dasharray: 289 379;
   }
 }
 
 @keyframes pause-ring1b {
-  0%, 49.17% {
+  0%,
+  49.17% {
     transform: scale(-1, -1) rotate(-81deg);
   }
-  91.67%, 100% {
+  91.67%,
+  100% {
     transform: scale(-1, -1) rotate(90deg);
   }
 }
@@ -679,23 +713,15 @@ h-text{
   }
 }
 
-
 .contact-section {
   position: relative;
   overflow: hidden;
-  background-image: url('/gradients/contact-section2.png');
+  background-image: url("/gradients/contact-section2.png");
   background-size: cover;
 }
 
-
 @media (max-width: 500px) {
   .contact-section {
-    background-image: url('/gradients/contact-section-mobile2.png');
+    background-image: url("/gradients/contact-section-mobile2.png");
   }
 }
-
-
-
-
-
-
