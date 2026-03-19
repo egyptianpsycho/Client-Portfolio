@@ -317,8 +317,8 @@ export const PROJECTSVIDS = [
   },
   {
     id: 5,
-    title: "Chef",
-    description: "Chef",
+    title: "Cheef",
+    description: "Cheef",
     thummnail: "/Projects/videos/videoframe5.webp",
     videoURL:
       "https://stream.mux.com/lXJ8vWytqP01w4y023SSfWwsuyaj01orftKUmK3Ma8bdnc.m3u8?redundant_streams=true",

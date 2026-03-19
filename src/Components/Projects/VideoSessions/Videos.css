@@ -1,130 +1,114 @@
 .parent-video {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-auto-rows: minmax(200px, auto);
-    gap: 10px;
-    will-change: transform;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-rows: minmax(200px, auto);
+  gap: 10px;
+  will-change: transform;
+}
+
+.video-item {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Tablet: 2 columns */
+@media (min-width: 640px) {
+  .parent-video {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: minmax(250px, auto);
   }
-  
-  /* Hide videos 5-10 on mobile */
-  .div6-video, .div7-video, .div8-video, .div9-video, .div10-video, .div5-video {
-    display: none;
+}
+
+/* Small desktop: 3 columns */
+@media (min-width: 768px) {
+  .parent-video {
+    grid-template-columns: repeat(3, 1fr);
   }
-  
-  .div1-video, .div2-video, .div3-video, .div4-video {
-    grid-column: auto;
-    grid-row: auto;
+}
+
+/* Medium desktop: 4 columns */
+@media (min-width: 1024px) {
+  .parent-video {
+    grid-template-columns: repeat(4, 1fr);
   }
-  
-  /* Performance optimization for video items */
-  .video-item {
-    will-change: transform, opacity;
-    transform: translateZ(0);
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
+}
+
+/* Large desktop: Original 5-column layout */
+@media (min-width: 1280px) {
+  .parent-video {
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(7, 1fr);
   }
-  
-  /* Tablet: 2 columns, show all 10 videos */
-  @media (min-width: 640px) {
-    .parent-video {
-      grid-template-columns: repeat(2, 1fr);
-      grid-auto-rows: minmax(250px, auto);
-    }
-    
-    .div4-video, .div5-video, .div6-video, .div7-video, .div8-video, .div9-video, .div10-video {
-      display: block;
-    }
+
+  .div1-video {
+    grid-row: span 3 / span 3;
   }
-  
-  /* Small desktop: 3 columns */
-  @media (min-width: 768px) {
-    .parent-video {
-      grid-template-columns: repeat(3, 1fr);
-    }
+
+  .div2-video {
+    grid-row: span 4 / span 4;
+    grid-column-start: 1;
+    grid-row-start: 4;
   }
-  
-  /* Medium desktop: 4 columns */
-  @media (min-width: 1024px) {
-    .parent-video {
-      grid-template-columns: repeat(4, 1fr);
-    }
+
+  .div3-video {
+    grid-row: span 4 / span 4;
+    grid-column-start: 2;
+    grid-row-start: 1;
   }
-  
-  /* Large desktop: Original 5-column layout */
-  @media (min-width: 1280px) {
-    .parent-video {
-      grid-template-columns: repeat(5, 1fr);
-      grid-template-rows: repeat(7, 1fr);
-    }
-    
-    .div1-video {
-      grid-row: span 3 / span 3;
-    }
-  
-    .div2-video {
-      grid-row: span 4 / span 4;
-      grid-column-start: 1;
-      grid-row-start: 4;
-    }
-  
-    .div3-video {
-      grid-row: span 4 / span 4;
-      grid-column-start: 2;
-      grid-row-start: 1;
-    }
-  
-    .div4-video {
-      grid-row: span 3 / span 3;
-      grid-column-start: 2;
-      grid-row-start: 5;
-    }
-  
-    .div5-video {
-      grid-row: span 3 / span 3;
-      grid-column-start: 3;
-      grid-row-start: 1;
-    }
-  
-    .div6-video {
-      grid-row: span 4 / span 4;
-      grid-column-start: 3;
-      grid-row-start: 4;
-    }
-  
-    .div7-video {
-      grid-row: span 4 / span 4;
-      grid-column-start: 4;
-      grid-row-start: 1;
-    }
-  
-    .div8-video {
-      grid-row: span 3 / span 3;
-      grid-column-start: 4;
-      grid-row-start: 5;
-    }
-  
-    .div9-video {
-      grid-row: span 3 / span 3;
-      grid-column-start: 5;
-      grid-row-start: 1;
-      
-    }
-  
-    .div10-video {
-      grid-row: span 4 / span 4;
-      grid-column-start: 5;
-      grid-row-start: 4;
-    }
+
+  .div4-video {
+    grid-row: span 3 / span 3;
+    grid-column-start: 2;
+    grid-row-start: 5;
   }
-  
-  .premium-hr {
-    border: none;  
-    height: 1px;                 
-    border-radius: 12px;      
-    background: linear-gradient(
-      90deg,
-      rgb(0, 0, 0),
-      rgb(255, 255, 255,0.4),
-      rgb(0, 0, 0)
-    );
+
+  .div5-video {
+    grid-row: span 3 / span 3;
+    grid-column-start: 3;
+    grid-row-start: 1;
   }
+
+  .div6-video {
+    grid-row: span 4 / span 4;
+    grid-column-start: 3;
+    grid-row-start: 4;
+  }
+
+  .div7-video {
+    grid-row: span 4 / span 4;
+    grid-column-start: 4;
+    grid-row-start: 1;
+  }
+
+  .div8-video {
+    grid-row: span 3 / span 3;
+    grid-column-start: 4;
+    grid-row-start: 5;
+  }
+
+  .div9-video {
+    grid-row: span 3 / span 3;
+    grid-column-start: 5;
+    grid-row-start: 1;
+  }
+
+  .div10-video {
+    grid-row: span 4 / span 4;
+    grid-column-start: 5;
+    grid-row-start: 4;
+  }
+}
+
+.premium-hr {
+  border: none;
+  height: 1px;
+  border-radius: 12px;
+  background: linear-gradient(
+    90deg,
+    rgb(0, 0, 0),
+    rgb(255, 255, 255, 0.4),
+    rgb(0, 0, 0)
+  );
+}
