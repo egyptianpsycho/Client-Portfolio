@@ -21,15 +21,15 @@ const Partners = () => {
     const getAnimationValues = () => {
       const width = window.innerWidth;
       if (width < 640) {
-        return { row1: 30, row2: -40, row3: 25, row4: -35, row5: 20 }; // Mobile
+        return { row1: 30, row2: -40, row5: 20 }; // Mobile
       } else if (width < 1024) {
-        return { row1: 35, row2: -45, row3: 30, row4: -40, row5: 25 }; // Tablet
+        return { row1: 35, row2: -45, row5: 25 }; // Tablet
       } else {
-        return { row1: 25, row2: -40, row3: 20, row4: -30, row5: 15 }; // Desktop
+        return { row1: 25, row2: -40, row5: 15 }; // Desktop
       }
     };
 
-    const { row1, row2, row3, row4, row5 } = getAnimationValues();
+    const { row1, row2,  row5 } = getAnimationValues();
 
     const scrollTriggerConfig = {
       trigger: ".partners-grid",
@@ -51,17 +51,7 @@ const Partners = () => {
       scrollTrigger: scrollTriggerConfig,
     });
 
-    gsap.to(".partners-row-3", {
-      xPercent: row3,
-      ease: "none",
-      scrollTrigger: scrollTriggerConfig,
-    });
-
-    gsap.to(".partners-row-4", {
-      xPercent: row4,
-      ease: "none",
-      scrollTrigger: scrollTriggerConfig,
-    });
+    
 
     gsap.to(".partners-row-5", {
       xPercent: row5,
@@ -129,50 +119,7 @@ const Partners = () => {
         </div>
 
         {/* Third Row — mobile only */}
-        <div className="flex sm:hidden gap-4 partners-row-3 px-4 right-[30%] relative">
-          {[
-            ...logos.slice(2, 5),
-            ...logos.slice(0, 5),
-            ...logos.slice(0, 5),
-          ].map((logo, index) => (
-            <div
-              key={index}
-              className="trallelo logo-card flex-shrink-0 w-40 h-28 justify-center items-center bg-gray-600/15 flex rounded"
-            >
-              <Image
-                src={logo.src}
-                alt={logo.alt}
-                width={150}
-                height={150}
-                className="object-contain w-16 h-16"
-                loading="lazy"
-              />
-            </div>
-          ))}
-        </div>
-
-        {/* Fourth Row — mobile only */}
-        <div className="flex sm:hidden gap-4 partners-row-4 px-4">
-          {[
-            ...logos.slice(6, 10),
-            ...logos.slice(5),
-            ...logos.slice(5),
-          ].map((logo, index) => (
-            <div
-              key={index}
-              className="trallelo logo-card flex-shrink-0 w-40 h-28 justify-center items-center bg-gray-600/15 flex rounded"
-            >
-              <Image
-                src={logo.src}
-                alt={logo.alt}
-                width={150}
-                height={150}
-                className="object-contain w-16 h-16"
-                loading="lazy"
-              />
-            </div>
-          ))}
-        </div>
+        
 
         {/* Fifth Row — mobile only */}
         <div className="flex sm:hidden gap-4 partners-row-5 px-4 right-[20%] relative">

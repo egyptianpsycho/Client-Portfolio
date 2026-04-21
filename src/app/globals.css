@@ -193,19 +193,13 @@ h-text{
 }
 
 /* ── Medium desktop: 4 columns ── */
-@media (min-width: 1024px) {
-  .parent {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-/* ── Large desktop: Original 5-column bento layout ── */
 @media (min-width: 1280px) {
   .parent {
     grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(10, 1fr);
+    grid-template-rows: repeat(20, 1fr); /* 10 → 24 rows for 35 items */
   }
 
+  /* ── Original Band 1 (rows 1–4) ── */
   .div1 {
     grid-row: span 3 / span 3;
   }
@@ -224,25 +218,21 @@ h-text{
     grid-column-start: 5;
     grid-row-start: 5;
   }
-
   .div6 {
     grid-row: span 4 / span 4;
     grid-column-start: 1;
     grid-row-start: 4;
   }
-
   .div7 {
     grid-row: span 3 / span 3;
     grid-column-start: 2;
     grid-row-start: 5;
   }
-
   .div8 {
     grid-row: span 3 / span 3;
     grid-column-start: 3;
     grid-row-start: 4;
   }
-
   .div9 {
     grid-row: span 3 / span 3;
     grid-column-start: 4;
@@ -254,35 +244,129 @@ h-text{
     grid-column-start: 5;
     grid-row-start: 8;
   }
-
   .div11 {
     grid-row: span 3 / span 3;
     grid-column-start: 1;
     grid-row-start: 8;
   }
-
   .div12 {
     grid-row: span 3 / span 3;
     grid-column-start: 2;
     grid-row-start: 8;
   }
-
   .div13 {
     grid-row: span 4 / span 4;
     grid-column-start: 3;
     grid-row-start: 7;
   }
-
   .div14 {
     grid-row: span 4 / span 4;
     grid-column-start: 4;
     grid-row-start: 7;
   }
-
   .div15 {
     grid-row: span 4 / span 4;
     grid-column-start: 5;
     grid-row-start: 1;
+  }
+
+  /* ── Band 4 (rows 11–14) mirrors Band 1 ── */
+  .div16 {
+    grid-row: span 3 / span 3;
+    grid-column-start: 1;
+    grid-row-start: 11;
+  }
+  .div17 {
+    grid-row: span 4 / span 4;
+    grid-column-start: 2;
+    grid-row-start: 11;
+  }
+  .div18 {
+    grid-row: span 3 / span 3;
+    grid-column-start: 3;
+    grid-row-start: 11;
+  }
+  .div19 {
+    grid-row: span 3 / span 3;
+    grid-column-start: 4;
+    grid-row-start: 11;
+  }
+  .div20 {
+    grid-row: span 4 / span 4;
+    grid-column-start: 5;
+    grid-row-start: 11;
+  }
+
+  /* ── Band 5 (rows 14–17) mirrors Band 2 ── */
+  .div21 {
+    grid-row: span 3 / span 3;
+    grid-column-start: 5;
+    grid-row-start: 15;
+  }
+  .div22 {
+    grid-row: span 4 / span 4;
+    grid-column-start: 1;
+    grid-row-start: 14;
+  }
+  .div23 {
+    grid-row: span 3 / span 3;
+    grid-column-start: 2;
+    grid-row-start: 15;
+  }
+  .div24 {
+    grid-row: span 3 / span 3;
+    grid-column-start: 3;
+    grid-row-start: 14;
+  }
+  .div25 {
+    grid-row: span 3 / span 3;
+    grid-column-start: 4;
+    grid-row-start: 14;
+  }
+
+  /* ── Band 6 (rows 17–20) mirrors Band 3 ── */
+  .div26 {
+    grid-row: span 3 / span 3;
+    grid-column-start: 5;
+    grid-row-start: 18;
+  }
+  .div27 {
+    grid-row: span 3 / span 3;
+    grid-column-start: 1;
+    grid-row-start: 18;
+  }
+  .div28 {
+    grid-row: span 3 / span 3;
+    grid-column-start: 2;
+    grid-row-start: 18;
+  }
+  .div29 {
+    grid-row: span 4 / span 4;
+    grid-column-start: 3;
+    grid-row-start: 17;
+  }
+  .div30 {
+    grid-row: span 4 / span 4;
+    grid-column-start: 4;
+    grid-row-start: 17;
+  }
+
+  /* ── Band 7 (rows 21–24) — final 5 ── */
+  
+}
+
+/* ── Filtered layout resets all bento slots for any count ── */
+@media (min-width: 1280px) {
+  .parent.filtered {
+    grid-template-rows: auto;
+  }
+  .parent.filtered > div {
+    grid-column: auto !important;
+    grid-row: auto !important;
+    grid-column-start: auto !important;
+    grid-row-start: auto !important;
+    aspect-ratio: 1 / 1;
+    height: auto;
   }
 }
 .char {
@@ -297,7 +381,26 @@ h-text{
   overflow: hidden;
   border-radius: 1rem;
 }
+@media (min-width: 1280px) {
+  .parent.filtered {
+    grid-template-rows: auto;
+  }
 
+  .parent.filtered > div {
+    grid-column: auto !important;
+    grid-row: auto !important;
+    grid-column-start: auto !important;
+    grid-row-start: auto !important;
+    aspect-ratio: 1 / 1;
+    height: auto;
+  }
+}
+@media (min-width: 1280px) {
+
+.project-item {
+  opacity: 0;
+}
+}
 .btn {
   position: relative;
   overflow: hidden;
@@ -725,3 +828,34 @@ h-text{
     background-image: url("/gradients/contact-section-mobile2.png");
   }
 }
+
+/* Category transition animation */
+.transition-grid {
+  transition: opacity 0.35s ease, filter 0.35s ease;
+}
+
+.grid-enter {
+  opacity: 1;
+  filter: blur(0px);
+}
+
+.grid-exit {
+  opacity: 0;
+  filter: blur(12px);
+}
+
+/* Thin dark scrollbar for the project viewer */
+.viewer-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+.viewer-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.viewer-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 9999px;
+}
+.viewer-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
