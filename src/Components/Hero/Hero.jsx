@@ -198,7 +198,7 @@ export default function Hero() {
       pin: true,
       pinSpacing: false,
       anticipatePin: 1,
-      scroller: "[data-scroll-container]",
+      // scroller: "[data-scroll-container]",
       invalidateOnRefresh: true,
     });
 
@@ -209,7 +209,7 @@ export default function Hero() {
         start: "top bottom",
         end: "top top",
         scrub: 1,
-        scroller: "[data-scroll-container]",
+        // scroller: "[data-scroll-container]",
       },
     });
   });

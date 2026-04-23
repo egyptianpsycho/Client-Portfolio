@@ -12,6 +12,7 @@ body {
   background-color: #000;
   overscroll-behavior: none;
   -webkit-font-smoothing: antialiased;
+  overflow: hidden;
 }
 
 section + section {
@@ -19,10 +20,11 @@ section + section {
 }
 
 [data-scroll-container] {
-  will-change: transform;
-  transform: translateZ(0);
-  backface-visibility: hidden;
-  contain: layout paint style;
+  /* will-change: transform; */
+  /* transform: translateZ(0); */
+  /* backface-visibility: hidden; */
+  overflow: hidden;
+  /* contain: layout paint style; */
 }
 
 [data-scroll-section] {
@@ -355,20 +357,7 @@ h-text{
   
 }
 
-/* ── Filtered layout resets all bento slots for any count ── */
-@media (min-width: 1280px) {
-  .parent.filtered {
-    grid-template-rows: auto;
-  }
-  .parent.filtered > div {
-    grid-column: auto !important;
-    grid-row: auto !important;
-    grid-column-start: auto !important;
-    grid-row-start: auto !important;
-    aspect-ratio: 1 / 1;
-    height: auto;
-  }
-}
+
 .char {
   transform: translateY(115px);
   transition: transform 0.5s;
@@ -384,6 +373,8 @@ h-text{
 @media (min-width: 1280px) {
   .parent.filtered {
     grid-template-rows: auto;
+    height: auto !important;   /* ← add this */
+
   }
 
   .parent.filtered > div {
@@ -395,8 +386,7 @@ h-text{
     height: auto;
   }
 }
-@media (min-width: 1280px) {
-
+@media (min-width: 769px) {
 .project-item {
   opacity: 0;
 }

@@ -32,7 +32,7 @@ const About = () => {
     ScrollTrigger.create({
       trigger: headingRef.current,
       start: "top 75%",
-      scroller: "[data-scroll-container]",
+      // scroller: "[data-scroll-container]",
       once: true,
       onEnter: () => {
         gsap.fromTo(
@@ -52,16 +52,13 @@ const About = () => {
     ScrollTrigger.create({
       trigger: paraRef.current,
       start: "top 85%",
-      scroller: "[data-scroll-container]",
-      toggleActions: "play none none reverse",
+      // scroller: "[data-scroll-container]",
       onEnter: () => {
-        gsap.fromTo(
+        gsap.to(
           paraLines,
-          { filter: "blur(4px)" },
           {
             yPercent: 0,
             duration: 1.2,
-            filter: "blur(0px)",
             ease: "power3.out",
             stagger: 0.1,
           }

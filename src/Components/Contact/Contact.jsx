@@ -32,7 +32,7 @@ const Contact = () => {
     ScrollTrigger.create({
       trigger: headingRef.current,
       start: "top 75%",
-      scroller: "[data-scroll-container]",
+      // scroller: "[data-scroll-container]",
       toggleActions: "play none none reverse",
       onEnter: () => {
         gsap.fromTo(
@@ -65,7 +65,7 @@ const Contact = () => {
         start: "top 110%",
         end: "bottom center",
         scrub: 2,
-        scroller: "[data-scroll-container]",
+        // scroller: "[data-scroll-container]",
       },
     });
   });

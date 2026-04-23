@@ -12,7 +12,7 @@ const Status = () => {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: ".sts-sc",
-          scroller: "[data-scroll-container]",
+          // scroller: "[data-scroll-container]",
           start: "top 90%",
           toggleActions: "play none none reverse",
         },

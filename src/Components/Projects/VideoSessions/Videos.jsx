@@ -22,9 +22,7 @@ const Videos = () => {
 
   useAnimate(() => {
     if (window.innerWidth > 768) {
-      const vidsBoxes = gsap.utils.toArray(".video-item");
       const vidTitle = new SplitText(".vid-title", { type: "chars" });
-
       vidTitle.chars.forEach((char) => char.classList.add("text-gradient"));
 
       gsap.set(vidTitle.elements[0], { willChange: "transform, filter" });
@@ -38,27 +36,67 @@ const Videos = () => {
         onComplete: () => gsap.set(vidTitle, { willChange: "auto" }),
         scrollTrigger: {
           trigger: "#videos-section",
-          scroller: "[data-scroll-container]",
           start: "top bottom-=30%",
           toggleActions: "play none none reverse",
         },
       });
 
-      gsap.set(vidSecRef.current, { willChange: "transform, filter" });
-      gsap.from(vidsBoxes, {
-        opacity: 0,
-        y: 100,
-        duration: 1,
-        filter: "blur(10px)",
-        ease: "power2.out",
-        onComplete: () => gsap.set(vidSecRef.current, { willChange: "auto" }),
-        stagger: 0.06,
+      const vidsBoxes = gsap.utils.toArray(".video-item");
+      if (!vidsBoxes.length) return;
+
+      // Group by rendered top position = visual row
+      const rowMap = new Map();
+      vidsBoxes.forEach((el) => {
+        const top = Math.round(el.getBoundingClientRect().top + window.scrollY);
+        if (!rowMap.has(top)) rowMap.set(top, []);
+        rowMap.get(top).push(el);
+      });
+
+      const rows = [...rowMap.entries()]
+        .sort(([a], [b]) => a - b)
+        .map(([, els]) => els);
+
+        const fromVars = {
+          opacity: 0,
+          y: 80,
+          scale: 0.95,
+        };
+        
+        const toVars = {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.9,
+          ease: "power2.out",
+          stagger: { amount: 0.25, from: "start" },
+        };
+
+      // First 3 rows animate on section enter
+      const eagerRows = rows.slice(0, 3).flat();
+      gsap.set(vidSecRef.current, { willChange: "transform, opacity" });
+
+      gsap.fromTo(eagerRows, fromVars, {
+        ...toVars,
         scrollTrigger: {
           trigger: vidSecRef.current,
-          scroller: "[data-scroll-container]",
           start: "top 50%",
-          end: "bottom 20%",
+          toggleActions: "play none none none",
         },
+        onComplete: () => gsap.set(vidSecRef.current, { willChange: "auto" }),
+      });
+      
+      // Remaining rows — no willChange, no blur, just position + opacity
+      rows.slice(3).forEach((rowEls) => {
+        gsap.set(rowEls, { opacity: 0, y: 80, scale: 0.95 });
+      
+        gsap.fromTo(rowEls, fromVars, {
+          ...toVars,
+          scrollTrigger: {
+            trigger: rowEls[0],
+            start: "top 90%",
+            toggleActions: "play none none none",
+          },
+        });
       });
     }
   });
@@ -122,7 +160,9 @@ const Videos = () => {
           {PROJECTSVIDS.map((project, index) => (
             <div
               key={index}
-              className={`video-item overflow-hidden relative div${index + 1}-video cursor-pointer group rounded-2xl`}
+              className={`video-item overflow-hidden relative div${
+                index + 1
+              }-video cursor-pointer group rounded-2xl`}
             >
               <VideoPlayer
                 poster={project.thummnail}

@@ -6,9 +6,7 @@ const Layout = ({ children }) => {
     <div>
       <Header />
       <SmoothScroll>
-        <div id="page-wrapper">
           <main>{children}</main>
-        </div>
       </SmoothScroll>
     </div>
   );

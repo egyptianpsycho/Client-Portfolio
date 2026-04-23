@@ -19,6 +19,8 @@ const Images = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
   const secRef = useRef(null);
+  const isFirstRender = useRef(true);
+
 
   const filteredProjects =
     displayedCategory === "All"
@@ -75,7 +77,7 @@ const Images = () => {
         onComplete: () => gsap.set(behindTitle2, { willChange: "auto" }),
         scrollTrigger: {
           trigger: "#Projects",
-          scroller: "[data-scroll-container]",
+          // scroller: "[data-scroll-container]",
           start: "top bottom-=30%",
           toggleActions: "play none none reverse",
         },
@@ -99,47 +101,82 @@ const Images = () => {
 
       waitForImages().then(() => {
         const imageBoxes = gsap.utils.toArray(".project-item");
+        if (!imageBoxes.length) return;
+      
+        // Group cards by their rendered top position = visual row
+        const rowMap = new Map();
+        imageBoxes.forEach((el) => {
+          const top = Math.round(el.getBoundingClientRect().top + window.scrollY);
+          if (!rowMap.has(top)) rowMap.set(top, []);
+          rowMap.get(top).push(el);
+        });
+      
+        // Sort rows top → bottom
+        const rows = [...rowMap.entries()]
+          .sort(([a], [b]) => a - b)
+          .map(([, els]) => els);
+      
+        const fromVars = {
+          opacity: 0,
+          scale: 0.85,
+          rotateX: 8,
+          y: 150,
+          filter: "blur(12px) brightness(0.4)",
+          transformOrigin: "center bottom",
+        };
+      
+        const toVars = {
+          opacity: 1,
+          scale: 1,
+          rotateX: 0,
+          y: 0,
+          filter: "blur(0px) brightness(1)",
+          duration: 1.4,
+          ease: "expo.out",
+          stagger: { amount: 0.35, from: "start" },
+        };
+      
+        // First 3 rows: animate together on section enter
+        const eagerRows = rows.slice(0, 3).flat();
         gsap.set(secRef.current, { willChange: "transform, filter" });
-        if (window.innerWidth > 768) {
-          gsap.set(imageBoxes, { opacity: 0 });
-        }
-        gsap.fromTo(
-          imageBoxes,
-          {
-            opacity: 0,
-            scale: 0.85,
-            rotateX: 8,
-            y: 150,
-            filter: "blur(12px) brightness(0.4)",
-            transformOrigin: "center bottom",
+      
+        gsap.fromTo(eagerRows, fromVars, {
+          ...toVars,
+          scrollTrigger: {
+            trigger: secRef.current,
+            start: "top 85%",
+            toggleActions: "play none none none",
           },
-          {
-            opacity: 1,
-            scale: 1,
-            rotateX: 0,
-            y: 0,
-            filter: "blur(0px) brightness(1)",
-            duration: 1.4,
-            ease: "expo.out",
-            stagger: {
-              amount: 1.2, // total stagger spread across all items
-              from: "start", // top-left to bottom-right
-            },
+          onComplete: () => gsap.set(secRef.current, { willChange: "auto" }),
+        });
+      
+        // Remaining rows: each animates when it enters the viewport
+        rows.slice(3).forEach((rowEls) => {
+          gsap.set(rowEls, { opacity: 0, scale: 0.85, rotateX: 8, y: 150,
+            filter: "blur(12px) brightness(0.4)", transformOrigin: "center bottom" });
+      
+          gsap.fromTo(rowEls, fromVars, {
+            ...toVars,
             scrollTrigger: {
-              trigger: secRef.current,
-              scroller: "[data-scroll-container]",
-              start: "top 85%",
+              trigger: rowEls[0],       // trigger on the first card of each row
+              start: "top 90%",
               toggleActions: "play none none none",
+              onEnter: () => gsap.set(rowEls[0], { willChange: "transform, filter, opacity" }),
             },
-            onStart: () =>
-              gsap.set(secRef.current, { willChange: "transform, filter" }),
-            onComplete: () => gsap.set(secRef.current, { willChange: "auto" }),
-          }
-        );
+            onComplete: () => gsap.set(rowEls[0], { willChange: "auto" }),              
+          });
+        });
       });
     }
   });
+
   useEffect(() => {
+    // Skip the very first render — useAnimate handles the initial reveal
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+  
     if (isTransitioning || typeof window === "undefined" || window.innerWidth <= 768) return;
   
     const imageBoxes = gsap.utils.toArray(".project-item");
@@ -289,9 +326,9 @@ const Images = () => {
       ) : (
         /* ── Desktop bento grid ── */
         <div
-          className={`mx-auto parent h-[240vh] -mt-100 transition-grid ${
-            isTransitioning ? "grid-exit" : "grid-enter"
-          } ${displayedCategory !== "All" ? "filtered" : ""}`}
+        className={`mx-auto parent -mt-100 transition-grid ${
+          isTransitioning ? "grid-exit" : "grid-enter"
+        } ${displayedCategory !== "All" ? "filtered" : "h-[240vh]"}`}
           ref={secRef}
         >
           {filteredProjects.map((project, index) => (
@@ -326,242 +363,16 @@ const Images = () => {
         onClose={() => setViewerOpen(false)}
       />
 
-      <SectionDivider from="Images" to="Videos" />
-    </div>
+
+<div className="relative mt-38">
+         <hr className="premium-hr from-black via-white to-black bg-gradient-to-l w-full h-0.5 " />
+       </div>
+     </div>    
   );
 };
 
 export default Images;
-const SectionDivider = ({ from = "Images", to = "Videos" }) => {
-  const dividerRef = useRef(null);
-  const topBarRef = useRef(null);
-  const bottomBarRef = useRef(null);
-  const leftArmRef = useRef(null);
-  const rightArmRef = useRef(null);
-  const centerRef = useRef(null);
-  const filmstripRef = useRef(null);
-  const timecodeRef = useRef(null);
 
-  useAnimate(() => {
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: dividerRef.current,
-        scroller: "[data-scroll-container]",
-        start: "top 90%",
-        toggleActions: "play none none reverse",
-      },
-    });
-
-    gsap.set([topBarRef.current, bottomBarRef.current], {
-      scaleX: 0,
-      transformOrigin: "center center",
-    });
-    gsap.set(leftArmRef.current, { scaleX: 0, transformOrigin: "right center" });
-    gsap.set(rightArmRef.current, { scaleX: 0, transformOrigin: "left center" });
-    gsap.set(centerRef.current, { opacity: 0, scale: 0.8, filter: "blur(8px)" });
-    gsap.set(filmstripRef.current, { opacity: 0, y: 6 });
-    gsap.set(timecodeRef.current, { opacity: 0 });
-
-    tl.to([topBarRef.current, bottomBarRef.current], {
-        scaleX: 1, duration: 1.1, ease: "expo.out",
-      })
-      .to([leftArmRef.current, rightArmRef.current], {
-        scaleX: 1, duration: 0.9, ease: "expo.out",
-      }, "-=0.7")
-      .to(centerRef.current, {
-        opacity: 1, scale: 1, filter: "blur(0px)",
-        duration: 0.7, ease: "back.out(1.5)",
-      }, "-=0.5")
-      .to(filmstripRef.current, {
-        opacity: 1, y: 0, duration: 0.5, ease: "expo.out",
-      }, "-=0.3")
-      .to(timecodeRef.current, {
-        opacity: 1, duration: 0.4, ease: "none",
-      }, "-=0.1");
-  });
-
-  // filmstrip frame data — "bright" = exposed frame effect
-  const frames = [0,0,1,1,1,0,0,1,1,0,0];
-
-  return (
-    <div
-      ref={dividerRef}
-      className="relative my-38 flex flex-col items-center select-none pointer-events-none overflow-hidden"
-      style={{ gap: 0 }}
-    >
-      {/* Top scanline bar */}
-      <div
-        ref={topBarRef}
-        className="film-bar"
-        style={{
-          width: "100%",
-          height: "2px",
-          background: "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.06) 15%, rgba(255,255,255,0.22) 50%, rgba(255,255,255,0.06) 85%, transparent 100%)",
-          position: "relative",
-          overflow: "hidden",
-        }}
-      >
-        <span
-          style={{
-            position: "absolute", left: 0, top: 0,
-            width: "30%", height: "100%",
-            background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent)",
-            animation: "scanline 3.5s ease-in-out infinite",
-          }}
-        />
-      </div>
-
-      {/* Center row: arms + label + aperture icon */}
-      <div
-        style={{
-          display: "flex", alignItems: "center",
-          width: "100%", padding: "0 2rem",
-          margin: "1.4rem 0", gap: 0, boxSizing: "border-box",
-        }}
-      >
-        {/* Left arm */}
-        <div
-          ref={leftArmRef}
-          style={{
-            flex: 1, height: "1px",
-            background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.22))",
-          }}
-        />
-
-        {/* Center pill */}
-        <div
-          ref={centerRef}
-          style={{
-            display: "flex", alignItems: "center",
-            gap: "1rem", padding: "0 1.6rem", flexShrink: 0,
-          }}
-        >
-          {/* FROM label */}
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "2px" }}>
-            <span style={{
-              fontFamily: "'Bebas Neue', serif",
-              fontSize: "0.85rem", letterSpacing: "0.3em",
-              color: "rgba(255,255,255,0.55)", textTransform: "uppercase",
-            }}>
-              {from}
-            </span>
-            <span style={{
-              fontFamily: "'Bebas Neue', serif",
-              fontSize: "0.55rem", letterSpacing: "0.2em",
-              color: "rgba(255,255,255,0.2)", textTransform: "uppercase",
-            }}>
-              Photography
-            </span>
-          </div>
-
-          {/* Dot separator */}
-          <span style={{ width: "3px", height: "3px", borderRadius: "50%", background: "rgba(255,255,255,0.2)", flexShrink: 0 }} />
-
-          {/* Aperture / shutter icon */}
-          <div style={{ width: "36px", height: "36px", flexShrink: 0, animation: "apertureSpin 8s linear infinite" }}>
-            <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "100%" }}>
-              <circle cx="18" cy="18" r="16.5" stroke="rgba(255,255,255,0.12)" strokeWidth="0.8"/>
-              <circle cx="18" cy="18" r="5.5" stroke="rgba(255,255,255,0.45)" strokeWidth="0.9"/>
-              <g stroke="rgba(255,255,255,0.28)" strokeWidth="0.8">
-                <line x1="18" y1="1.5" x2="18" y2="9"/>
-                <line x1="18" y1="27" x2="18" y2="34.5"/>
-                <line x1="1.5" y1="18" x2="9" y2="18"/>
-                <line x1="27" y1="18" x2="34.5" y2="18"/>
-                <line x1="6.2" y1="6.2" x2="11.5" y2="11.5"/>
-                <line x1="24.5" y1="24.5" x2="29.8" y2="29.8"/>
-                <line x1="29.8" y1="6.2" x2="24.5" y2="11.5"/>
-                <line x1="11.5" y1="24.5" x2="6.2" y2="29.8"/>
-              </g>
-              <circle cx="18" cy="18" r="2" fill="rgba(255,255,255,0.6)"/>
-            </svg>
-          </div>
-
-          {/* Dot separator */}
-          <span style={{ width: "3px", height: "3px", borderRadius: "50%", background: "rgba(255,255,255,0.2)", flexShrink: 0 }} />
-
-          {/* TO label */}
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "2px" }}>
-            <span style={{
-              fontFamily: "'Bebas Neue', serif",
-              fontSize: "0.85rem", letterSpacing: "0.3em",
-              color: "rgba(255,255,255,0.55)", textTransform: "uppercase",
-            }}>
-              {to}
-            </span>
-            <span style={{
-              fontFamily: "'Bebas Neue', serif",
-              fontSize: "0.55rem", letterSpacing: "0.2em",
-              color: "rgba(255,255,255,0.2)", textTransform: "uppercase",
-            }}>
-              Cinematography
-            </span>
-          </div>
-        </div>
-
-        {/* Right arm */}
-        <div
-          ref={rightArmRef}
-          style={{
-            flex: 1, height: "1px",
-            background: "linear-gradient(90deg, rgba(255,255,255,0.22), transparent)",
-          }}
-        />
-      </div>
-
-      {/* Filmstrip */}
-      <div
-        ref={filmstripRef}
-        style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "4px", margin: "1.1rem 0 0.2rem" }}
-      >
-        {frames.map((bright, i) => (
-          <React.Fragment key={i}>
-            <div style={{
-              width: "14px", height: "10px",
-              border: `1px solid rgba(255,255,255,${bright ? 0.22 : 0.1})`,
-              borderRadius: "1px",
-              background: `rgba(255,255,255,${bright ? 0.09 : 0.03})`,
-            }} />
-            {i < frames.length - 1 && (
-              <div style={{ width: "2px", height: "10px", background: "rgba(255,255,255,0.05)" }} />
-            )}
-          </React.Fragment>
-        ))}
-      </div>
-
-      {/* Timecode */}
-      <div
-        ref={timecodeRef}
-        style={{
-          fontFamily: "'Courier New', monospace",
-          fontSize: "0.55rem", letterSpacing: "0.18em",
-          color: "rgba(255,255,255,0.14)", marginTop: "0.3rem",
-        }}
-      >
-        01:04:22:08 &nbsp;·&nbsp; 24fps &nbsp;·&nbsp; 4K
-      </div>
-
-      {/* Fade rule */}
-      <div style={{
-        width: "60%", height: "1px", margin: "0.6rem 0",
-        background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.07) 30%, rgba(255,255,255,0.07) 70%, transparent)",
-      }} />
-
-      {/* Bottom bar */}
-      <div
-        ref={bottomBarRef}
-        style={{
-          width: "100%", height: "2px",
-          background: "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.06) 15%, rgba(255,255,255,0.22) 50%, rgba(255,255,255,0.06) 85%, transparent 100%)",
-        }}
-      />
-
-      <style>{`
-        @keyframes apertureSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        @keyframes scanline { 0% { transform: translateX(-300%); opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { transform: translateX(600%); opacity: 0; } }
-      `}</style>
-    </div>
-  );
-};
 
 //
 

@@ -49,7 +49,7 @@ const Recent = () => {
             y: 0, x: 0, color: "#101010", filter: "blur(0px)",
             stagger: 0.05,
             scrollTrigger: {
-              scroller: "[data-scroll-container]",
+              // scroller: "[data-scroll-container]",
               trigger: "#recent-section",
               start: "top bottom-=15%",
               end: "bottom bottom+=140%",
@@ -65,7 +65,7 @@ const Recent = () => {
             y: 0, x: 0, color: "#edf1e8", filter: "blur(0px)",
             stagger: 0.05,
             scrollTrigger: {
-              scroller: "[data-scroll-container]",
+              // scroller: "[data-scroll-container]",
               trigger: ".outro",
               start: () =>
                 window.innerWidth < 768 ? "top bottom-=280%" : "top bottom-=430%",
@@ -78,7 +78,7 @@ const Recent = () => {
 
         // ── Marq parallax ──────────────────────────────────────────────
         ScrollTrigger.create({
-          scroller: "[data-scroll-container]",
+          // scroller: "[data-scroll-container]",
           trigger: ".marq",
           start: "top bottom",
           end: "top top",
@@ -125,16 +125,7 @@ const Recent = () => {
             0.22
           );
 
-          // Images: staggered scale + drift
-          if (imgs.length) {
-            tl.fromTo(
-              imgs,
-              { y: 55, opacity: 0, scale: 0.96 },
-              { y: 0,  opacity: 1, scale: 1,
-                stagger: 0.13, duration: 0.9, ease: "power3.out" },
-              0.12
-            );
-          }
+          
 
           return tl;
         });
@@ -186,7 +177,7 @@ const Recent = () => {
         // ── Pin the horizontal section ─────────────────────────────────
         ScrollTrigger.create({
           trigger: ".horizontal-scroll",
-          scroller: "[data-scroll-container]",
+          // scroller: "[data-scroll-container]",
           start: "top top",
           end: () =>
             `+=${window.innerHeight * (window.innerWidth <= 768 ? 2.5 : 4)}`,
@@ -195,7 +186,7 @@ const Recent = () => {
 
         // ── Clone enter / exit ─────────────────────────────────────────
         ScrollTrigger.create({
-          scroller: "[data-scroll-container]",
+          // scroller: "[data-scroll-container]",
           trigger: ".marq",
           start: "top top",
           onEnter:     createClone,
@@ -206,7 +197,7 @@ const Recent = () => {
         // ── Main orchestration trigger ─────────────────────────────────
         ScrollTrigger.create({
           trigger: ".horizontal-scroll",
-          scroller: "[data-scroll-container]",
+          // scroller: "[data-scroll-container]",
           start: "top 50%",
           end: () =>
             `+=${window.innerHeight * (window.innerWidth <= 768 ? 3 : 4.5)}`,

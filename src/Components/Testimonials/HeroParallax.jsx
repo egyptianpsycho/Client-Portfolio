@@ -171,7 +171,7 @@ function DesktopLayout({ testimonials, containerRef }) {
         stagger: 0.2,
         scrollTrigger: {
           trigger: "#Testimonials",
-          scroller: "[data-scroll-container]",
+          // scroller: "[data-scroll-container]",
           start: "top 30%",
           onComplete: () => titleSplit.revert(),
         },
@@ -190,7 +190,7 @@ function DesktopLayout({ testimonials, containerRef }) {
           ease: "power3.out",
           scrollTrigger: {
             trigger: container,
-            scroller: "[data-scroll-container]",
+            // scroller: "[data-scroll-container]",
             start: "top top",
             end: "bottom top",
             scrub: true,
@@ -211,7 +211,7 @@ function DesktopLayout({ testimonials, containerRef }) {
           ease: "none",
           scrollTrigger: {
             trigger: container,
-            scroller: "[data-scroll-container]",
+            // scroller: "[data-scroll-container]",
             start: "top top",
             end: "bottom top",
             scrub: true,

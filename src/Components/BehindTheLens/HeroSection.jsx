@@ -34,7 +34,7 @@ const HeroSection = () => {
       filter: safariMode ? "blur(10px)" : "blur(20px)",
       scrollTrigger: {
         trigger: sectionRef.current,
-        scroller: "[data-scroll-container]",
+        // scroller: "[data-scroll-container]",
         start: "top top-=5%",
         end: "bottom center",
         scrub: true,
@@ -54,7 +54,7 @@ const HeroSection = () => {
       stagger: 0.04,
       scrollTrigger: {
         trigger: sectionRef.current,
-        scroller: "[data-scroll-container]",
+        // scroller: "[data-scroll-container]",
         start: "top 87%",
         toggleActions: "play none none reverse",
       },
@@ -69,7 +69,7 @@ const HeroSection = () => {
       top: "30%",
       scrollTrigger: {
         trigger: sectionRef.current,
-        scroller: "[data-scroll-container]",
+        // scroller: "[data-scroll-container]",
         start: "top top",
         end: "bottom top",
         pin: true,
@@ -85,9 +85,9 @@ const HeroSection = () => {
   return (
     <section
       ref={sectionRef}
-      className="h-[100vh] relative  bg-gradient-to-b from-black via-75% via-black to-[#071318] "
+      className="h-screen relative  bg-gradient-to-b from-black via-75% via-black to-[#071318] "
     >
-      <div className="sticky  top-0 h-screen w-full mt-47 ">
+      <div className="relative h-screen w-full mt-47 ">
         <div
           ref={imageContainerRef}
           className=" relative w-full h-full z-[5] "

@@ -1,165 +1,61 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import "locomotive-scroll/dist/locomotive-scroll.css";
+import Lenis from "lenis";
+
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function SmoothScroll({ children }) {
-  const scrollRef = useRef(null);
-
   useEffect(() => {
-    let locoScroll = null;
-    let resizeObserver = null;
-    let onRefresh = null;
-    let onLoad = null;
-    let onPop = null;
-    const prevScrollRestoration = history.scrollRestoration;
+    const lenis = new Lenis({
+      lerp: 0.08,
+      smoothWheel: true,
+      syncTouch: true,
+    });
 
-    if ("scrollRestoration" in history) {
-      history.scrollRestoration = "manual";
-    }
+    // Keep the same global API shape the rest of the codebase expects
+    window.__loco = {
+      stop:     ()        => lenis.stop(),
+      start:    ()        => lenis.start(),
+      scrollTo: (y, opts) => lenis.scrollTo(y, { immediate: true, ...opts }),
+      update:   ()        => ScrollTrigger.refresh(),
+    };
 
-    (async () => {
-      try {
-        const LocomotiveScroll = (await import("locomotive-scroll")).default;
+    // Drive Lenis from GSAP's RAF so they're always in sync
+    const lenisRaf = (time) => lenis.raf(time * 1000);
+    gsap.ticker.add(lenisRaf);
+    gsap.ticker.lagSmoothing(0);
 
-        // Kill any existing ScrollTriggers before creating new ones
-        ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    // Keep ScrollTrigger in sync with scroll position
+    lenis.on("scroll", ScrollTrigger.update);
 
-        // Initialize locomotive scroll
-        locoScroll = new LocomotiveScroll({
-          el: scrollRef.current,
-          smooth: true,
-          lerp: 0.06,
-          smartphone: { smooth: true },
-          tablet: { smooth: true },
-        });
+    // Debounced resize
+    let resizeTimer;
+    const onResize = () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        lenis.resize();
+        ScrollTrigger.refresh();
+      }, 150);
+    };
+    window.addEventListener("resize", onResize);
 
-        window.__loco = locoScroll;
-
-        // Sync LocomotiveScroll with ScrollTrigger
-        locoScroll.on("scroll", ScrollTrigger.update);
-
-        // Scroller proxy
-        ScrollTrigger.scrollerProxy(scrollRef.current, {
-          scrollTop(value) {
-            if (arguments.length) {
-              locoScroll.scrollTo(value, { duration: 0, disableLerp: true });
-              return;
-            }
-            return locoScroll.scroll.instance.scroll.y;
-          },
-          getBoundingClientRect() {
-            return {
-              top: 0,
-              left: 0,
-              width: window.innerWidth,
-              height: window.innerHeight,
-            };
-          },
-          pinType: scrollRef.current.style.transform ? "transform" : "fixed",
-        });
-
-        onRefresh = () => {
-          if (locoScroll) locoScroll.update();
-        };
-
-        ScrollTrigger.addEventListener("refresh", onRefresh);
-
-        let resizeTimer = null;
-        resizeObserver = new ResizeObserver(() => {
-          if (resizeTimer) clearTimeout(resizeTimer);
-          resizeTimer = setTimeout(() => {
-            if (locoScroll) locoScroll.update();
-            ScrollTrigger.refresh();
-            resizeTimer = null;
-          }, 150);
-        });
-        resizeObserver.observe(scrollRef.current);
-
-        // Scroll to top on page change
-        locoScroll.scrollTo(0, { duration: 0, disableLerp: true });
-
-        // Initial refresh
-        requestAnimationFrame(() => {
-          ScrollTrigger.refresh();
-        });
-
-        onLoad = () => {
-          const y = window.scrollY || 0;
-          if (locoScroll)
-            locoScroll.scrollTo(y, { duration: 0, disableLerp: true });
-          ScrollTrigger.refresh();
-        };
-        window.addEventListener("load", onLoad);
-
-        onPop = () => {
-          const y = window.scrollY || 0;
-          if (locoScroll) {
-            locoScroll.scrollTo(y, { duration: 0, disableLerp: true });
-            setTimeout(() => ScrollTrigger.refresh(), 50);
-          }
-        };
-        window.addEventListener("popstate", onPop);
-      } catch (error) {
-        console.error("SmoothScroll initialization error:", error);
-      }
-    })();
+    ScrollTrigger.refresh();
 
     return () => {
-      if ("scrollRestoration" in history) {
-        history.scrollRestoration = prevScrollRestoration;
-      }
-
-      if (resizeObserver) {
-        resizeObserver.disconnect();
-        resizeObserver = null;
-      }
-
-      if (onRefresh) {
-        ScrollTrigger.removeEventListener("refresh", onRefresh);
-        onRefresh = null;
-      }
-
-      if (onLoad) {
-        window.removeEventListener("load", onLoad);
-        onLoad = null;
-      }
-
-      if (onPop) {
-        window.removeEventListener("popstate", onPop);
-        onPop = null;
-      }
-
-      // Kill all ScrollTriggers before destroying loco
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-
-      if (locoScroll) {
-        locoScroll.destroy();
-        locoScroll = null;
-      }
-
-      // Clean up the global reference
-      if (window.__loco) {
-        delete window.__loco;
-      }
+      clearTimeout(resizeTimer);
+      window.removeEventListener("resize", onResize);
+      gsap.ticker.remove(lenisRaf);
+      lenis.destroy();
+      delete window.__loco;
     };
   }, []);
 
+  // Keep data-scroll-container for any CSS that targets it, but it's just a div now
   return (
-    <div
-      ref={scrollRef}
-      data-scroll-container
-      style={{
-        backgroundColor: "#000",
-        willChange: "transform",
-        backfaceVisibility: "hidden",
-        transform: "translateZ(0)",
-        overflow: "hidden",
-      }}
-    >
+    <div data-scroll-container style={{ backgroundColor: "#000" }}>
       {children}
     </div>
   );

@@ -36,7 +36,7 @@ const Partners = () => {
       start: "top bottom",
       end: "bottom top",
       scrub: true,
-      scroller: "[data-scroll-container]",
+      // scroller: "[data-scroll-container]",
     };
 
     gsap.to(".partners-row-1", {

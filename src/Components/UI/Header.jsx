@@ -23,7 +23,7 @@ export function Header() {
         { filter:"blur(0px) drop-shadow(5px 0px 12px rgba(255, 255, 255,0.5))", opacity: 1, duration: 2,  ease: "expo.out",scrollTrigger: {
           trigger: "#pathToAnimate1",
           start: "top top-=10%",
-          scroller: "[data-scroll-container]",
+          // scroller: "[data-scroll-container]",
         } }
       );
     
