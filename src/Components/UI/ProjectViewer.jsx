@@ -123,6 +123,25 @@ const ProjectViewer = ({ open, project, onClose }) => {
   }, [open]);
 
   useEffect(() => {
+    const el = overlayRef.current;
+    if (!el) return;
+  
+    const stopPropagation = (e) => e.stopPropagation();
+  
+    if (open) {
+      el.addEventListener("wheel", stopPropagation, { passive: false });
+      el.addEventListener("touchmove", stopPropagation, { passive: false });
+    }
+  
+    return () => {
+      el.removeEventListener("wheel", stopPropagation);
+      el.removeEventListener("touchmove", stopPropagation);
+    };
+  }, [open]);
+  
+  
+
+  useEffect(() => {
     if (!open || !overlayRef.current) return;
     gsap.fromTo(
       overlayRef.current,
@@ -407,7 +426,9 @@ const ProjectViewer = ({ open, project, onClose }) => {
         </div>
 
         {/* Masonry grid */}
-        <div className="viewer-scroll flex-1 overflow-y-auto p-2 sm:p-3">
+        <div className="viewer-scroll flex-1 overflow-y-auto p-2 sm:p-3"
+          style={{ overscrollBehavior: "contain" }}  // ← add this
+>
           <div
             style={{ columnCount: cols, columnGap: "8px" }}
             className="masonry-grid-track"

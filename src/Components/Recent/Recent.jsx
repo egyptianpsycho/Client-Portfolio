@@ -180,7 +180,7 @@ const Recent = () => {
           // scroller: "[data-scroll-container]",
           start: "top top",
           end: () =>
-            `+=${window.innerHeight * (window.innerWidth <= 768 ? 2.5 : 4)}`,
+            `+=${window.innerHeight * (window.innerWidth <= 768 ? 1.5 : 4)}`,
           pin: true,
         });
 
@@ -200,7 +200,7 @@ const Recent = () => {
           // scroller: "[data-scroll-container]",
           start: "top 50%",
           end: () =>
-            `+=${window.innerHeight * (window.innerWidth <= 768 ? 3 : 4.5)}`,
+            `+=${window.innerHeight * (window.innerWidth <= 768 ? 2 : 4.5)}`,
 
           onUpdate: (self) => {
             const progress = self.progress;
