@@ -19,267 +19,258 @@ const Recent = () => {
         .getPropertyValue("--dark")
         .trim();
 
-      const ctx = gsap.context(() => {
-        // ── Cache all DOM refs once ────────────────────────────────────
-        const contEl       = document.querySelector(".cont");
-        const marqImagesEl = document.querySelector(".marq-images");
-        const hsWrapper    = document.querySelector(".horizontal-scroll-wrapper");
-        const originalImg  = document.querySelector(".marq-img.pin img");
-
-        // ── QuickSetters — zero thrash per frame ───────────────────────
-        const setContBg   = gsap.quickSetter(contEl,    "backgroundColor");
-        const setWrapperX = gsap.quickSetter(hsWrapper, "x", "%");
-        const setMarqX    = gsap.quickSetter(marqImagesEl, "x", "%");
-
-        // ── Colour interpolator ────────────────────────────────────────
-        const interpolateBg = gsap.utils.interpolate(lightColor, darkColor);
-
-        // ── remap helper (clamps 0→1) ──────────────────────────────────
-        const remap = (val, lo, hi) =>
-          Math.min(1, Math.max(0, (val - lo) / (hi - lo)));
-
-        // ── Text-split animations ──────────────────────────────────────
-        const firstSplit  = new SplitText(".firstanimatetext",  { type: "chars" });
-        const secondSplit = new SplitText(".secondanimatetext", { type: "words" });
-
-        gsap.fromTo(
-          firstSplit.chars,
-          { color: "#A9A9A9", filter: "blur(4px)", x: 10, y: 10 },
-          {
-            y: 0, x: 0, color: "#101010", filter: "blur(0px)",
-            stagger: 0.05,
-            scrollTrigger: {
-              // scroller: "[data-scroll-container]",
-              trigger: "#recent-section",
-              start: "top bottom-=15%",
-              end: "bottom bottom+=140%",
-              scrub: 1,
-            },
-          }
-        );
-
-        gsap.fromTo(
-          secondSplit.words,
-          { color: "#708090", filter: "blur(4px)", x: 10, y: 10 },
-          {
-            y: 0, x: 0, color: "#edf1e8", filter: "blur(0px)",
-            stagger: 0.05,
-            scrollTrigger: {
-              // scroller: "[data-scroll-container]",
-              trigger: ".outro",
-              start: () =>
-                window.innerWidth < 768 ? "top bottom-=180%" : "top bottom-=430%",
-              end: () =>
-                window.innerWidth < 768 ? "bottom bottom-=190%" : "bottom bottom-=440%",
-              scrub: 1,
-            },
-          }
-        );
-
-        // ── Marq parallax ──────────────────────────────────────────────
-        ScrollTrigger.create({
-          // scroller: "[data-scroll-container]",
-          trigger: ".marq",
-          start: "top bottom",
-          end: "top top",
-          scrub: true,
-          onUpdate: (self) => setMarqX(-75 + self.progress * 25),
-        });
-
-        // ── Slide content timelines (paused, scrubbed by main trigger) ─
-        // Each slide: title blurs in, text fades up, images stagger up.
-        // Progress windows (of horizontalProgress 0→1):
-        //   Slide 1 peaks at hp ≈ 0.333 → animate in from hp 0.08 → 0.36
-        //   Slide 2 peaks at hp ≈ 0.667 → animate in from hp 0.42 → 0.70
-        //   Slide 3 peaks at hp ≈ 1.000 → animate in from hp 0.75 → 1.00
-        const SLIDE_WINDOWS = [
-          [0.06, 0.36],
-          [0.40, 0.70],
-          [0.73, 1.00],
-        ];
-
-        const slides = gsap.utils.toArray(
-          ".horizontal-slide:not(.horizontal-spacer)"
-        );
-
-        const slideTLs = slides.map((slide) => {
-          const title = slide.querySelector(".production-title");
-          const text  = slide.querySelector(".production-text");
-          const imgs  = gsap.utils.toArray(slide.querySelectorAll(".img-stack img"));
-          gsap.set(title, { willChange: "transform, filter" });
-
-
-          const tl = gsap.timeline({ paused: true });
-
-          // Title: blur + drift up
-          tl.fromTo(
-            title,
-            { y: 55, opacity: 0, filter: "blur(12px)"},
+        const ctx = gsap.context(() => {
+          const contEl       = document.querySelector(".cont");
+          const marqImagesEl = document.querySelector(".marq-images");
+          const hsWrapper    = document.querySelector(".horizontal-scroll-wrapper");
+          const originalImg  = document.querySelector(".marq-img.pin img");
+        
+          // ── Pre-promote GPU layers BEFORE any scroll fires ─────────────────
+          // This avoids the compositor scrambling to promote them mid-scroll
+          gsap.set(contEl,       { willChange: "background-color" });
+          gsap.set(hsWrapper,    { willChange: "transform" });
+          gsap.set(marqImagesEl, { willChange: "transform" });
+          if (originalImg) gsap.set(originalImg, { willChange: "transform, opacity" });
+        
+          const setContBg   = gsap.quickSetter(contEl,      "backgroundColor");
+          const setWrapperX = gsap.quickSetter(hsWrapper,   "x", "%");
+          const setMarqX    = gsap.quickSetter(marqImagesEl,"x", "%");
+        
+          const interpolateBg = gsap.utils.interpolate(lightColor, darkColor);
+          const remap = (val, lo, hi) => Math.min(1, Math.max(0, (val - lo) / (hi - lo)));
+        
+          // ── SplitText with will-change cleanup ─────────────────────────────
+          const firstSplit  = new SplitText(".firstanimatetext",  { type: "chars" });
+          const secondSplit = new SplitText(".secondanimatetext", { type: "words" });
+        
+          gsap.set(firstSplit.elements[0],  { willChange: "transform, filter" });
+          gsap.set(secondSplit.elements[0], { willChange: "transform, filter" });
+        
+          gsap.fromTo(
+            firstSplit.chars,
+            { color: "#A9A9A9", filter: "blur(4px)", x: 10, y: 10 },
             {
-              y: 0, opacity: 1, filter: "blur(0px)",
-              duration: 1, ease: "power3.out",
-              onComplete: () => gsap.set(title, { willChange: "auto" }),
-            },
-            0
-          )
-          // Body copy: drift up
-          .fromTo(
-            text,
-            { y: 28, opacity: 0 },
-            { y: 0,  opacity: 1, duration: 0.85, ease: "power2.out" },
-            0.22
+              y: 0, x: 0, color: "#101010", filter: "blur(0px)",
+              stagger: 0.05,
+              onComplete: () => gsap.set(firstSplit.elements[0], { willChange: "auto" }),
+              scrollTrigger: {
+                trigger: "#recent-section",
+                start: "top bottom-=15%",
+                end: "bottom bottom+=140%",
+                scrub: 1,
+              },
+            }
           );
-
-          
-
-          return tl;
-        });
-
-        // ── Clone management ───────────────────────────────────────────
-        let clone       = null;
-        let cloneActive = false;
-        let flipAnim    = null;
-        let flipCreated = false;
-        let setCloneX   = null; // built after clone exists
-
-        function createClone() {
-          if (cloneActive || !originalImg) return;
-          const rect = originalImg.getBoundingClientRect();
-          clone = originalImg.cloneNode(true);
-
-          gsap.set(clone, {
-            position: "fixed",
-            left:   rect.left   + "px",
-            top:    rect.top    + "px",
-            width:  rect.width  + "px",
-            height: rect.height + "px",
-            rotation: -5,
-            transformOrigin: "center center",
-            pointerEvents: "none",
-            willChange: "transform",
-            zIndex: 100,
+        
+          gsap.fromTo(
+            secondSplit.words,
+            { color: "#708090", filter: "blur(4px)", x: 10, y: 10 },
+            {
+              y: 0, x: 0, color: "#edf1e8", filter: "blur(0px)",
+              stagger: 0.05,
+              onComplete: () => gsap.set(secondSplit.elements[0], { willChange: "auto" }),
+              scrollTrigger: {
+                trigger: ".outro",
+                start: () => window.innerWidth < 768 ? "top bottom-=180%" : "top bottom-=430%",
+                end:   () => window.innerWidth < 768 ? "bottom bottom-=190%" : "bottom bottom-=440%",
+                scrub: 1,
+              },
+            }
+          );
+        
+          ScrollTrigger.create({
+            trigger: ".marq",
+            start: "top bottom",
+            end: "top top",
+            scrub: true,
+            onUpdate: (self) => setMarqX(-75 + self.progress * 25),
           });
-
-          document.body.appendChild(clone);
-          gsap.set(originalImg, { opacity: 0 });
-          cloneActive = true;
-          flipCreated = false;
-          setCloneX   = gsap.quickSetter(clone, "x", "%");
-        }
-
-        function removeClone() {
-          if (!cloneActive) return;
-          flipAnim?.kill();
-          flipAnim    = null;
-          flipCreated = false;
-          clone?.remove();
-          clone     = null;
-          setCloneX = null;
-          if (originalImg) gsap.set(originalImg, { opacity: 1 });
-          cloneActive = false;
-        }
-
-        // ── Pin the horizontal section ─────────────────────────────────
-        ScrollTrigger.create({
-          trigger: ".horizontal-scroll",
-          // scroller: "[data-scroll-container]",
-          start: "top top",
-          end: () =>
-            `+=${window.innerHeight * (window.innerWidth <= 768 ? 1.5 : 4)}`,
-          pin: true,
-        });
-
-        // ── Clone enter / exit ─────────────────────────────────────────
-        ScrollTrigger.create({
-          // scroller: "[data-scroll-container]",
-          trigger: ".marq",
-          start: "top top",
-          onEnter:     createClone,
-          onEnterBack: createClone,
-          onLeaveBack: removeClone,
-        });
-
-        // ── Main orchestration trigger ─────────────────────────────────
-        ScrollTrigger.create({
-          trigger: ".horizontal-scroll",
-          // scroller: "[data-scroll-container]",
-          start: "top 50%",
-          end: () =>
-            `+=${window.innerHeight * (window.innerWidth <= 768 ? 2 : 4.5)}`,
-
-          onUpdate: (self) => {
-            const progress = self.progress;
-
-            // — Background colour (only compute during transition band) —
-            setContBg(progress < 0.05
-              ? interpolateBg(progress / 0.05)
-              : darkColor
+        
+          // ── Slide timelines ────────────────────────────────────────────────
+          const SLIDE_WINDOWS = [
+            [0.06, 0.36],
+            [0.40, 0.70],
+            [0.73, 1.00],
+          ];
+        
+          const slides = gsap.utils.toArray(".horizontal-slide:not(.horizontal-spacer)");
+        
+          const slideTLs = slides.map((slide) => {
+            const title = slide.querySelector(".production-title");
+            const text  = slide.querySelector(".production-text");
+        
+            gsap.set(title, { willChange: "transform, filter" });
+            gsap.set(text,  { willChange: "transform" });
+        
+            const tl = gsap.timeline({ paused: true });
+        
+            tl.fromTo(
+              title,
+              { y: 55, opacity: 0, filter: "blur(12px)" },
+              {
+                y: 0, opacity: 1, filter: "blur(0px)",
+                duration: 1, ease: "power3.out",
+                onComplete: () => gsap.set(title, { willChange: "auto" }),
+              },
+              0
+            )
+            .fromTo(
+              text,
+              { y: 28, opacity: 0 },
+              {
+                y: 0, opacity: 1, duration: 0.85, ease: "power2.out",
+                onComplete: () => gsap.set(text, { willChange: "auto" }),
+              },
+              0.22
             );
-
-            // — Phase 1: Flip expand (0 → 0.2) —
-            if (progress <= 0.2) {
-              if (!flipCreated && clone && cloneActive) {
-                const state = Flip.getState(clone);
-                gsap.set(clone, {
-                  left: "0px", top: "0px",
-                  width: "100%", height: "100svh",
-                  rotation: 0, x: "0%",
-                });
-                flipAnim    = Flip.from(state, { duration: 1, ease: "none", paused: true });
-                flipCreated = true;
-              }
-              if (flipAnim) flipAnim.progress(progress / 0.2);
-              setWrapperX(0);
-            }
-
-            // — Phase 2: Horizontal scroll (0.2 → 0.95) —
-            else if (progress <= 0.95) {
-              if (flipAnim) flipAnim.progress(1);
-
-              const hp = (progress - 0.2) / 0.75; // normalised 0→1
-              setWrapperX(-75 * hp);
-              if (setCloneX) setCloneX(-(75 / 100) * 4 * hp * 100);
-
-              // Scrub each slide's reveal timeline
-              slideTLs.forEach((tl, i) => {
-                const [lo, hi] = SLIDE_WINDOWS[i];
-                tl.progress(remap(hp, lo, hi));
-              });
-            }
-
-            // — Phase 3: Past end (> 0.95) —
-            else {
-              if (flipAnim) flipAnim.progress(1);
-              setWrapperX(-75);
-              if (setCloneX) setCloneX(-300);
-              slideTLs.forEach((tl) => tl.progress(1));
-            }
-          },
-
-          onLeaveBack: () => {
+        
+            return tl;
+          });
+        
+          // ── Clone management ───────────────────────────────────────────────
+          let clone       = null;
+          let cloneActive = false;
+          let flipAnim    = null;
+          let flipCreated = false;
+          let setCloneX   = null;
+        
+          function createClone() {
+            if (cloneActive || !originalImg) return;
+            const rect = originalImg.getBoundingClientRect();
+            clone = originalImg.cloneNode(true);
+        
+            gsap.set(clone, {
+              position: "fixed",
+              left:   rect.left   + "px",
+              top:    rect.top    + "px",
+              width:  rect.width  + "px",
+              height: rect.height + "px",
+              rotation: -5,
+              transformOrigin: "center center",
+              pointerEvents: "none",
+              willChange: "transform",   // promote before insertion
+              zIndex: 100,
+            });
+        
+            document.body.appendChild(clone);
+            gsap.set(originalImg, { opacity: 0 });
+            cloneActive = true;
+            flipCreated = false;
+            setCloneX   = gsap.quickSetter(clone, "x", "%");
+          }
+        
+          function removeClone() {
+            if (!cloneActive) return;
             flipAnim?.kill();
             flipAnim    = null;
             flipCreated = false;
-
-            setContBg(lightColor);
-            setWrapperX(0);
-            slideTLs.forEach((tl) => tl.progress(0));
-
-            if (clone && cloneActive && originalImg) {
-              const rect = originalImg.getBoundingClientRect();
-              gsap.set(clone, {
-                position: "fixed",
-                left:   rect.left   + "px",
-                top:    rect.top    + "px",
-                width:  rect.width  + "px",
-                height: rect.height + "px",
-                rotation: -5,
-                x: "0%",
-              });
-            }
-          },
+            // Clean up will-change before removing
+            if (clone) gsap.set(clone, { willChange: "auto" });
+            clone?.remove();
+            clone     = null;
+            setCloneX = null;
+            if (originalImg) gsap.set(originalImg, { opacity: 1 });
+            cloneActive = false;
+          }
+        
+          ScrollTrigger.create({
+            trigger: ".horizontal-scroll",
+            start: "top top",
+            end: () => `+=${window.innerHeight * (window.innerWidth <= 768 ? 1.5 : 4)}`,
+            pin: true,
+          });
+        
+          ScrollTrigger.create({
+            trigger: ".marq",
+            start: "top top",
+            onEnter:     createClone,
+            onEnterBack: createClone,
+            onLeaveBack: removeClone,
+          });
+        
+          ScrollTrigger.create({
+            trigger: ".horizontal-scroll",
+            start: "top 50%",
+            end: () => `+=${window.innerHeight * (window.innerWidth <= 768 ? 2 : 4.5)}`,
+        
+            onUpdate: (self) => {
+              const progress = self.progress;
+        
+              setContBg(progress < 0.05
+                ? interpolateBg(progress / 0.05)
+                : darkColor
+              );
+        
+              if (progress <= 0.2) {
+                if (!flipCreated && clone && cloneActive) {
+                  // ── Promote clone layer BEFORE Flip reads layout ──────────
+                  gsap.set(clone, { willChange: "transform" });
+                  const state = Flip.getState(clone);
+                  gsap.set(clone, {
+                    left: "0px", top: "0px",
+                    width: "100%", height: "100svh",
+                    rotation: 0, x: "0%",
+                  });
+                  flipAnim    = Flip.from(state, { duration: 1, ease: "none", paused: true });
+                  flipCreated = true;
+                }
+                if (flipAnim) flipAnim.progress(progress / 0.2);
+                setWrapperX(0);
+              }
+              else if (progress <= 0.95) {
+                if (flipAnim) flipAnim.progress(1);
+                const hp = (progress - 0.2) / 0.75;
+                setWrapperX(-75 * hp);
+                if (setCloneX) setCloneX(-(75 / 100) * 4 * hp * 100);
+                slideTLs.forEach((tl, i) => {
+                  const [lo, hi] = SLIDE_WINDOWS[i];
+                  tl.progress(remap(hp, lo, hi));
+                });
+              }
+              else {
+                if (flipAnim) flipAnim.progress(1);
+                setWrapperX(-75);
+                if (setCloneX) setCloneX(-300);
+                slideTLs.forEach((tl) => tl.progress(1));
+              }
+            },
+        
+            onLeave: () => {
+              // Section fully passed — release all layers
+              gsap.set(contEl,    { willChange: "auto" });
+              gsap.set(hsWrapper, { willChange: "auto" });
+            },
+        
+            onEnterBack: () => {
+              // Re-promote when scrolling back in
+              gsap.set(contEl,    { willChange: "background-color" });
+              gsap.set(hsWrapper, { willChange: "transform" });
+            },
+        
+            onLeaveBack: () => {
+              flipAnim?.kill();
+              flipAnim    = null;
+              flipCreated = false;
+        
+              setContBg(lightColor);
+              setWrapperX(0);
+              slideTLs.forEach((tl) => tl.progress(0));
+        
+              if (clone && cloneActive && originalImg) {
+                const rect = originalImg.getBoundingClientRect();
+                gsap.set(clone, {
+                  position: "fixed",
+                  left:   rect.left   + "px",
+                  top:    rect.top    + "px",
+                  width:  rect.width  + "px",
+                  height: rect.height + "px",
+                  rotation: -5,
+                  x: "0%",
+                });
+              }
+            },
+          });
         });
-      });
 
       return () => ctx.revert();
     };
