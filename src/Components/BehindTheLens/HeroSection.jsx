@@ -16,6 +16,7 @@ const HeroSection = () => {
   const sectionRef = useRef(null);
   const imageContainerRef = useRef(null);
   const textRef = useRef(null);
+
   useAnimate(() => {
     if (!sectionRef?.current || !imageContainerRef?.current) return;
 
@@ -23,6 +24,14 @@ const HeroSection = () => {
     if (!titleEl) return;
 
     const safariMode = isSafari();
+
+    // ✅ Let GSAP own the initial transform instead of React inline style
+    //    This prevents the "jump" when ScrollTrigger first reads the element
+    gsap.set(imageContainerRef.current, {
+      scale: 1.4,
+      filter: "brightness(0.7)",
+      willChange: "transform",
+    });
 
     const heroSplit = new SplitText(titleEl, { type: "chars" });
     heroSplit.chars.forEach((char) => char.classList.add("text-gradient"));
@@ -34,7 +43,6 @@ const HeroSection = () => {
       filter: safariMode ? "blur(10px)" : "blur(20px)",
       scrollTrigger: {
         trigger: sectionRef.current,
-        // scroller: "[data-scroll-container]",
         start: "top top-=5%",
         end: "bottom center",
         scrub: true,
@@ -49,19 +57,17 @@ const HeroSection = () => {
       opacity: 0,
       yPercent: 100,
       duration: 1.4,
-      ...(safariMode ? { filter: "blur(4px)" } : { filter: "blur(10px)" }),
+      filter: safariMode ? "blur(4px)" : "blur(10px)",
       ease: "expo.out",
       stagger: 0.04,
       scrollTrigger: {
         trigger: sectionRef.current,
-        // scroller: "[data-scroll-container]",
         start: "top 87%",
         toggleActions: "play none none reverse",
       },
     });
 
     // Parallax + scale
-    gsap.set(imageContainerRef.current, { willChange: "transform" });
     gsap.to(imageContainerRef.current, {
       scale: 0.8,
       y: -287,
@@ -69,12 +75,16 @@ const HeroSection = () => {
       top: "30%",
       scrollTrigger: {
         trigger: sectionRef.current,
-        // scroller: "[data-scroll-container]",
         start: "top top",
         end: "bottom top",
         pin: true,
         scrub: 1,
-        anticipatePin: 1,
+        // ✅ pinType:"transform" keeps the element in normal flow via matrix3d
+        //    instead of position:fixed — Lenis handles this without jumping
+        pinType: "transform",
+        // ✅ removed anticipatePin:1 — it pre-scrolls to compensate for pin
+        //    lag, which conflicts with Lenis's virtual scroll and causes the
+        //    initial jump
         onLeave: () =>
           gsap.set(imageContainerRef.current, { willChange: "auto" }),
         onEnterBack: () =>
@@ -82,40 +92,39 @@ const HeroSection = () => {
       },
     });
   });
+
   return (
     <section
       ref={sectionRef}
-      className="h-screen relative  bg-gradient-to-b from-black via-75% via-black to-[#071318] "
+      className="h-screen max-sm:hidden relative bg-gradient-to-b from-black via-75% via-black to-[#071318]"
     >
-      <div className="relative h-screen w-full mt-47 ">
+      <div className="sticky top-0 h-screen w-full mt-47">
+        {/* ✅ Removed inline transform style — GSAP sets it via gsap.set() above */}
         <div
           ref={imageContainerRef}
-          className=" relative w-full h-full z-[5] "
-          style={{ transform: "scale(1.4)", filter: "brightness(0.7)" }}
+          className="relative w-full h-full z-[5]"
         >
           <Image
             src="/Recent/A/B/7.webp"
             alt="Hero 1"
             fill
-            className="img1 object-cover absolute object-center opacity-65 transition-opacity duration-700 "
+            className="img1 object-cover absolute object-center opacity-65 transition-opacity duration-700"
             priority
           />
         </div>
 
         <div
           ref={textRef}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
               text-white text-3xl w-full sm:text-4xl md:text-5xl lg:text-7xl font-bold text-center z-10 mix-blend-soft-light title-alo"
         >
           <h1
-            className="title w-full font-extrabold  "
+            className="title w-full font-extrabold"
             style={{ fontFamily: "PP Neue Montreal" }}
           >
             HUNGRY FOR CONTENT?
             <br />
-            <span className=" font-bold lg:text-6xl ">
-              WE'VE GOT THE RECIPE
-            </span>
+            <span className="font-bold lg:text-6xl">WE'VE GOT THE RECIPE</span>
           </h1>
         </div>
       </div>

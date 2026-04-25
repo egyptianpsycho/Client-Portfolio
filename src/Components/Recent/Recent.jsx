@@ -68,9 +68,9 @@ const Recent = () => {
               // scroller: "[data-scroll-container]",
               trigger: ".outro",
               start: () =>
-                window.innerWidth < 768 ? "top bottom-=280%" : "top bottom-=430%",
+                window.innerWidth < 768 ? "top bottom-=180%" : "top bottom-=430%",
               end: () =>
-                window.innerWidth < 768 ? "bottom bottom-=290%" : "bottom bottom-=440%",
+                window.innerWidth < 768 ? "bottom bottom-=190%" : "bottom bottom-=440%",
               scrub: 1,
             },
           }
