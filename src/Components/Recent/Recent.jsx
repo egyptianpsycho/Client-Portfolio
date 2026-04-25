@@ -106,15 +106,20 @@ const Recent = () => {
           const title = slide.querySelector(".production-title");
           const text  = slide.querySelector(".production-text");
           const imgs  = gsap.utils.toArray(slide.querySelectorAll(".img-stack img"));
+          gsap.set(title, { willChange: "transform, filter" });
+
 
           const tl = gsap.timeline({ paused: true });
 
           // Title: blur + drift up
           tl.fromTo(
             title,
-            { y: 55, opacity: 0, filter: "blur(12px)" },
-            { y: 0,  opacity: 1, filter: "blur(0px)",
-              duration: 1, ease: "power3.out" },
+            { y: 55, opacity: 0, filter: "blur(12px)"},
+            {
+              y: 0, opacity: 1, filter: "blur(0px)",
+              duration: 1, ease: "power3.out",
+              onComplete: () => gsap.set(title, { willChange: "auto" }),
+            },
             0
           )
           // Body copy: drift up
