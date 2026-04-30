@@ -295,7 +295,7 @@ const Recent = () => {
   }, []);
 
   return (
-    <div className="cont" id="recent-section">
+    <div className="cont max-sm:hidden" id="recent-section">
       <section className="hero-2">
         <h1 className="h1-recent firstanimatetext max-sm:relative max-sm:max-w-99 text-left  ">
           <span className="!font-semibold">Shall we move from</span>
