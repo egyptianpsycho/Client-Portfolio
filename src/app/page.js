@@ -22,7 +22,6 @@ const Home = () => {
       <HeroSection />
       <Contact />
       <div className="relative">
-
       <Footer />
       </div>
     </div>
