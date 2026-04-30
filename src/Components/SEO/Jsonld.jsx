@@ -13,7 +13,7 @@ export default function JsonLd() {
     name: "Ahmed Abbas",
     alternateName: "Abbas Visuals",
     url: BASE_URL,
-    image: `/website-img.webp`,
+    image: `/og-image.jpg`,
     jobTitle: "Commercial & Fine-Art Photographer",
     description:
       "Award-winning luxury photographer and creative director based in Dubai, UAE. Specialising in advertising, hospitality, automotive, fine-art, and F&B photography.",
@@ -53,7 +53,7 @@ export default function JsonLd() {
       width: 512,
       height: 512,
     },
-    image: `${BASE_URL}/website-img.webp`,
+    image: `/og-image.jpg`,
     description:
       "A global creative and innovation studio crafting culturally-inspired, social-first content for luxury and global brands.",
     telephone: "+971547321359",

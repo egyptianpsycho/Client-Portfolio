@@ -71,7 +71,7 @@ export const metadata = {
       "Award-winning commercial & fine-art photography by Ahmed Abbas. We craft culturally-inspired, social-first visual content for global brands across the UAE, KSA, and beyond.",
     images: [
       {
-        url: "/website-img.webp", 
+        url: "/og-image.jpg", 
         width: 1200,
         height: 630,
         alt: "Abbas Visuals Creative Studio Dubai",
