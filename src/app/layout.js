@@ -2,6 +2,7 @@ import Layout from "@/Components/Layout";
 import "./globals.css";
 import Preloader from "@/Components/Preloader/Preloader";
 import JsonLd from "@/Components/SEO/Jsonld";
+import { GoogleAnalytics } from '@next/third-parties/google'
 
 const BASE_URL = "https://abbasvisuals.com";
 
@@ -44,7 +45,6 @@ export const metadata = {
     "Top photographer",
     "Award-winning photographer",
     "Commercial photographer",
-
   ],
   authors: [{ name: "Ahmed Abbas", url: BASE_URL }],
   creator: "Ahmed Abbas",
@@ -71,7 +71,7 @@ export const metadata = {
       "Award-winning commercial & fine-art photography by Ahmed Abbas. We craft culturally-inspired, social-first visual content for global brands across the UAE, KSA, and beyond.",
     images: [
       {
-        url: "/og-image.jpg", 
+        url: "/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "Abbas Visuals Creative Studio Dubai",
@@ -79,7 +79,6 @@ export const metadata = {
       },
     ],
   },
-
 
   // ── Robots ─────────────────────────────────────────────────────────────
   robots: {
@@ -96,13 +95,9 @@ export const metadata = {
     },
   },
 
-
   // ── Icons ──────────────────────────────────────────────────────────────
   icons: {
-    icon: [
-      { url: "/favicon.png", type: "image/png" },
-    ],
-   
+    icon: [{ url: "/favicon.png", type: "image/png" }],
   },
 
   // ── Manifest / theme ───────────────────────────────────────────────────
@@ -119,8 +114,11 @@ export default function RootLayout({ children }) {
       <head>
         {/* Preconnect to external origins for faster font loading */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-       
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
 
         {/* Geo tags – helps local SEO for UAE / Middle East */}
         <meta name="geo.region" content="AE-DU" />
@@ -134,6 +132,7 @@ export default function RootLayout({ children }) {
       <body>
         <Preloader />
         <Layout>{children}</Layout>
+        <GoogleAnalytics gaId="G-JL1RFRMGP9" />
       </body>
     </html>
   );
