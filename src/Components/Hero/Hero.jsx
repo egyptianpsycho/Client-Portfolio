@@ -152,8 +152,8 @@ export default function Hero() {
         ease: "power2.out",
         onComplete: () => {
           // Removes the will-change CSS property after the animation finishes
-          if (heroContainerRef) {
-            heroContainerRef.style.willChange = "auto";
+          if (heroContainerRef.current) {
+            heroContainerRef.current.style.willChange = "auto";
           }
         },
       }
