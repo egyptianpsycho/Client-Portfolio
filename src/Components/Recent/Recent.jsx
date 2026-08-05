@@ -20,25 +20,25 @@ const Recent = () => {
         .trim();
 
       const ctx = gsap.context(() => {
-        // ── Cache all DOM refs once ────────────────────────────────────
+        // ── Cache all DOM refs once ──────────────────────────────────
         const contEl       = document.querySelector(".cont");
         const marqImagesEl = document.querySelector(".marq-images");
         const hsWrapper    = document.querySelector(".horizontal-scroll-wrapper");
         const originalImg  = document.querySelector(".marq-img.pin img");
 
-        // ── QuickSetters — zero thrash per frame ───────────────────────
+        // ── QuickSetters — zero thrash per frame ─────────────────────
         const setContBg   = gsap.quickSetter(contEl,    "backgroundColor");
         const setWrapperX = gsap.quickSetter(hsWrapper, "x", "%");
         const setMarqX    = gsap.quickSetter(marqImagesEl, "x", "%");
 
-        // ── Colour interpolator ────────────────────────────────────────
+        // ── Colour interpolator ──────────────────────────────────────
         const interpolateBg = gsap.utils.interpolate(lightColor, darkColor);
 
-        // ── remap helper (clamps 0→1) ──────────────────────────────────
+        // ── remap helper (clamps 0→1) ────────────────────────────────
         const remap = (val, lo, hi) =>
           Math.min(1, Math.max(0, (val - lo) / (hi - lo)));
 
-        // ── Text-split animations ──────────────────────────────────────
+        // ── Text-split animations ────────────────────────────────────
         const firstSplit  = new SplitText(".firstanimatetext",  { type: "chars" });
         const secondSplit = new SplitText(".secondanimatetext", { type: "words" });
 
@@ -49,7 +49,6 @@ const Recent = () => {
             y: 0, x: 0, color: "#101010", filter: "blur(0px)",
             stagger: 0.05,
             scrollTrigger: {
-              // scroller: "[data-scroll-container]",
               trigger: "#recent-section",
               start: "top bottom-=15%",
               end: "bottom bottom+=140%",
@@ -65,7 +64,6 @@ const Recent = () => {
             y: 0, x: 0, color: "#edf1e8", filter: "blur(0px)",
             stagger: 0.05,
             scrollTrigger: {
-              // scroller: "[data-scroll-container]",
               trigger: ".outro",
               start: () =>
                 window.innerWidth < 768 ? "top bottom-=180%" : "top bottom-=430%",
@@ -76,9 +74,8 @@ const Recent = () => {
           }
         );
 
-        // ── Marq parallax ──────────────────────────────────────────────
+        // ── Marq parallax ────────────────────────────────────────────
         ScrollTrigger.create({
-          // scroller: "[data-scroll-container]",
           trigger: ".marq",
           start: "top bottom",
           end: "top top",
@@ -86,12 +83,7 @@ const Recent = () => {
           onUpdate: (self) => setMarqX(-75 + self.progress * 25),
         });
 
-        // ── Slide content timelines (paused, scrubbed by main trigger) ─
-        // Each slide: title blurs in, text fades up, images stagger up.
-        // Progress windows (of horizontalProgress 0→1):
-        //   Slide 1 peaks at hp ≈ 0.333 → animate in from hp 0.08 → 0.36
-        //   Slide 2 peaks at hp ≈ 0.667 → animate in from hp 0.42 → 0.70
-        //   Slide 3 peaks at hp ≈ 1.000 → animate in from hp 0.75 → 1.00
+        // ── Slide content timelines ──────────────────────────────────
         const SLIDE_WINDOWS = [
           [0.06, 0.36],
           [0.40, 0.70],
@@ -105,42 +97,36 @@ const Recent = () => {
         const slideTLs = slides.map((slide) => {
           const title = slide.querySelector(".production-title");
           const text  = slide.querySelector(".production-text");
-          const imgs  = gsap.utils.toArray(slide.querySelectorAll(".img-stack img"));
-          gsap.set(title, { willChange: "transform, filter" });
-
 
           const tl = gsap.timeline({ paused: true });
 
-          // Title: blur + drift up
           tl.fromTo(
             title,
-            { y: 55, opacity: 0, filter: "blur(12px)"},
+            { y: 55, opacity: 0, filter: "blur(12px)" },
             {
               y: 0, opacity: 1, filter: "blur(0px)",
               duration: 1, ease: "power3.out",
-              onComplete: () => gsap.set(title, { willChange: "auto" }),
+              onStart: () => { if (title) title.style.willChange = "transform, filter"; },
+              onComplete: () => { if (title) title.style.willChange = "auto"; },
             },
             0
           )
-          // Body copy: drift up
           .fromTo(
             text,
             { y: 28, opacity: 0 },
-            { y: 0,  opacity: 1, duration: 0.85, ease: "power2.out" },
+            { y: 0, opacity: 1, duration: 0.85, ease: "power2.out" },
             0.22
           );
-
-          
 
           return tl;
         });
 
-        // ── Clone management ───────────────────────────────────────────
+        // ── Clone management ─────────────────────────────────────────
         let clone       = null;
         let cloneActive = false;
         let flipAnim    = null;
         let flipCreated = false;
-        let setCloneX   = null; // built after clone exists
+        let setCloneX   = null;
 
         function createClone() {
           if (cloneActive || !originalImg) return;
@@ -172,26 +158,27 @@ const Recent = () => {
           flipAnim?.kill();
           flipAnim    = null;
           flipCreated = false;
-          clone?.remove();
+          if (clone) {
+            clone.style.willChange = "auto";
+            clone.remove();
+          }
           clone     = null;
           setCloneX = null;
           if (originalImg) gsap.set(originalImg, { opacity: 1 });
           cloneActive = false;
         }
 
-        // ── Pin the horizontal section ─────────────────────────────────
+        // ── Pin the horizontal section ───────────────────────────────
         ScrollTrigger.create({
           trigger: ".horizontal-scroll",
-          // scroller: "[data-scroll-container]",
           start: "top top",
           end: () =>
             `+=${window.innerHeight * (window.innerWidth <= 768 ? 1.5 : 4)}`,
           pin: true,
         });
 
-        // ── Clone enter / exit ─────────────────────────────────────────
+        // ── Clone enter / exit ───────────────────────────────────────
         ScrollTrigger.create({
-          // scroller: "[data-scroll-container]",
           trigger: ".marq",
           start: "top top",
           onEnter:     createClone,
@@ -199,10 +186,9 @@ const Recent = () => {
           onLeaveBack: removeClone,
         });
 
-        // ── Main orchestration trigger ─────────────────────────────────
+        // ── Main orchestration trigger ───────────────────────────────
         ScrollTrigger.create({
           trigger: ".horizontal-scroll",
-          // scroller: "[data-scroll-container]",
           start: "top 50%",
           end: () =>
             `+=${window.innerHeight * (window.innerWidth <= 768 ? 2 : 4.5)}`,
@@ -210,7 +196,6 @@ const Recent = () => {
           onUpdate: (self) => {
             const progress = self.progress;
 
-            // — Background colour (only compute during transition band) —
             setContBg(progress < 0.05
               ? interpolateBg(progress / 0.05)
               : darkColor
@@ -236,11 +221,10 @@ const Recent = () => {
             else if (progress <= 0.95) {
               if (flipAnim) flipAnim.progress(1);
 
-              const hp = (progress - 0.2) / 0.75; // normalised 0→1
+              const hp = (progress - 0.2) / 0.75;
               setWrapperX(-75 * hp);
               if (setCloneX) setCloneX(-(75 / 100) * 4 * hp * 100);
 
-              // Scrub each slide's reveal timeline
               slideTLs.forEach((tl, i) => {
                 const [lo, hi] = SLIDE_WINDOWS[i];
                 tl.progress(remap(hp, lo, hi));
@@ -284,27 +268,25 @@ const Recent = () => {
       return () => ctx.revert();
     };
 
-    const wait = setInterval(() => {
-      if (window.__loco) {
-        clearInterval(wait);
-        init();
-      }
-    }, 100);
-
-    return () => clearInterval(wait);
+    // Initialize instantly with Lenis since native scroll bounds are ready on frame paint
+    const raf = requestAnimationFrame(() => {
+      const t = setTimeout(init, 50);
+      return () => clearTimeout(t);
+    });
+    return () => cancelAnimationFrame(raf);
   }, []);
 
   return (
     <div className="cont max-sm:hidden" id="recent-section">
       <section className="hero-2">
-        <h1 className="h1-recent firstanimatetext max-sm:relative max-sm:max-w-99 text-left  ">
+        <h1 className="h1-recent firstanimatetext max-sm:relative max-sm:max-w-99 text-left">
           <span className="!font-semibold">Shall we move from</span>
           <br />
           <span className="!font-semibold">words to visuals?</span>
           <br />
-          <span className="sm:text-[3rem] text-[2rem] ">Here's where the </span>{" "}
+          <span className="sm:text-[3rem] text-[2rem]">Here's where the </span>{" "}
           <br className="sm:hidden" />
-          <span className="sm:text-[3rem] text-[2rem] ">vision </span>{""}
+          <span className="sm:text-[3rem] text-[2rem]">vision </span>{""}
           <br className="hidden sm:block" />
           <span className="sm:text-[3rem] text-[2rem]">comes to life.</span>
         </h1>
@@ -374,7 +356,7 @@ const Recent = () => {
             </div>
             <div className="col">
               <div className="img-stack">
-                <Image width={1920} height={1080} src="/Recent/A/B/pt2.webp"    alt="Pre-production"   className="img-recent" />
+                <Image width={1920} height={1080} src="/Recent/A/B/pt2.webp"   alt="Pre-production"   className="img-recent" />
                 <Image width={1920} height={1080} src="/Recent/A/B/recrec.webp" alt="Pre-production"   className="img-recent max-sm:hidden" />
                 <Image width={1920} height={1080} src="/Recent/A/B/rec.webp"    alt="Pre-production"   className="img-recent" />
               </div>
@@ -447,4 +429,3 @@ const Recent = () => {
 };
 
 export default Recent;
-
