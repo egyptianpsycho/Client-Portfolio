@@ -141,11 +141,7 @@ const Videos = () => {
                 classN="object-cover h-full w-full  transition-all duration-500 ease-out "
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-active:opacity-100 transition-all duration-300 pointer-events-none" />
-              <div className="absolute bottom-2 left-0 w-full px-2 text-center opacity-0 group-active:opacity-100 transition-all duration-300 pointer-events-none">
-                <p className="text-white/90 text-[0.65rem] font-semibold tracking-wide leading-tight truncate">
-                  {project.title}
-                </p>
-              </div>
+              
               <div className="absolute top-2 right-2 pointer-events-none">
                 <span className="text-white/50 text-[0.55rem] font-semibold">
                   {project.durtaion}
@@ -170,11 +166,7 @@ const Videos = () => {
                 classN="object-cover rounded-2xl scale-[0.99] h-full origin-center  transition-all duration-500 ease-out  group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-700 ease-out pointer-events-none" />
-              <div className="absolute bottom-10 left-0 w-full text-center opacity-0 group-hover:opacity-100 transition-all duration-700 ease-out pointer-events-none">
-                <h3 className="text-white/80 text-xl font-semibold tracking-wide text-gradient">
-                  {project.title}
-                </h3>
-              </div>
+              
               <div className="absolute bottom-2 left-4 opacity-0 group-hover:opacity-100 transition-all duration-700 ease-out pointer-events-none">
                 <h3 className="text-gray-200/20 text-sm font-semibold">
                   {project.durtaion}
