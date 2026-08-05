@@ -104,7 +104,7 @@ const Videos = () => {
   return (
     <div id="videos-section" className="relative mt-20" ref={vidSecRef}>
       <h1
-        className="text-9xl max-sm:text-4xl mb-10 lg:leading-[11rem] text-center glowy-text videos-title vid-title font-bold text-gradient text-nowrap"
+        className="text-9xl max-sm:text-4xl mb-10 lg:leading-[11rem] text-center glowy-text videos-title vid-title font-bold text-nowrap"
         style={{
           fontFamily: "'Bebas Neue', 'serif'",
           letterSpacing: "0.4rem",

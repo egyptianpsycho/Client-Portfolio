@@ -217,7 +217,7 @@ export default function Hero() {
   return (
     <section
       className="hero-section hero-pin relative h-screen w-full overflow-hidden will-change-transform">
-      <div className="absolute inset-0 hero-media pointer-events-none">
+      <div className="absolute inset-0 hero-media pointer-events-none ">
         <video
           ref={videoRef}
           src="/HeroImages/finalvidw.webm"
@@ -230,7 +230,7 @@ export default function Hero() {
           className="object-cover w-full h-full "
         />
         {/* overlay(s) */}
-        <div className="absolute inset-0 bg-gradient-to-tr from-black/80 to-[#434343]/40" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-black/70 to-[#434343]/40" />
         <div className="absolute overlay-blur-pin inset-0 backdrop-blur-md opacity-0 z-[999]" />
       </div>
 
@@ -260,7 +260,7 @@ export default function Hero() {
       </div>
 
       <div
-        className="relative z-30 flex flex-col items-center justify-center h-full pt-5 hero max-sm:top-11"
+        className="relative z-30 flex flex-col items-center justify-center h-full pt-5 hero max-sm:top-11 "
         style={{ willChange: "filter" }}
       >
         <svg
@@ -308,17 +308,17 @@ export default function Hero() {
         </svg>
 
         {/* Location Animation Component */}
-        <div className="absolute bottom-20 max-sm:bottom-30 left-0 right-0 flex justify-center ">
+        <div className="absolute bottom-20 max-sm:bottom-30 left-0 right-0 flex justify-center  ">
           <div
             ref={locationRef}
-            className="relative h-24 w-full max-w-[520px] overflow-hidden "
+            className="relative h-24 w-full max-w-[520px] overflow-hidden  "
           >
             {locations.map((location) => (
               <div
                 key={location}
-                className="location-text absolute inset-0 flex items-center justify-center z-10"
+                className="location-text absolute inset-0 flex items-center justify-center z-10 "
               >
-                <span className="text-white/90 text-2xl font-light tracking-[0.3em] max-sm:text-lg max-sm:tracking-[0.2em]">
+                <span className="text-white/90 text-2xl font-light tracking-[0.3em] max-sm:text-lg max-sm:tracking-[0.2em] ">
                   {location}
                 </span>
               </div>
