@@ -12,6 +12,7 @@ export default function Hero() {
   const locationRef = useRef(null);
   const animationIntervalRef = useRef(null);
   const videoRef = useRef(null);
+  const heroContainerRef = useRef(null);
   const locations = ["UAE", "UNITED STATES", "KSA", "EGYPT"];
 
   useEffect(() => {
@@ -135,6 +136,8 @@ export default function Hero() {
     const tl = gsap.timeline();
     const path = document.querySelector("#pathToAnimate1");
 
+    
+
     // 1. Fade in ABBAS text from blur
     tl.fromTo(
       "#hero-text",
@@ -147,6 +150,12 @@ export default function Hero() {
         filter: "blur(0px)",
         duration: 1.5,
         ease: "power2.out",
+        onComplete: () => {
+          // Removes the will-change CSS property after the animation finishes
+          if (heroContainerRef) {
+            heroContainerRef.style.willChange = "auto";
+          }
+        },
       }
     );
 
@@ -198,8 +207,28 @@ export default function Hero() {
       pin: true,
       pinSpacing: false,
       anticipatePin: 1,
-      // scroller: "[data-scroll-container]",
       invalidateOnRefresh: true,
+      onEnter: () => {
+        hero.style.willChange = "transform";
+      },
+      onLeave: () => {
+        // Clean up will-change after pin — frees GPU compositing layer
+        hero.style.willChange = "auto";
+        // Pause the video when hero is fully scrolled past
+        if (videoRef.current) {
+          videoRef.current.pause();
+        }
+      },
+      onEnterBack: () => {
+        hero.style.willChange = "transform";
+        // Resume video when scrolling back up
+        if (videoRef.current) {
+          videoRef.current.play().catch(() => {});
+        }
+      },
+      onLeaveBack: () => {
+        hero.style.willChange = "auto";
+      },
     });
 
     gsap.to(".overlay-blur-pin", {
@@ -216,7 +245,7 @@ export default function Hero() {
 
   return (
     <section
-      className="hero-section hero-pin relative h-screen w-full overflow-hidden will-change-transform">
+      className="hero-section hero-pin relative h-screen w-full overflow-hidden ">
       <div className="absolute inset-0 hero-media pointer-events-none ">
         <video
           ref={videoRef}
@@ -227,6 +256,7 @@ export default function Hero() {
           loop={true}
           muted
           playsInline
+          poster="/HeroImages/vidfinal.png"
           className="object-cover w-full h-full "
         />
         {/* overlay(s) */}
@@ -262,6 +292,7 @@ export default function Hero() {
       <div
         className="relative z-30 flex flex-col items-center justify-center h-full pt-5 hero max-sm:top-11 "
         style={{ willChange: "filter" }}
+        ref={heroContainerRef}
       >
         <svg
           role="img"

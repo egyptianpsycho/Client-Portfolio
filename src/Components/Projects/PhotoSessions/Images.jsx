@@ -226,34 +226,30 @@ const Images = () => {
 
       {/* ── Category dropdown ── */}
       <div className="bottom-8 max-sm:right-18 max-sm:mb-2 md:bottom-104 mt-8 pl-4 relative z-50">
-        <div ref={dropdownRef} className="relative">
-          <button
+        <div 
+          ref={dropdownRef} 
+          className="relative inline-block cursor-pointer"
+          onMouseEnter={() => setDropdownOpen(true)}
+          onMouseLeave={() => setDropdownOpen(false)}
+        >
+          <div
             onClick={() => setDropdownOpen((prev) => !prev)}
-            className="flex items-center gap-2 px-4 py-2 max-sm:px-3 max-sm:py-1.5 rounded-full border border-white/15 bg-white/5 backdrop-blur-md text-white/70 hover:text-white hover:border-white/30 hover:bg-white/10 transition-all duration-300 uppercase"
+            className="flex items-center gap-2 transition-all duration-300 uppercase"
             style={{
               fontFamily: "'Bebas Neue', serif",
-              fontSize: isMobile ? "0.8rem" : "1rem",
+              fontSize: isMobile ? "1rem" : "1.25rem",
               letterSpacing: isMobile ? "0.1rem" : "0.2rem",
             }}
           >
-            {selectedCategory}
-            <svg
-              className={`w-3.5 h-3.5 transition-transform duration-300 opacity-60 ${
-                dropdownOpen ? "rotate-180" : "rotate-0"
-              }`}
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <polyline points="6 9 12 15 18 9" />
-            </svg>
-          </button>
+            <span className="text-white/70">CATEGORY</span>
+            <span className="text-amber-50">/ {selectedCategory}</span>
+          </div>
+
+          {/* Invisible bridge to prevent hover loss */}
+          <div className="absolute top-full h-3 w-full" />
 
           <div
-            className={`absolute top-full mt-2 w-44 rounded-2xl border border-white/10 bg-black/80 backdrop-blur-xl overflow-hidden shadow-2xl transition-all duration-300 origin-top ${
+            className={`absolute top-full mt-3 w-44 rounded-2xl border border-white/10 bg-black/80 backdrop-blur-xl overflow-hidden shadow-2xl transition-all duration-300 origin-top ${
               dropdownOpen
                 ? "opacity-100 scale-100 pointer-events-auto"
                 : "opacity-0 scale-95 pointer-events-none"
@@ -372,4 +368,3 @@ const Images = () => {
 };
 
 export default Images;
-
