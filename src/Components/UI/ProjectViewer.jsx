@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useEffect, useState, useCallback } from "react";
+import React, { useRef, useEffect, useState, useCallback, useMemo } from "react";
 import { createPortal } from "react-dom";
 import gsap from "gsap";
 import Image from "next/image";
@@ -9,22 +9,12 @@ import Modal from "./Modal";
 // Cloudinary helpers
 // ---------------------------------------------------------------------------
 
-/**
- * Injects Cloudinary transformation params into a Cloudinary URL.
- * Works with versioned (/v123456/) and non-versioned URLs.
- *
- * @param {string} url   – original Cloudinary URL
- * @param {string} tfms  – transformation string e.g. "w_1200,q_auto,f_auto"
- */
 function cloudinaryTransform(url, tfms) {
   if (!url || !url.includes("res.cloudinary.com")) return url;
   return url.replace("/upload/", `/upload/${tfms}/`);
 }
 
-/** Thumbnail used in the masonry grid — sized to the largest column width you'll ever render */
 const THUMB_TFMS = "w_800,q_auto,f_auto,c_limit";
-
-/** Full-res used when the lightbox / Modal opens the image */
 const FULL_TFMS = "w_2400,q_auto,f_auto,c_limit";
 
 // ---------------------------------------------------------------------------
@@ -125,21 +115,19 @@ const ProjectViewer = ({ open, project, onClose }) => {
   useEffect(() => {
     const el = overlayRef.current;
     if (!el) return;
-  
+
     const stopPropagation = (e) => e.stopPropagation();
-  
+
     if (open) {
       el.addEventListener("wheel", stopPropagation, { passive: false });
       el.addEventListener("touchmove", stopPropagation, { passive: false });
     }
-  
+
     return () => {
       el.removeEventListener("wheel", stopPropagation);
       el.removeEventListener("touchmove", stopPropagation);
     };
   }, [open]);
-  
-  
 
   useEffect(() => {
     if (!open || !overlayRef.current) return;
@@ -200,12 +188,6 @@ const ProjectViewer = ({ open, project, onClose }) => {
 
     const items = contentRef.current.querySelectorAll(".viewer-img-item");
     if (items.length > 0) {
-      const masonry = contentRef.current.querySelector(".masonry-grid-track");
-
-      gsap.set(masonry, {
-        willChange: "transform, filter",
-      });
-
       tl.fromTo(
         items,
         { opacity: 0, scale: 0.95, filter: "blur(8px)" },
@@ -216,10 +198,6 @@ const ProjectViewer = ({ open, project, onClose }) => {
           duration: 0.5,
           stagger: { amount: 0.5, from: "random" },
           ease: "power3.out",
-          onComplete: () => {
-            // Release the layer once animation is done
-            gsap.set(masonry, { willChange: "auto" });
-          },
         },
         "-=0.3"
       );
@@ -234,6 +212,26 @@ const ProjectViewer = ({ open, project, onClose }) => {
     }
   }, []);
 
+  // Compute images safely before hooks
+  const allImages = useMemo(() => {
+    if (!project) return [];
+    return project.cover
+      ? [project.cover, ...project.images]
+      : project.images || [];
+  }, [project]);
+
+  // Compute column buckets BEFORE any conditional return
+  const columnBuckets = useMemo(() => {
+    const buckets = Array.from({ length: cols }, () => []);
+    allImages.forEach((img, idx) => {
+      buckets[idx % cols].push({ src: img, idx });
+    });
+    return buckets;
+  }, [allImages, cols]);
+
+  // Early return MUST happen after all hooks have been declared
+  if (!mounted || !open || !project) return null;
+
   const handleClose = () => {
     const tl = gsap.timeline({ onComplete: onClose });
     tl.to(contentRef.current, {
@@ -246,7 +244,6 @@ const ProjectViewer = ({ open, project, onClose }) => {
   };
 
   const handleImageClick = (idx, allImages) => {
-    // Pass full-res URLs to the modal so the lightbox always gets crisp images
     const toFullRes = (src) => cloudinaryTransform(src, FULL_TFMS);
 
     const reordered = {
@@ -261,18 +258,11 @@ const ProjectViewer = ({ open, project, onClose }) => {
     setModalOpen(true);
   };
 
-  if (!mounted || !open || !project) return null;
-
-  const allImages = project.cover
-    ? [project.cover, ...project.images]
-    : project.images;
-
   const progress =
     totalRef.current > 0
       ? Math.round((loadedCount / totalRef.current) * 100)
       : 0;
 
-  // Responsive sizes string matches the useColumns hook breakpoints
   const thumbSizes = [
     "(max-width: 639px) 48vw",
     "(max-width: 1023px) 32vw",
@@ -329,7 +319,7 @@ const ProjectViewer = ({ open, project, onClose }) => {
 
         <div className="flex flex-col items-center gap-1.5 text-center">
           <span
-            className="text-white tracking-[0.25rem] text-base"
+            className="text-white tracking-[0.25rem] text-base "
             style={{ fontFamily: "'Bebas Neue', serif" }}
           >
             {project.title}
@@ -354,7 +344,7 @@ const ProjectViewer = ({ open, project, onClose }) => {
         style={{ opacity: 0, filter: "blur(40px)" }}
       >
         <h1
-          className="text-gradient text-center px-6 leading-none select-none"
+          className="text-gradient text-center px-6 leading-none select-none font-bold"
           style={{
             fontFamily: "'Bebas Neue', serif",
             fontSize: "clamp(3rem, 10vw, 8rem)",
@@ -405,7 +395,7 @@ const ProjectViewer = ({ open, project, onClose }) => {
 
           <h2
             ref={headerTitleRef}
-            className="text-gradient truncate"
+            className="text-gradient truncate "
             style={{
               fontFamily: "'Bebas Neue', serif",
               fontSize: "1.3rem",
@@ -425,61 +415,66 @@ const ProjectViewer = ({ open, project, onClose }) => {
           </span>
         </div>
 
-        {/* Masonry grid */}
-        <div className="viewer-scroll flex-1 overflow-y-auto p-2 sm:p-3"
-          style={{ overscrollBehavior: "contain" }}  // ← add this
->
-          <div
-            style={{ columnCount: cols, columnGap: "8px" }}
-            className="masonry-grid-track"
-          >
-            {allImages.map((src, idx) => (
-              <div
-                key={idx}
-                className="viewer-img-item group cursor-pointer relative overflow-hidden rounded-sm border border-white/5 mb-2"
-                style={{ breakInside: "avoid" }}
-                onClick={() => handleImageClick(idx, allImages)}
-              >
-                <Image
-                  src={cloudinaryTransform(src, THUMB_TFMS)}
-                  alt={`${project.title} ${idx + 1}`}
-                  width={0}
-                  height={0}
-                  sizes={thumbSizes}
-                  style={{ width: "100%", height: "auto", display: "block" }}
-                  className="group-hover:scale-105 transition-all duration-500 ease-out"
-                  onLoad={handleImageLoad}
-                  onError={handleImageLoad}
-                />
-
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300" />
-
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
-                  <div className="w-9 h-9 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/20">
-                    <svg
-                      className="w-4 h-4 text-white"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M15 3h6m0 0v6m0-6L10 14M4 4a1 1 0 00-1 1v14a1 1 0 001 1h14a1 1 0 001-1v-5"
-                      />
-                    </svg>
-                  </div>
-                </div>
-
-                <div className="absolute top-2 left-2 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                  <span
-                    className="text-white/60 text-[0.6rem] tracking-widest"
-                    style={{ fontFamily: "'Bebas Neue', serif" }}
+        {/* Masonry grid with explicit Flex Columns */}
+        <div
+          className="viewer-scroll flex-1 overflow-y-auto p-2 sm:p-3"
+          style={{ overscrollBehavior: "contain" }}
+        >
+          <div className="flex gap-2 w-full">
+            {columnBuckets.map((colImages, colIndex) => (
+              <div key={colIndex} className="flex-1 flex flex-col gap-2">
+                {colImages.map(({ src, idx }) => (
+                  <div
+                    key={idx}
+                    className="viewer-img-item group cursor-pointer relative overflow-hidden rounded-sm border border-white/5"
+                    onClick={() => handleImageClick(idx, allImages)}
                   >
-                    {String(idx + 1).padStart(2, "0")}
-                  </span>
-                </div>
+                    <Image
+                      src={cloudinaryTransform(src, THUMB_TFMS)}
+                      alt={`${project.title} ${idx + 1}`}
+                      width={0}
+                      height={0}
+                      sizes={thumbSizes}
+                      style={{
+                        width: "100%",
+                        height: "auto",
+                        display: "block",
+                      }}
+                      className="group-hover:scale-105 transition-all duration-500 ease-out"
+                      onLoad={handleImageLoad}
+                      onError={handleImageLoad}
+                    />
+
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300" />
+
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
+                      <div className="w-9 h-9 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/20">
+                        <svg
+                          className="w-4 h-4 text-white"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M15 3h6m0 0v6m0-6L10 14M4 4a1 1 0 00-1 1v14a1 1 0 001 1h14a1 1 0 001-1v-5"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+
+                    <div className="absolute top-2 left-2 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                      <span
+                        className="text-white/60 text-[0.6rem] tracking-widest"
+                        style={{ fontFamily: "'Bebas Neue', serif" }}
+                      >
+                        {String(idx + 1).padStart(2, "0")}
+                      </span>
+                    </div>
+                  </div>
+                ))}
               </div>
             ))}
           </div>
