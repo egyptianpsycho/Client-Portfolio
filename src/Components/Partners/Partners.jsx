@@ -87,7 +87,6 @@ const Partners = () => {
                 width={150}
                 height={150}
                 className="object-contain relative sm:absolute w-16 h-16 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-28 lg:h-28 xl:w-36 xl:h-36"
-                loading="lazy"
               />
             </div>
           ))}
@@ -112,7 +111,6 @@ const Partners = () => {
                 width={150}
                 height={150}
                 className="object-contain relative sm:absolute w-16 h-16 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-28 lg:h-28 xl:w-36 xl:h-36"
-                loading="lazy"
               />
             </div>
           ))}
@@ -139,7 +137,6 @@ const Partners = () => {
                 width={150}
                 height={150}
                 className="object-contain w-16 h-16"
-                loading="lazy"
               />
             </div>
           ))}

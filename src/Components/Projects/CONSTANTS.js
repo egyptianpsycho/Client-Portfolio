@@ -433,23 +433,8 @@ export const PROJECTSIMGS = [
     date: "2025",
     description: "",
   },
-  // {
-  //   id: 21,
-  //   title: "Emirates",
-  //   alt: "emirates",
-  //   cover: "/Projects/images/emirates_part2/4.webp",
-  //   images: [
-  //     "https://res.cloudinary.com/dw2srmnan/image/upload/v1776210636/3_znfqmc.webp",
-  //     "https://res.cloudinary.com/dw2srmnan/image/upload/v1776210630/2_cvp9kj.webp",
-  //     "https://res.cloudinary.com/dw2srmnan/image/upload/v1776210627/1_q22myn.webp",
-  //   ],
-  //   category: "Advertising",
-  //   link: "",
-  //   date: "2025",
-  //   description: "",
-  // },
   {
-    id: 22,
+    id: 21,
     title: "F & B",
     alt: "F & B",
     cover: "/Projects/images/Hospitality/F&B/16.webp",
@@ -479,7 +464,7 @@ export const PROJECTSIMGS = [
     description: "",
   },
   {
-    id: 23,
+    id: 22,
     title: "Jewelry",
     alt: "Jewelry",
     cover: "/Projects/images/jewelry/1.webp",
@@ -496,7 +481,7 @@ export const PROJECTSIMGS = [
     description: "",
   },
   {
-    id: 24,
+    id: 23,
     title: "Jumeirah Beach Hotel",
     alt: "Jumeirah",
     cover: "/Projects/images/Hospitality/Lifestyle/Jumeirah_Beach_Hotel/8.webp",
@@ -529,7 +514,7 @@ export const PROJECTSIMGS = [
     description: "",
   },
   {
-    id: 25,
+    id: 24,
     title: "Jumeirah Gallery",
     alt: "Jumeirah",
     cover: "/Projects/images/Hospitality/Lifestyle/Jumeirah_Gallery/52.webp",
@@ -605,7 +590,7 @@ export const PROJECTSIMGS = [
     description: "",
   },
   {
-    id: 26,
+    id: 25,
     title: "Jumeirah Marsa Al Arab",
     alt: "Jumeirah",
     cover:
@@ -650,7 +635,7 @@ export const PROJECTSIMGS = [
   },
 
   {
-    id: 27,
+    id: 26,
     title: "Psychooptics",
     alt: "Psychooptics",
     cover: "/Projects/images/Psychooptics/1.webp",
@@ -667,7 +652,7 @@ export const PROJECTSIMGS = [
     description: "",
   },
   {
-    id: 28,
+    id: 27,
     title: "Share App",
     alt: "Share App",
     cover: "/Projects/images/share_app/3.webp",
@@ -692,7 +677,7 @@ export const PROJECTSIMGS = [
     description: "",
   },
   {
-    id: 29,
+    id: 28,
     title: "SUN & SAND",
     alt: "SUN & SAND",
     cover: "/Projects/images/SUNnSAND/12.webp",
@@ -719,7 +704,7 @@ export const PROJECTSIMGS = [
     description: "",
   },
   {
-    id: 30,
+    id: 29,
     title: "Arabica",
     alt: "Arabica",
     cover: "/Projects/images/unNamed/5.webp",
@@ -736,29 +721,8 @@ export const PROJECTSIMGS = [
     date: "2025",
     description: "",
   },
-  // {
-  //   id: 31,
-  //   title: "Wellness",
-  //   alt: "Wellness",
-  //   cover: "/Projects/images/Hospitality/wellness/10.webp",
-  //   images: [
-  //     "https://res.cloudinary.com/dw2srmnan/image/upload/v1776211097/9_drnbl9.webp",
-  //     "https://res.cloudinary.com/dw2srmnan/image/upload/v1776211095/8_rurfvl.webp",
-  //     "https://res.cloudinary.com/dw2srmnan/image/upload/v1776211093/7_s2yind.webp",
-  //     "https://res.cloudinary.com/dw2srmnan/image/upload/v1776211089/6_msoort.webp",
-  //     "https://res.cloudinary.com/dw2srmnan/image/upload/v1776211088/5_ujzzkp.webp",
-  //     "https://res.cloudinary.com/dw2srmnan/image/upload/v1776211086/4_xkgiqs.webp",
-  //     "https://res.cloudinary.com/dw2srmnan/image/upload/v1776211084/3_hdp3v4.webp",
-  //     "https://res.cloudinary.com/dw2srmnan/image/upload/v1776211081/2_swaveo.webp",
-  //     "https://res.cloudinary.com/dw2srmnan/image/upload/v1776211079/1_viechz.webp",
-  //   ],
-  //   category: "Hospitality",
-  //   link: "",
-  //   date: "2025",
-  //   description: "",
-  // },
   {
-    id: 32,
+    id: 30,
     title: "ZSC",
     alt: "ZSC",
     cover: "/Projects/images/ZSC/1.webp",
@@ -776,6 +740,48 @@ export const PROJECTSIMGS = [
     category: "advertising",
     link: "",
     date: "2025",
+    description: "",
+  },
+  {
+    id: 31,
+    title: "KAVI",
+    alt: "KAVI",
+    cover: "/Projects/images/Kavi/Kavicover.webp",
+    images: [
+      "https://res.cloudinary.com/dw2srmnan/image/upload/v1787340305/ABB09859_be5171.webp",
+      "https://res.cloudinary.com/dw2srmnan/image/upload/v1787340304/ABB09870_wqw2o8.webp",
+      "https://res.cloudinary.com/dw2srmnan/image/upload/v1787340304/ABB09789_xz35xb.webp",
+      "https://res.cloudinary.com/dw2srmnan/image/upload/v1787340309/ABB09885_y2jihg.webp",
+      "https://res.cloudinary.com/dw2srmnan/image/upload/v1787340325/ABB09904_twj0zl.webp",
+      "https://res.cloudinary.com/dw2srmnan/image/upload/v1787340326/ABB09915_tzswwn.webp",
+      "https://res.cloudinary.com/dw2srmnan/image/upload/v1787340297/ABB09682_samkpu.webp",
+      "https://res.cloudinary.com/dw2srmnan/image/upload/v1787340301/ABB09698_prmqgk.webp",
+      "https://res.cloudinary.com/dw2srmnan/image/upload/v1787340302/ABB09834_tw9mni.webp",
+      "https://res.cloudinary.com/dw2srmnan/image/upload/v1787340302/ABB09864_a2o5xj.webp",
+      "https://res.cloudinary.com/dw2srmnan/image/upload/v1787340291/ABB09614_flz28t.webp",
+      "https://res.cloudinary.com/dw2srmnan/image/upload/v1787340291/ABB09609_ck2czh.webp",
+      "https://res.cloudinary.com/dw2srmnan/image/upload/v1787340297/ABB09783_bshzbo.webp",
+      "https://res.cloudinary.com/dw2srmnan/image/upload/v1787340297/ABB09728_xpwd4i.webp",
+      "https://res.cloudinary.com/dw2srmnan/image/upload/v1787340297/ABB09780_vmtnhy.webp",
+      "https://res.cloudinary.com/dw2srmnan/image/upload/v1787340297/ABB09746_yxnxmg.webp",
+      "https://res.cloudinary.com/dw2srmnan/image/upload/v1787340285/ABB09539_d0iu6b.webp",
+      "https://res.cloudinary.com/dw2srmnan/image/upload/v1787340289/ABB09551_mb62la.webp",
+      "https://res.cloudinary.com/dw2srmnan/image/upload/v1787340289/ABB09633_rc8atm.webp",
+      "https://res.cloudinary.com/dw2srmnan/image/upload/v1787340290/ABB09546_cx8d0g.webp",
+      "https://res.cloudinary.com/dw2srmnan/image/upload/v1787340290/ABB09563_rw6fwl.webp",
+      "https://res.cloudinary.com/dw2srmnan/image/upload/v1787340281/ABB09511_ivamly.webp",
+      "https://res.cloudinary.com/dw2srmnan/image/upload/v1787340282/ABB09431_ifergg.webp",
+      "https://res.cloudinary.com/dw2srmnan/image/upload/v1787340282/ABB09520_m6rdcm.webp",
+      "https://res.cloudinary.com/dw2srmnan/image/upload/v1787340283/ABB09494_dtc7f6.webp",
+      "https://res.cloudinary.com/dw2srmnan/image/upload/v1787340284/ABB09526_oawurj.webp",
+      "https://res.cloudinary.com/dw2srmnan/image/upload/v1787340285/ABB09505_ezpvit.webp",
+      "https://res.cloudinary.com/dw2srmnan/image/upload/v1787340279/ABB09426_agvaal.webp",
+      "https://res.cloudinary.com/dw2srmnan/image/upload/v1787340278/ABB09470_epo7ut.webp",
+      "https://res.cloudinary.com/dw2srmnan/image/upload/v1787340277/ABB09492_xa02mh.webp",
+    ],
+    category: "F & B",
+    link: "",
+    date: "2026",
     description: "",
   },
 ];
@@ -806,7 +812,8 @@ export const PROJECTSVIDS = [
     title: "The Luxury Lifestyle Showreel",
     discreption:
       "A showcase of key lifestyle campaigns created for Jumeirah, this reel encapsulates the brand’s luxury identity across hospitality, leisure, and design. It offers a visual summary of the consistent translation of Jumeirah’s refined aesthetic into compelling content.",
-    thummnail: "https://image.mux.com/AKqPIGCajv28oieabDNVNUP7FZZP4WwfTq00h9TBfwiI/thumbnail.png?time=0",
+    thummnail:
+      "https://image.mux.com/AKqPIGCajv28oieabDNVNUP7FZZP4WwfTq00h9TBfwiI/thumbnail.png?time=0",
     videoURL:
       "https://stream.mux.com/AKqPIGCajv28oieabDNVNUP7FZZP4WwfTq00h9TBfwiI.m3u8",
     durtaion: "0:42",
@@ -878,7 +885,8 @@ export const PROJECTSVIDS = [
     id: 11,
     title: "Majid Al Yousef Interview",
     description: "",
-    thummnail: "https://image.mux.com/ZuRidXv5XE1G968BuH023LD3vaNS01Jc3b2e4etyuGmgY/thumbnail.png?time=5",
+    thummnail:
+      "https://image.mux.com/ZuRidXv5XE1G968BuH023LD3vaNS01Jc3b2e4etyuGmgY/thumbnail.png?time=5",
     videoURL:
       "https://stream.mux.com/ZuRidXv5XE1G968BuH023LD3vaNS01Jc3b2e4etyuGmgY.m3u8",
     durtaion: "0:39",
@@ -887,7 +895,8 @@ export const PROJECTSVIDS = [
     id: 12,
     title: "Jaq Wedding",
     description: "",
-    thummnail: "https://image.mux.com/ASnW4qq6plBV3drMynqbaoQ8LiEEgdO025vWxMV4U7tM/thumbnail.png?time=2",
+    thummnail:
+      "https://image.mux.com/ASnW4qq6plBV3drMynqbaoQ8LiEEgdO025vWxMV4U7tM/thumbnail.png?time=2",
     videoURL:
       "https://stream.mux.com/ASnW4qq6plBV3drMynqbaoQ8LiEEgdO025vWxMV4U7tM.m3u8",
     durtaion: "0:31",
@@ -896,7 +905,8 @@ export const PROJECTSVIDS = [
     id: 12,
     title: "BAA Suite",
     description: "",
-    thummnail: "https://image.mux.com/01UQpTh4E2WlI02L30202r00TUp02yEnsoyrT00R8PrdVIW7UA/thumbnail.png?time=1",
+    thummnail:
+      "https://image.mux.com/01UQpTh4E2WlI02L30202r00TUp02yEnsoyrT00R8PrdVIW7UA/thumbnail.png?time=1",
     videoURL:
       "https://stream.mux.com/01UQpTh4E2WlI02L30202r00TUp02yEnsoyrT00R8PrdVIW7UA.m3u8",
     durtaion: "0:13",
@@ -905,7 +915,8 @@ export const PROJECTSVIDS = [
     id: 13,
     title: "Dam Splitframe",
     description: "",
-    thummnail: "https://image.mux.com/pzJ5Ea5z5V01wi23YYpHTRSudX015DJhtZ2T00n3Tt02UzE/thumbnail.png?time=1",
+    thummnail:
+      "https://image.mux.com/pzJ5Ea5z5V01wi23YYpHTRSudX015DJhtZ2T00n3Tt02UzE/thumbnail.png?time=1",
     videoURL:
       "https://stream.mux.com/pzJ5Ea5z5V01wi23YYpHTRSudX015DJhtZ2T00n3Tt02UzE.m3u8",
     durtaion: "0:18",
@@ -914,7 +925,8 @@ export const PROJECTSVIDS = [
     id: 14,
     title: "Dam Summer House Art",
     description: "",
-    thummnail: "https://image.mux.com/8bXqM8MfA3G94tUlviUm938arQ2vPsAmhZTM1QH19dk/thumbnail.png?time=7",
+    thummnail:
+      "https://image.mux.com/8bXqM8MfA3G94tUlviUm938arQ2vPsAmhZTM1QH19dk/thumbnail.png?time=7",
     videoURL:
       "https://stream.mux.com/8bXqM8MfA3G94tUlviUm938arQ2vPsAmhZTM1QH19dk.m3u8",
     durtaion: "0:23",
@@ -923,7 +935,8 @@ export const PROJECTSVIDS = [
     id: 15,
     title: "BAA Recap STA",
     description: "",
-    thummnail: "https://image.mux.com/Z01nOZeTnRRtW5W5p8fsUJoS01zGRbydYGCCvX02qgZ3W00/thumbnail.png?time=12",
+    thummnail:
+      "https://image.mux.com/Z01nOZeTnRRtW5W5p8fsUJoS01zGRbydYGCCvX02qgZ3W00/thumbnail.png?time=12",
     videoURL:
       "https://stream.mux.com/Z01nOZeTnRRtW5W5p8fsUJoS01zGRbydYGCCvX02qgZ3W00.m3u8",
     durtaion: "0:17",
@@ -932,7 +945,8 @@ export const PROJECTSVIDS = [
     id: 16,
     title: "Chef Story Episode 3",
     description: "",
-    thummnail: "https://image.mux.com/cC9P81cyXv022Y6zBr5kJQcMYR01rJe02CVMD8ktNOd02zw/thumbnail.png?time=10",
+    thummnail:
+      "https://image.mux.com/cC9P81cyXv022Y6zBr5kJQcMYR01rJe02CVMD8ktNOd02zw/thumbnail.png?time=10",
     videoURL:
       "https://stream.mux.com/cC9P81cyXv022Y6zBr5kJQcMYR01rJe02CVMD8ktNOd02zw.m3u8",
     durtaion: "1:00",
@@ -941,7 +955,8 @@ export const PROJECTSVIDS = [
     id: 17,
     title: "DIKOCHI",
     description: "",
-    thummnail: "https://image.mux.com/o3wclv3fUp011KviUDwyYCpwSqJML7iX7O601hpOFqHoY/thumbnail.png?time=1",
+    thummnail:
+      "https://image.mux.com/o3wclv3fUp011KviUDwyYCpwSqJML7iX7O601hpOFqHoY/thumbnail.png?time=1",
     videoURL:
       "https://stream.mux.com/o3wclv3fUp011KviUDwyYCpwSqJML7iX7O601hpOFqHoY.m3u8",
     durtaion: "0:48",
@@ -950,7 +965,8 @@ export const PROJECTSVIDS = [
     id: 18,
     title: "EID AD",
     description: "",
-    thummnail: "https://image.mux.com/00013UT4vNpmuO7pVYGZoWT801YnzoORwtWRnj01x8P9QMg/thumbnail.png?time=0",
+    thummnail:
+      "https://image.mux.com/00013UT4vNpmuO7pVYGZoWT801YnzoORwtWRnj01x8P9QMg/thumbnail.png?time=0",
     videoURL:
       "https://stream.mux.com/00013UT4vNpmuO7pVYGZoWT801YnzoORwtWRnj01x8P9QMg.m3u8",
     durtaion: "0:46",
@@ -959,7 +975,8 @@ export const PROJECTSVIDS = [
     id: 19,
     title: "Samsung TV",
     description: "",
-    thummnail: "https://image.mux.com/gB4E5sSlxcQF27LO00O8lQWRTg9k56skL3uhQH5R02w02Y/thumbnail.png?time=1",
+    thummnail:
+      "https://image.mux.com/gB4E5sSlxcQF27LO00O8lQWRTg9k56skL3uhQH5R02w02Y/thumbnail.png?time=1",
     videoURL:
       "https://stream.mux.com/gB4E5sSlxcQF27LO00O8lQWRTg9k56skL3uhQH5R02w02Y.m3u8",
     durtaion: "0:42",
@@ -968,7 +985,8 @@ export const PROJECTSVIDS = [
     id: 20,
     title: "ABBAS CUT FOR VOUGE",
     description: "",
-    thummnail: "https://image.mux.com/531uMcT5DjgOLgNGucXDs0202bbPkGjWV7GB029Og003Rpo/thumbnail.png?time=1",
+    thummnail:
+      "https://image.mux.com/531uMcT5DjgOLgNGucXDs0202bbPkGjWV7GB029Og003Rpo/thumbnail.png?time=1",
     videoURL:
       "https://stream.mux.com/531uMcT5DjgOLgNGucXDs0202bbPkGjWV7GB029Og003Rpo.m3u8",
     durtaion: "0:47",
@@ -995,7 +1013,8 @@ export const PROJECTSVIDS = [
     id: 23,
     title: "What_s on the menu today 👀 Introducing the adidas x Backyard",
     description: "",
-    thummnail: "https://image.mux.com/1fzUC01AHllIYL0102nAjT1gqSy02OOok42saJHo1WlvMDs/thumbnail.png?time=3",
+    thummnail:
+      "https://image.mux.com/1fzUC01AHllIYL0102nAjT1gqSy02OOok42saJHo1WlvMDs/thumbnail.png?time=3",
     videoURL:
       "https://stream.mux.com/1fzUC01AHllIYL0102nAjT1gqSy02OOok42saJHo1WlvMDs.m3u8",
     durtaion: "0:18",
@@ -1013,7 +1032,8 @@ export const PROJECTSVIDS = [
     id: 25,
     title: "Sharp shots, never outdated",
     description: "",
-    thummnail: "https://image.mux.com/CEcePKhdMkorHS01sD013ydx002PSYyEXRSh3gXxiMRdwM/thumbnail.png?time=0",
+    thummnail:
+      "https://image.mux.com/CEcePKhdMkorHS01sD013ydx002PSYyEXRSh3gXxiMRdwM/thumbnail.png?time=0",
     videoURL:
       "https://stream.mux.com/CEcePKhdMkorHS01sD013ydx002PSYyEXRSh3gXxiMRdwM.m3u8",
     durtaion: "0:21",
@@ -1022,7 +1042,8 @@ export const PROJECTSVIDS = [
     id: 26,
     title: "SAMSUNG",
     description: "",
-    thummnail: "https://image.mux.com/beLXSlWSGOhTNjetcxer01N6a01yBgaS0000kQAUtGkSt14/thumbnail.png?time=0",
+    thummnail:
+      "https://image.mux.com/beLXSlWSGOhTNjetcxer01N6a01yBgaS0000kQAUtGkSt14/thumbnail.png?time=0",
     videoURL:
       "https://stream.mux.com/beLXSlWSGOhTNjetcxer01N6a01yBgaS0000kQAUtGkSt14.m3u8",
     durtaion: "0:54",
@@ -1031,56 +1052,60 @@ export const PROJECTSVIDS = [
     id: 27,
     title: "Chef Andrea Unfiltered- Kitchen truths, no garnish needed.",
     description: "",
-    thummnail: "https://image.mux.com/gYc7WHC1X015Z02YssD6wMgNPe01McxTGKbwoyPOe02Ryys/thumbnail.png?time=0",
+    thummnail:
+      "https://image.mux.com/gYc7WHC1X015Z02YssD6wMgNPe01McxTGKbwoyPOe02Ryys/thumbnail.png?time=0",
     videoURL:
-    "https://stream.mux.com/gYc7WHC1X015Z02YssD6wMgNPe01McxTGKbwoyPOe02Ryys.m3u8",
+      "https://stream.mux.com/gYc7WHC1X015Z02YssD6wMgNPe01McxTGKbwoyPOe02Ryys.m3u8",
     durtaion: "0:35",
   },
   {
     id: 28,
     title: "ICELAND",
     description: "",
-    thummnail: "https://image.mux.com/gxOWOX02lsg4iqgk601i82oRvP7YXwiUs01sighfgWi02yA/thumbnail.png?time=0",
+    thummnail:
+      "https://image.mux.com/gxOWOX02lsg4iqgk601i82oRvP7YXwiUs01sighfgWi02yA/thumbnail.png?time=0",
     videoURL:
-    "https://stream.mux.com/gxOWOX02lsg4iqgk601i82oRvP7YXwiUs01sighfgWi02yA.m3u8",
+      "https://stream.mux.com/gxOWOX02lsg4iqgk601i82oRvP7YXwiUs01sighfgWi02yA.m3u8",
     durtaion: "2:32",
   },
   {
     id: 29,
     title: "Zee Final",
     description: "",
-    thummnail: "https://image.mux.com/OiZTPiG02HpMtPvfmZ6d007rhlKMOXdekyP00dpsMfCe01I/thumbnail.png?time=0",
+    thummnail:
+      "https://image.mux.com/OiZTPiG02HpMtPvfmZ6d007rhlKMOXdekyP00dpsMfCe01I/thumbnail.png?time=0",
     videoURL:
-    "https://stream.mux.com/OiZTPiG02HpMtPvfmZ6d007rhlKMOXdekyP00dpsMfCe01I.m3u8",
+      "https://stream.mux.com/OiZTPiG02HpMtPvfmZ6d007rhlKMOXdekyP00dpsMfCe01I.m3u8",
     durtaion: "0:34",
   },
   {
     id: 30,
     title: "Recap BMW V2",
     description: "",
-    thummnail: "https://image.mux.com/NJCD6gpp6bsNCfUhqlrI0116Fo1GrFOGmGU3i1kr55UE/thumbnail.png?time=0",
+    thummnail:
+      "https://image.mux.com/NJCD6gpp6bsNCfUhqlrI0116Fo1GrFOGmGU3i1kr55UE/thumbnail.png?time=0",
     videoURL:
-    "https://stream.mux.com/NJCD6gpp6bsNCfUhqlrI0116Fo1GrFOGmGU3i1kr55UE.m3u8",
+      "https://stream.mux.com/NJCD6gpp6bsNCfUhqlrI0116Fo1GrFOGmGU3i1kr55UE.m3u8",
     durtaion: "0:39",
   },
   {
     id: 31,
     title: "SAMSUNG",
     description: "",
-    thummnail: "https://image.mux.com/02Tvqf01y5LZBv1gxsFdtKxns5D5HR9P1aagx9Cis7uRs/thumbnail.png?time=10",
+    thummnail:
+      "https://image.mux.com/02Tvqf01y5LZBv1gxsFdtKxns5D5HR9P1aagx9Cis7uRs/thumbnail.png?time=10",
     videoURL:
-    "https://stream.mux.com/02Tvqf01y5LZBv1gxsFdtKxns5D5HR9P1aagx9Cis7uRs.m3u8",
+      "https://stream.mux.com/02Tvqf01y5LZBv1gxsFdtKxns5D5HR9P1aagx9Cis7uRs.m3u8",
     durtaion: "0:16",
   },
   {
     id: 32,
     title: "SAMSUNG",
     description: "",
-    thummnail: "https://image.mux.com/mycVVNUHBmhVFLcB8LbTMslftDXf02IWL7jw5YFq3DeI/thumbnail.png?time=55",
+    thummnail:
+      "https://image.mux.com/mycVVNUHBmhVFLcB8LbTMslftDXf02IWL7jw5YFq3DeI/thumbnail.png?time=55",
     videoURL:
-    "https://stream.mux.com/mycVVNUHBmhVFLcB8LbTMslftDXf02IWL7jw5YFq3DeI.m3u8",
+      "https://stream.mux.com/mycVVNUHBmhVFLcB8LbTMslftDXf02IWL7jw5YFq3DeI.m3u8",
     durtaion: "0:59",
   },
-  
-
 ];

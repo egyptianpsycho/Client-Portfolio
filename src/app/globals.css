@@ -352,6 +352,11 @@ h-text{
     grid-column-start: 4;
     grid-row-start: 17;
   }
+  .div31 {
+    grid-row: span 3 / span 3;
+    grid-column-start: 1;
+    grid-row-start: 21;
+  }
 
   /* ── Band 7 (rows 21–24) — final 5 ── */
   

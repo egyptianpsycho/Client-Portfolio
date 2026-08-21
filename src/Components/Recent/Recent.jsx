@@ -296,43 +296,43 @@ const Recent = () => {
         <div className="marq-wrapper">
           <div className="marq-images">
             <div className="marq-img">
-              <Image width={400} height={400} src="/Recent/A/pre3.webp" alt="marq-img" className="img-recent" loading="lazy" />
+              <Image width={400} height={400} src="/Recent/A/pre3.webp" alt="marq-img" className="img-recent" />
             </div>
             <div className="marq-img">
-              <Image width={120} height={120} src="/Recent/A/pre4.webp" alt="marq-img" className="img-recent" loading="lazy" />
+              <Image width={120} height={120} src="/Recent/A/pre4.webp" alt="marq-img" className="img-recent" />
             </div>
             <div className="marq-img">
-              <Image width={400} height={400} src="/Recent/A/pre3.webp" alt="marq-img" className="img-recent object-bottom" loading="lazy" />
+              <Image width={400} height={400} src="/Recent/A/pre3.webp" alt="marq-img" className="img-recent object-bottom" />
             </div>
             <div className="marq-img">
-              <Image width={800} height={800} src="/Recent/A/pre3.webp" alt="marq-img" className="img-recent" loading="lazy" />
+              <Image width={800} height={800} src="/Recent/A/pre3.webp" alt="marq-img" className="img-recent" />
             </div>
             <div className="marq-img">
-              <Image width={1600} height={900} src="/Recent/A/B/1.webp" alt="marq-img" className="img-recent" loading="lazy" />
+              <Image width={1600} height={900} src="/Recent/A/B/1.webp" alt="marq-img" className="img-recent" />
             </div>
             <div className="marq-img">
-              <Image width={1600} height={900} src="/Recent/A/B/2.JPG" alt="marq-img" className="img-recent" loading="lazy" />
+              <Image width={1600} height={900} src="/Recent/A/B/2.JPG" alt="marq-img" className="img-recent" />
             </div>
             <div className="marq-img pin">
               <Image width={1920} height={1080} src="/Recent/A/B/7.webp" alt="marq-img" priority className="img-recent" />
             </div>
             <div className="marq-img">
-              <Image width={1600} height={900} src="/Recent/A/B/4.webp" alt="marq-img" className="img-recent" loading="lazy" />
+              <Image width={1600} height={900} src="/Recent/A/B/4.webp" alt="marq-img" className="img-recent" />
             </div>
             <div className="marq-img">
-              <Image width={1600} height={900} src="/Recent/A/B/5.webp" alt="marq-img" className="img-recent" loading="lazy" />
+              <Image width={1600} height={900} src="/Recent/A/B/5.webp" alt="marq-img" className="img-recent" />
             </div>
             <div className="marq-img">
-              <Image width={1600} height={900} src="/Recent/A/B/3.jpg" alt="marq-img" className="img-recent" style={{ objectPosition: "50% 90%" }} loading="lazy" />
+              <Image width={1600} height={900} src="/Recent/A/B/3.jpg" alt="marq-img" className="img-recent" style={{ objectPosition: "50% 90%" }}  />
             </div>
             <div className="marq-img">
-              <Image width={1600} height={900} src="/Recent/A/B/6.png" alt="marq-img" className="img-recent" loading="lazy" />
+              <Image width={1600} height={900} src="/Recent/A/B/6.png" alt="marq-img" className="img-recent" />
             </div>
             <div className="marq-img">
-              <Image width={1600} height={900} src="/Recent/A/B/7.webp" alt="marq-img" className="img-recent" loading="lazy" />
+              <Image width={1600} height={900} src="/Recent/A/B/7.webp" alt="marq-img" className="img-recent" />
             </div>
             <div className="marq-img">
-              <Image width={400} height={400} src="/Projects/images/PORSCHE/PORSCHE.jpg" alt="marq-img" className="img-recent" loading="lazy" />
+              <Image width={400} height={400} src="/Projects/images/PORSCHE/PORSCHE.jpg" alt="marq-img" className="img-recent" />
             </div>
           </div>
         </div>
