@@ -746,7 +746,7 @@ export const PROJECTSIMGS = [
     id: 31,
     title: "KAVI",
     alt: "KAVI",
-    cover: "/Projects/images/Kavi/Kavicover.webp",
+    cover: "/Projects/images/Kavi/kavvvv.webp",
     images: [
       "https://res.cloudinary.com/dw2srmnan/image/upload/v1787340305/ABB09859_be5171.webp",
       "https://res.cloudinary.com/dw2srmnan/image/upload/v1787340304/ABB09870_wqw2o8.webp",
