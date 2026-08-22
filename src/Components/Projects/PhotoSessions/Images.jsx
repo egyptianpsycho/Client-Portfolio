@@ -211,7 +211,7 @@ const Images = () => {
   };
 
   return (
-    <div className="sm:pt-94 relative" id="PROJECTS">
+    <div className="sm:pt-94 px-14 relative" id="PROJECTS">
       <div className="z-100 text-center">
         <h1
           className="text-9xl glowy-text max-sm:text-[2.2rem] mb-5 relative inset-0 -top-90 max-sm:top-0 tracking-[1.1rem] max-sm:tracking-[0.2rem] behind-title2 font-bold "

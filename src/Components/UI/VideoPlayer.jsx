@@ -13,11 +13,15 @@ const VideoPlayer = ({ src, poster, classN }) => {
   const [isLoading, setIsLoading] = useState(false);
   const hideTimeoutRef = useRef(null);
 
+  // ── Duration & Progress States ─────────────────────────────────────────
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [progress, setProgress] = useState(0);
+
   const togglePlay = async (e) => {
     e.stopPropagation();
     const video = videoRef.current;
   
-    // Initialize HLS only on first click
     if (!hls && Hls.isSupported()) {
       const newHls = new Hls();
       newHls.loadSource(src);
@@ -30,27 +34,21 @@ const VideoPlayer = ({ src, poster, classN }) => {
       video.src = src;
     }
   
-    // 👉 Trigger SVG animation *first*
     setShowIcon(true);
     clearTimeout(hideTimeoutRef.current);
     hideTimeoutRef.current = setTimeout(() => setShowIcon(false), 2000);
   
-    // ⏲️ Wait for animation (your svg anim is around 350–450ms)
     await wait(300);
   
-    // 👉 NOW attempt to play / pause
     if (isPlaying) {
       video.pause();
       setIsPlaying(false);
       return;
     }
   
-    // Don't show spinner immediately, only after animation was shown
     setIsLoading(true);
-  
     video.play().catch(() => setIsLoading(false));
   };
-  
 
   useEffect(() => {
     const video = videoRef.current;
@@ -75,6 +73,23 @@ const VideoPlayer = ({ src, poster, classN }) => {
     };
   }, []);
 
+  // ── Format Time Helper ─────────────────────────────────────────────────
+  const formatTime = (time) => {
+    if (!time || isNaN(time)) return "00:00";
+    const min = Math.floor(time / 60);
+    const sec = Math.floor(time % 60);
+    return `${min}:${sec < 10 ? "0" : ""}${sec}`;
+  };
+
+  // ── Seek Handler for the Slider ────────────────────────────────────────
+  const handleSeek = (e) => {
+    const newTime = (e.target.value / 100) * duration;
+    if (videoRef.current) {
+      videoRef.current.currentTime = newTime;
+    }
+    setProgress(e.target.value);
+  };
+
   return (
     <div
       className="relative w-full h-full group cursor-pointer"
@@ -89,16 +104,22 @@ const VideoPlayer = ({ src, poster, classN }) => {
         playsInline
         preload="none"
         loop
+        // Track time and duration dynamically
+        onTimeUpdate={(e) => {
+          setCurrentTime(e.target.currentTime);
+          if (e.target.duration) {
+            setProgress((e.target.currentTime / e.target.duration) * 100);
+          }
+        }}
+        onLoadedMetadata={(e) => setDuration(e.target.duration)}
       />
 
-      {/* Loading Spinner */}
       {isLoading  && (
-  <div className="absolute inset-0 flex items-center justify-center bg-black/40 z-20 pointer-events-none">
-    <Loader2 className="w-12 h-12 text-white animate-spin" />
-  </div>
-)}
+        <div className="absolute inset-0 flex items-center justify-center bg-black/40 z-20 pointer-events-none">
+          <Loader2 className="w-12 h-12 text-white animate-spin" />
+        </div>
+      )}
 
-      {/* Animated Play/Pause Button */}
       {!isLoading && (
         <div
           className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 pointer-events-none z-10
@@ -147,6 +168,29 @@ const VideoPlayer = ({ src, poster, classN }) => {
           </button>
         </div>
       )}
+
+      {/* ── Custom Duration & Progress Bar ─────────────────────────────────── */}
+      <div 
+        className={`absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent flex items-center gap-3 z-30 transition-opacity duration-300 ${isHovered ? "opacity-100" : "opacity-0"}`}
+        onClick={(e) => e.stopPropagation()} // Stop click from playing/pausing video when dragging slider
+      >
+        <span className="text-white text-xs font-mono">{formatTime(currentTime)}</span>
+        
+        <input
+          type="range"
+          min="0"
+          max="100"
+          value={progress || 0}
+          onChange={handleSeek}
+          className="flex-1 h-1 bg-white/30 rounded-lg appearance-none cursor-pointer hover:h-1.5 transition-all
+                     [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 
+                     [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:bg-white 
+                     [&::-webkit-slider-thumb]:rounded-full"
+        />
+        
+        <span className="text-white text-xs font-mono">{formatTime(duration)}</span>
+      </div>
+      
     </div>
   );
 };

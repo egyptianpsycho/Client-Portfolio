@@ -789,6 +789,16 @@ export const PROJECTSIMGS = [
 export const PROJECTSVIDS = [
   {
     id: 1,
+    title: "ICELAND",
+    description: "",
+    thummnail:
+      "https://image.mux.com/gxOWOX02lsg4iqgk601i82oRvP7YXwiUs01sighfgWi02yA/thumbnail.png?time=21",
+    videoURL:
+      "https://stream.mux.com/gxOWOX02lsg4iqgk601i82oRvP7YXwiUs01sighfgWi02yA.m3u8",
+    durtaion: "2:32",
+  },
+  {
+    id: 2,
     title: "The F&B Showreel",
     discreption:
       "A curated collection of some of the most visually rich and narrative-driven F&B campaigns for Jumeirah. This showreel highlights the sensory storytelling, aesthetic direction, and dynamic edits that brought the brand’s dining experiences to life across multiple properties.",
@@ -798,7 +808,7 @@ export const PROJECTSVIDS = [
     durtaion: "0:50",
   },
   {
-    id: 2,
+    id: 3,
     title: "The Wellness Showreel",
     discreption:
       "This reel brings together standout moments from the wellness-focused content for Jumeirah, capturing the brand’s serene, restorative ethos. From spa visuals to movement and mindfulness, it reflects an approach to portraying wellness with elegance and intention.",
@@ -808,7 +818,7 @@ export const PROJECTSVIDS = [
     durtaion: "0:38",
   },
   {
-    id: 3,
+    id: 4,
     title: "The Luxury Lifestyle Showreel",
     discreption:
       "A showcase of key lifestyle campaigns created for Jumeirah, this reel encapsulates the brand’s luxury identity across hospitality, leisure, and design. It offers a visual summary of the consistent translation of Jumeirah’s refined aesthetic into compelling content.",
@@ -819,7 +829,7 @@ export const PROJECTSVIDS = [
     durtaion: "0:42",
   },
   {
-    id: 4,
+    id: 5,
     title: "Jumeriah",
     description: "Jumeriah",
     thummnail: "/Projects/videos/videoframe4.webp",
@@ -828,7 +838,7 @@ export const PROJECTSVIDS = [
     durtaion: "0:58",
   },
   {
-    id: 5,
+    id: 6,
     title: "Chef",
     description: "Chef",
     thummnail: "/Projects/videos/videoframe5.webp",
@@ -837,7 +847,7 @@ export const PROJECTSVIDS = [
     durtaion: "1:00",
   },
   {
-    id: 6,
+    id: 7,
     title: "Chef",
     description: "Chef",
     thummnail: "/Projects/videos/videoframe6.webp",
@@ -846,7 +856,7 @@ export const PROJECTSVIDS = [
     durtaion: "0:59",
   },
   {
-    id: 7,
+    id: 8,
     title: "Chef",
     description: "Chef",
     thummnail: "/Projects/videos/videoframe7.webp",
@@ -855,7 +865,7 @@ export const PROJECTSVIDS = [
     durtaion: "0:39",
   },
   {
-    id: 8,
+    id: 9,
     title: "Jumeirah",
     description: "none",
     thummnail: "/Projects/videos/videoframe8.webp",
@@ -864,22 +874,13 @@ export const PROJECTSVIDS = [
     durtaion: "0:49",
   },
   {
-    id: 9,
+    id: 10,
     title: "Jumeriah",
     description: "Jumeriah",
     thummnail: "/Projects/videos/videoframe9.webp",
     videoURL:
       "https://stream.mux.com/vuvP1XO1i24icnJFafPP8naQi61CDaxwBC7xsFdCW00E.m3u8?redundant_streams=true",
     durtaion: "0:47",
-  },
-  {
-    id: 10,
-    title: "Jumeriah",
-    description: "Jumeriah",
-    thummnail: "/Projects/videos/videoframe10.webp",
-    videoURL:
-      "https://stream.mux.com/tbtLetxYnmY3LF75ZvaXvQPGjCXNvHhvUJhYbkWnhVg.m3u8?redundant_streams=true",
-    durtaion: "0:39",
   },
   {
     id: 11,
@@ -902,7 +903,7 @@ export const PROJECTSVIDS = [
     durtaion: "0:31",
   },
   {
-    id: 12,
+    id: 13,
     title: "BAA Suite",
     description: "",
     thummnail:
@@ -912,7 +913,7 @@ export const PROJECTSVIDS = [
     durtaion: "0:13",
   },
   {
-    id: 13,
+    id: 14,
     title: "Dam Splitframe",
     description: "",
     thummnail:
@@ -922,7 +923,7 @@ export const PROJECTSVIDS = [
     durtaion: "0:18",
   },
   {
-    id: 14,
+    id: 15,
     title: "Dam Summer House Art",
     description: "",
     thummnail:
@@ -932,7 +933,7 @@ export const PROJECTSVIDS = [
     durtaion: "0:23",
   },
   {
-    id: 15,
+    id: 16,
     title: "BAA Recap STA",
     description: "",
     thummnail:
@@ -942,7 +943,7 @@ export const PROJECTSVIDS = [
     durtaion: "0:17",
   },
   {
-    id: 16,
+    id: 17,
     title: "Chef Story Episode 3",
     description: "",
     thummnail:
@@ -952,7 +953,7 @@ export const PROJECTSVIDS = [
     durtaion: "1:00",
   },
   {
-    id: 17,
+    id: 18,
     title: "DIKOCHI",
     description: "",
     thummnail:
@@ -962,7 +963,7 @@ export const PROJECTSVIDS = [
     durtaion: "0:48",
   },
   {
-    id: 18,
+    id: 19,
     title: "EID AD",
     description: "",
     thummnail:
@@ -972,7 +973,7 @@ export const PROJECTSVIDS = [
     durtaion: "0:46",
   },
   {
-    id: 19,
+    id: 20,
     title: "Samsung TV",
     description: "",
     thummnail:
@@ -982,7 +983,7 @@ export const PROJECTSVIDS = [
     durtaion: "0:42",
   },
   {
-    id: 20,
+    id: 21,
     title: "ABBAS CUT FOR VOUGE",
     description: "",
     thummnail:
@@ -991,24 +992,15 @@ export const PROJECTSVIDS = [
       "https://stream.mux.com/531uMcT5DjgOLgNGucXDs0202bbPkGjWV7GB029Og003Rpo.m3u8",
     durtaion: "0:47",
   },
-  // {
-  //   id: 21,
-  //   title: "Discover Ellipse, the BMW Pavilion at Dubai Design Week",
-  //   description: "",
-  //   thummnail: "https://image.mux.com/9hxi58AZYT02wXUA65RSKUUENG01FuZ90094nYTHslBYkM/thumbnail.png?time=8",
-  //   videoURL:
-  //     "https://stream.mux.com/9hxi58AZYT02wXUA65RSKUUENG01FuZ90094nYTHslBYkM.m3u8",
-  //   durtaion: "0:35",
-  // },
-  // {
-  //   id: 22,
-  //   title: "Finding a wild escape from the city at @alainzoouae",
-  //   description: "",
-  //   thummnail: "https://image.mux.com/7N02QXgOGtc4D1JzIoh72cRreMD813wKsbth4MGEq6EE/thumbnail.png?time=13",
-  //   videoURL:
-  //     "https://stream.mux.com/7N02QXgOGtc4D1JzIoh72cRreMD813wKsbth4MGEq6EE.m3u8",
-  //   durtaion: "0:21",
-  // },
+  {
+    id: 22,
+    title: "Jumeriah",
+    description: "Jumeriah",
+    thummnail: "/Projects/videos/videoframe10.webp",
+    videoURL:
+      "https://stream.mux.com/tbtLetxYnmY3LF75ZvaXvQPGjCXNvHhvUJhYbkWnhVg.m3u8?redundant_streams=true",
+    durtaion: "0:39",
+  },
   {
     id: 23,
     title: "What_s on the menu today 👀 Introducing the adidas x Backyard",
@@ -1019,17 +1011,8 @@ export const PROJECTSVIDS = [
       "https://stream.mux.com/1fzUC01AHllIYL0102nAjT1gqSy02OOok42saJHo1WlvMDs.m3u8",
     durtaion: "0:18",
   },
-  // {
-  //   id: 24,
-  //   title: "One pair",
-  //   description: "",
-  //   thummnail: "https://image.mux.com/FaVjvT1qNp3YnZrWViN5FH6BgR4x6Lvc02vb66q51Nys/thumbnail.png?time=1",
-  //   videoURL:
-  //     "https://stream.mux.com/FaVjvT1qNp3YnZrWViN5FH6BgR4x6Lvc02vb66q51Nys.m3u8",
-  //   durtaion: "0:24",
-  // },
   {
-    id: 25,
+    id: 24,
     title: "Sharp shots, never outdated",
     description: "",
     thummnail:
@@ -1039,7 +1022,7 @@ export const PROJECTSVIDS = [
     durtaion: "0:21",
   },
   {
-    id: 26,
+    id: 25,
     title: "SAMSUNG",
     description: "",
     thummnail:
@@ -1049,7 +1032,7 @@ export const PROJECTSVIDS = [
     durtaion: "0:54",
   },
   {
-    id: 27,
+    id: 26,
     title: "Chef Andrea Unfiltered- Kitchen truths, no garnish needed.",
     description: "",
     thummnail:
@@ -1059,17 +1042,7 @@ export const PROJECTSVIDS = [
     durtaion: "0:35",
   },
   {
-    id: 28,
-    title: "ICELAND",
-    description: "",
-    thummnail:
-      "https://image.mux.com/gxOWOX02lsg4iqgk601i82oRvP7YXwiUs01sighfgWi02yA/thumbnail.png?time=0",
-    videoURL:
-      "https://stream.mux.com/gxOWOX02lsg4iqgk601i82oRvP7YXwiUs01sighfgWi02yA.m3u8",
-    durtaion: "2:32",
-  },
-  {
-    id: 29,
+    id: 27,
     title: "Zee Final",
     description: "",
     thummnail:
@@ -1079,7 +1052,7 @@ export const PROJECTSVIDS = [
     durtaion: "0:34",
   },
   {
-    id: 30,
+    id: 28,
     title: "Recap BMW V2",
     description: "",
     thummnail:
@@ -1089,7 +1062,7 @@ export const PROJECTSVIDS = [
     durtaion: "0:39",
   },
   {
-    id: 31,
+    id: 29,
     title: "SAMSUNG",
     description: "",
     thummnail:
@@ -1099,7 +1072,7 @@ export const PROJECTSVIDS = [
     durtaion: "0:16",
   },
   {
-    id: 32,
+    id: 30,
     title: "SAMSUNG",
     description: "",
     thummnail:

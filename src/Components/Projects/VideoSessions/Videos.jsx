@@ -5,13 +5,99 @@ import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
 import "./Videos.css";
 import { PROJECTSVIDS } from "../CONSTANTS";
-import VideoPlayer from "@/Components/UI/VideoPlayer";
 import useAnimate from "@/Hooks/useAnimate";
+// ── Adjust this import path to wherever you placed VideoViewer.jsx ──
+import { VideoViewer } from "@/Components/UI/VideoViewer";
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
+// ─── Map your constants to the shape VideoViewer expects ─────────────────────
+// If your PROJECTSVIDS already has these fields, this just normalises them.
+// Fields VideoViewer uses: id, title, meta, cover, video, client, duration, description
+const PROJECTS = PROJECTSVIDS.map((p, i) => ({
+  id:
+    p.id != null
+      ? String(p.id).padStart(2, "0")
+      : String(i + 1).padStart(2, "0"),
+  title: p.title ?? null,
+  meta: p.client && p.year ? `${p.client} / ${p.year}` : null,
+  cover: p.thummnail ?? p.thumbnail ?? null, // handles the typo in your constants
+  video: p.videoURL,
+  client: p.client ?? null,
+  duration: p.durtaion ?? p.duration ?? null, // handles the typo in your constants
+  description: p.description ?? null,
+}));
+
+// ─── VideoCard ────────────────────────────────────────────────────────────────
+// Thumbnail button that sits in the bento grid and opens the VideoViewer
+function VideoCard({ p, onOpen }) {
+  return (
+    <button
+      type="button"
+      onClick={() => onOpen(p)}
+      className="group relative w-full h-full text-left cursor-pointer overflow-hidden  block"
+    >
+      {/* Thumbnail */}
+      {p.cover && (
+        <img
+          src={p.cover}
+          loading="lazy"
+          alt={p.title ?? "Video project"}
+          className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+        />
+      )}
+
+      {/* Gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent pointer-events-none" />
+
+      {/* Top-left: project number */}
+      {p.id && (
+        <div className="absolute top-3 left-3 font-mono text-[10px] uppercase tracking-widest text-white/80 opacity-0 -translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 ease-out">
+          #{p.id}
+        </div>
+      )}
+
+      {/* Top-right: duration (Hover Only with slide-down effect) */}
+      {p.duration && (
+        <div className="absolute top-3 right-3 font-mono text-[10px] uppercase tracking-widest text-white/60 opacity-0 -translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 ease-out">
+          {p.duration}
+        </div>
+      )}
+
+      {/* Centered play button (hover only) */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <div className="size-14 md:size-16 rounded-full border border-white/40 bg-black/30 backdrop-blur flex items-center justify-center opacity-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500">
+          <div className="w-0 h-0 border-y-[8px] border-y-transparent border-l-[13px] border-l-white ml-0.5" />
+        </div>
+      </div>
+
+      {/* Bottom: title + client */}
+      <div className="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 ease-out">
+        {p.title && (
+          <h3
+            className="font-display text-base sm:text-xl md:text-2xl uppercase tracking-tight text-white leading-none truncate"
+            style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+          >
+            {p.title}
+          </h3>
+        )}
+        {p.client && (
+          <p className="font-mono text-[9px] sm:text-[10px] uppercase tracking-widest text-white/70 mt-1 truncate">
+            {p.client}
+          </p>
+        )}
+      </div>
+
+      {/* Bottom accent line */}
+      <span className="absolute bottom-0 left-0 h-[2px] w-full bg-white origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-out" />
+    </button>
+  );
+}
+
+// ─── Videos ───────────────────────────────────────────────────────────────────
 const Videos = () => {
   const vidSecRef = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [active, setActive] = useState(null); // the project currently open in VideoViewer
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 640);
@@ -20,6 +106,7 @@ const Videos = () => {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
+  // ── GSAP scroll animations (desktop only, unchanged from original) ──────────
   useAnimate(() => {
     if (window.innerWidth > 768) {
       const vidTitle = new SplitText(".vid-title", { type: "chars" });
@@ -44,7 +131,6 @@ const Videos = () => {
       const vidsBoxes = gsap.utils.toArray(".video-item");
       if (!vidsBoxes.length) return;
 
-      // Group by rendered top position = visual row
       const rowMap = new Map();
       vidsBoxes.forEach((el) => {
         const top = Math.round(el.getBoundingClientRect().top + window.scrollY);
@@ -56,22 +142,16 @@ const Videos = () => {
         .sort(([a], [b]) => a - b)
         .map(([, els]) => els);
 
-        const fromVars = {
-          opacity: 0,
-          y: 80,
-          scale: 0.95,
-        };
-        
-        const toVars = {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          duration: 0.9,
-          ease: "power2.out",
-          stagger: { amount: 0.25, from: "start" },
-        };
+      const fromVars = { opacity: 0, y: 80, scale: 0.95 };
+      const toVars = {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 0.9,
+        ease: "power2.out",
+        stagger: { amount: 0.25, from: "start" },
+      };
 
-      // First 3 rows animate on section enter
       const eagerRows = rows.slice(0, 3).flat();
       gsap.set(vidSecRef.current, { willChange: "transform, opacity" });
 
@@ -84,11 +164,9 @@ const Videos = () => {
         },
         onComplete: () => gsap.set(vidSecRef.current, { willChange: "auto" }),
       });
-      
-      // Remaining rows — no willChange, no blur, just position + opacity
+
       rows.slice(3).forEach((rowEls) => {
         gsap.set(rowEls, { opacity: 0, y: 80, scale: 0.95 });
-      
         gsap.fromTo(rowEls, fromVars, {
           ...toVars,
           scrollTrigger: {
@@ -102,19 +180,17 @@ const Videos = () => {
   });
 
   return (
-    <div id="videos-section" className="relative mt-20" ref={vidSecRef}>
+    <div id="videos-section" className="relative mt-20 px-14" ref={vidSecRef}>
+      {/* ── Section title ─────────────────────────────────────────────────── */}
       <h1
         className="text-9xl max-sm:text-4xl mb-10 lg:leading-[11rem] text-center glowy-text videos-title vid-title font-bold text-nowrap"
-        style={{
-          fontFamily: "'Bebas Neue', 'serif'",
-          letterSpacing: "0.4rem",
-        }}
+        style={{ fontFamily: "'Bebas Neue', 'serif'", letterSpacing: "0.4rem" }}
       >
         VISION IN <br className="sm:hidden" /> MOTION
       </h1>
 
       {isMobile ? (
-        /* ── Mobile: full-width 2-column grid, all videos ── */
+        /* ── Mobile: 2-column grid, all cards normal ── */
         <div
           style={{
             display: "grid",
@@ -124,60 +200,44 @@ const Videos = () => {
             marginLeft: "calc(-50vw + 50%)",
           }}
         >
-          {PROJECTSVIDS.map((project, index) => (
+          {PROJECTS.map((project, index) => (
             <div
               key={index}
-              className="video-item cursor-pointer group"
+              className="video-item"
               style={{
-                position: "relative",
                 aspectRatio: "1 / 1",
+                position: "relative",
                 overflow: "hidden",
-                backgroundColor: "#111",
               }}
             >
-              <VideoPlayer
-                poster={project.thummnail}
-                src={project.videoURL}
-                classN="object-cover h-full w-full  transition-all duration-500 ease-out "
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-active:opacity-100 transition-all duration-300 pointer-events-none" />
-              
-              <div className="absolute top-2 right-2 pointer-events-none">
-                <span className="text-white/50 text-[0.55rem] font-semibold">
-                  {project.durtaion}
-                </span>
-              </div>
+              <VideoCard p={project} onOpen={setActive} />
             </div>
           ))}
         </div>
       ) : (
-        /* ── Desktop: original layout unchanged ── */
-        <div className="parent-video mx-auto h-[270vh]">
-          {PROJECTSVIDS.map((project, index) => (
+        /* ── Desktop: 4-column bento grid ── */
+        <div className="parent-video mx-auto">
+          {PROJECTS.map((project, index) => (
             <div
               key={index}
               className={`video-item overflow-hidden relative div${
                 index + 1
-              }-video cursor-pointer group rounded-2xl`}
+              }-video cursor-pointer rounded-2xl`}
             >
-              <VideoPlayer
-                poster={project.thummnail}
-                src={project.videoURL}
-                classN="object-cover rounded-2xl scale-[0.99] h-full origin-center  transition-all duration-500 ease-out  group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-700 ease-out pointer-events-none" />
-              
-              <div className="absolute bottom-2 left-4 opacity-0 group-hover:opacity-100 transition-all duration-700 ease-out pointer-events-none">
-                <h3 className="text-gray-200/20 text-sm font-semibold">
-                  {project.durtaion}
-                </h3>
-              </div>
-              <div className="opacity-10 scale-200 bg-slate-500/10 absolute inset-0 pointer-events-none" />
+              <VideoCard p={project} onOpen={setActive} />
             </div>
           ))}
         </div>
       )}
+
+      {/* ── VideoViewer modal ─────────────────────────────────────────────── */}
+      <VideoViewer
+        open={!!active}
+        project={active}
+        onClose={() => setActive(null)}
+      />
     </div>
   );
 };
+
 export default Videos;
