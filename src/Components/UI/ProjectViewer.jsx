@@ -14,8 +14,8 @@ function cloudinaryTransform(url, tfms) {
   return url.replace("/upload/", `/upload/${tfms}/`);
 }
 
-const THUMB_TFMS = "w_800,q_auto,f_auto,c_limit";
-const FULL_TFMS = "w_2400,q_auto,f_auto,c_limit";
+const THUMB_TFMS = "w_1920";
+const FULL_TFMS = "w_2400";
 
 // ---------------------------------------------------------------------------
 // Responsive column count hook
@@ -429,20 +429,25 @@ const ProjectViewer = ({ open, project, onClose }) => {
                     className="viewer-img-item group cursor-pointer relative overflow-hidden rounded-sm border border-white/5"
                     onClick={() => handleImageClick(idx, allImages)}
                   >
-                    <Image
+                    <img
                       src={cloudinaryTransform(src, THUMB_TFMS)}
                       alt={`${project.title} ${idx + 1}`}
-                      width={0}
-                      height={0}
-                      sizes={thumbSizes}
                       style={{
                         width: "100%",
                         height: "auto",
                         display: "block",
+                        minHeight: "160px",
+                        loading:"lazy"
                       }}
                       className="group-hover:scale-105 transition-all duration-500 ease-out"
-                      onLoad={handleImageLoad}
-                      onError={handleImageLoad}
+                      onLoad={(e) => {
+                        e.currentTarget.style.minHeight = "0";
+                        handleImageLoad(idx);
+                      }}
+                      onError={(e) => {
+                        e.currentTarget.style.minHeight = "0";
+                        handleImageLoad(idx);
+                      }}
                     />
 
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300" />
