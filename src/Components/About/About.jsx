@@ -84,7 +84,7 @@ const About = () => {
               WE'RE A GLOBAL{" "}
               <span
                 className="block sm:inline"
-                style={{ fontFamily: '"Nanum Myeongjo", sans-serif' }}
+                style={{ fontFamily: "var(--font-nanum-myeongjo), serif" }}
               >
                 CREATIVE &
               </span>
@@ -94,7 +94,7 @@ const About = () => {
             <h1
               ref={line2Ref}
               className="font-normal text-[3rem] xs:text-[2.8rem] sm:text-[4.5rem] md:text-[6rem] lg:text-[8rem] relative flex flex-wrap items-baseline w-full"
-              style={{ fontFamily: '"Nanum Myeongjo", sans-serif' }}
+              style={{ fontFamily: "var(--font-nanum-myeongjo), serif" }}
             >
               INNOVATION{" "}
               <span

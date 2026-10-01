@@ -9,7 +9,9 @@ module.exports = {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/api/", "/_next/"],
+        // Not /_next/: Google needs those JS/CSS files to render the page,
+        // and every optimized image is served from /_next/image.
+        disallow: ["/api/"],
       },
     ],
   },

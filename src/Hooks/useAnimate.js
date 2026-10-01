@@ -4,6 +4,21 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
+// Every section initialises in the same tick once the preloader is done.
+// One refresh after the last of them is enough — a refresh per section
+// re-measured every pin on the page ten-plus times in a row.
+let refreshTimer = null;
+function queueRefresh() {
+  clearTimeout(refreshTimer);
+  refreshTimer = setTimeout(() => {
+    refreshTimer = null;
+    // Sections don't always init top-to-bottom (Testimonials mounts late),
+    // and pins must be measured before anything below them.
+    ScrollTrigger.sort();
+    ScrollTrigger.refresh();
+  }, 120);
+}
+
 export default function useAnimate(gsapInit) {
   const initRef = useRef(gsapInit);
   initRef.current = gsapInit;
@@ -11,32 +26,20 @@ export default function useAnimate(gsapInit) {
   useEffect(() => {
     let ctx = null;
     let timer = null;
-    let rafId = null;
     let cancelled = false;
 
     const start = () => {
       if (cancelled) return;
 
-      ctx = gsap.context(() => {
-        initRef.current();
-      });
-
-      // One rAF is enough — Lenis + GSAP ticker are already in sync
-      rafId = requestAnimationFrame(() => {
-        if (cancelled) return;
-        try {
-          ScrollTrigger.refresh();
-        } catch (e) {
-          // ignore
-        }
-      });
+      ctx = gsap.context(() => initRef.current());
+      queueRefresh();
     };
 
     const poll = () => {
       if (cancelled) return;
       if (window.__loco && window.__preloaderDone) {
         // Small delay so all sibling components have mounted
-        timer = setTimeout(start, 50); // was 100ms, 50 is fine with Lenis
+        timer = setTimeout(start, 50);
       } else {
         timer = setTimeout(poll, 50);
       }
@@ -47,7 +50,6 @@ export default function useAnimate(gsapInit) {
     return () => {
       cancelled = true;
       if (timer) clearTimeout(timer);
-      if (rafId) cancelAnimationFrame(rafId);
       ctx?.revert();
     };
   }, []);

@@ -26,7 +26,6 @@ const Contact = () => {
     const le = path.getTotalLength();
 
     gsap.set(lines, { yPercent: 120 });
-    gsap.set(formHeadingLineRef, { yPercent: 120 });
     gsap.set(formHeadingLineRef.current, { yPercent: 120 });
 
     ScrollTrigger.create({
@@ -165,7 +164,7 @@ const Contact = () => {
                 <h1 ref={line3Ref} className="max-sm:text-[2.5rem]">
                   VISUALS,{" "}
                   <span
-                    style={{ fontFamily: "Nanum Myeongjo", fontWeight: "400" }}
+                    style={{ fontFamily: "var(--font-nanum-myeongjo), serif", fontWeight: "400" }}
                   >
                     TODAY
                   </span>

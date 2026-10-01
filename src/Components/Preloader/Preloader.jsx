@@ -72,6 +72,7 @@ const Preloader = ({ onComplete }) => {
           onComplete: () => {
             document.body.style.overflow = "";
             window.__preloaderDone = true;
+            window.__lenis?.start();
 
             // Fade out the preloader wrapper smoothly
             const preloaderWrapper =

@@ -696,7 +696,7 @@ export function VideoViewer({ open, project, onClose }) {
           <span
             className="text-white/70 tabular-nums"
             style={{
-              fontFamily: "'Bebas Neue', serif",
+              fontFamily: "var(--font-bebas-neue), sans-serif",
               fontSize: "1.4rem",
               letterSpacing: "0.05rem",
             }}
@@ -708,7 +708,7 @@ export function VideoViewer({ open, project, onClose }) {
         <div className="flex flex-col items-center gap-1.5 text-center">
           <span
             className="text-white tracking-[0.25rem] text-base"
-            style={{ fontFamily: "'Bebas Neue', serif" }}
+            style={{ fontFamily: "var(--font-bebas-neue), sans-serif" }}
           >
             {project.title}
           </span>
@@ -734,7 +734,7 @@ export function VideoViewer({ open, project, onClose }) {
         <h1
           className="text-gradient text-center px-6 leading-none select-none font-bold"
           style={{
-            fontFamily: "'Bebas Neue', serif",
+            fontFamily: "var(--font-bebas-neue), sans-serif",
             fontSize: "clamp(3rem, 10vw, 8rem)",
             letterSpacing: "0.15em",
           }}

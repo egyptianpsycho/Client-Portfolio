@@ -10,6 +10,15 @@ import useAnimate from "@/Hooks/useAnimate";
 import { VideoViewer } from "@/Components/UI/VideoViewer";
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
+// Mux serves thumbnail.png at the video's full resolution (~300 KB each).
+// Ask for a WebP at card size instead (~6 KB) — same frame, same `time`.
+function muxThumb(url, width = 960) {
+  if (!url || !url.includes("image.mux.com")) return url;
+  const u = new URL(url.replace(/\/thumbnail\.(png|jpg)/, "/thumbnail.webp"));
+  if (!u.searchParams.has("width")) u.searchParams.set("width", String(width));
+  return u.toString();
+}
+
 // ─── Map your constants to the shape VideoViewer expects ─────────────────────
 // If your PROJECTSVIDS already has these fields, this just normalises them.
 // Fields VideoViewer uses: id, title, meta, cover, video, client, duration, description
@@ -20,7 +29,7 @@ const PROJECTS = PROJECTSVIDS.map((p, i) => ({
       : String(i + 1).padStart(2, "0"),
   title: p.title ?? null,
   meta: p.client && p.year ? `${p.client} / ${p.year}` : null,
-  cover: p.thummnail ?? p.thumbnail ?? null, // handles the typo in your constants
+  cover: muxThumb(p.thummnail ?? p.thumbnail ?? null), // handles the typo in your constants
   video: p.videoURL,
   client: p.client ?? null,
   duration: p.durtaion ?? p.duration ?? null, // handles the typo in your constants
@@ -41,6 +50,7 @@ function VideoCard({ p, onOpen }) {
         <img
           src={p.cover}
           loading="lazy"
+          decoding="async"
           alt={p.title ?? "Video project"}
           className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
         />
@@ -75,7 +85,7 @@ function VideoCard({ p, onOpen }) {
         {p.title && (
           <h3
             className="font-display text-base sm:text-xl md:text-2xl uppercase tracking-tight text-white leading-none truncate"
-            style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+            style={{ fontFamily: "var(--font-bebas-neue), sans-serif" }}
           >
             {p.title}
           </h3>
@@ -128,53 +138,23 @@ const Videos = () => {
         },
       });
 
-      const vidsBoxes = gsap.utils.toArray(".video-item");
-      if (!vidsBoxes.length) return;
-
-      const rowMap = new Map();
-      vidsBoxes.forEach((el) => {
-        const top = Math.round(el.getBoundingClientRect().top + window.scrollY);
-        if (!rowMap.has(top)) rowMap.set(top, []);
-        rowMap.get(top).push(el);
-      });
-
-      const rows = [...rowMap.entries()]
-        .sort(([a], [b]) => a - b)
-        .map(([, els]) => els);
-
-      const fromVars = { opacity: 0, y: 80, scale: 0.95 };
-      const toVars = {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        duration: 0.9,
-        ease: "power2.out",
-        stagger: { amount: 0.25, from: "start" },
-      };
-
-      const eagerRows = rows.slice(0, 3).flat();
-      gsap.set(vidSecRef.current, { willChange: "transform, opacity" });
-
-      gsap.fromTo(eagerRows, fromVars, {
-        ...toVars,
-        scrollTrigger: {
-          trigger: vidSecRef.current,
-          start: "top 50%",
-          toggleActions: "play none none none",
-        },
-        onComplete: () => gsap.set(vidSecRef.current, { willChange: "auto" }),
-      });
-
-      rows.slice(3).forEach((rowEls) => {
-        gsap.set(rowEls, { opacity: 0, y: 80, scale: 0.95 });
-        gsap.fromTo(rowEls, fromVars, {
-          ...toVars,
-          scrollTrigger: {
-            trigger: rowEls[0],
-            start: "top 90%",
-            toggleActions: "play none none none",
-          },
-        });
+      // Reveal cards as they scroll in (batched, so cards entering together
+      // stagger together). This grid is a dense masonry, so the old
+      // "group by row top" logic put nearly every card in its own row.
+      gsap.set(".video-item", { opacity: 0, y: 80, scale: 0.95 });
+      ScrollTrigger.batch(".video-item", {
+        start: "top 92%",
+        once: true,
+        onEnter: (cards) =>
+          gsap.to(cards, {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.9,
+            ease: "power2.out",
+            stagger: 0.08,
+            overwrite: true,
+          }),
       });
     }
   });
@@ -184,7 +164,7 @@ const Videos = () => {
       {/* ── Section title ─────────────────────────────────────────────────── */}
       <h1
         className="text-9xl max-sm:text-4xl mb-10 lg:leading-[11rem] text-center glowy-text videos-title vid-title font-bold text-nowrap"
-        style={{ fontFamily: "'Bebas Neue', 'serif'", letterSpacing: "0.4rem" }}
+        style={{ fontFamily: "var(--font-bebas-neue), sans-serif", letterSpacing: "0.4rem" }}
       >
         VISION IN <br className="sm:hidden" /> MOTION
       </h1>

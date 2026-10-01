@@ -14,8 +14,12 @@ function cloudinaryTransform(url, tfms) {
   return url.replace("/upload/", `/upload/${tfms}/`);
 }
 
-const THUMB_TFMS = "w_1920";
-const FULL_TFMS = "w_2400";
+// Grid thumbnails are at most ~1/2 of the screen wide (5 columns on desktop),
+// so 800px covers 2x screens; f_auto/q_auto let Cloudinary pick AVIF/WebP
+// and a sensible quality. The viewer waits for every thumbnail before it
+// opens, so their size is directly the time spent on the loader.
+const THUMB_TFMS = "w_800,f_auto,q_auto";
+const FULL_TFMS = "w_2400,f_auto,q_auto";
 
 // ---------------------------------------------------------------------------
 // Responsive column count hook
@@ -308,7 +312,7 @@ const ProjectViewer = ({ open, project, onClose }) => {
           <span
             className="text-white/70 tabular-nums"
             style={{
-              fontFamily: "'Bebas Neue', serif",
+              fontFamily: "var(--font-bebas-neue), sans-serif",
               fontSize: "1.4rem",
               letterSpacing: "0.05rem",
             }}
@@ -320,7 +324,7 @@ const ProjectViewer = ({ open, project, onClose }) => {
         <div className="flex flex-col items-center gap-1.5 text-center">
           <span
             className="text-white tracking-[0.25rem] text-base "
-            style={{ fontFamily: "'Bebas Neue', serif" }}
+            style={{ fontFamily: "var(--font-bebas-neue), sans-serif" }}
           >
             {project.title}
           </span>
@@ -346,7 +350,7 @@ const ProjectViewer = ({ open, project, onClose }) => {
         <h1
           className="text-gradient text-center px-6 leading-none select-none font-bold"
           style={{
-            fontFamily: "'Bebas Neue', serif",
+            fontFamily: "var(--font-bebas-neue), sans-serif",
             fontSize: "clamp(3rem, 10vw, 8rem)",
             letterSpacing: "0.15em",
           }}
@@ -382,7 +386,7 @@ const ProjectViewer = ({ open, project, onClose }) => {
             </svg>
             <span
               style={{
-                fontFamily: "'Bebas Neue', serif",
+                fontFamily: "var(--font-bebas-neue), sans-serif",
                 letterSpacing: "0.2rem",
                 fontSize: "1rem",
               }}
@@ -397,7 +401,7 @@ const ProjectViewer = ({ open, project, onClose }) => {
             ref={headerTitleRef}
             className="text-gradient truncate "
             style={{
-              fontFamily: "'Bebas Neue', serif",
+              fontFamily: "var(--font-bebas-neue), sans-serif",
               fontSize: "1.3rem",
               letterSpacing: "0.2rem",
               opacity: 0,
@@ -432,12 +436,12 @@ const ProjectViewer = ({ open, project, onClose }) => {
                     <img
                       src={cloudinaryTransform(src, THUMB_TFMS)}
                       alt={`${project.title} ${idx + 1}`}
+                      decoding="async"
                       style={{
                         width: "100%",
                         height: "auto",
                         display: "block",
                         minHeight: "160px",
-                        loading:"lazy"
                       }}
                       className="group-hover:scale-105 transition-all duration-500 ease-out"
                       onLoad={(e) => {
@@ -473,7 +477,7 @@ const ProjectViewer = ({ open, project, onClose }) => {
                     <div className="absolute top-2 left-2 opacity-0 group-hover:opacity-100 transition-all duration-300">
                       <span
                         className="text-white/60 text-[0.6rem] tracking-widest"
-                        style={{ fontFamily: "'Bebas Neue', serif" }}
+                        style={{ fontFamily: "var(--font-bebas-neue), sans-serif" }}
                       >
                         {String(idx + 1).padStart(2, "0")}
                       </span>

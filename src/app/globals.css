@@ -1,18 +1,51 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&family=Zalando+Sans+Expanded:ital,wght@0,200..900;1,200..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "lenis/dist/lenis.css";
 /* ---break---
    */
 @custom-variant dark (&:is(.dark *));
+
+/* PP Neue Montreal isn't on Google Fonts. Declared here (instead of the
+   cdnfonts CSS @import) to skip one request and add font-display: swap —
+   without it the text stays invisible for up to 3s on a cold load. */
+@font-face {
+  font-family: "PP Neue Montreal";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("https://fonts.cdnfonts.com/s/100431/ppneuemontreal-book.woff") format("woff");
+}
+@font-face {
+  font-family: "PP Neue Montreal";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("https://fonts.cdnfonts.com/s/100431/ppneuemontreal-medium.woff") format("woff");
+}
+@font-face {
+  font-family: "PP Neue Montreal";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("https://fonts.cdnfonts.com/s/100431/ppneuemontreal-bold.woff") format("woff");
+}
+
+/* Lenis owns smooth scrolling. `scroll-behavior: smooth` only reached native
+   jumps (anchor links, focus, keyboard), where it fought Lenis's position
+   tracking. `overflow: hidden` here blocked native touch and keyboard
+   scrolling entirely (and silently disabled position: sticky). The
+   scrollbar is hidden instead, which was the visible effect. */
 html,
 body {
-  scroll-behavior: smooth;
   background-color: #000;
   overscroll-behavior: none;
   -webkit-font-smoothing: antialiased;
-  overflow: hidden;
+  overflow-x: clip;
+  scrollbar-width: none;
+}
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
 }
 
 section + section {
@@ -20,47 +53,7 @@ section + section {
 }
 
 [data-scroll-container] {
-  /* will-change: transform; */
-  /* transform: translateZ(0); */
-  /* backface-visibility: hidden; */
-  overflow: hidden;
-  /* contain: layout paint style; */
-}
-
-[data-scroll-section] {
-  backface-visibility: hidden;
-  transform: translateZ(0);
-}
-/* 
-.hero-media { will-change: auto; }          
-.hero-section { will-change: auto; }
-*/
-/* [data-scroll-section] { will-change: auto; } */
-
-.c-scrollbar {
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 11px;
-  height: 100%;
-  transform-origin: center right;
-  transition: transform 0.3s, opacity 0.3s;
-  opacity: 0;
-}
-
-.c-scrollbar:hover {
-  transform: scaleX(1.45);
-}
-
-.c-scrollbar:hover,
-.has-scroll-scrolling .c-scrollbar,
-.has-scroll-dragging .c-scrollbar {
-  opacity: 1;
-}
-
-/* Performance optimizations */
-[data-scroll] {
-  will-change: transform;
+  overflow-x: clip;
 }
 
 .hero {
@@ -363,9 +356,10 @@ h-text{
 }
 
 
+/* No CSS transition here: GSAP drives the preloader's .char transforms every
+   frame, and a transition made each of those updates lag 0.5s behind. */
 .char {
   transform: translateY(115px);
-  transition: transform 0.5s;
 }
 
 .parent > div {
@@ -406,7 +400,7 @@ h-text{
   padding: 17px 72px;
   cursor: pointer;
   border-radius: 12px;
-  font-family: "Bebas Neue", cursive;
+  font-family: var(--font-bebas-neue), cursive;
   letter-spacing: 0.1rem;
   word-spacing: 0.1rem;
 }
@@ -421,7 +415,7 @@ h-text{
     padding: 8px 15px;
     cursor: pointer;
     border-radius: 12px;
-    font-family: "Bebas Neue", cursive;
+    font-family: var(--font-bebas-neue), cursive;
     letter-spacing: 0.1rem;
     word-spacing: 0.1rem;
   }
@@ -543,8 +537,10 @@ h-text{
   transform: translateZ(0);
 }
 
+/* text-shadow instead of filter: drop-shadow — a filter on the parent forced
+   the whole heading to re-render every frame while its lines animate. */
 .about-text {
-  filter: drop-shadow(5px 0px 8px rgba(245, 244, 235, 0.5));
+  text-shadow: 5px 0px 8px rgba(245, 244, 235, 0.5);
 }
 .glowy-text {
   filter: drop-shadow(5px 0px 8px rgba(245, 244, 235, 0.4));
@@ -814,29 +810,30 @@ h-text{
 .contact-section {
   position: relative;
   overflow: hidden;
-  background-image: url("/gradients/contact-section2.png");
+  background-image: url("/gradients/contact-section2.webp");
   background-size: cover;
 }
 
 @media (max-width: 500px) {
   .contact-section {
-    background-image: url("/gradients/contact-section-mobile2.png");
+    background-image: url("/gradients/contact-section-mobile2.webp");
   }
 }
 
-/* Category transition animation */
+/* Category transition animation — opacity/transform only; blurring the
+   whole grid was a full-screen filter repaint on every frame. */
 .transition-grid {
-  transition: opacity 0.35s ease, filter 0.35s ease;
+  transition: opacity 0.35s ease, transform 0.35s ease;
 }
 
 .grid-enter {
   opacity: 1;
-  filter: blur(0px);
+  transform: translateY(0);
 }
 
 .grid-exit {
   opacity: 0;
-  filter: blur(12px);
+  transform: translateY(16px);
 }
 
 /* Thin dark scrollbar for the project viewer */

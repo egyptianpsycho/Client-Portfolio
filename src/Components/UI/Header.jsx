@@ -1,39 +1,46 @@
 "use client";
 import useAnimate from "@/Hooks/useAnimate";
 import gsap from "gsap";
+import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  useAnimate(() => {
 
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 640);
-    };
-    
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 640);
     checkMobile();
-    window.addEventListener('resize', checkMobile);
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
-      
-      gsap.fromTo(
-        "#AV-logo",
-        {  opacity: 0, filter:"blur(8px)"  },
-        { filter:"blur(0px) drop-shadow(5px 0px 12px rgba(255, 255, 255,0.5))", opacity: 1, duration: 2,  ease: "expo.out",scrollTrigger: {
+  useAnimate(() => {
+    // The glow is a text-shadow (#AV-logo style below), not a filter left on
+    // after the tween: a filter on a fixed mix-blend element got
+    // re-composited over the page on every scroll frame.
+    gsap.fromTo(
+      "#AV-logo",
+      { opacity: 0, filter: "blur(8px)" },
+      {
+        filter: "blur(0px)",
+        opacity: 1,
+        duration: 2,
+        ease: "expo.out",
+        clearProps: "filter",
+        scrollTrigger: {
           trigger: "#pathToAnimate1",
           start: "top top-=10%",
-          // scroller: "[data-scroll-container]",
-        } }
-      );
-    
-    
+        },
+      }
+    );
   });
+  // Only sections that exist on the page (there's no /about route or #BOOK).
   const links = [
-    { href: "/about", label: "ABOUT ME" },
+    { href: "#about", label: "ABOUT ME" },
     { href: "#PARTNERS", label: "PARTNERS" },
     { href: "#PROJECTS", label: "PROJECTS" },
-    { href: "#BOOK", label: "BOOK" },
     { href: "#CONTACT", label: "CONTACT" },
   ];
   const toggleMenu = () => {
@@ -46,8 +53,8 @@ export function Header() {
   return (
     <>
     <h2 className=" text-4xl max-sm:text-xl max-sm:ml-4 opacity-0 text-[#FFFFFF] ml-9 font-bold fixed top-6 z-[99999] mix-blend-difference   " id="AV-logo" style={{
-                 
-                fontFamily: " 'Bebas Neue', 'serif' ",
+                fontFamily: "var(--font-bebas-neue), sans-serif",
+                textShadow: "5px 0px 12px rgba(255, 255, 255, 0.5)",
               }}>Abbas Visuals.</h2>
 
 {!isMobile ?(
@@ -118,7 +125,7 @@ export function Header() {
             {link.label}
           </Link>
         ))}
-        <img src="/gradients/sky_gradient_white.png" alt="gradient" className="absolute top-10 left-0  w-full h-full object-cover pointer-events-none " />
+        <Image src="/gradients/sky_gradient_white.png" alt="" width={256} height={512} sizes="256px" className="absolute top-10 left-0  w-full h-full object-cover pointer-events-none " />
       </nav>
     </div>
   </>

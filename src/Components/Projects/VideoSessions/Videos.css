@@ -1,21 +1,16 @@
+/* No permanent will-change / translateZ here: forcing ~30 cards (plus the
+   grid) onto their own GPU layers for the whole page life cost more memory
+   than it saved. GSAP promotes them only while they animate. */
 .parent-video {
   display: grid;
   grid-template-columns: 1fr;
   grid-auto-rows: minmax(200px, auto);
   gap: 10px;
-  will-change: transform;
   grid-auto-flow: dense;
 }
 
 .parent-video > .video-item {
   aspect-ratio: 4 / 5;
-}
-
-.video-item {
-  will-change: transform, opacity;
-  transform: translateZ(0);
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
 }
 
 /* Tablet: 2 columns */

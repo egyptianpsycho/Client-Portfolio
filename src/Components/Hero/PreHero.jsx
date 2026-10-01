@@ -10,10 +10,12 @@ const PreHero = () => {
             {/* <div className="absolute inset-0 bg-gradient-to-tr from-black/80 to-transparent pointer-events-none" /> */}
     
             <Image
-              src="/HeroImages/vidfinal.png"
+              src="/HeroImages/vidfinal.webp"
               alt="HeroImage"
               fill
               priority
+              // Same file as the hero video's poster, so one download serves both.
+              unoptimized
               className="object-cover   "
             />
             {/* overlay(s) */}

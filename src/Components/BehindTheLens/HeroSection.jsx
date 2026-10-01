@@ -27,9 +27,11 @@ const HeroSection = () => {
 
     // ✅ Let GSAP own the initial transform instead of React inline style
     //    This prevents the "jump" when ScrollTrigger first reads the element
+    // (The 0.7 brightness that used to be a filter here is now baked into
+    // the image's opacity over the black background — same look, no
+    // full-screen filter re-render on every scroll frame.)
     gsap.set(imageContainerRef.current, {
       scale: 1.4,
-      filter: "brightness(0.7)",
       willChange: "transform",
     });
 
@@ -67,13 +69,15 @@ const HeroSection = () => {
       },
     });
 
-    // Parallax + scale
+    // Parallax + scale. The extra 30vh used to be `top: "30%"`, which made
+    // the browser recalculate layout on every frame; as a translate it's
+    // the same movement on the compositor.
     gsap.to(imageContainerRef.current, {
       scale: 0.8,
-      y: -287,
+      y: () => window.innerHeight * 0.3 - 287,
       clipPath: "inset(5% 5% 5% 5% round 5px)",
-      top: "30%",
       scrollTrigger: {
+        invalidateOnRefresh: true,
         trigger: sectionRef.current,
         start: "top top",
         end: "bottom top",
@@ -98,18 +102,24 @@ const HeroSection = () => {
       ref={sectionRef}
       className="h-screen max-sm:hidden relative bg-gradient-to-b from-black via-75% via-black to-[#071318]"
     >
-      <div className="sticky top-0 h-screen w-full mt-47">
+      {/* Was `sticky top-0` — that never actually stuck (an overflow:hidden
+          ancestor disabled it), and now that the ancestor clips instead it
+          would double up with the pin below. Plain relative keeps the
+          layout exactly as it rendered before. */}
+      <div className="relative h-screen w-full mt-47">
         {/* ✅ Removed inline transform style — GSAP sets it via gsap.set() above */}
         <div
           ref={imageContainerRef}
           className="relative w-full h-full z-[5]"
         >
+          {/* opacity 0.45 ≈ the old opacity-65 × brightness(0.7) on black.
+              Not priority: it's near the bottom of the page. */}
           <Image
             src="/Recent/A/B/7.webp"
             alt="Hero 1"
             fill
-            className="img1 object-cover absolute object-center opacity-65 transition-opacity duration-700"
-            priority
+            sizes="100vw"
+            className="img1 object-cover absolute object-center opacity-45"
           />
         </div>
 

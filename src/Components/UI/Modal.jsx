@@ -130,7 +130,7 @@ const Modal = ({ open, onClose, project, isNested = false }) => {
           position:relative; overflow:hidden; background-color:black; display:inline-block;
           border:2px solid rgb(144,146,148); transition:all 0.3s ease;
           padding:17px 72px; cursor:pointer; border-radius:12px;
-          font-family:"Bebas Neue",cursive; letter-spacing:0.1rem; word-spacing:0.1rem;
+          font-family:var(--font-bebas-neue),cursive; letter-spacing:0.1rem; word-spacing:0.1rem;
         }
         @media(max-width:640px){ .btn{ padding:12px 40px; font-size:1rem; } }
         .btn:hover {
@@ -175,7 +175,7 @@ const Modal = ({ open, onClose, project, isNested = false }) => {
             </svg>
             <span
               style={{
-                fontFamily: "'Bebas Neue', serif",
+                fontFamily: "var(--font-bebas-neue), sans-serif",
                 fontSize: "0.85rem",
                 letterSpacing: "0.15rem",
               }}

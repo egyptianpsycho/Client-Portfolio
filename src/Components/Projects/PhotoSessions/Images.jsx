@@ -1,13 +1,32 @@
 "use client";
 import React, { useRef, useState, useEffect } from "react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 import { PROJECTSIMGS } from "../CONSTANTS";
 import Image from "next/image";
 import ProjectViewer from "@/Components/UI/ProjectViewer";
 import useAnimate from "@/Hooks/useAnimate";
 
+gsap.registerPlugin(ScrollTrigger, SplitText);
+
 const CATEGORIES = ["All", "advertising", "Hospitality", "Fine Art", "F & B","Architecture", "Product"];
+
+const CARD_HIDDEN = {
+  opacity: 0,
+  scale: 0.9,
+  rotateX: 8,
+  y: 120,
+  transformOrigin: "center bottom",
+};
+const CARD_SHOWN = {
+  opacity: 1,
+  scale: 1,
+  rotateX: 0,
+  y: 0,
+  duration: 1.4,
+  ease: "expo.out",
+};
 
 const Images = () => {
   const [viewerOpen, setViewerOpen] = useState(false); // ← was modalOpen
@@ -83,89 +102,16 @@ const Images = () => {
         },
       });
 
-      // wait for images to load logic
-      const waitForImages = () => {
-        const images = secRef.current?.querySelectorAll("img");
-        if (!images || images.length === 0) return Promise.resolve();
-        return Promise.all(
-          Array.from(images).map((img) =>
-            img.complete
-              ? Promise.resolve()
-              : new Promise((res) => {
-                  img.onload = res;
-                  img.onerror = res;
-                })
-          )
-        );
-      };
-
-      waitForImages().then(() => {
-        const imageBoxes = gsap.utils.toArray(".project-item");
-        if (!imageBoxes.length) return;
-      
-        // Group cards by their rendered top position = visual row
-        const rowMap = new Map();
-        imageBoxes.forEach((el) => {
-          const top = Math.round(el.getBoundingClientRect().top + window.scrollY);
-          if (!rowMap.has(top)) rowMap.set(top, []);
-          rowMap.get(top).push(el);
-        });
-      
-        // Sort rows top → bottom
-        const rows = [...rowMap.entries()]
-          .sort(([a], [b]) => a - b)
-          .map(([, els]) => els);
-      
-        const fromVars = {
-          opacity: 0,
-          scale: 0.85,
-          rotateX: 8,
-          y: 150,
-          filter: "blur(12px) brightness(0.4)",
-          transformOrigin: "center bottom",
-        };
-      
-        const toVars = {
-          opacity: 1,
-          scale: 1,
-          rotateX: 0,
-          y: 0,
-          filter: "blur(0px) brightness(1)",
-          duration: 1.4,
-          ease: "expo.out",
-          stagger: { amount: 0.35, from: "start" },
-        };
-      
-        // First 3 rows: animate together on section enter
-        const eagerRows = rows.slice(0, 3).flat();
-        gsap.set(secRef.current, { willChange: "transform, filter" });
-      
-        gsap.fromTo(eagerRows, fromVars, {
-          ...toVars,
-          scrollTrigger: {
-            trigger: secRef.current,
-            start: "top 85%",
-            toggleActions: "play none none none",
-          },
-          onComplete: () => gsap.set(secRef.current, { willChange: "auto" }),
-        });
-      
-        // Remaining rows: each animates when it enters the viewport
-        rows.slice(3).forEach((rowEls) => {
-          gsap.set(rowEls, { opacity: 0, scale: 0.85, rotateX: 8, y: 150,
-            filter: "blur(12px) brightness(0.4)", transformOrigin: "center bottom" });
-      
-          gsap.fromTo(rowEls, fromVars, {
-            ...toVars,
-            scrollTrigger: {
-              trigger: rowEls[0],       // trigger on the first card of each row
-              start: "top 90%",
-              toggleActions: "play none none none",
-              onEnter: () => gsap.set(rowEls[0], { willChange: "transform, filter, opacity" }),
-            },
-            onComplete: () => gsap.set(rowEls[0], { willChange: "auto" }),              
-          });
-        });
+      // Reveal each card as it scrolls in — no waiting on image loads (the
+      // old version waited for every lazy image on the grid, so cards far
+      // below kept everything hidden), and transform/opacity only: animating
+      // blur + brightness filters on dozens of photos was the jank.
+      gsap.set(".project-item", CARD_HIDDEN);
+      ScrollTrigger.batch(".project-item", {
+        start: "top 92%",
+        once: true,
+        onEnter: (cards) =>
+          gsap.to(cards, { ...CARD_SHOWN, stagger: 0.08, overwrite: true }),
       });
     }
   });
@@ -176,33 +122,18 @@ const Images = () => {
       isFirstRender.current = false;
       return;
     }
-  
+
     if (isTransitioning || typeof window === "undefined" || window.innerWidth <= 768) return;
-  
+
     const imageBoxes = gsap.utils.toArray(".project-item");
     if (!imageBoxes.length) return;
-  
-    gsap.fromTo(
-      imageBoxes,
-      {
-        opacity: 0,
-        scale: 0.85,
-        rotateX: 8,
-        y: 150,
-        filter: "blur(12px) brightness(0.4)",
-        transformOrigin: "center bottom",
-      },
-      {
-        opacity: 1,
-        scale: 1,
-        rotateX: 0,
-        y: 0,
-        filter: "blur(0px) brightness(1)",
-        duration: 1.4,
-        ease: "expo.out",
-        stagger: { amount: 1.2, from: "start" },
-      }
-    );
+
+    gsap.fromTo(imageBoxes, CARD_HIDDEN, {
+      ...CARD_SHOWN,
+      stagger: { amount: 1.2, from: "start" },
+    });
+    // The grid's height changes with the filter; re-measure what's below it.
+    ScrollTrigger.refresh();
   }, [displayedCategory, isTransitioning]);
 
   const openProject = (project) => {
@@ -217,7 +148,7 @@ const Images = () => {
           className="text-9xl glowy-text max-sm:text-[2.2rem] mb-5 relative inset-0 -top-90 max-sm:top-0 tracking-[1.1rem] max-sm:tracking-[0.2rem] behind-title2 font-bold "
           style={{
             lineHeight: isMobile ? "1.15" : "12rem",
-            fontFamily: "'Bebas Neue', 'serif'",
+            fontFamily: "var(--font-bebas-neue), sans-serif",
           }}
         >
           PHOTOGRAPHY
@@ -236,7 +167,7 @@ const Images = () => {
             onClick={() => setDropdownOpen((prev) => !prev)}
             className="flex items-center gap-2 transition-all duration-300 uppercase"
             style={{
-              fontFamily: "'Bebas Neue', serif",
+              fontFamily: "var(--font-bebas-neue), sans-serif",
               fontSize: isMobile ? "1rem" : "1.25rem",
               letterSpacing: isMobile ? "0.1rem" : "0.2rem",
             }}
@@ -265,7 +196,7 @@ const Images = () => {
                     : "text-white/50 hover:text-white hover:bg-white/5"
                 }`}
                 style={{
-                  fontFamily: "'Bebas Neue', serif",
+                  fontFamily: "var(--font-bebas-neue), sans-serif",
                   fontSize: "0.95rem",
                 }}
               >
@@ -333,11 +264,14 @@ const Images = () => {
               className={`project-item div${index + 1} cursor-pointer group`}
               onClick={() => openProject(project)}
             >
+              {/* Without sizes, fill images default to 100vw — every card
+                  downloaded a 1920–3840px file for a ~20vw tile. */}
               <Image
                 src={project.cover}
                 alt={project.alt}
                 fill
-                className="object-cover rounded-2xl scale-[0.98] origin-center  transition-all duration-500 ease-out  group-hover:scale-105"
+                sizes="(max-width: 767px) 50vw, (max-width: 1279px) 33vw, 22vw"
+                className="object-cover rounded-2xl scale-[0.98] origin-center  transition-transform duration-500 ease-out  group-hover:scale-105"
                 style={{ objectPosition: "50% 20%" }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-700 ease-out" />

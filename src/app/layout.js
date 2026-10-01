@@ -3,6 +3,29 @@ import "./globals.css";
 import Preloader from "@/Components/Preloader/Preloader";
 import JsonLd from "@/Components/SEO/Jsonld";
 import { GoogleAnalytics } from '@next/third-parties/google'
+import { Bebas_Neue, Nanum_Myeongjo } from "next/font/google";
+
+// Self-hosted by next/font: no render-blocking request chain to Google,
+// and size-adjusted fallbacks so the swap doesn't shift layout (which also
+// threw off every ScrollTrigger start/end measured before the swap).
+//
+// Work Sans is deliberately NOT loaded: the old Google Fonts @import that
+// carried it was silently dropped by the build, so the live site has always
+// rendered "Work Sans" text in the fallback sans-serif (Arial), and the
+// layout (e.g. the About paragraph's line breaks) is tuned to that. To
+// switch to real Work Sans, add Work_Sans here like the fonts below.
+const nanumMyeongjo = Nanum_Myeongjo({
+  subsets: ["latin"],
+  weight: "400",
+  display: "swap",
+  variable: "--font-nanum-myeongjo",
+});
+const bebasNeue = Bebas_Neue({
+  subsets: ["latin"],
+  weight: "400",
+  display: "swap",
+  variable: "--font-bebas-neue",
+});
 
 const BASE_URL = "https://abbasvisuals.com";
 
@@ -54,10 +77,6 @@ export const metadata = {
   // ── Canonical ──────────────────────────────────────────────────────────
   alternates: {
     canonical: BASE_URL,
-    languages: {
-      "en-US": BASE_URL,
-      "ar-AE": `${BASE_URL}/ar`,
-    },
   },
 
   // ── Open Graph ─────────────────────────────────────────────────────────
@@ -100,25 +119,27 @@ export const metadata = {
     icon: [{ url: "/favicon.png", type: "image/png" }],
   },
 
-  // ── Manifest / theme ───────────────────────────────────────────────────
-  manifest: "/site.webmanifest",
-  themeColor: [
-    { media: "(prefers-color-scheme: dark)", color: "#000000" },
-    { media: "(prefers-color-scheme: light)", color: "#000000" },
-  ],
+};
+
+export const viewport = {
+  themeColor: "#000000",
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" dir="ltr">
+    <html
+      lang="en"
+      dir="ltr"
+      className={`${nanumMyeongjo.variable} ${bebasNeue.variable}`}
+    >
       <head>
-        {/* Preconnect to external origins for faster font loading */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        {/* PP Neue Montreal (globals.css) and the Mux video thumbnails */}
         <link
           rel="preconnect"
-          href="https://fonts.gstatic.com"
+          href="https://fonts.cdnfonts.com"
           crossOrigin="anonymous"
         />
+        <link rel="preconnect" href="https://image.mux.com" />
 
         {/* Geo tags – helps local SEO for UAE / Middle East */}
         <meta name="geo.region" content="AE-DU" />

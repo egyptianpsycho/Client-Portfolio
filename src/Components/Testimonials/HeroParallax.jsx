@@ -169,11 +169,11 @@ function DesktopLayout({ testimonials, containerRef }) {
         filter: "blur(10px)",
         ease: "expo.out",
         stagger: 0.2,
+        // (was inside scrollTrigger, where onComplete isn't a thing)
+        onComplete: () => titleSplit.revert(),
         scrollTrigger: {
           trigger: "#Testimonials",
-          // scroller: "[data-scroll-container]",
           start: "top 30%",
-          onComplete: () => titleSplit.revert(),
         },
       });
     }
@@ -222,7 +222,7 @@ function DesktopLayout({ testimonials, containerRef }) {
         triggersRef.current.push(trigger.scrollTrigger);
     });
 
-    ScrollTrigger.refresh();
+    // (No ScrollTrigger.refresh() here — useAnimate does one for the page.)
     animationsCreated.current = true;
   }, [containerRef]);
 
