@@ -56,14 +56,8 @@ const Recent = () => {
       Math.min(1, Math.max(0, (val - lo) / (hi - lo)));
 
     // ── Text-split animations ────────────────────────────────────
-    // Per-letter blur is expensive when each letter is repainted every
-    // frame. Promoting the pieces to their own GPU layers only while their
-    // trigger is active lets the compositor apply the blur instead, and
-    // drops the layers again once the text is off screen.
     const firstSplit  = new SplitText(".firstanimatetext",  { type: "chars" });
     const secondSplit = new SplitText(".secondanimatetext", { type: "words" });
-    const promoteWhileActive = (els) => (self) =>
-      gsap.set(els, { willChange: self.isActive ? "transform, filter" : "auto" });
 
     gsap.fromTo(
       firstSplit.chars,
@@ -76,7 +70,6 @@ const Recent = () => {
           start: "top bottom-=15%",
           end: "bottom bottom+=140%",
           scrub: 1,
-          onToggle: promoteWhileActive(firstSplit.chars),
         },
       }
     );
@@ -94,7 +87,6 @@ const Recent = () => {
           end: () =>
             window.innerWidth < 768 ? "bottom bottom-=190%" : "bottom bottom-=440%",
           scrub: 1,
-          onToggle: promoteWhileActive(secondSplit.words),
         },
       }
     );
