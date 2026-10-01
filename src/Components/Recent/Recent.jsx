@@ -82,10 +82,12 @@ const Recent = () => {
         stagger: 0.05,
         scrollTrigger: {
           trigger: ".outro",
-          start: () =>
-            window.innerWidth < 768 ? "top bottom-=180%" : "top bottom-=430%",
-          end: () =>
-            window.innerWidth < 768 ? "bottom bottom-=190%" : "bottom bottom-=440%",
+          // The old "-=430%" / "-=180%" offsets cancelled out the pinned
+          // horizontal section's scroll length (4 or 1.5 screens), which was
+          // left out when this trigger was measured before the pin. Triggers
+          // are now measured in page order, so state the intent directly.
+          start: "top bottom-=30%",
+          end: "bottom bottom-=40%",
           scrub: 1,
         },
       }
