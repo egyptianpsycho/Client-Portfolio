@@ -56,11 +56,11 @@ const Recent = () => {
       Math.min(1, Math.max(0, (val - lo) / (hi - lo)));
 
     // ── Text-split animations ────────────────────────────────────
-    const firstSplit  = new SplitText(".firstanimatetext",  { type: "chars" });
+    const firstSplit  = new SplitText(".firstanimatetext",  { type: "words" });
     const secondSplit = new SplitText(".secondanimatetext", { type: "words" });
 
     gsap.fromTo(
-      firstSplit.chars,
+      firstSplit.words,
       { color: "#A9A9A9", filter: "blur(4px)", x: 10, y: 10 },
       {
         y: 0, x: 0, color: "#101010", filter: "blur(0px)",
